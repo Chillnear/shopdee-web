@@ -731,7 +731,7 @@ export const MOCK_DEALS: ProductDeal[] = [
   {
     id: 'deal-6',
     title: 'Jisulife Life9 พัดลมพกพามือถือ ลมแรงสะใจ ปรับได้ 5 ระดับ แบตเตอรี่อึด 5000mAh น้ำหนักเบา',
-    imageUrl: 'https://images.unsplash.com/photo-1618941716939-553df3c6c278?w=600&auto=format&fit=crop&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1585338107529-13afc5f02586?w=600&auto=format&fit=crop&q=80',
     category: 'พัดลมพกพา Jisulife',
     tags: ['พัดลม', 'พัดลมพกพา', 'Jisulife', 'คลายร้อน', 'พัดลมมือถือ'],
     platform: 'shopee',
@@ -907,7 +907,7 @@ export const MOCK_DEALS: ProductDeal[] = [
   {
     id: 'deal-11',
     title: 'Hatari พัดลมตั้งโต๊ะ 16 นิ้ว รุ่น HT-T16M5 มอเตอร์ทรงพลัง ปรับแรงลม 3 ระดับ ระบบตัดไฟเทอร์โมฟิวส์ ประหยัดไฟเบอร์ 5',
-    imageUrl: 'https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=600&auto=format&fit=crop&q=80',
+    imageUrl: 'https://images.unsplash.com/photo-1626218174358-7769486c4b79?w=600&auto=format&fit=crop&q=80',
     category: 'พัดลม',
     tags: ['พัดลม', 'Hatari', 'ฮาตาริ', 'พัดลมตั้งโต๊ะ', '16นิ้ว', 'เครื่องใช้ไฟฟ้า'],
     platform: 'lazada',
