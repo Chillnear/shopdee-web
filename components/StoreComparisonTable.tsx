@@ -17,7 +17,10 @@ import {
   Truck, 
   Tag, 
   CheckCircle2, 
-  Store
+  Store,
+  Zap,
+  Sparkles,
+  Flame
 } from 'lucide-react';
 
 interface StoreComparisonTableProps {
@@ -49,12 +52,22 @@ export function StoreComparisonTable({
     : stores.filter(s => s.platform === activeTab)
   ).sort((a, b) => a.estimatedAfterVoucher - b.estimatedAfterVoucher);
 
-  // Find absolute cheapest store in current view
+  // 1. ร้านถูกสุด (Lowest Price)
   const cheapestStore = displayedStores[0];
-  // Find best/official store (Mall or highest rating)
+
+  // 2. ร้านดีสุด (Best / Official Mall)
   const bestStore = displayedStores.find(s => s.isBestStore || s.storeType === 'mall') || 
                     [...displayedStores].sort((a, b) => b.storeRating - a.storeRating)[0];
-  const hasDistinctBest = bestStore && bestStore.id !== cheapestStore?.id;
+  const hasDistinctBest = Boolean(bestStore && bestStore.id !== cheapestStore?.id);
+
+  // 3. ร้านคุ้มค่าสุด (Best Value: ส่งฟรี + เรตติ้งดี + คูปองคุ้ม + ราคาจับต้องได้)
+  const bestValueStore = displayedStores.find(s => s.isBestValue && s.id !== cheapestStore?.id && s.id !== bestStore?.id) ||
+                         displayedStores.find(s => s.freeShipping && s.storeRating >= 4.8 && s.id !== cheapestStore?.id && s.id !== bestStore?.id) ||
+                         displayedStores.find(s => s.isBestValue && s.id !== cheapestStore?.id) ||
+                         displayedStores.find(s => s.id !== cheapestStore?.id && s.id !== bestStore?.id) ||
+                         displayedStores[1] ||
+                         cheapestStore;
+  const hasDistinctValue = Boolean(bestValueStore && bestValueStore.id !== cheapestStore?.id && bestValueStore.id !== bestStore?.id);
 
   // Visible items (3 if collapsed, all if expanded)
   const visibleStores = isExpanded ? displayedStores : displayedStores.slice(0, 3);
@@ -105,7 +118,7 @@ export function StoreComparisonTable({
             </h4>
           </div>
           <p className="text-[11px] text-neutral-500 mt-0.5">
-            เทียบทั้งข้ามแอป และเทียบหลายร้านในแอปเดียวกัน ไม่ต้องเปิดหาเองทีละร้าน
+            เทียบทั้งข้าม 3 แพลตฟอร์ม และเทียบหลายร้านในแอปเดียวกัน เลือกได้ตามใจ: ถูกสุด • คุ้มสุด • ดีสุด
           </p>
         </div>
 
@@ -163,26 +176,33 @@ export function StoreComparisonTable({
         </div>
       </div>
 
-      {/* 2-Card Smart Decision Bar: "ร้านไหนถูกสุด" vs "ร้านไหนดีสุด" */}
+      {/* 3-Pillar Smart Decision Bar: "ถูกสุด" • "คุ้มค่าสุด" • "ดีสุด" */}
       {cheapestStore && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-3">
-          {/* Card 1: ตัวเลือกราคาถูกสุด */}
-          <div className="p-2.5 rounded-xl bg-emerald-50/90 border border-emerald-300 flex items-center justify-between gap-2 shadow-2xs">
-            <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-1.5 mb-0.5">
-                <span className="text-[10px] font-black bg-emerald-600 text-white px-1.5 py-0.2 rounded">
-                  🔥 ร้านถูกสุด
+        <div className={`grid gap-2 mb-3 ${
+          hasDistinctBest && hasDistinctValue 
+            ? 'grid-cols-1 md:grid-cols-3' 
+            : hasDistinctBest 
+            ? 'grid-cols-1 sm:grid-cols-2' 
+            : 'grid-cols-1 sm:grid-cols-2'
+        }`}>
+          {/* 1. ร้านถูกสุด (Lowest Price) */}
+          <div className="p-2.5 rounded-xl bg-emerald-50/90 border border-emerald-300 flex flex-col justify-between gap-2 shadow-2xs">
+            <div>
+              <div className="flex items-center justify-between gap-1 mb-1">
+                <span className="text-[10px] font-black bg-emerald-600 text-white px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                  <Flame className="w-2.5 h-2.5 text-amber-300" />
+                  <span>🔥 ถูกสุด</span>
                 </span>
-                <span className="text-[10px] font-bold text-neutral-600">
+                <span className="text-[10px] font-bold text-neutral-500">
                   {getPlatformMeta(cheapestStore.platform).name}
                 </span>
               </div>
-              <p className="text-xs font-black text-neutral-900 truncate">
+              <p className="text-xs font-black text-neutral-900 truncate" title={cheapestStore.storeName}>
                 {cheapestStore.storeName}
               </p>
-              <div className="flex items-baseline gap-1 mt-0.5">
-                <span className="text-[10px] text-neutral-500">หลังลดเหลือ</span>
-                <span className="text-sm font-black text-emerald-700">
+              <div className="flex items-baseline gap-1 mt-1">
+                <span className="text-[10px] text-neutral-500">จ่ายน้อยสุด</span>
+                <span className="text-sm sm:text-base font-black text-emerald-700">
                   {formatTHB(cheapestStore.estimatedAfterVoucher)}
                 </span>
               </div>
@@ -192,36 +212,73 @@ export function StoreComparisonTable({
               href={getSmartAffiliateUrl(cheapestStore.url, cheapestStore.platform, cheapestStore.id)}
               target="_blank"
               rel="noopener noreferrer"
-              className="py-1.5 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black flex items-center gap-1 shrink-0 shadow-2xs transition active:scale-95"
+              className="py-1.5 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black flex items-center justify-center gap-1 shrink-0 shadow-2xs transition active:scale-95"
             >
               <span>ซื้อถูกสุด</span>
               <ExternalLink className="w-2.5 h-2.5" />
             </a>
           </div>
 
-          {/* Card 2: ตัวเลือกของแท้/ดีสุด (Mall ทางการ) */}
-          {hasDistinctBest ? (
-            <div className="p-2.5 rounded-xl bg-blue-50/90 border border-blue-200 flex items-center justify-between gap-2 shadow-2xs">
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-1.5 mb-0.5">
-                  <span className="text-[10px] font-black bg-blue-600 text-white px-1.5 py-0.2 rounded flex items-center gap-0.5">
-                    <ShieldCheck className="w-2.5 h-2.5" />
-                    <span>ร้านดีสุด (ของแท้)</span>
+          {/* 2. ร้านคุ้มค่าสุด (Best Value / Sweet Spot) */}
+          {hasDistinctValue && (
+            <div className="p-2.5 rounded-xl bg-amber-50/90 border border-amber-300 flex flex-col justify-between gap-2 shadow-2xs">
+              <div>
+                <div className="flex items-center justify-between gap-1 mb-1">
+                  <span className="text-[10px] font-black bg-amber-500 text-white px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                    <Zap className="w-2.5 h-2.5 text-white" />
+                    <span>💎 คุ้มค่าสุด</span>
                   </span>
-                  <span className="text-[10px] font-bold text-neutral-600">
+                  <span className="text-[10px] font-bold text-neutral-500">
+                    {getPlatformMeta(bestValueStore.platform).name}
+                  </span>
+                </div>
+                <p className="text-xs font-black text-neutral-900 truncate" title={bestValueStore.storeName}>
+                  {bestValueStore.storeName}
+                </p>
+                <div className="flex items-baseline gap-1 mt-1">
+                  <span className="text-sm sm:text-base font-black text-amber-800">
+                    {formatTHB(bestValueStore.estimatedAfterVoucher)}
+                  </span>
+                  <span className="text-[10px] text-amber-700 font-bold">
+                    • ส่งฟรี 0.-
+                  </span>
+                </div>
+              </div>
+
+              <a
+                href={getSmartAffiliateUrl(bestValueStore.url, bestValueStore.platform, bestValueStore.id)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="py-1.5 px-3 rounded-lg bg-amber-500 hover:bg-amber-600 text-white text-xs font-black flex items-center justify-center gap-1 shrink-0 shadow-2xs transition active:scale-95"
+              >
+                <span>ซื้อตัวคุ้มค่า</span>
+                <ExternalLink className="w-2.5 h-2.5" />
+              </a>
+            </div>
+          )}
+
+          {/* 3. ร้านดีสุด (Official Mall 100% Genuine) */}
+          {hasDistinctBest ? (
+            <div className="p-2.5 rounded-xl bg-blue-50/90 border border-blue-200 flex flex-col justify-between gap-2 shadow-2xs">
+              <div>
+                <div className="flex items-center justify-between gap-1 mb-1">
+                  <span className="text-[10px] font-black bg-blue-600 text-white px-1.5 py-0.5 rounded flex items-center gap-0.5">
+                    <ShieldCheck className="w-2.5 h-2.5" />
+                    <span>👑 ดีสุด (Mall แท้)</span>
+                  </span>
+                  <span className="text-[10px] font-bold text-neutral-500">
                     {getPlatformMeta(bestStore.platform).name}
                   </span>
                 </div>
-                <p className="text-xs font-black text-neutral-900 truncate">
+                <p className="text-xs font-black text-neutral-900 truncate" title={bestStore.storeName}>
                   {bestStore.storeName}
                 </p>
-                <div className="flex items-baseline gap-1 mt-0.5">
-                  <span className="text-[10px] text-neutral-500">ของแท้ 100%</span>
-                  <span className="text-sm font-black text-blue-800">
+                <div className="flex items-baseline gap-1 mt-1">
+                  <span className="text-sm sm:text-base font-black text-blue-800">
                     {formatTHB(bestStore.estimatedAfterVoucher)}
                   </span>
-                  <span className="text-[10px] text-amber-600 font-bold">
-                    ⭐{bestStore.storeRating}
+                  <span className="text-[10px] text-blue-600 font-bold">
+                    • แท้ 100%
                   </span>
                 </div>
               </div>
@@ -230,27 +287,25 @@ export function StoreComparisonTable({
                 href={getSmartAffiliateUrl(bestStore.url, bestStore.platform, bestStore.id)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="py-1.5 px-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-black flex items-center gap-1 shrink-0 shadow-2xs transition active:scale-95"
+                className="py-1.5 px-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-black flex items-center justify-center gap-1 shrink-0 shadow-2xs transition active:scale-95"
               >
                 <span>ซื้อร้านแท้</span>
                 <ExternalLink className="w-2.5 h-2.5" />
               </a>
             </div>
           ) : (
-            <div className="p-2.5 rounded-xl bg-purple-50/90 border border-purple-200 flex items-center justify-between gap-2 shadow-2xs">
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-1 mb-0.5">
-                  <span className="text-[10px] font-black bg-purple-600 text-white px-1.5 py-0.2 rounded">
-                    👑 คุ้ม 2 ต่อ
-                  </span>
-                  <span className="text-[10px] font-bold text-purple-800">
-                    ร้านถูกสุดเป็น Mall ทางการ
-                  </span>
-                </div>
-                <p className="text-xs font-black text-purple-950 truncate">
-                  ได้ทั้งราคาถูกสุดและได้ของแท้ 100% ในร้านเดียว!
-                </p>
+            <div className="p-2.5 rounded-xl bg-purple-50/90 border border-purple-200 flex flex-col justify-between gap-1 shadow-2xs">
+              <div className="flex items-center gap-1 mb-0.5">
+                <span className="text-[10px] font-black bg-purple-600 text-white px-1.5 py-0.2 rounded">
+                  👑 คุ้ม 2 ต่อ
+                </span>
+                <span className="text-[10px] font-bold text-purple-800">
+                  ร้านถูกสุดเป็น Mall ทางการ
+                </span>
               </div>
+              <p className="text-xs font-black text-purple-950">
+                ได้ทั้งราคาถูกสุดและได้ของแท้ 100% ในร้านเดียว!
+              </p>
             </div>
           )}
         </div>
@@ -261,7 +316,8 @@ export function StoreComparisonTable({
         {visibleStores.map((store, index) => {
           const platformMeta = getPlatformMeta(store.platform);
           const isCheapest = store.id === cheapestStore?.id;
-          const isBest = store.id === bestStore?.id && hasDistinctBest;
+          const isBestValue = store.id === bestValueStore?.id && !isCheapest;
+          const isBest = store.id === bestStore?.id && !isCheapest && !isBestValue && hasDistinctBest;
 
           return (
             <div
@@ -269,6 +325,8 @@ export function StoreComparisonTable({
               className={`p-2.5 sm:p-3 rounded-xl border transition-all ${
                 isCheapest
                   ? 'bg-emerald-50/90 border-emerald-300 ring-1 ring-emerald-400/30'
+                  : isBestValue
+                  ? 'bg-amber-50/80 border-amber-300 ring-1 ring-amber-400/30'
                   : isBest
                   ? 'bg-blue-50/70 border-blue-200 ring-1 ring-blue-300/30'
                   : 'bg-white border-neutral-200 hover:border-neutral-300'
@@ -282,13 +340,19 @@ export function StoreComparisonTable({
                     
                     {/* Store Rank within the active tab */}
                     {isCheapest ? (
-                      <span className="text-[10px] font-black px-2 py-0.5 rounded-md flex items-center gap-0.5 bg-emerald-600 text-white shadow-2xs">
+                      <span className="text-[10px] font-black px-2 py-0.5 rounded-md flex items-center gap-1 bg-emerald-600 text-white shadow-2xs">
+                        <Flame className="w-3 h-3 text-amber-300" />
                         <span>#1 ถูกสุด{activeTab === 'all' ? 'ทุกแอป 🏆' : `ใน ${platformMeta.name} 👑`}</span>
                       </span>
+                    ) : isBestValue ? (
+                      <span className="text-[10px] font-black px-2 py-0.5 rounded-md flex items-center gap-1 bg-amber-500 text-white shadow-2xs">
+                        <Zap className="w-3 h-3 text-white" />
+                        <span>💎 คุ้มค่าสุด (ส่งฟรี+คูปอง)</span>
+                      </span>
                     ) : isBest ? (
-                      <span className="text-[10px] font-black px-2 py-0.5 rounded-md flex items-center gap-0.5 bg-blue-600 text-white shadow-2xs">
+                      <span className="text-[10px] font-black px-2 py-0.5 rounded-md flex items-center gap-1 bg-blue-600 text-white shadow-2xs">
                         <ShieldCheck className="w-3 h-3 text-white" />
-                        <span>⭐ ร้านดีสุด (Mall ทางการ)</span>
+                        <span>👑 ร้านดีสุด (Mall ทางการ)</span>
                       </span>
                     ) : (
                       <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-neutral-200 text-neutral-700">
@@ -344,7 +408,13 @@ export function StoreComparisonTable({
                     <div className="flex items-baseline gap-1.5 sm:justify-end">
                       <span className="text-[10px] text-neutral-400">เหลือเพียง</span>
                       <span className={`text-base sm:text-lg font-black tracking-tight ${
-                        isCheapest ? 'text-emerald-700' : isBest ? 'text-blue-800' : 'text-neutral-900'
+                        isCheapest 
+                          ? 'text-emerald-700' 
+                          : isBestValue 
+                          ? 'text-amber-800' 
+                          : isBest 
+                          ? 'text-blue-800' 
+                          : 'text-neutral-900'
                       }`}>
                         {formatTHB(store.estimatedAfterVoucher)}
                       </span>
@@ -361,6 +431,8 @@ export function StoreComparisonTable({
                     className={`py-2 px-3.5 rounded-xl text-xs font-extrabold text-white flex items-center gap-1 transition shadow-xs active:scale-95 whitespace-nowrap ${
                       isCheapest
                         ? 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-600/20'
+                        : isBestValue
+                        ? 'bg-amber-500 hover:bg-amber-600 shadow-amber-500/20'
                         : isBest
                         ? 'bg-blue-600 hover:bg-blue-700 shadow-blue-600/20'
                         : store.platform === 'shopee'

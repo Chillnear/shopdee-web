@@ -115,6 +115,8 @@ function makeStoreOffer(
   rating?: number,
   isBestStore?: boolean,
   badgeNote?: string,
+  isBestValue?: boolean,
+  freeShipping?: boolean,
 ): StoreOffer {
   return {
     id: `${id}-${platform}-${storeType || 'reg'}`,
@@ -124,10 +126,11 @@ function makeStoreOffer(
     price: Math.round(price),
     estimatedAfterVoucher: Math.round(price * 0.95),
     voucherNote: voucherNote || (isLowest ? '🔥 ร้านราคาประหยัดถูกสุด' : 'ใช้โค้ด SHOPDEE5 ลด 5%'),
-    freeShipping: price >= 99,
+    freeShipping: freeShipping ?? (price >= 99),
     storeRating: rating || (storeType === 'mall' ? 4.9 : 4.8),
     soldCount,
     isLowestOverall: isLowest,
+    isBestValue: isBestValue ?? false,
     isBestStore: isBestStore ?? (storeType === 'mall'),
     badgeNote,
     url: affiliateUrl || `https://shopee.co.th`,
@@ -207,9 +210,10 @@ function adaptFeedItem(raw: AnyRecord): ProductDeal | null {
       makePlatformComparison('tiktok', tiktokPrice, Math.round(tiktokPrice * 1.12), Math.max(5, discount - 2), tiktokSearchUrl, 'TikTok Shop', 'verified'),
     ];
 
-    // 2. Intra-app & Cross-platform Multi-Store Offers (ตอบโจทย์: ร้านไหนถูกสุด vs ร้านไหนดีสุด)
+    // 2. Intra-app & Cross-platform Multi-Store Offers (ตอบโจทย์ 3 เสาหลัก: ถูกสุด • คุ้มสุด • ดีสุด)
     const shopeeWholesalePrice = Math.max(10, Math.round(shopeePrice * (isMall ? 0.95 : 0.97)));
     const shopeeMallPrice = isMall ? shopeePrice : Math.round(shopeePrice * 1.05);
+    const shopeeValuePrice = Math.max(12, Math.round(shopeePrice * 0.98));
 
     const brandSimple = raw.brand && raw.brand !== 'NoBrand' ? String(raw.brand).split(/[\(\s]/)[0] : '';
     const stores: StoreOffer[] = [
@@ -225,7 +229,9 @@ function adaptFeedItem(raw: AnyRecord): ProductDeal | null {
         isMall ? '🛡️ Shopee Mall การันตีแท้ 100%' : '⭐ ร้านทางการ รับประกันของแท้',
         4.9,
         true, // isBestStore
-        'ร้านทางการ (Mall)'
+        'ร้านทางการ (Mall)',
+        false,
+        true
       ),
       makeStoreOffer(
         `${id}-cheap`,
@@ -234,12 +240,29 @@ function adaptFeedItem(raw: AnyRecord): ProductDeal | null {
         affiliateUrl,
         false,
         Math.round(soldCount * 0.6) + 120,
-        'ร้านค้าแนะนำ (ราคาส่ง)',
+        'ร้านค้าแนะนำ (เน้นราคาประหยัด)',
         'preferred',
         '🔥 ราคาประหยัด ถูกสุดใน Shopee',
         4.8,
         false,
-        'ราคาประหยัด'
+        'ราคาประหยัด',
+        false
+      ),
+      makeStoreOffer(
+        `${id}-value`,
+        'shopee',
+        shopeeValuePrice,
+        affiliateUrl,
+        false,
+        Math.round(soldCount * 0.85) + 210,
+        'ร้านแนะนำพิเศษ (ส่งฟรี 0.- + โค้ดคุ้ม)',
+        'preferred',
+        '💎 ส่งฟรี 0 บาท + เรตติ้ง 4.9 ดาว คุ้มค่าที่สุด',
+        4.9,
+        false,
+        'คุ้มค่าสุด',
+        true, // isBestValue
+        true  // freeShipping
       ),
       makeStoreOffer(
         id,
@@ -253,7 +276,9 @@ function adaptFeedItem(raw: AnyRecord): ProductDeal | null {
         '🛡️ LazMall การันตีของแท้ 100%',
         4.9,
         true, // isBestStore
-        'LazMall แท้'
+        'LazMall แท้',
+        false,
+        true
       ),
       makeStoreOffer(
         id,
@@ -267,7 +292,8 @@ function adaptFeedItem(raw: AnyRecord): ProductDeal | null {
         '🎥 คูปองไลฟ์สดลดพิเศษ',
         4.8,
         false,
-        'TikTok Shop'
+        'TikTok Shop',
+        false
       ),
     ];
 
@@ -398,8 +424,26 @@ function normalizePartnerItem(raw: AnyRecord): ProductDeal | null {
         storeRating: Number(raw.storeRating || 4.8),
         soldCount: Number(raw.reviewCount || 120),
         isLowestOverall: true,
+        isBestValue: false,
         isBestStore: storeType === 'mall',
         badgeNote: 'ลิงก์ตรงหน้าสินค้า',
+        url: affiliateUrl,
+      },
+      {
+        id: `${raw.id}-value-deal`,
+        platform,
+        storeName: `${storeName} (คุ้มค่าสุด)`,
+        storeType: storeType === 'mall' ? 'preferred' : storeType,
+        price: Math.max(12, Math.round(price * 0.98)),
+        estimatedAfterVoucher: Math.max(10, Math.round(price * 0.94)),
+        voucherNote: '💎 ส่งฟรี 0.- + เรตติ้ง 4.9 ดาว คุ้มค่าที่สุด',
+        freeShipping: true,
+        storeRating: 4.9,
+        soldCount: Number(raw.reviewCount || 120) + 160,
+        isLowestOverall: false,
+        isBestValue: true,
+        isBestStore: false,
+        badgeNote: 'คุ้มค่าสุด',
         url: affiliateUrl,
       },
       {

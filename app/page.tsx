@@ -403,7 +403,7 @@ export default function Home() {
               ShopDee (ช้อปดี)
             </div>
             <p className="text-[11px] text-neutral-400">
-              © {new Date().getFullYear()} ShopDee. ช้อปของดี ราคาแท้ ไม่จกตา • ข้อมูลอัปเดตอัตโนมัติ
+              © {new Date().getFullYear()} ShopDee. ช้อปของดี ราคาแท้ ไม่จกตา • เชื่อมต่อลิงก์ค้นหาสด 3 แพลตฟอร์ม • เปรียบเทียบ 3 ตัวเลือก: ถูกสุด คุ้มสุด ดีสุด
             </p>
           </div>
 
