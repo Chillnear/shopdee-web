@@ -199,11 +199,22 @@ export default function Home() {
     }
   };
 
+  const handleResetHome = () => {
+    setSearchQuery('');
+    setAiIntent(null);
+    setFilter(DEFAULT_FILTER_STATE);
+    setVisibleCount(16);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-warm-50">
       
       {/* 1. Header Navigation */}
-      <Navbar onOpenWatchlist={() => setIsWatchlistOpen(true)} />
+      <Navbar 
+        onOpenWatchlist={() => setIsWatchlistOpen(true)} 
+        onResetHome={handleResetHome}
+      />
 
       {/* 2. Hero Search Section with AI Intent & URL Ingestion */}
       <HeroSearch

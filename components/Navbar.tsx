@@ -7,9 +7,10 @@ import { ShareSiteModal } from './ShareSiteModal';
 
 interface NavbarProps {
   onOpenWatchlist?: () => void;
+  onResetHome?: () => void;
 }
 
-export function Navbar({ onOpenWatchlist }: NavbarProps) {
+export function Navbar({ onOpenWatchlist, onResetHome }: NavbarProps) {
   const { count } = useWatchlist();
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
@@ -18,16 +19,26 @@ export function Navbar({ onOpenWatchlist }: NavbarProps) {
       <header className="sticky top-0 z-40 w-full bg-hero-gradient border-b border-white/20 shadow-lg transition-all">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           
-          {/* Brand Logo */}
-          <div className="flex items-center gap-2.5">
+          {/* Brand Logo - Clickable to Reset/Refresh Home */}
+          <a
+            href="/"
+            onClick={(e) => {
+              if (onResetHome) {
+                e.preventDefault();
+                onResetHome();
+              }
+            }}
+            className="flex items-center gap-2.5 group cursor-pointer select-none transition-transform active:scale-95"
+            title="กลับหน้าแรก (รีเฟรช)"
+          >
             <img
               src="/icon-192.png?v=20260913c"
               alt="ShopDee Logo"
-              className="w-10 h-10 rounded-xl shadow-md shadow-black/20 object-cover"
+              className="w-10 h-10 rounded-xl shadow-md shadow-black/20 object-cover group-hover:scale-105 transition-transform"
             />
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="font-extrabold text-xl sm:text-2xl tracking-tight text-white">
+                <span className="font-extrabold text-xl sm:text-2xl tracking-tight text-white group-hover:text-orange-100 transition-colors">
                   ShopDee
                 </span>
                 <span className="bg-white/20 text-white border border-white/30 text-[10px] font-bold px-1.5 py-0.5 rounded-md tracking-wider">
@@ -38,7 +49,7 @@ export function Navbar({ onOpenWatchlist }: NavbarProps) {
                 เทียบราคา 3 แพลตฟอร์ม • กรองบอทจีน • ช้อปของแท้ถูกจริง
               </p>
             </div>
-          </div>
+          </a>
 
         {/* Right side actions: Watchlist & Badges */}
         <div className="flex items-center gap-2 sm:gap-3">
