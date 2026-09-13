@@ -23,12 +23,12 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   icons: {
     icon: [
-      { url: "/favicon.ico?v=20260913", sizes: "48x48", type: "image/x-icon" },
-      { url: "/icon-192.png?v=20260913", sizes: "192x192", type: "image/png" },
-      { url: "/icon-512.png?v=20260913", sizes: "512x512", type: "image/png" },
+      { url: "/favicon.ico?v=20260913c", sizes: "48x48", type: "image/x-icon" },
+      { url: "/icon-192.png?v=20260913c", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png?v=20260913c", sizes: "512x512", type: "image/png" },
     ],
     apple: [
-      { url: "/icon-192.png?v=20260913", sizes: "180x180", type: "image/png" },
+      { url: "/apple-touch-icon.png?v=20260913c", sizes: "180x180", type: "image/png" },
     ],
   },
   openGraph: {
