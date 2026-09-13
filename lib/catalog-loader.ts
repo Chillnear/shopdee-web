@@ -138,7 +138,7 @@ function adaptFeedItem(raw: AnyRecord): ProductDeal | null {
     const storeName = String(raw.storeName ?? raw.shop_name ?? '');
     const storeType = raw.storeType as StoreType;
     const storeRating = Number(raw.rating ?? 0);
-    // The feed exposes reviewCount, not sales. Never present it as sold count.
+    // item_sold is real sales volume from the feed; soldCount carries it.
     const soldCount = Number(raw.soldCount ?? raw.sold ?? 0);
 
     if (

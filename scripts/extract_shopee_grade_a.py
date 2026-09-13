@@ -19,7 +19,7 @@ import os
 import re
 import sys
 
-RAW_FEED_PATH = '/tmp/shopee_feed_raw'
+RAW_FEED_PATH = '/tmp/shopee_feed_raw_new'
 OUTPUT_CATALOG_PATH = 'lib/shopee-feed-catalog.json'
 
 CATEGORY_MAP = {
@@ -157,7 +157,7 @@ def main():
                 'category': category,
                 'imageUrl': img,
                 'rating': round(rating, 2),
-                'reviewCount': sold,
+                'soldCount': sold,
                 'brand': brand,
                 'source': 'shopee-feed',
                 'platforms': [
@@ -168,15 +168,6 @@ def main():
                         'discountPercent': discount,
                         'isLowest': True,
                         'affiliateUrl': affiliate_url,
-                        'vouchers': [
-                            {
-                                'code': f"MALL{min(discount, 30)}" if discount >= 10 else "MALLSAVE5",
-                                'discount': f"ลด {discount}%" if discount >= 10 else "ลด 5%",
-                                'minSpend': int(sale_price * 0.8),
-                                'expiresAt': '2026-12-31',
-                                'platform': 'shopee',
-                            }
-                        ]
                     }
                 ],
                 'tags': [category, brand] if brand != 'NoBrand' else [category],
@@ -203,16 +194,16 @@ def main():
     # Sort by quality score descending
     candidates.sort(key=lambda x: x['_metadata']['score'], reverse=True)
 
-    # Diversity filter: Limit to max 4 items per shop so the catalog is well-distributed
+    # Diversity filter: Limit to max 6 items per shop so the catalog is well-distributed
     diversified = []
     shop_count = {}
     for item in candidates:
         s_name = item['storeName']
         count = shop_count.get(s_name, 0)
-        if count < 4:
+        if count < 6:
             diversified.append(item)
             shop_count[s_name] = count + 1
-        if len(diversified) >= 800:
+        if len(diversified) >= 1500:
             break
 
     print(f"Total diversified Grade A items: {len(diversified)}")
