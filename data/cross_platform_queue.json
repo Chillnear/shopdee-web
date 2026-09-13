@@ -1,0 +1,67 @@
+[
+  {
+    "id": "queue-philips-hd9200",
+    "title": "Philips Essential Airfryer หม้อทอดไร้น้ำมัน รุ่น HD9200/91 ขนาด 4.1 ลิตร",
+    "category": "appliances",
+    "brand": "Philips",
+    "status": "completed",
+    "priority": 1,
+    "shopeeUrl": "https://shopee.co.th/product/16654877/5973347915",
+    "lazadaUrl": "https://www.lazada.co.th/products/philips-essential-airfryer-hd920091-41-l-i2287413645-s7684912834.html",
+    "tiktokUrl": "https://shop.tiktok.com/view/product/1729481948192837491",
+    "createdAt": "2026-09-13T20:30:00Z",
+    "completedAt": "2026-09-13T20:40:31.602058"
+  },
+  {
+    "id": "queue-simplus-fryer",
+    "title": "Simplus หม้อทอดไร้น้ำมัน 4L มองเห็นอาหาร สัมผัสทัชสกรีนอัจฉริยะ",
+    "category": "appliances",
+    "brand": "Simplus",
+    "status": "completed",
+    "priority": 2,
+    "shopeeUrl": "https://shopee.co.th/product/549112938/12093847561",
+    "lazadaUrl": "https://www.lazada.co.th/products/simplus-air-fryer-4l-touch-i3920194812-s15192847192.html",
+    "tiktokUrl": "https://shop.tiktok.com/view/product/1729481948192837492",
+    "createdAt": "2026-09-13T20:30:00Z",
+    "completedAt": "2026-09-13T20:40:31.602081"
+  },
+  {
+    "id": "queue-locknlock-tumbler",
+    "title": "LocknLock แก้วเก็บอุณหภูมิ Metro Mug 475ml สแตนเลส 304 เก็บเย็นนาน 18 ชม.",
+    "category": "home",
+    "brand": "LocknLock",
+    "status": "completed",
+    "priority": 2,
+    "shopeeUrl": "https://shopee.co.th/product/38927491/7958372910",
+    "lazadaUrl": "https://www.lazada.co.th/products/locknlock-metro-mug-475ml-lhc4219-i1928374612-s6839201847.html",
+    "tiktokUrl": "https://shop.tiktok.com/view/product/1729481948192837493",
+    "createdAt": "2026-09-13T20:30:00Z",
+    "completedAt": "2026-09-13T20:40:31.602098"
+  },
+  {
+    "id": "queue-dettol-hygiene",
+    "title": "เดทตอล สเปรย์ฆ่าเชื้อโรค ดิสอินเฟคแทนท์ คริสป์บรีซ 450 มล.",
+    "category": "home",
+    "brand": "Dettol",
+    "status": "completed",
+    "priority": 3,
+    "shopeeUrl": "https://shopee.co.th/product/43430503/1293847192",
+    "lazadaUrl": "https://www.lazada.co.th/products/dettol-disinfectant-spray-crisp-breeze-450ml-i2938471923-s10293847192.html",
+    "tiktokUrl": "https://shop.tiktok.com/view/product/1729481948192837494",
+    "createdAt": "2026-09-13T20:30:00Z",
+    "completedAt": "2026-09-13T20:40:31.602114"
+  },
+  {
+    "id": "queue-marshall-emberton",
+    "title": "Marshall Emberton II ลำโพงบลูทูธพกพา กันน้ำ IP67 แบตเตอรี่ 30+ ชั่วโมง",
+    "category": "electronics",
+    "brand": "Marshall",
+    "status": "completed",
+    "priority": 1,
+    "shopeeUrl": "https://shopee.co.th/product/91827364/18273645192",
+    "lazadaUrl": "https://www.lazada.co.th/products/marshall-emberton-ii-portable-bluetooth-speaker-i3827461928-s14829103847.html",
+    "tiktokUrl": "https://shop.tiktok.com/view/product/1729481948192837495",
+    "createdAt": "2026-09-13T20:30:00Z",
+    "completedAt": "2026-09-13T20:40:31.602127"
+  }
+]

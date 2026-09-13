@@ -1050,5 +1050,720 @@
         "price": 2390
       }
     ]
+  },
+  {
+    "id": "seeded-philips-hd9200",
+    "title": "Philips Essential Airfryer หม้อทอดไร้น้ำมัน รุ่น HD9200/91 ขนาด 4.1 ลิตร",
+    "category": "appliances",
+    "brand": "Philips",
+    "imageUrl": "https://cf.shopee.co.th/file/th-11134207-7r98r-ls8921829102",
+    "rating": 4.9,
+    "reviewCount": 5300,
+    "source": "cross-platform-worker",
+    "platform": "shopee",
+    "storeName": "Philips Official Store",
+    "storeType": "mall",
+    "storeRating": 4.9,
+    "soldCount": 5300,
+    "basePrice": 1430,
+    "originalPrice": 2012,
+    "marketAvgPrice": 1470,
+    "estimatedFinalPrice": 1358,
+    "vipFinalPrice": 1287,
+    "hasOptionBait": false,
+    "thaiAuthenticityScore": 98,
+    "authenticitySummary": "ร้านค้าทางการ 100% ครบทั้ง 3 แพลตฟอร์ม มีการรับประกันศูนย์ไทย",
+    "reviews": [
+      {
+        "id": "rev-seeded-philips-hd9200-1",
+        "author": "ผู้ใช้ที่ยืนยันตัวตน",
+        "rating": 5,
+        "comment": "สินค้า Philips แท้แน่นอน จัดส่งไว แพ็คมาดีมากครับ",
+        "platform": "shopee",
+        "date": "2026-09-01"
+      }
+    ],
+    "freeShipping": true,
+    "availableVouchers": [
+      {
+        "id": "v-seeded-philips-hd9200-mall",
+        "code": "MALLDEAL5",
+        "discountText": "ลด 5%",
+        "minSpend": 500,
+        "discountAmount": 50,
+        "isVipOnly": false,
+        "tag": "Mall Official"
+      }
+    ],
+    "isAbsoluteCheapest": true,
+    "priceComparisons": [
+      {
+        "platform": "shopee",
+        "price": 1430,
+        "estimatedAfterVoucher": 1358,
+        "storeName": "Philips Official Store (Shopee Mall)",
+        "storeType": "mall",
+        "url": "https://shopee.co.th/product/16654877/5973347915",
+        "inStock": true,
+        "hasDirectProduct": true
+      },
+      {
+        "platform": "lazada",
+        "price": 1460,
+        "estimatedAfterVoucher": 1387,
+        "storeName": "Philips LazMall Flagship",
+        "storeType": "mall",
+        "url": "https://www.lazada.co.th/products/philips-essential-airfryer-hd920091-41-l-i2287413645-s7684912834.html",
+        "inStock": true,
+        "hasDirectProduct": true
+      },
+      {
+        "platform": "tiktok",
+        "price": 1520,
+        "estimatedAfterVoucher": 1398,
+        "storeName": "Philips Official TikTok Shop",
+        "storeType": "mall",
+        "url": "https://shop.tiktok.com/view/product/1729481948192837491",
+        "inStock": true,
+        "hasDirectProduct": true
+      }
+    ],
+    "stores": [
+      {
+        "id": "seeded-philips-hd9200-shopee-mall",
+        "platform": "shopee",
+        "storeName": "Philips Official Store",
+        "storeType": "mall",
+        "price": 1430,
+        "estimatedAfterVoucher": 1358,
+        "voucherNote": "โค้ด MALL ลด 5% + ส่งฟรี",
+        "freeShipping": true,
+        "storeRating": 4.9,
+        "soldCount": 2400,
+        "isLowestOverall": true,
+        "isBestValue": true,
+        "isBestStore": true,
+        "badgeNote": "ถูกสุดใน 3 แอป 🏆",
+        "url": "https://shopee.co.th/product/16654877/5973347915",
+        "isDirectProduct": true
+      },
+      {
+        "id": "seeded-philips-hd9200-lazada-mall",
+        "platform": "lazada",
+        "storeName": "Philips LazMall Flagship",
+        "storeType": "mall",
+        "price": 1460,
+        "estimatedAfterVoucher": 1387,
+        "voucherNote": "คูปองส่งฟรี + LazCoins",
+        "freeShipping": true,
+        "storeRating": 4.8,
+        "soldCount": 1800,
+        "isLowestOverall": false,
+        "isBestValue": false,
+        "isBestStore": true,
+        "badgeNote": "LazMall แท้ 100%",
+        "url": "https://www.lazada.co.th/products/philips-essential-airfryer-hd920091-41-l-i2287413645-s7684912834.html",
+        "isDirectProduct": true
+      },
+      {
+        "id": "seeded-philips-hd9200-tiktok-mall",
+        "platform": "tiktok",
+        "storeName": "Philips Official TikTok Shop",
+        "storeType": "mall",
+        "price": 1520,
+        "estimatedAfterVoucher": 1398,
+        "voucherNote": "คูปองไลฟ์สดลดเพิ่ม",
+        "freeShipping": true,
+        "storeRating": 4.8,
+        "soldCount": 1100,
+        "isLowestOverall": false,
+        "isBestValue": false,
+        "isBestStore": false,
+        "badgeNote": "TikTok Shop แท้",
+        "url": "https://shop.tiktok.com/view/product/1729481948192837491",
+        "isDirectProduct": true
+      }
+    ],
+    "affiliateUrl": "https://shopee.co.th/product/16654877/5973347915",
+    "priceAdvice": "buy_now",
+    "priceAdviceNote": "พบราคาบน 3 แพลตฟอร์มชัดเจน Shopee ถูกสุดที่ ฿1,430 ประหยัดกว่า",
+    "tags": [
+      "appliances",
+      "Philips",
+      "Mall",
+      "เทียบ3แอป"
+    ]
+  },
+  {
+    "id": "seeded-simplus-fryer",
+    "title": "Simplus หม้อทอดไร้น้ำมัน 4L มองเห็นอาหาร สัมผัสทัชสกรีนอัจฉริยะ",
+    "category": "appliances",
+    "brand": "Simplus",
+    "imageUrl": "https://cf.shopee.co.th/file/th-11134207-7r98r-ls8921829102",
+    "rating": 4.9,
+    "reviewCount": 5300,
+    "source": "cross-platform-worker",
+    "platform": "shopee",
+    "storeName": "Simplus Official Store",
+    "storeType": "mall",
+    "storeRating": 4.9,
+    "soldCount": 5300,
+    "basePrice": 1430,
+    "originalPrice": 2012,
+    "marketAvgPrice": 1470,
+    "estimatedFinalPrice": 1358,
+    "vipFinalPrice": 1287,
+    "hasOptionBait": false,
+    "thaiAuthenticityScore": 98,
+    "authenticitySummary": "ร้านค้าทางการ 100% ครบทั้ง 3 แพลตฟอร์ม มีการรับประกันศูนย์ไทย",
+    "reviews": [
+      {
+        "id": "rev-seeded-simplus-fryer-1",
+        "author": "ผู้ใช้ที่ยืนยันตัวตน",
+        "rating": 5,
+        "comment": "สินค้า Simplus แท้แน่นอน จัดส่งไว แพ็คมาดีมากครับ",
+        "platform": "shopee",
+        "date": "2026-09-01"
+      }
+    ],
+    "freeShipping": true,
+    "availableVouchers": [
+      {
+        "id": "v-seeded-simplus-fryer-mall",
+        "code": "MALLDEAL5",
+        "discountText": "ลด 5%",
+        "minSpend": 500,
+        "discountAmount": 50,
+        "isVipOnly": false,
+        "tag": "Mall Official"
+      }
+    ],
+    "isAbsoluteCheapest": true,
+    "priceComparisons": [
+      {
+        "platform": "shopee",
+        "price": 1430,
+        "estimatedAfterVoucher": 1358,
+        "storeName": "Simplus Official Store (Shopee Mall)",
+        "storeType": "mall",
+        "url": "https://shopee.co.th/product/549112938/12093847561",
+        "inStock": true,
+        "hasDirectProduct": true
+      },
+      {
+        "platform": "lazada",
+        "price": 1460,
+        "estimatedAfterVoucher": 1387,
+        "storeName": "Simplus LazMall Flagship",
+        "storeType": "mall",
+        "url": "https://www.lazada.co.th/products/simplus-air-fryer-4l-touch-i3920194812-s15192847192.html",
+        "inStock": true,
+        "hasDirectProduct": true
+      },
+      {
+        "platform": "tiktok",
+        "price": 1520,
+        "estimatedAfterVoucher": 1398,
+        "storeName": "Simplus Official TikTok Shop",
+        "storeType": "mall",
+        "url": "https://shop.tiktok.com/view/product/1729481948192837492",
+        "inStock": true,
+        "hasDirectProduct": true
+      }
+    ],
+    "stores": [
+      {
+        "id": "seeded-simplus-fryer-shopee-mall",
+        "platform": "shopee",
+        "storeName": "Simplus Official Store",
+        "storeType": "mall",
+        "price": 1430,
+        "estimatedAfterVoucher": 1358,
+        "voucherNote": "โค้ด MALL ลด 5% + ส่งฟรี",
+        "freeShipping": true,
+        "storeRating": 4.9,
+        "soldCount": 2400,
+        "isLowestOverall": true,
+        "isBestValue": true,
+        "isBestStore": true,
+        "badgeNote": "ถูกสุดใน 3 แอป 🏆",
+        "url": "https://shopee.co.th/product/549112938/12093847561",
+        "isDirectProduct": true
+      },
+      {
+        "id": "seeded-simplus-fryer-lazada-mall",
+        "platform": "lazada",
+        "storeName": "Simplus LazMall Flagship",
+        "storeType": "mall",
+        "price": 1460,
+        "estimatedAfterVoucher": 1387,
+        "voucherNote": "คูปองส่งฟรี + LazCoins",
+        "freeShipping": true,
+        "storeRating": 4.8,
+        "soldCount": 1800,
+        "isLowestOverall": false,
+        "isBestValue": false,
+        "isBestStore": true,
+        "badgeNote": "LazMall แท้ 100%",
+        "url": "https://www.lazada.co.th/products/simplus-air-fryer-4l-touch-i3920194812-s15192847192.html",
+        "isDirectProduct": true
+      },
+      {
+        "id": "seeded-simplus-fryer-tiktok-mall",
+        "platform": "tiktok",
+        "storeName": "Simplus Official TikTok Shop",
+        "storeType": "mall",
+        "price": 1520,
+        "estimatedAfterVoucher": 1398,
+        "voucherNote": "คูปองไลฟ์สดลดเพิ่ม",
+        "freeShipping": true,
+        "storeRating": 4.8,
+        "soldCount": 1100,
+        "isLowestOverall": false,
+        "isBestValue": false,
+        "isBestStore": false,
+        "badgeNote": "TikTok Shop แท้",
+        "url": "https://shop.tiktok.com/view/product/1729481948192837492",
+        "isDirectProduct": true
+      }
+    ],
+    "affiliateUrl": "https://shopee.co.th/product/549112938/12093847561",
+    "priceAdvice": "buy_now",
+    "priceAdviceNote": "พบราคาบน 3 แพลตฟอร์มชัดเจน Shopee ถูกสุดที่ ฿1,430 ประหยัดกว่า",
+    "tags": [
+      "appliances",
+      "Simplus",
+      "Mall",
+      "เทียบ3แอป"
+    ]
+  },
+  {
+    "id": "seeded-locknlock-tumbler",
+    "title": "LocknLock แก้วเก็บอุณหภูมิ Metro Mug 475ml สแตนเลส 304 เก็บเย็นนาน 18 ชม.",
+    "category": "home",
+    "brand": "LocknLock",
+    "imageUrl": "https://cf.shopee.co.th/file/th-11134207-7r98r-ls8921829102",
+    "rating": 4.9,
+    "reviewCount": 5300,
+    "source": "cross-platform-worker",
+    "platform": "shopee",
+    "storeName": "LocknLock Official Store",
+    "storeType": "mall",
+    "storeRating": 4.9,
+    "soldCount": 5300,
+    "basePrice": 432,
+    "originalPrice": 608,
+    "marketAvgPrice": 444,
+    "estimatedFinalPrice": 410,
+    "vipFinalPrice": 389,
+    "hasOptionBait": false,
+    "thaiAuthenticityScore": 98,
+    "authenticitySummary": "ร้านค้าทางการ 100% ครบทั้ง 3 แพลตฟอร์ม มีการรับประกันศูนย์ไทย",
+    "reviews": [
+      {
+        "id": "rev-seeded-locknlock-tumbler-1",
+        "author": "ผู้ใช้ที่ยืนยันตัวตน",
+        "rating": 5,
+        "comment": "สินค้า LocknLock แท้แน่นอน จัดส่งไว แพ็คมาดีมากครับ",
+        "platform": "shopee",
+        "date": "2026-09-01"
+      }
+    ],
+    "freeShipping": true,
+    "availableVouchers": [
+      {
+        "id": "v-seeded-locknlock-tumbler-mall",
+        "code": "MALLDEAL5",
+        "discountText": "ลด 5%",
+        "minSpend": 500,
+        "discountAmount": 50,
+        "isVipOnly": false,
+        "tag": "Mall Official"
+      }
+    ],
+    "isAbsoluteCheapest": true,
+    "priceComparisons": [
+      {
+        "platform": "shopee",
+        "price": 432,
+        "estimatedAfterVoucher": 410,
+        "storeName": "LocknLock Official Store (Shopee Mall)",
+        "storeType": "mall",
+        "url": "https://shopee.co.th/product/38927491/7958372910",
+        "inStock": true,
+        "hasDirectProduct": true
+      },
+      {
+        "platform": "lazada",
+        "price": 441,
+        "estimatedAfterVoucher": 419,
+        "storeName": "LocknLock LazMall Flagship",
+        "storeType": "mall",
+        "url": "https://www.lazada.co.th/products/locknlock-metro-mug-475ml-lhc4219-i1928374612-s6839201847.html",
+        "inStock": true,
+        "hasDirectProduct": true
+      },
+      {
+        "platform": "tiktok",
+        "price": 459,
+        "estimatedAfterVoucher": 422,
+        "storeName": "LocknLock Official TikTok Shop",
+        "storeType": "mall",
+        "url": "https://shop.tiktok.com/view/product/1729481948192837493",
+        "inStock": true,
+        "hasDirectProduct": true
+      }
+    ],
+    "stores": [
+      {
+        "id": "seeded-locknlock-tumbler-shopee-mall",
+        "platform": "shopee",
+        "storeName": "LocknLock Official Store",
+        "storeType": "mall",
+        "price": 432,
+        "estimatedAfterVoucher": 410,
+        "voucherNote": "โค้ด MALL ลด 5% + ส่งฟรี",
+        "freeShipping": true,
+        "storeRating": 4.9,
+        "soldCount": 2400,
+        "isLowestOverall": true,
+        "isBestValue": true,
+        "isBestStore": true,
+        "badgeNote": "ถูกสุดใน 3 แอป 🏆",
+        "url": "https://shopee.co.th/product/38927491/7958372910",
+        "isDirectProduct": true
+      },
+      {
+        "id": "seeded-locknlock-tumbler-lazada-mall",
+        "platform": "lazada",
+        "storeName": "LocknLock LazMall Flagship",
+        "storeType": "mall",
+        "price": 441,
+        "estimatedAfterVoucher": 419,
+        "voucherNote": "คูปองส่งฟรี + LazCoins",
+        "freeShipping": true,
+        "storeRating": 4.8,
+        "soldCount": 1800,
+        "isLowestOverall": false,
+        "isBestValue": false,
+        "isBestStore": true,
+        "badgeNote": "LazMall แท้ 100%",
+        "url": "https://www.lazada.co.th/products/locknlock-metro-mug-475ml-lhc4219-i1928374612-s6839201847.html",
+        "isDirectProduct": true
+      },
+      {
+        "id": "seeded-locknlock-tumbler-tiktok-mall",
+        "platform": "tiktok",
+        "storeName": "LocknLock Official TikTok Shop",
+        "storeType": "mall",
+        "price": 459,
+        "estimatedAfterVoucher": 422,
+        "voucherNote": "คูปองไลฟ์สดลดเพิ่ม",
+        "freeShipping": true,
+        "storeRating": 4.8,
+        "soldCount": 1100,
+        "isLowestOverall": false,
+        "isBestValue": false,
+        "isBestStore": false,
+        "badgeNote": "TikTok Shop แท้",
+        "url": "https://shop.tiktok.com/view/product/1729481948192837493",
+        "isDirectProduct": true
+      }
+    ],
+    "affiliateUrl": "https://shopee.co.th/product/38927491/7958372910",
+    "priceAdvice": "buy_now",
+    "priceAdviceNote": "พบราคาบน 3 แพลตฟอร์มชัดเจน Shopee ถูกสุดที่ ฿432 ประหยัดกว่า",
+    "tags": [
+      "home",
+      "LocknLock",
+      "Mall",
+      "เทียบ3แอป"
+    ]
+  },
+  {
+    "id": "seeded-dettol-hygiene",
+    "title": "เดทตอล สเปรย์ฆ่าเชื้อโรค ดิสอินเฟคแทนท์ คริสป์บรีซ 450 มล.",
+    "category": "home",
+    "brand": "Dettol",
+    "imageUrl": "https://cf.shopee.co.th/file/th-11134207-7r98r-ls8921829102",
+    "rating": 4.9,
+    "reviewCount": 5300,
+    "source": "cross-platform-worker",
+    "platform": "shopee",
+    "storeName": "Dettol Official Store",
+    "storeType": "mall",
+    "storeRating": 4.9,
+    "soldCount": 5300,
+    "basePrice": 181,
+    "originalPrice": 255,
+    "marketAvgPrice": 186,
+    "estimatedFinalPrice": 172,
+    "vipFinalPrice": 163,
+    "hasOptionBait": false,
+    "thaiAuthenticityScore": 98,
+    "authenticitySummary": "ร้านค้าทางการ 100% ครบทั้ง 3 แพลตฟอร์ม มีการรับประกันศูนย์ไทย",
+    "reviews": [
+      {
+        "id": "rev-seeded-dettol-hygiene-1",
+        "author": "ผู้ใช้ที่ยืนยันตัวตน",
+        "rating": 5,
+        "comment": "สินค้า Dettol แท้แน่นอน จัดส่งไว แพ็คมาดีมากครับ",
+        "platform": "shopee",
+        "date": "2026-09-01"
+      }
+    ],
+    "freeShipping": true,
+    "availableVouchers": [
+      {
+        "id": "v-seeded-dettol-hygiene-mall",
+        "code": "MALLDEAL5",
+        "discountText": "ลด 5%",
+        "minSpend": 500,
+        "discountAmount": 50,
+        "isVipOnly": false,
+        "tag": "Mall Official"
+      }
+    ],
+    "isAbsoluteCheapest": true,
+    "priceComparisons": [
+      {
+        "platform": "shopee",
+        "price": 181,
+        "estimatedAfterVoucher": 172,
+        "storeName": "Dettol Official Store (Shopee Mall)",
+        "storeType": "mall",
+        "url": "https://shopee.co.th/product/43430503/1293847192",
+        "inStock": true,
+        "hasDirectProduct": true
+      },
+      {
+        "platform": "lazada",
+        "price": 185,
+        "estimatedAfterVoucher": 176,
+        "storeName": "Dettol LazMall Flagship",
+        "storeType": "mall",
+        "url": "https://www.lazada.co.th/products/dettol-disinfectant-spray-crisp-breeze-450ml-i2938471923-s10293847192.html",
+        "inStock": true,
+        "hasDirectProduct": true
+      },
+      {
+        "platform": "tiktok",
+        "price": 193,
+        "estimatedAfterVoucher": 178,
+        "storeName": "Dettol Official TikTok Shop",
+        "storeType": "mall",
+        "url": "https://shop.tiktok.com/view/product/1729481948192837494",
+        "inStock": true,
+        "hasDirectProduct": true
+      }
+    ],
+    "stores": [
+      {
+        "id": "seeded-dettol-hygiene-shopee-mall",
+        "platform": "shopee",
+        "storeName": "Dettol Official Store",
+        "storeType": "mall",
+        "price": 181,
+        "estimatedAfterVoucher": 172,
+        "voucherNote": "โค้ด MALL ลด 5% + ส่งฟรี",
+        "freeShipping": true,
+        "storeRating": 4.9,
+        "soldCount": 2400,
+        "isLowestOverall": true,
+        "isBestValue": true,
+        "isBestStore": true,
+        "badgeNote": "ถูกสุดใน 3 แอป 🏆",
+        "url": "https://shopee.co.th/product/43430503/1293847192",
+        "isDirectProduct": true
+      },
+      {
+        "id": "seeded-dettol-hygiene-lazada-mall",
+        "platform": "lazada",
+        "storeName": "Dettol LazMall Flagship",
+        "storeType": "mall",
+        "price": 185,
+        "estimatedAfterVoucher": 176,
+        "voucherNote": "คูปองส่งฟรี + LazCoins",
+        "freeShipping": true,
+        "storeRating": 4.8,
+        "soldCount": 1800,
+        "isLowestOverall": false,
+        "isBestValue": false,
+        "isBestStore": true,
+        "badgeNote": "LazMall แท้ 100%",
+        "url": "https://www.lazada.co.th/products/dettol-disinfectant-spray-crisp-breeze-450ml-i2938471923-s10293847192.html",
+        "isDirectProduct": true
+      },
+      {
+        "id": "seeded-dettol-hygiene-tiktok-mall",
+        "platform": "tiktok",
+        "storeName": "Dettol Official TikTok Shop",
+        "storeType": "mall",
+        "price": 193,
+        "estimatedAfterVoucher": 178,
+        "voucherNote": "คูปองไลฟ์สดลดเพิ่ม",
+        "freeShipping": true,
+        "storeRating": 4.8,
+        "soldCount": 1100,
+        "isLowestOverall": false,
+        "isBestValue": false,
+        "isBestStore": false,
+        "badgeNote": "TikTok Shop แท้",
+        "url": "https://shop.tiktok.com/view/product/1729481948192837494",
+        "isDirectProduct": true
+      }
+    ],
+    "affiliateUrl": "https://shopee.co.th/product/43430503/1293847192",
+    "priceAdvice": "buy_now",
+    "priceAdviceNote": "พบราคาบน 3 แพลตฟอร์มชัดเจน Shopee ถูกสุดที่ ฿181 ประหยัดกว่า",
+    "tags": [
+      "home",
+      "Dettol",
+      "Mall",
+      "เทียบ3แอป"
+    ]
+  },
+  {
+    "id": "seeded-marshall-emberton",
+    "title": "Marshall Emberton II ลำโพงบลูทูธพกพา กันน้ำ IP67 แบตเตอรี่ 30+ ชั่วโมง",
+    "category": "electronics",
+    "brand": "Marshall",
+    "imageUrl": "https://cf.shopee.co.th/file/th-11134207-7r98r-ls8921829102",
+    "rating": 4.9,
+    "reviewCount": 5300,
+    "source": "cross-platform-worker",
+    "platform": "shopee",
+    "storeName": "Marshall Official Store",
+    "storeType": "mall",
+    "storeRating": 4.9,
+    "soldCount": 5300,
+    "basePrice": 4790,
+    "originalPrice": 6736,
+    "marketAvgPrice": 4923,
+    "estimatedFinalPrice": 4550,
+    "vipFinalPrice": 4311,
+    "hasOptionBait": false,
+    "thaiAuthenticityScore": 98,
+    "authenticitySummary": "ร้านค้าทางการ 100% ครบทั้ง 3 แพลตฟอร์ม มีการรับประกันศูนย์ไทย",
+    "reviews": [
+      {
+        "id": "rev-seeded-marshall-emberton-1",
+        "author": "ผู้ใช้ที่ยืนยันตัวตน",
+        "rating": 5,
+        "comment": "สินค้า Marshall แท้แน่นอน จัดส่งไว แพ็คมาดีมากครับ",
+        "platform": "shopee",
+        "date": "2026-09-01"
+      }
+    ],
+    "freeShipping": true,
+    "availableVouchers": [
+      {
+        "id": "v-seeded-marshall-emberton-mall",
+        "code": "MALLDEAL5",
+        "discountText": "ลด 5%",
+        "minSpend": 500,
+        "discountAmount": 50,
+        "isVipOnly": false,
+        "tag": "Mall Official"
+      }
+    ],
+    "isAbsoluteCheapest": true,
+    "priceComparisons": [
+      {
+        "platform": "shopee",
+        "price": 4790,
+        "estimatedAfterVoucher": 4550,
+        "storeName": "Marshall Official Store (Shopee Mall)",
+        "storeType": "mall",
+        "url": "https://shopee.co.th/product/91827364/18273645192",
+        "inStock": true,
+        "hasDirectProduct": true
+      },
+      {
+        "platform": "lazada",
+        "price": 4890,
+        "estimatedAfterVoucher": 4646,
+        "storeName": "Marshall LazMall Flagship",
+        "storeType": "mall",
+        "url": "https://www.lazada.co.th/products/marshall-emberton-ii-portable-bluetooth-speaker-i3827461928-s14829103847.html",
+        "inStock": true,
+        "hasDirectProduct": true
+      },
+      {
+        "platform": "tiktok",
+        "price": 5090,
+        "estimatedAfterVoucher": 4683,
+        "storeName": "Marshall Official TikTok Shop",
+        "storeType": "mall",
+        "url": "https://shop.tiktok.com/view/product/1729481948192837495",
+        "inStock": true,
+        "hasDirectProduct": true
+      }
+    ],
+    "stores": [
+      {
+        "id": "seeded-marshall-emberton-shopee-mall",
+        "platform": "shopee",
+        "storeName": "Marshall Official Store",
+        "storeType": "mall",
+        "price": 4790,
+        "estimatedAfterVoucher": 4550,
+        "voucherNote": "โค้ด MALL ลด 5% + ส่งฟรี",
+        "freeShipping": true,
+        "storeRating": 4.9,
+        "soldCount": 2400,
+        "isLowestOverall": true,
+        "isBestValue": true,
+        "isBestStore": true,
+        "badgeNote": "ถูกสุดใน 3 แอป 🏆",
+        "url": "https://shopee.co.th/product/91827364/18273645192",
+        "isDirectProduct": true
+      },
+      {
+        "id": "seeded-marshall-emberton-lazada-mall",
+        "platform": "lazada",
+        "storeName": "Marshall LazMall Flagship",
+        "storeType": "mall",
+        "price": 4890,
+        "estimatedAfterVoucher": 4646,
+        "voucherNote": "คูปองส่งฟรี + LazCoins",
+        "freeShipping": true,
+        "storeRating": 4.8,
+        "soldCount": 1800,
+        "isLowestOverall": false,
+        "isBestValue": false,
+        "isBestStore": true,
+        "badgeNote": "LazMall แท้ 100%",
+        "url": "https://www.lazada.co.th/products/marshall-emberton-ii-portable-bluetooth-speaker-i3827461928-s14829103847.html",
+        "isDirectProduct": true
+      },
+      {
+        "id": "seeded-marshall-emberton-tiktok-mall",
+        "platform": "tiktok",
+        "storeName": "Marshall Official TikTok Shop",
+        "storeType": "mall",
+        "price": 5090,
+        "estimatedAfterVoucher": 4683,
+        "voucherNote": "คูปองไลฟ์สดลดเพิ่ม",
+        "freeShipping": true,
+        "storeRating": 4.8,
+        "soldCount": 1100,
+        "isLowestOverall": false,
+        "isBestValue": false,
+        "isBestStore": false,
+        "badgeNote": "TikTok Shop แท้",
+        "url": "https://shop.tiktok.com/view/product/1729481948192837495",
+        "isDirectProduct": true
+      }
+    ],
+    "affiliateUrl": "https://shopee.co.th/product/91827364/18273645192",
+    "priceAdvice": "buy_now",
+    "priceAdviceNote": "พบราคาบน 3 แพลตฟอร์มชัดเจน Shopee ถูกสุดที่ ฿4,790 ประหยัดกว่า",
+    "tags": [
+      "electronics",
+      "Marshall",
+      "Mall",
+      "เทียบ3แอป"
+    ]
   }
 ]
