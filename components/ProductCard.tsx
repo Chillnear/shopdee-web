@@ -62,6 +62,14 @@ export function ProductCard({
 
   // Rank Styling
   const getRankBadge = (r: number) => {
+    if (deal.id.startsWith('ingested-')) {
+      return (
+        <span className="inline-flex items-center gap-1 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-xs font-black px-3 py-1 rounded-full shadow-md shadow-orange-500/30">
+          <Sparkles className="w-3.5 h-3.5" />
+          <span>ดึงจากลิงก์สด ⚡</span>
+        </span>
+      );
+    }
     if (r === 1) {
       return (
         <span className="inline-flex items-center gap-1 bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 text-white text-xs font-black px-3 py-1 rounded-full shadow-md shadow-amber-500/30">

@@ -27,6 +27,14 @@ if (typeof setInterval !== 'undefined') {
   }, 120_000);
 }
 
+export function getClientIp(req: NextRequest): string {
+  return (
+    req.headers.get('cf-connecting-ip') ||
+    req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+    '127.0.0.1'
+  );
+}
+
 export function checkRateLimit(clientIp: string): { allowed: boolean; remaining: number } {
   const now = Date.now();
   const record = ipRateLimitMap.get(clientIp) || { timestamps: [] };

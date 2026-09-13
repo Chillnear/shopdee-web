@@ -15,10 +15,11 @@ import { ShareDealModal } from '@/components/ShareDealModal';
 import { WatchlistDrawer } from '@/components/WatchlistDrawer';
 import { PriceDropToast } from '@/components/PriceDropToast';
 import { LineOptinBanner } from '@/components/LineOptinBanner';
+import { EmptySearchCard } from '@/components/EmptySearchCard';
 import { MOCK_DEALS } from '@/lib/mock-data';
 import { DEFAULT_FILTER_STATE, filterAndRankDeals } from '@/lib/engine';
 import { FilterState, ProductDeal } from '@/lib/types';
-import { Sparkles, ShieldCheck, Flame, RotateCcw, HelpCircle, LayoutGrid, List } from 'lucide-react';
+import { Sparkles, ShieldCheck, Flame, RotateCcw, HelpCircle, LayoutGrid, List, CheckCircle2 } from 'lucide-react';
 import { parseSearchIntent } from '@/lib/ai/services';
 import { SearchIntent } from '@/lib/ai/types';
 
@@ -28,6 +29,26 @@ export default function Home() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [aiIntent, setAiIntent] = useState<SearchIntent | null>(null);
   
+  // Custom deals ingested by user via link or dynamic search
+  const [customDeals, setCustomDeals] = useState<ProductDeal[]>([]);
+  const [isIngesting, setIsIngesting] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  // Load custom ingested deals from localStorage on mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('shopdee_custom_deals');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          setCustomDeals(parsed);
+        }
+      }
+    } catch (e) {
+      console.warn('Failed to parse shopdee_custom_deals', e);
+    }
+  }, []);
+
   // View mode: 'grid' (ช่องๆ ดูเร็ว Shopee style) vs 'list' (รายการ เจาะลึก)
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   
@@ -41,7 +62,7 @@ export default function Home() {
 
   // Trigger AI Intent Parsing in background when user searches
   useEffect(() => {
-    if (!searchQuery.trim()) {
+    if (!searchQuery.trim() || searchQuery.startsWith('http://') || searchQuery.startsWith('https://')) {
       setAiIntent(null);
       return;
     }
@@ -76,10 +97,70 @@ export default function Home() {
     setFilter(DEFAULT_FILTER_STATE);
   };
 
+  // Combine custom user-ingested deals with catalog mock deals
+  const allDeals = useMemo(() => {
+    return [...customDeals, ...MOCK_DEALS];
+  }, [customDeals]);
+
   // Compute filtered & ranked deals
   const { deals, totalMatching } = useMemo(() => {
-    return filterAndRankDeals(MOCK_DEALS, searchQuery, filter);
-  }, [searchQuery, filter]);
+    return filterAndRankDeals(allDeals, searchQuery, filter);
+  }, [allDeals, searchQuery, filter]);
+
+  // Handle Smart Ingestion (via URL or On-Demand Query)
+  const handleIngestProduct = async ({ url, query }: { url?: string; query?: string }) => {
+    setIsIngesting(true);
+    try {
+      const res = await fetch('/api/ingest', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ url, query }),
+      });
+
+      const data = await res.json();
+      if (data.success && data.deal) {
+        const newDeal: ProductDeal = data.deal;
+        setCustomDeals(prev => {
+          const filtered = prev.filter(d => d.id !== newDeal.id);
+          const updated = [newDeal, ...filtered];
+          try {
+            localStorage.setItem('shopdee_custom_deals', JSON.stringify(updated));
+          } catch (e) {
+            console.warn('Failed to save to localStorage', e);
+          }
+          return updated;
+        });
+
+        // Reset search/filter to see the new deal immediately
+        setSearchQuery('');
+        setFilter(DEFAULT_FILTER_STATE);
+
+        // Open detailed comparison modal for instant satisfaction
+        setActiveDetailDeal({ deal: newDeal, rank: 1 });
+        
+        // Show celebratory toast
+        setToastMessage(`✨ ดึงข้อมูล "${newDeal.title.slice(0, 30)}..." และเทียบราคา 3 แอปเรียบร้อย!`);
+        setTimeout(() => setToastMessage(null), 5000);
+      } else {
+        alert(data.message || 'ไม่สามารถดึงข้อมูลสินค้านี้ได้ กรุณาตรวจสอบลิงก์หรือลองใหม่อีกครั้ง');
+      }
+    } catch (err) {
+      alert('เกิดข้อผิดพลาดในการเชื่อมต่อ กรุณาลองใหม่อีกครั้ง');
+    } finally {
+      setIsIngesting(false);
+    }
+  };
+
+  const handleClearCustomDeals = () => {
+    setCustomDeals([]);
+    try {
+      localStorage.removeItem('shopdee_custom_deals');
+    } catch (e) {
+      // ignore
+    }
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -87,12 +168,14 @@ export default function Home() {
       {/* 1. Header Navigation */}
       <Navbar onOpenWatchlist={() => setIsWatchlistOpen(true)} />
 
-      {/* 2. Hero Search Section with AI Intent */}
+      {/* 2. Hero Search Section with AI Intent & URL Ingestion */}
       <HeroSearch
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
         aiIntent={aiIntent}
         onClearIntent={handleClearIntent}
+        onIngestUrl={(url) => handleIngestProduct({ url })}
+        isIngesting={isIngesting}
       />
 
       {/* 3. Smart Sticky Filter Bar */}
@@ -110,7 +193,7 @@ export default function Home() {
         
         {/* Results Info Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <h2 className="text-lg sm:text-xl font-black text-neutral-900 flex items-center gap-2">
               <Flame className="w-5 h-5 text-rose-500" />
               <span>
@@ -120,6 +203,20 @@ export default function Home() {
             <span className="bg-neutral-200 text-neutral-700 text-xs font-bold px-2 py-0.5 rounded-full">
               Top {deals.length}
             </span>
+
+            {customDeals.length > 0 && (
+              <span className="inline-flex items-center gap-1 bg-orange-100 text-shopee text-xs font-bold px-2.5 py-0.5 rounded-full">
+                <Sparkles className="w-3 h-3" />
+                <span>เพิ่มจากลิงก์สด {customDeals.length} รายการ</span>
+                <button
+                  onClick={handleClearCustomDeals}
+                  className="ml-1 text-[10px] text-neutral-400 hover:text-neutral-700 underline"
+                  title="ล้างรายการที่คุณเพิ่ม"
+                >
+                  ล้าง
+                </button>
+              </span>
+            )}
           </div>
 
           <div className="flex items-center gap-3 text-xs text-neutral-500 font-medium">
@@ -176,28 +273,16 @@ export default function Home() {
             )}
           </div>
         ) : (
-          /* Empty State */
-          <div className="bg-white rounded-2xl border border-neutral-200 p-10 text-center max-w-md mx-auto my-12 shadow-sm">
-            <div className="w-14 h-14 rounded-2xl bg-orange-100 text-shopee flex items-center justify-center mx-auto mb-4">
-              <HelpCircle className="w-7 h-7" />
-            </div>
-            <h3 className="font-extrabold text-lg text-neutral-900 mb-1">
-              ไม่พบสินค้าตามเงื่อนไขที่เลือก
-            </h3>
-            <p className="text-xs text-neutral-500 mb-5 leading-relaxed">
-              ลองพิมพ์คำค้นหาอื่น หรือลองปลดตัวกรองบางอย่างออกเพื่อดูผลลัพธ์เพิ่มเติม
-            </p>
-            <button
-              onClick={() => {
-                setSearchQuery('');
-                setFilter(DEFAULT_FILTER_STATE);
-              }}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-shopee text-white font-bold text-xs hover:bg-shopee-hover transition shadow-md shadow-shopee/20"
-            >
-              <RotateCcw className="w-4 h-4" />
-              <span>ล้างตัวกรองและดูดีลทั้งหมด</span>
-            </button>
-          </div>
+          /* Empty State Upgraded with Smart Ingestion */
+          <EmptySearchCard
+            searchQuery={searchQuery}
+            onClearFilters={() => {
+              setSearchQuery('');
+              setFilter(DEFAULT_FILTER_STATE);
+            }}
+            onIngest={handleIngestProduct}
+            isIngesting={isIngesting}
+          />
         )}
 
         {/* Bottom Callout: Value Proposition Summary */}
@@ -293,6 +378,14 @@ export default function Home() {
 
       {/* Floating Price Drop Notification Toast */}
       <PriceDropToast onOpenWatchlist={() => setIsWatchlistOpen(true)} />
+
+      {/* Ingestion Success Toast */}
+      {toastMessage && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-neutral-900/95 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-2.5 text-xs font-bold animate-in fade-in slide-in-from-bottom-5">
+          <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+          <span>{toastMessage}</span>
+        </div>
+      )}
 
     </div>
   );
