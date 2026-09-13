@@ -26,6 +26,7 @@ import { StoreComparisonTable } from '@/components/StoreComparisonTable';
 import { PriceTrendGraph } from '@/components/PriceTrendGraph';
 import { ReviewSentimentTags } from '@/components/ReviewSentimentTags';
 import { VoucherStackFormula } from '@/components/VoucherStackFormula';
+import { useDealViewers } from '@/lib/view-tracker';
 
 interface ProductCardProps {
   deal: ProductDeal;
@@ -47,6 +48,7 @@ export function ProductCard({
   selectedPlatform = 'all',
 }: ProductCardProps) {
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
+  const viewersCount = useDealViewers(deal.id, deal.soldCount, false);
 
   const platformMeta = getPlatformMeta(deal.platform);
 
@@ -183,9 +185,9 @@ export function ProductCard({
               {/* Trip.com Social Proof & Price Alert Trigger */}
               <div className="flex items-center justify-between gap-2 mb-2">
                 <div className="flex items-center gap-1.5 text-[11px] text-neutral-500 font-medium">
-                  <span className="flex items-center gap-1 text-rose-600 bg-rose-50 px-2 py-0.5 rounded-full font-bold">
+                  <span className="flex items-center gap-1 text-rose-600 bg-rose-50 border border-rose-200/60 px-2 py-0.5 rounded-full font-bold">
                     <Flame className="w-3 h-3 text-rose-500" />
-                    <span>{deal.activeViewersCount || 19} คนกำลังดูอยู่นี้</span>
+                    <span>{viewersCount} คนกำลังดูอยู่นี้</span>
                   </span>
                   <span className="hidden sm:inline text-neutral-300">•</span>
                   <span className="hidden sm:inline text-neutral-400">เช็คราคาสุดคุ้ม</span>

@@ -25,6 +25,7 @@ import { ReviewSentimentTags } from '@/components/ReviewSentimentTags';
 import { VoucherStackFormula } from '@/components/VoucherStackFormula';
 import { localDealInsightProvider } from '@/lib/ai/providers/local-engine';
 import { DealInsight } from '@/lib/ai/types';
+import { useDealViewers } from '@/lib/view-tracker';
 
 interface ProductDetailModalProps {
   deal: ProductDeal | null;
@@ -45,6 +46,7 @@ export function ProductDetailModal({
 }: ProductDetailModalProps) {
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
   const [insight, setInsight] = useState<DealInsight | null>(null);
+  const viewersCount = useDealViewers(deal ? deal.id : '', deal ? deal.soldCount : 0, Boolean(deal));
 
   React.useEffect(() => {
     if (deal) {
@@ -184,9 +186,15 @@ export function ProductDetailModal({
           {/* Trip.com Social Proof & Price Alert Bar */}
           <div className="flex items-center justify-between p-3 rounded-2xl bg-neutral-50 border border-neutral-200">
             <div className="flex items-center gap-1.5 text-xs text-neutral-600 font-medium">
-              <span className="flex items-center gap-1 text-rose-600 font-bold bg-rose-50 px-2 py-0.5 rounded-full">
-                <Flame className="w-3.5 h-3.5 text-rose-500" />
-                <span>{deal.activeViewersCount || 19} คนกำลังดูดีลนี้</span>
+              <span className="flex items-center gap-1.5 text-rose-600 font-bold bg-rose-50 border border-rose-200/70 px-2.5 py-1 rounded-full shadow-2xs">
+                <Flame className="w-3.5 h-3.5 text-rose-500 shrink-0" />
+                <span>{viewersCount} คนกำลังดูดีลนี้</span>
+                {deal.soldCount > 0 && (
+                  <>
+                    <span className="text-rose-300">•</span>
+                    <span className="text-neutral-700 font-semibold">ขายแล้ว {formatSoldCount(deal.soldCount)}</span>
+                  </>
+                )}
               </span>
             </div>
 
