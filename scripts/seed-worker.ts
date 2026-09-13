@@ -13,8 +13,6 @@ import path from 'path';
 // รายการเป้าหมายสินค้าขายดีและคอมมิชชันสูง (Top High-Yield Seeds)
 const TARGET_SEEDS = [
   // 1. หมวดเครื่องใช้ไฟฟ้า & ยอดขายสูง
-  { query: 'Hatari พัดลมตั้งโต๊ะ 16 นิ้ว รุ่น HT-T16M5', category: 'พัดลม & เครื่องใช้ไฟฟ้า' },
-  { query: 'Hatari พัดลมปรับระดับ 18 นิ้ว รุ่น HT-S18M2', category: 'พัดลม & เครื่องใช้ไฟฟ้า' },
   { query: 'Philips หม้อทอดไร้น้ำมัน รุ่น HD9200 4.1 ลิตร', category: 'พัดลม & เครื่องใช้ไฟฟ้า' },
   { query: 'Xiaomi Smart Air Purifier 4 Compact เครื่องฟอกอากาศ', category: 'พัดลม & เครื่องใช้ไฟฟ้า' },
   { query: 'Simplus หม้อทอดไร้น้ำมัน 4.5 ลิตร ลมร้อนรอบทิศ', category: 'พัดลม & เครื่องใช้ไฟฟ้า' },
