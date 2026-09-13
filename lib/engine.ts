@@ -1,4 +1,3 @@
-import { MOCK_DEALS } from './mock-data';
 import { FilterState, Platform, ProductDeal } from './types';
 
 export const DEFAULT_FILTER_STATE: FilterState = {
