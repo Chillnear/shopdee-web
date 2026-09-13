@@ -19,7 +19,7 @@ import { EmptySearchCard } from '@/components/EmptySearchCard';
 import { isValidPersistedDeal, loadFullCatalog } from '@/lib/catalog-loader';
 import { DEFAULT_FILTER_STATE, filterAndRankDeals } from '@/lib/engine';
 import { FilterState, ProductDeal } from '@/lib/types';
-import { Sparkles, ShieldCheck, Flame, RotateCcw, HelpCircle, LayoutGrid, List, CheckCircle2 } from 'lucide-react';
+import { Sparkles, ShieldCheck, Flame, RotateCcw, HelpCircle, LayoutGrid, List, CheckCircle2, ChevronDown, ArrowUp } from 'lucide-react';
 import { parseSearchIntent } from '@/lib/ai/services';
 import { SearchIntent } from '@/lib/ai/types';
 
@@ -130,6 +130,20 @@ export default function Home() {
     return filterAndRankDeals(allDeals, searchQuery, filter);
   }, [allDeals, searchQuery, filter]);
 
+  // Progressive pagination (Load More)
+  const [visibleCount, setVisibleCount] = useState(16);
+
+  // Reset visibleCount whenever search query or filters change
+  useEffect(() => {
+    setVisibleCount(16);
+  }, [searchQuery, filter.selectedCategory, filter.selectedPlatforms, filter.sortBy, filter.onlyMall, filter.onlyFreeShipping, filter.hasVoucherOnly]);
+
+  const displayedDeals = useMemo(() => {
+    return deals.slice(0, visibleCount);
+  }, [deals, visibleCount]);
+
+  const hasMore = visibleCount < deals.length;
+
   // Handle Smart Ingestion (via URL or On-Demand Query)
   const handleIngestProduct = async ({ url, query }: { url?: string; query?: string }) => {
     setIsIngesting(true);
@@ -224,7 +238,7 @@ export default function Home() {
               </span>
             </h2>
             <span className="bg-neutral-200 text-neutral-700 text-xs font-bold px-2 py-0.5 rounded-full">
-              Top {deals.length}
+              แสดง {displayedDeals.length} จาก {deals.length} ดีล
             </span>
 
             {customDeals.length > 0 && (
@@ -247,7 +261,9 @@ export default function Home() {
               {viewMode === 'grid' ? '📱 มุมมองแบบช่อง (แตะเพื่อดูเทียบ 3 แอป)' : '📋 มุมมองแบบรายการ (รายละเอียดเปรียบเทียบเต็ม)'}
             </span>
             <span className="text-neutral-400">•</span>
-            <span>เรียงตามราคาจ่ายจริงหลังโค้ด</span>
+            <span>
+              เรียงตาม: {filter.sortBy === 'popular' ? '🔥 ยอดนิยม / ขายดี' : filter.sortBy === 'best_discount' ? '🏷️ ลดคุ้มสุด %' : filter.sortBy === 'cheapest' ? '💰 ราคาต่ำไปสูง' : filter.sortBy === 'expensive' ? '💎 ราคาสูงไปต่ำ' : '🛡️ ร้านทางการ'}
+            </span>
           </div>
         </div>
 
@@ -258,7 +274,7 @@ export default function Home() {
             {viewMode === 'grid' ? (
               <div className="space-y-6">
                 <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-                  {deals.map((deal, index) => (
+                  {displayedDeals.map((deal, index) => (
                     <ProductGridCard
                       key={deal.id}
                       deal={deal}
@@ -276,7 +292,7 @@ export default function Home() {
             ) : (
               /* LIST VIEW (Detailed Multi-Platform View) */
               <div className="space-y-4 sm:space-y-5">
-                {deals.map((deal, index) => (
+                {displayedDeals.map((deal, index) => (
                   <React.Fragment key={deal.id}>
                     <ProductCard
                       deal={deal}
@@ -294,6 +310,41 @@ export default function Home() {
                 ))}
               </div>
             )}
+
+            {/* Progressive Load More Pagination Section */}
+            {hasMore ? (
+              <div className="flex flex-col items-center justify-center pt-10 pb-6 gap-3">
+                <div className="text-xs font-bold text-neutral-600">
+                  แสดงแล้ว <span className="text-brand-600">{displayedDeals.length}</span> จากทั้งหมด <span className="text-neutral-900">{deals.length}</span> รายการ
+                </div>
+                <div className="w-56 h-2 bg-neutral-200 rounded-full overflow-hidden shadow-inner">
+                  <div 
+                    className="h-full bg-gradient-to-r from-orange-500 to-amber-500 rounded-full transition-all duration-300"
+                    style={{ width: `${Math.min(100, (displayedDeals.length / deals.length) * 100)}%` }}
+                  />
+                </div>
+                <button
+                  onClick={() => setVisibleCount(prev => prev + 16)}
+                  className="mt-2 px-8 py-3.5 rounded-2xl bg-white hover:bg-orange-50 text-brand-600 border-2 border-brand-500 hover:border-brand-600 font-black text-sm shadow-md hover:shadow-brand-md transition-all flex items-center gap-2 active:scale-95 cursor-pointer"
+                >
+                  <span>ดูสินค้าเพิ่มเติม (+16 รายการ)</span>
+                  <ChevronDown className="w-4 h-4 text-brand-600" />
+                </button>
+              </div>
+            ) : deals.length > 16 ? (
+              <div className="flex flex-col items-center justify-center pt-10 pb-6 gap-2">
+                <div className="text-xs font-bold text-neutral-500">
+                  🎉 แสดงสินค้าทั้งหมดครบแล้ว ({deals.length} รายการ)
+                </div>
+                <button
+                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                  className="mt-1 text-xs font-extrabold text-neutral-600 hover:text-brand-600 flex items-center gap-1.5 transition py-1.5 px-3 rounded-lg hover:bg-neutral-100 cursor-pointer"
+                >
+                  <span>กลับขึ้นด้านบน</span>
+                  <ArrowUp className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            ) : null}
           </div>
         ) : (
           /* Empty State Upgraded with Smart Ingestion */

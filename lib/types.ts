@@ -124,7 +124,7 @@ export interface FilterState {
   minAuthenticity: number;       // e.g. 80%
   hasVoucherOnly: boolean;
   maxPrice: number | null;
-  sortBy: 'cheapest' | 'best_discount' | 'highest_trust' | 'popular';
-  limit: number;                 // 5, 10, 20, 30, or 999 (all)
+  sortBy: 'popular' | 'best_discount' | 'cheapest' | 'expensive' | 'highest_trust';
+  limit: number;                 // items to show (e.g. 16, 32, 999)
   selectedCategory?: string;     // e.g. 'เครื่องใช้ไฟฟ้า', 'ไอที & แกดเจ็ต'
 }

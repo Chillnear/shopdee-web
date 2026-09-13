@@ -7,8 +7,8 @@ export const DEFAULT_FILTER_STATE: FilterState = {
   minAuthenticity: 0,
   hasVoucherOnly: false,
   maxPrice: null,
-  sortBy: 'cheapest',
-  limit: 10,
+  sortBy: 'popular',
+  limit: 999,
   selectedCategory: 'ทั้งหมด',
 };
 
@@ -90,25 +90,39 @@ export function filterAndRankDeals(
   if (filter.selectedCategory && filter.selectedCategory !== 'ทั้งหมด') {
     const cat = filter.selectedCategory;
     filtered = filtered.filter(deal => {
+      const text = `${deal.category} ${deal.tags.join(' ')} ${deal.title}`.toLowerCase();
+
       if (cat === 'พัดลม & เครื่องใช้ไฟฟ้า') {
-        return deal.category.includes('พัดลม') || deal.category.includes('หม้อทอด') || deal.category.includes('ดูดฝุ่น') || deal.tags.some(t => t.includes('พัดลม') || t.includes('เครื่องใช้ไฟฟ้า'));
+        return text.includes('พัดลม') || text.includes('หม้อทอด') || text.includes('ดูดฝุ่น') ||
+          text.includes('ฟอกอากาศ') || text.includes('เครื่องใช้ไฟฟ้า') || text.includes('home appliances') ||
+          text.includes('appliances') || text.includes('kitchenware');
       }
       if (cat === 'ไอที & แกดเจ็ต') {
-        return deal.category.includes('หูฟัง') || deal.category.includes('พาวเวอร์แบงค์') || deal.category.includes('กล้อง') || deal.tags.some(t => t.includes('ไอที') || t.includes('gadget') || t.includes('บลูทูธ'));
+        return text.includes('หูฟัง') || text.includes('พาวเวอร์แบงค์') || text.includes('กล้อง') ||
+          text.includes('ไอที') || text.includes('gadget') || text.includes('บลูทูธ') ||
+          text.includes('mobile') || text.includes('computer') || text.includes('ipad') ||
+          text.includes('สายชาร์จ') || text.includes('คีย์บอร์ด') || text.includes('ฟิล์ม');
       }
       if (cat === 'ของใช้ในบ้าน') {
-        return deal.category.includes('ซักผ้า') || deal.tags.some(t => t.includes('ของใช้ในบ้าน') || t.includes('ทำความสะอาด'));
+        return text.includes('ซักผ้า') || text.includes('ของใช้ในบ้าน') || text.includes('ทำความสะอาด') ||
+          text.includes('home & living') || text.includes('ทิชชู่') || text.includes('แผ่นกันลื่น') ||
+          text.includes('ผ้าเช็ด') || text.includes('kitchen');
       }
       if (cat === 'สัตว์เลี้ยง') {
-        return deal.category.includes('อาหารแมว') || deal.tags.some(t => t.includes('สัตว์เลี้ยง') || t.includes('แมว'));
+        return text.includes('อาหารแมว') || text.includes('สัตว์เลี้ยง') || text.includes('แมว') ||
+          text.includes('ทรายแมว') || text.includes('pet');
       }
       if (cat === 'แม่และเด็ก') {
-        return deal.category.includes('นมผง') || deal.tags.some(t => t.includes('เด็ก') || t.includes('แม่และเด็ก'));
+        return text.includes('นมผง') || text.includes('เด็ก') || text.includes('แม่และเด็ก') ||
+          text.includes('ผ้าอ้อม') || text.includes('baby') || text.includes('mom');
       }
       if (cat === 'สกินแคร์ & บิวตี้') {
-        return deal.category.includes('ครีมกันแดด') || deal.tags.some(t => t.includes('ความงาม') || t.includes('สกินแคร์'));
+        return text.includes('ครีมกันแดด') || text.includes('ความงาม') || text.includes('สกินแคร์') ||
+          text.includes('เซรั่ม') || text.includes('beauty') || text.includes('skincare') ||
+          text.includes('ลิป') || text.includes('มาสคาร่า') || text.includes('แป้งพัฟ') ||
+          text.includes('คลีนเซอร์') || text.includes('คอนทัวร์');
       }
-      return deal.category.toLowerCase().includes(cat.toLowerCase()) || deal.tags.some(t => t.toLowerCase().includes(cat.toLowerCase()));
+      return text.includes(cat.toLowerCase());
     });
   }
 
@@ -175,21 +189,33 @@ export function filterAndRankDeals(
     switch (filter.sortBy) {
       case 'cheapest':
         return getEffectivePrice(a) - getEffectivePrice(b);
+      case 'expensive':
+        return getEffectivePrice(b) - getEffectivePrice(a);
       case 'best_discount': {
         const priceA = getEffectivePrice(a);
         const priceB = getEffectivePrice(b);
-        const discountPctA = ((a.marketAvgPrice - priceA) / a.marketAvgPrice) * 100;
-        const discountPctB = ((b.marketAvgPrice - priceB) / b.marketAvgPrice) * 100;
+        const discountPctA = a.originalPrice > priceA ? ((a.originalPrice - priceA) / a.originalPrice) * 100 : 0;
+        const discountPctB = b.originalPrice > priceB ? ((b.originalPrice - priceB) / b.originalPrice) * 100 : 0;
         return discountPctB - discountPctA;
       }
       case 'highest_trust': {
-        const trustA = a.thaiAuthenticityScore * (a.storeType === 'mall' ? 1.2 : 1.0);
-        const trustB = b.thaiAuthenticityScore * (b.storeType === 'mall' ? 1.2 : 1.0);
+        const trustA = a.thaiAuthenticityScore * (a.storeType === 'mall' ? 1.3 : 1.0);
+        const trustB = b.thaiAuthenticityScore * (b.storeType === 'mall' ? 1.3 : 1.0);
         return trustB - trustA;
       }
       case 'popular':
-      default:
-        return b.soldCount - a.soldCount;
+      default: {
+        // Smart popularity scoring: balances sold count, verified discount, and filters out 1-baht knick-knacks from dominating
+        const getScore = (deal: ProductDeal) => {
+          const price = getEffectivePrice(deal);
+          const priceFactor = price < 15 ? 0.05 : price < 29 ? 0.4 : 1.0;
+          const multiBonus = deal.priceComparisons && deal.priceComparisons.length > 1 ? 2.5 : 1.0;
+          const mallBonus = deal.storeType === 'mall' ? 1.3 : 1.0;
+          const savings = Math.max(0, deal.originalPrice - price);
+          return (deal.soldCount * 1.0 + savings * 0.1) * priceFactor * multiBonus * mallBonus;
+        };
+        return getScore(b) - getScore(a);
+      }
     }
   });
 

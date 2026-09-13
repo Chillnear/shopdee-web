@@ -201,10 +201,11 @@ export function SmartFilterBar({
                 onChange={(e) => onFilterChange({ ...filter, sortBy: e.target.value as any })}
                 className="text-xs font-bold bg-neutral-100 hover:bg-neutral-200 text-neutral-800 py-2 pl-2.5 pr-7 rounded-xl border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-neutral-400 cursor-pointer appearance-none"
               >
-                <option value="cheapest">🏷️ ราคาถูกสุดก่อน</option>
-                <option value="best_discount">🔥 ลดคุ้มสุด (%)</option>
-                <option value="highest_trust">🛡️ น่าเชื่อถือสูงสุด</option>
-                <option value="popular">👥 ยอดขายเยอะสุด</option>
+                <option value="popular">🔥 ยอดนิยม / ขายดี (แนะนำ)</option>
+                <option value="best_discount">🏷️ ลดคุ้มสุด (%)</option>
+                <option value="cheapest">💰 ราคาต่ำไปสูง</option>
+                <option value="expensive">💎 ราคาสูงไปต่ำ</option>
+                <option value="highest_trust">🛡️ ร้านทางการ (Mall)</option>
               </select>
               <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-neutral-500">
                 <ArrowDownUp className="w-3 h-3" />
@@ -243,6 +244,7 @@ export function SmartFilterBar({
             { id: 'สัตว์เลี้ยง', label: '🐱 สัตว์เลี้ยง' },
             { id: 'แม่และเด็ก', label: '👶 แม่และเด็ก' },
             { id: 'สกินแคร์ & บิวตี้', label: '💄 สกินแคร์ & บิวตี้' },
+            { id: 'แฟชั่น', label: '👗 แฟชั่น & เครื่องประดับ' },
           ].map((cat) => {
             const isSelected = (filter.selectedCategory || 'ทั้งหมด') === cat.id;
             return (
