@@ -78,7 +78,7 @@ export function SmartFilterBar({
               onClick={() => handlePlatformToggle('all')}
               className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap shadow-xs ${
                 isAllPlatforms
-                  ? 'bg-neutral-900 text-white shadow-md'
+                  ? 'bg-brand-600 text-white shadow-md shadow-brand-600/20'
                   : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
               }`}
             >
@@ -126,7 +126,7 @@ export function SmartFilterBar({
               onClick={() => handlePlatformToggle('tiktok')}
               className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap border ${
                 filter.selectedPlatforms.includes('tiktok') && !isAllPlatforms
-                  ? 'bg-black text-white border-black shadow-md'
+                  ? 'bg-gradient-to-r from-[#FE2C55] via-black to-[#25F4EE] text-white border-black shadow-md'
                   : isAllPlatforms
                   ? 'bg-neutral-100 text-neutral-700 border-neutral-200 hover:border-black/50'
                   : 'bg-neutral-50 text-neutral-400 border-neutral-200 opacity-60'
@@ -224,14 +224,14 @@ export function SmartFilterBar({
               onClick={onOpenDrawer}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-bold transition ${
                 activeCount > 0
-                  ? 'bg-orange-50 border-orange-300 text-shopee'
-                  : 'bg-white border-neutral-200 text-neutral-700 hover:bg-neutral-50'
+                  ? 'bg-brand-600 border-brand-600 text-white shadow-sm'
+                  : 'bg-white border-neutral-200 text-neutral-700 hover:bg-warm-100'
               }`}
             >
               <SlidersHorizontal className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">ตัวกรอง</span>
               {activeCount > 0 && (
-                <span className="w-4 h-4 rounded-full bg-shopee text-white text-[10px] flex items-center justify-center font-bold">
+                <span className="w-4 h-4 rounded-full bg-brand-700 text-white text-[10px] flex items-center justify-center font-bold">
                   {activeCount}
                 </span>
               )}
@@ -259,8 +259,8 @@ export function SmartFilterBar({
                 onClick={() => onFilterChange({ ...filter, selectedCategory: cat.id })}
                 className={`px-3 py-1 rounded-full text-xs font-bold transition whitespace-nowrap shrink-0 cursor-pointer ${
                   isSelected
-                    ? 'bg-neutral-900 text-white shadow-xs'
-                    : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
+                    ? 'bg-brand-600 text-white shadow-xs'
+                    : 'bg-neutral-100 text-neutral-600 hover:bg-warm-100'
                 }`}
               >
                 {cat.label}

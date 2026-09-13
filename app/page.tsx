@@ -179,7 +179,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-warm-50">
       
       {/* 1. Header Navigation */}
       <Navbar onOpenWatchlist={() => setIsWatchlistOpen(true)} />

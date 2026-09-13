@@ -15,6 +15,29 @@ import seededRaw from './seeded-catalog.json';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyRecord = Record<string, any>;
 
+const PLATFORM_HOSTS: Record<Platform, string[]> = {
+  shopee: ['shopee.co.th', 'shope.ee'],
+  lazada: ['lazada.co.th'],
+  tiktok: ['tiktok.com', 'tiktokshop.com'],
+};
+
+function isUsablePlatformUrl(value: unknown, platform: Platform): value is string {
+  if (typeof value !== 'string' || !value.trim()) return false;
+
+  try {
+    const url = new URL(value);
+    const hostMatches = PLATFORM_HOSTS[platform].some(
+      (host) => url.hostname === host || url.hostname.endsWith(`.${host}`),
+    );
+    if (!hostMatches) return false;
+
+    // Search/tag landing pages are not product links and cannot substantiate a deal.
+    return !['/search', '/tag', '/keyword'].some((prefix) => url.pathname.startsWith(prefix));
+  } catch {
+    return false;
+  }
+}
+
 // ─── Shopee Feed → ProductDeal adapter ───────────────────────────────────────
 
 function makePlatformComparison(
@@ -86,22 +109,15 @@ function adaptFeedItem(raw: AnyRecord): ProductDeal | null {
 
     if (!title || shopeePrice <= 0) return null;
 
-    // Estimated prices for other platforms
-    const lazadaPrice = Math.round(shopeePrice * (1.05 + (soldCount % 10) * 0.01));
-    const tiktokPrice = Math.round(shopeePrice * (1.03 + (soldCount % 8) * 0.01));
-
+    // The feed contains affiliate data for Shopee only. Do not invent prices or URLs for other platforms.
     const lowestPlatform: Platform = 'shopee';
 
     const priceComparisons: PlatformPriceComparison[] = [
       makePlatformComparison('shopee', shopeePrice, origPrice, discount, affiliateUrl),
-      makePlatformComparison('lazada', lazadaPrice, lazadaPrice * 1.15, Math.max(0, discount - 10), ''),
-      makePlatformComparison('tiktok', tiktokPrice, tiktokPrice * 1.1, Math.max(0, discount - 5), ''),
     ];
 
     const stores: StoreOffer[] = [
-      makeStoreOffer(id, 'shopee', shopeePrice, affiliateUrl, true, soldCount),
-      makeStoreOffer(id, 'lazada', lazadaPrice, '', false, Math.floor(soldCount * 0.3)),
-      makeStoreOffer(id, 'tiktok', tiktokPrice, '', false, Math.floor(soldCount * 0.2)),
+      makeStoreOffer(id, 'shopee', shopeePrice, affiliateUrl, false, soldCount),
     ];
 
     const availableVouchers: Voucher[] = [
@@ -121,7 +137,7 @@ function adaptFeedItem(raw: AnyRecord): ProductDeal | null {
       soldCount,
       basePrice: shopeePrice,
       originalPrice: origPrice,
-      marketAvgPrice: Math.round((shopeePrice + lazadaPrice + tiktokPrice) / 3),
+      marketAvgPrice: shopeePrice,
       estimatedFinalPrice: Math.round(shopeePrice * 0.95),
       vipFinalPrice: Math.round(shopeePrice * 0.9),
       hasOptionBait: false,
@@ -130,7 +146,7 @@ function adaptFeedItem(raw: AnyRecord): ProductDeal | null {
       reviews: [],
       freeShipping: shopeePrice >= 100,
       availableVouchers,
-      isAbsoluteCheapest: true,
+      isAbsoluteCheapest: false,
       priceComparisons,
       stores,
       affiliateUrl,
@@ -149,11 +165,29 @@ function adaptFeedItem(raw: AnyRecord): ProductDeal | null {
 // These are already in ProductDeal format (synthesized by Mimi AI)
 function normalizeSeededItem(raw: AnyRecord): ProductDeal | null {
   try {
-    // Items from seed-worker are in ingest-engine format (slightly different field names)
-    if (!raw.id || !raw.title) return null;
-    // If it already has platform/basePrice it's a full ProductDeal
+    // Items from seed-worker are accepted only when every outbound URL is verifiable.
+    if (!raw.id || !raw.title || !PLATFORM_HOSTS[raw.platform as Platform]) return null;
+    if (!isUsablePlatformUrl(raw.affiliateUrl, raw.platform as Platform)) return null;
+
+    const comparisons = Array.isArray(raw.priceComparisons) ? raw.priceComparisons : [];
+    const stores = Array.isArray(raw.stores) ? raw.stores : [];
+    if (
+      comparisons.length === 0 ||
+      comparisons.some((comparison: AnyRecord) =>
+        !PLATFORM_HOSTS[comparison.platform as Platform] ||
+        !isUsablePlatformUrl(comparison.url, comparison.platform as Platform),
+      ) ||
+      stores.length === 0 ||
+      stores.some((store: AnyRecord) =>
+        !PLATFORM_HOSTS[store.platform as Platform] ||
+        !isUsablePlatformUrl(store.url, store.platform as Platform),
+      )
+    ) {
+      return null;
+    }
+
+    // If it already has platform/basePrice it's a full ProductDeal.
     if (raw.basePrice !== undefined) return raw as unknown as ProductDeal;
-    // Otherwise try to adapt
     return adaptFeedItem(raw);
   } catch {
     return null;

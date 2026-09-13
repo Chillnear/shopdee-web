@@ -15,7 +15,7 @@ export function Navbar({ onOpenWatchlist }: NavbarProps) {
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-white/90 border-b border-neutral-200/80 shadow-sm transition-all">
+      <header className="sticky top-0 z-40 w-full bg-hero-gradient border-b border-white/20 shadow-lg transition-all">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           
           {/* Brand Logo */}
@@ -23,18 +23,18 @@ export function Navbar({ onOpenWatchlist }: NavbarProps) {
             <img
               src="/icon-192.png"
               alt="ShopDee Logo"
-              className="w-10 h-10 rounded-xl shadow-md shadow-orange-500/20 object-cover"
+              className="w-10 h-10 rounded-xl shadow-md shadow-black/20 object-cover"
             />
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="font-extrabold text-xl sm:text-2xl tracking-tight bg-gradient-to-r from-neutral-900 via-neutral-800 to-neutral-700 bg-clip-text text-transparent">
+                <span className="font-extrabold text-xl sm:text-2xl tracking-tight text-white">
                   ShopDee
                 </span>
-                <span className="bg-shopee text-white text-[10px] font-bold px-1.5 py-0.5 rounded-md tracking-wider">
+                <span className="bg-white/20 text-white border border-white/30 text-[10px] font-bold px-1.5 py-0.5 rounded-md tracking-wider">
                   ช้อปดี
                 </span>
               </div>
-              <p className="text-[11px] text-neutral-500 font-medium hidden sm:block">
+              <p className="text-[11px] text-orange-100 font-medium hidden sm:block">
                 เทียบราคา 3 แพลตฟอร์ม • กรองบอทจีน • ช้อปของแท้ถูกจริง
               </p>
             </div>
@@ -49,12 +49,12 @@ export function Navbar({ onOpenWatchlist }: NavbarProps) {
               onClick={onOpenWatchlist}
               className={`py-1.5 px-3 rounded-xl text-xs font-extrabold flex items-center gap-1.5 transition active:scale-95 cursor-pointer border ${
                 count > 0
-                  ? 'bg-emerald-50 border-emerald-300 text-emerald-800 shadow-sm hover:bg-emerald-100'
-                  : 'bg-neutral-100 border-neutral-200 text-neutral-600 hover:bg-neutral-200'
+                  ? 'bg-white/95 border-white text-emerald-800 shadow-sm hover:bg-white'
+                  : 'bg-white/15 border-white/30 text-white hover:bg-white/25'
               }`}
               title="ดูดีลที่คุณติดตามไว้"
             >
-              <BookmarkCheck className={`w-4 h-4 ${count > 0 ? 'text-emerald-600' : 'text-neutral-500'}`} />
+              <BookmarkCheck className={`w-4 h-4 ${count > 0 ? 'text-emerald-600' : 'text-white'}`} />
               <span>ดีลที่ติดตาม</span>
               {count > 0 && (
                 <span className="w-5 h-5 rounded-full bg-emerald-600 text-white text-[10px] font-black flex items-center justify-center ml-0.5">
@@ -67,7 +67,7 @@ export function Navbar({ onOpenWatchlist }: NavbarProps) {
           {/* Share Site Button */}
           <button
             onClick={() => setIsShareModalOpen(true)}
-            className="py-1.5 px-3 rounded-xl text-xs font-extrabold flex items-center gap-1.5 bg-orange-50 hover:bg-orange-100 text-orange-700 border border-orange-200 shadow-xs transition active:scale-95 cursor-pointer"
+            className="py-1.5 px-3 rounded-xl text-xs font-extrabold flex items-center gap-1.5 bg-white/95 hover:bg-white text-brand-700 border border-white shadow-xs transition active:scale-95 cursor-pointer"
             title="แชร์บอกต่อเพื่อน"
           >
             <Share2 className="w-3.5 h-3.5 text-orange-600" />
@@ -75,18 +75,18 @@ export function Navbar({ onOpenWatchlist }: NavbarProps) {
           </button>
 
           {/* Platform Live Status */}
-          <div className="hidden md:flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full bg-neutral-100 text-neutral-600 border border-neutral-200">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <div className="hidden md:flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full bg-white/15 text-white border border-white/30">
+            <span className="w-2 h-2 rounded-full bg-emerald-300 animate-pulse"></span>
             <span>เทียบสด:</span>
-            <span className="text-[#EE4D2D]">Shopee</span>
-            <span>•</span>
-            <span className="text-[#0F146D]">Lazada</span>
-            <span>•</span>
-            <span className="text-black">TikTok</span>
+            <span className="text-orange-100">Shopee</span>
+            <span className="text-white/70">•</span>
+            <span className="text-blue-100">Lazada</span>
+            <span className="text-white/70">•</span>
+            <span className="text-white">TikTok</span>
           </div>
 
-          <div className="flex items-center gap-1 text-xs font-medium text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-1.5 rounded-lg shadow-sm">
-            <ShieldCheck className="w-4 h-4 text-emerald-600" />
+          <div className="flex items-center gap-1 text-xs font-medium text-white bg-white/15 border border-white/30 px-2.5 py-1.5 rounded-lg shadow-sm">
+            <ShieldCheck className="w-4 h-4 text-emerald-200" />
             <span className="hidden xs:inline font-semibold">ร้านแท้ 100%</span>
           </div>
         </div>

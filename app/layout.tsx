@@ -60,7 +60,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="th" className={kanit.variable}>
-      <body className="font-sans antialiased bg-neutral-50 text-neutral-900 min-h-screen flex flex-col selection:bg-orange-500 selection:text-white">
+      <body className="font-sans antialiased bg-warm-50 text-neutral-900 min-h-screen flex flex-col selection:bg-brand-500 selection:text-white">
         {children}
       </body>
     </html>

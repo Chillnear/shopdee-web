@@ -7,11 +7,9 @@ import {
   Sparkles, 
   Link as LinkIcon, 
   Clipboard, 
-  Loader2, 
+  Loader2,
   ArrowRight,
-  ExternalLink,
-  CheckCircle2,
-  HelpCircle
+  CheckCircle2
 } from 'lucide-react';
 import { SearchIntent } from '@/lib/ai/types';
 
@@ -29,24 +27,6 @@ const NATURAL_SUGGESTIONS = [
   { label: '🎧 หูฟังตัดเสียง งบ 1,000', query: 'หูฟังบลูทูธไร้สาย งบ 1000' },
   { label: '🐱 อาหารแมวพรีเมียม', query: 'อาหารแมวเกรดพรีเมียม' },
   { label: '⚡ สายชาร์จแท้ Shopee', query: 'สายชาร์จไอโฟนแท้ shopee' },
-];
-
-const SAMPLE_PRODUCT_LINKS = [
-  {
-    platform: 'Shopee',
-    label: '🛒 ลิงก์ Shopee: พัดลม Hatari 16"',
-    url: 'https://shopee.co.th/พัดลมตั้งโต๊ะ-Hatari-HT-T16M5-16-นิ้ว-i.12345.67890',
-  },
-  {
-    platform: 'Lazada',
-    label: '🛍️ ลิงก์ Lazada: หูฟัง Sony WH-1000XM5',
-    url: 'https://www.lazada.co.th/products/sony-wh-1000xm5-wireless-noise-cancelling-i12345.html',
-  },
-  {
-    platform: 'TikTok',
-    label: '🎵 ลิงก์ TikTok: iPad Air M2',
-    url: 'https://shop.tiktok.com/view/product/apple-ipad-air-m2-128gb',
-  },
 ];
 
 export function HeroSearch({
@@ -147,7 +127,7 @@ export function HeroSearch({
             }`}
           >
             <LinkIcon className="w-4 h-4" />
-            <span>🔗 วางลิงก์สินค้า (3 แอป)</span>
+            <span>วางลิงก์สินค้า (3 แอป)</span>
             <span className="bg-shopee/10 text-shopee text-[10px] font-black px-1.5 py-0.2 rounded-full hidden sm:inline">
               แนะนำ
             </span>
@@ -163,7 +143,7 @@ export function HeroSearch({
             }`}
           >
             <Search className="w-4 h-4" />
-            <span>🔍 ค้นหาด้วยชื่อสินค้า</span>
+            <span>ค้นหาด้วยชื่อสินค้า</span>
           </button>
         </div>
 
@@ -256,26 +236,9 @@ export function HeroSearch({
               <span className="px-2 py-0.5 rounded bg-neutral-100 text-neutral-900 font-bold">TikTok Shop</span>
             </div>
 
-            {/* Quick Clickable Samples for Instant Verification */}
-            <div className="flex items-center justify-center gap-1.5 flex-wrap pt-1">
-              <span className="text-[11px] text-neutral-400 font-medium mr-1 flex items-center gap-1">
-                <Sparkles className="w-3 h-3 text-amber-500" />
-                <span>ลองคลิกลิงก์ตัวอย่าง:</span>
-              </span>
-              {SAMPLE_PRODUCT_LINKS.map((sample) => (
-                <button
-                  key={sample.label}
-                  type="button"
-                  onClick={() => {
-                    setLocalInput(sample.url);
-                    if (onIngestUrl) onIngestUrl(sample.url);
-                  }}
-                  className="text-[11px] px-2.5 py-1 rounded-full bg-white hover:bg-orange-50 hover:text-shopee text-neutral-600 border border-neutral-200/80 font-medium transition-all shadow-2xs hover:border-orange-200 cursor-pointer"
-                >
-                  {sample.label}
-                </button>
-              ))}
-            </div>
+            <p className="text-[11px] text-neutral-400">
+              ใช้ URL สินค้าจริงจาก Shopee, Lazada หรือ TikTok เพื่อให้ระบบตรวจสอบราคาได้ตรงรายการ
+            </p>
           </div>
         ) : (
           /* Search Mode Natural Suggestions */

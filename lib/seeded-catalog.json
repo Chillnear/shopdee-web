@@ -2514,5 +2514,319 @@
       "finalPrice": 210
     },
     "affiliateUrl": "https://shopee.co.th/search?keyword=Cature%20%E0%B8%97%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B9%81%E0%B8%A1%E0%B8%A7%E0%B9%80%E0%B8%95%E0%B9%89%E0%B8%B2%E0%B8%AB%E0%B8%B9%E0%B9%89%20%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B8%98%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%8A%E0%B8%B2%E0%B8%95%E0%B8%B4%20%E0%B8%94%E0%B8%B1%E0%B8%9A%E0%B8%81%E0%B8%A5%E0%B8%B4%E0%B9%88%E0%B8%99%E0%B8%94%E0%B8%B5%E0%B9%80%E0%B8%A2%E0%B8%B5%E0%B9%88%E0%B8%A2%E0%B8%A1"
+  },
+  {
+    "id": "ingested-1789297457245-49l9",
+    "title": "Breeze Excel Gold น้ำยาซักผ้า สูตรเข้มข้น ชนิดเติม 750ml",
+    "imageUrl": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80",
+    "category": "ของใช้ในบ้าน",
+    "tags": [
+      "น้ำยาซักผ้า",
+      "Breeze",
+      "ผลิตภัณฑ์ซักผ้า",
+      "ของใช้ในบ้าน"
+    ],
+    "platform": "lazada",
+    "storeName": "Unilever Thailand Official Shop",
+    "storeType": "mall",
+    "storeRating": 4.9,
+    "soldCount": 2450,
+    "basePrice": 89,
+    "originalPrice": 105,
+    "marketAvgPrice": 85,
+    "estimatedFinalPrice": 72,
+    "vipFinalPrice": 65,
+    "hasOptionBait": false,
+    "baitWarningNote": "ไม่มีการตั้งราคาหลอกลวง สินค้าเป็นขนาดมาตรฐาน 750ml",
+    "thaiAuthenticityScore": 98,
+    "authenticitySummary": "สินค้าเป็นแบรนด์อุปโภคบริโภคทั่วไป มีความเสี่ยงต่ำในการปลอมแปลง แนะนำให้ซื้อจากร้านค้าทางการ (Mall) เพื่อความมั่นใจ",
+    "reviews": [
+      {
+        "id": "r1-ingested-1789297457245-49l9",
+        "author": "ลูกค้าชาวไทย (ยืนยันคำสั่งซื้อ)",
+        "comment": "กลิ่นหอมติดทนนาน",
+        "isAuthenticThai": true,
+        "authenticityNote": "ภาษาไทยธรรมชาติ รีวิวมีรูปภาพและวิดีโอแกะกล่องจริง",
+        "rating": 5,
+        "date": "3 วันที่แล้ว"
+      },
+      {
+        "id": "r2-ingested-1789297457245-49l9",
+        "author": "ช้อปดี รีวิวเวอร์",
+        "comment": "ขจัดคราบฝังลึกได้ดี",
+        "isAuthenticThai": true,
+        "authenticityNote": "ผู้ซื้อจริง มีประวัติการสั่งซื้อสม่ำเสมอ",
+        "rating": 5,
+        "date": "1 สัปดาห์ที่แล้ว"
+      }
+    ],
+    "freeShipping": true,
+    "availableVouchers": [
+      {
+        "id": "v1-ingested-1789297457245-49l9",
+        "code": "DEESHOP50",
+        "discountText": "ลด 50.- ขั้นต่ำ 300.-",
+        "minSpend": 300,
+        "discountAmount": 50,
+        "tag": "แพลตฟอร์ม"
+      },
+      {
+        "id": "v2-ingested-1789297457245-49l9",
+        "code": "MALL10PCT",
+        "discountText": "ลด 10% ร้าน Mall ทางการ",
+        "minSpend": 500,
+        "discountAmount": 9,
+        "tag": "ร้านค้า"
+      },
+      {
+        "id": "v3-ingested-1789297457245-49l9",
+        "code": "FREESHIP",
+        "discountText": "ส่งฟรี สูงสุด 40.-",
+        "minSpend": 99,
+        "discountAmount": 40,
+        "tag": "ส่งฟรี"
+      }
+    ],
+    "isAbsoluteCheapest": true,
+    "priceComparisons": [
+      {
+        "platform": "shopee",
+        "price": 98,
+        "estimatedAfterVoucher": 89,
+        "storeName": "Unilever Thailand Official Shop",
+        "storeType": "mall",
+        "url": "https://shopee.co.th/search?keyword=Breeze%20Excel%20Gold%20%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A2%E0%B8%B2%E0%B8%8B%E0%B8%B1%E0%B8%81%E0%B8%9C%E0%B9%89%E0%B8%B2%20%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B9%80%E0%B8%82%E0%B9%89%E0%B8%A1%E0%B8%82%E0%B9%89%E0%B8%99%20%E0%B8%8A%E0%B8%99%E0%B8%B4%E0%B8%94%E0%B9%80%E0%B8%95%E0%B8%B4%E0%B8%A1%20750ml",
+        "inStock": true
+      },
+      {
+        "platform": "lazada",
+        "price": 94,
+        "estimatedAfterVoucher": 85,
+        "storeName": "Unilever LazMall",
+        "storeType": "mall",
+        "url": "https://www.lazada.co.th/tag/Breeze%20Excel%20Gold%20%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A2%E0%B8%B2%E0%B8%8B%E0%B8%B1%E0%B8%81%E0%B8%9C%E0%B9%89%E0%B8%B2%20%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B9%80%E0%B8%82%E0%B9%89%E0%B8%A1%E0%B8%82%E0%B9%89%E0%B8%99%20%E0%B8%8A%E0%B8%99%E0%B8%B4%E0%B8%94%E0%B9%80%E0%B8%95%E0%B8%B4%E0%B8%A1%20750ml",
+        "inStock": true
+      },
+      {
+        "platform": "tiktok",
+        "price": 96,
+        "estimatedAfterVoucher": 89,
+        "storeName": "Unilever Official Shop",
+        "storeType": "verified",
+        "url": "https://shop.tiktok.com/search?q=Breeze%20Excel%20Gold%20%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A2%E0%B8%B2%E0%B8%8B%E0%B8%B1%E0%B8%81%E0%B8%9C%E0%B9%89%E0%B8%B2%20%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B9%80%E0%B8%82%E0%B9%89%E0%B8%A1%E0%B8%82%E0%B9%89%E0%B8%99%20%E0%B8%8A%E0%B8%99%E0%B8%B4%E0%B8%94%E0%B9%80%E0%B8%95%E0%B8%B4%E0%B8%A1%20750ml",
+        "inStock": true
+      }
+    ],
+    "stores": [
+      {
+        "id": "ingested-1789297457245-49l9-s1",
+        "platform": "lazada",
+        "storeName": "Unilever LazMall",
+        "storeType": "mall",
+        "price": 94,
+        "estimatedAfterVoucher": 85,
+        "voucherNote": "โค้ดส่วนลดร้านค้า + ส่งฟรี",
+        "freeShipping": true,
+        "storeRating": 4.9,
+        "soldCount": 3200,
+        "isLowestOverall": true,
+        "url": "https://shopee.co.th/search?keyword=Breeze%20Excel%20Gold%20%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A2%E0%B8%B2%E0%B8%8B%E0%B8%B1%E0%B8%81%E0%B8%9C%E0%B9%89%E0%B8%B2%20%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B9%80%E0%B8%82%E0%B9%89%E0%B8%A1%E0%B8%82%E0%B9%89%E0%B8%99%20%E0%B8%8A%E0%B8%99%E0%B8%B4%E0%B8%94%E0%B9%80%E0%B8%95%E0%B8%B4%E0%B8%A1%20750ml"
+      },
+      {
+        "id": "ingested-1789297457245-49l9-s2",
+        "platform": "shopee",
+        "storeName": "ร้านค้าแนะนำ ยอดขายดี",
+        "storeType": "preferred",
+        "price": 98,
+        "estimatedAfterVoucher": 88,
+        "voucherNote": "โค้ดลดเพิ่ม 5%",
+        "freeShipping": true,
+        "storeRating": 4.8,
+        "soldCount": 1850,
+        "isLowestOverall": false,
+        "url": "https://shopee.co.th/search?keyword=Breeze%20Excel%20Gold%20%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A2%E0%B8%B2%E0%B8%8B%E0%B8%B1%E0%B8%81%E0%B8%9C%E0%B9%89%E0%B8%B2%20%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B9%80%E0%B8%82%E0%B9%89%E0%B8%A1%E0%B8%82%E0%B9%89%E0%B8%99%20%E0%B8%8A%E0%B8%99%E0%B8%B4%E0%B8%94%E0%B9%80%E0%B8%95%E0%B8%B4%E0%B8%A1%20750ml"
+      },
+      {
+        "id": "ingested-1789297457245-49l9-s3",
+        "platform": "tiktok",
+        "storeName": "TikTok Live Shop",
+        "storeType": "verified",
+        "price": 95,
+        "estimatedAfterVoucher": 88,
+        "voucherNote": "คูปองไลฟ์สดลดพิเศษ",
+        "freeShipping": false,
+        "storeRating": 4.7,
+        "soldCount": 940,
+        "isLowestOverall": false,
+        "url": "https://shop.tiktok.com/search?q=Breeze%20Excel%20Gold%20%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A2%E0%B8%B2%E0%B8%8B%E0%B8%B1%E0%B8%81%E0%B8%9C%E0%B9%89%E0%B8%B2%20%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B9%80%E0%B8%82%E0%B9%89%E0%B8%A1%E0%B8%82%E0%B9%89%E0%B8%99%20%E0%B8%8A%E0%B8%99%E0%B8%B4%E0%B8%94%E0%B9%80%E0%B8%95%E0%B8%B4%E0%B8%A1%20750ml"
+      }
+    ],
+    "priceAdvice": "fair_price",
+    "priceAdviceNote": "ราคาอยู่ในเกณฑ์มาตรฐาน แนะนำให้ซื้อช่วงแคมเปญ Double Day เพื่อใช้โค้ดส่วนลดเพิ่ม",
+    "voucherStackFormula": {
+      "basePrice": 89,
+      "platformDiscount": 7,
+      "storeDiscount": 4,
+      "shippingDiscount": 40,
+      "finalPrice": 72
+    },
+    "affiliateUrl": "https://shopee.co.th/search?keyword=Breeze%20Excel%20Gold%20%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A2%E0%B8%B2%E0%B8%8B%E0%B8%B1%E0%B8%81%E0%B8%9C%E0%B9%89%E0%B8%B2%20%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B9%80%E0%B8%82%E0%B9%89%E0%B8%A1%E0%B8%82%E0%B9%89%E0%B8%99%20%E0%B8%8A%E0%B8%99%E0%B8%B4%E0%B8%94%E0%B9%80%E0%B8%95%E0%B8%B4%E0%B8%A1%20750ml"
+  },
+  {
+    "id": "ingested-1789297501243-xzxu",
+    "title": "Hi-Q 1 Plus นมผง พรีไบโอโพรเทก สูตร 3 รสจืด 3000g",
+    "imageUrl": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80",
+    "category": "แม่และเด็ก",
+    "tags": [
+      "นมผง",
+      "Hi-Q",
+      "นมสูตร 3",
+      "นมผงเด็ก",
+      "นมจืด"
+    ],
+    "platform": "tiktok",
+    "storeName": "Hi-Q Official Store",
+    "storeType": "mall",
+    "storeRating": 4.9,
+    "soldCount": 2450,
+    "basePrice": 899,
+    "originalPrice": 950,
+    "marketAvgPrice": 915,
+    "estimatedFinalPrice": 820,
+    "vipFinalPrice": 780,
+    "hasOptionBait": false,
+    "thaiAuthenticityScore": 98,
+    "authenticitySummary": "สินค้าเป็นแบรนด์มาตรฐานที่วางจำหน่ายผ่านช่องทาง Official Store และร้านค้าชั้นนำในไทย โอกาสเป็นของปลอมต่ำมาก",
+    "reviews": [
+      {
+        "id": "r1-ingested-1789297501243-xzxu",
+        "author": "ลูกค้าชาวไทย (ยืนยันคำสั่งซื้อ)",
+        "comment": "ละลายน้ำง่าย",
+        "isAuthenticThai": true,
+        "authenticityNote": "ภาษาไทยธรรมชาติ รีวิวมีรูปภาพและวิดีโอแกะกล่องจริง",
+        "rating": 5,
+        "date": "3 วันที่แล้ว"
+      },
+      {
+        "id": "r2-ingested-1789297501243-xzxu",
+        "author": "ช้อปดี รีวิวเวอร์",
+        "comment": "รสชาติที่เด็กชอบ",
+        "isAuthenticThai": true,
+        "authenticityNote": "ผู้ซื้อจริง มีประวัติการสั่งซื้อสม่ำเสมอ",
+        "rating": 5,
+        "date": "1 สัปดาห์ที่แล้ว"
+      }
+    ],
+    "freeShipping": true,
+    "availableVouchers": [
+      {
+        "id": "v1-ingested-1789297501243-xzxu",
+        "code": "DEESHOP50",
+        "discountText": "ลด 50.- ขั้นต่ำ 300.-",
+        "minSpend": 300,
+        "discountAmount": 50,
+        "tag": "แพลตฟอร์ม"
+      },
+      {
+        "id": "v2-ingested-1789297501243-xzxu",
+        "code": "MALL10PCT",
+        "discountText": "ลด 10% ร้าน Mall ทางการ",
+        "minSpend": 500,
+        "discountAmount": 90,
+        "tag": "ร้านค้า"
+      },
+      {
+        "id": "v3-ingested-1789297501243-xzxu",
+        "code": "FREESHIP",
+        "discountText": "ส่งฟรี สูงสุด 40.-",
+        "minSpend": 99,
+        "discountAmount": 40,
+        "tag": "ส่งฟรี"
+      }
+    ],
+    "isAbsoluteCheapest": true,
+    "priceComparisons": [
+      {
+        "platform": "shopee",
+        "price": 989,
+        "estimatedAfterVoucher": 899,
+        "storeName": "Hi-Q Official Store",
+        "storeType": "mall",
+        "url": "https://shopee.co.th/search?keyword=Hi-Q%201%20Plus%20%E0%B8%99%E0%B8%A1%E0%B8%9C%E0%B8%87%20%E0%B8%9E%E0%B8%A3%E0%B8%B5%E0%B9%84%E0%B8%9A%E0%B9%82%E0%B8%AD%E0%B9%82%E0%B8%9E%E0%B8%A3%E0%B9%80%E0%B8%97%E0%B8%81%20%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%203%20%E0%B8%A3%E0%B8%AA%E0%B8%88%E0%B8%B7%E0%B8%94%203000g",
+        "inStock": true
+      },
+      {
+        "platform": "lazada",
+        "price": 1001,
+        "estimatedAfterVoucher": 910,
+        "storeName": "Dumex Official Store",
+        "storeType": "mall",
+        "url": "https://www.lazada.co.th/tag/Hi-Q%201%20Plus%20%E0%B8%99%E0%B8%A1%E0%B8%9C%E0%B8%87%20%E0%B8%9E%E0%B8%A3%E0%B8%B5%E0%B9%84%E0%B8%9A%E0%B9%82%E0%B8%AD%E0%B9%82%E0%B8%9E%E0%B8%A3%E0%B9%80%E0%B8%97%E0%B8%81%20%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%203%20%E0%B8%A3%E0%B8%AA%E0%B8%88%E0%B8%B7%E0%B8%94%203000g",
+        "inStock": true
+      },
+      {
+        "platform": "tiktok",
+        "price": 956,
+        "estimatedAfterVoucher": 885,
+        "storeName": "Hi-Q Thailand Official",
+        "storeType": "verified",
+        "url": "https://shop.tiktok.com/search?q=Hi-Q%201%20Plus%20%E0%B8%99%E0%B8%A1%E0%B8%9C%E0%B8%87%20%E0%B8%9E%E0%B8%A3%E0%B8%B5%E0%B9%84%E0%B8%9A%E0%B9%82%E0%B8%AD%E0%B9%82%E0%B8%9E%E0%B8%A3%E0%B9%80%E0%B8%97%E0%B8%81%20%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%203%20%E0%B8%A3%E0%B8%AA%E0%B8%88%E0%B8%B7%E0%B8%94%203000g",
+        "inStock": true
+      }
+    ],
+    "stores": [
+      {
+        "id": "ingested-1789297501243-xzxu-s1",
+        "platform": "tiktok",
+        "storeName": "TikTok Official",
+        "storeType": "mall",
+        "price": 974,
+        "estimatedAfterVoucher": 885,
+        "voucherNote": "โค้ดส่วนลดร้านค้า + ส่งฟรี",
+        "freeShipping": true,
+        "storeRating": 4.9,
+        "soldCount": 3200,
+        "isLowestOverall": true,
+        "url": "https://shopee.co.th/search?keyword=Hi-Q%201%20Plus%20%E0%B8%99%E0%B8%A1%E0%B8%9C%E0%B8%87%20%E0%B8%9E%E0%B8%A3%E0%B8%B5%E0%B9%84%E0%B8%9A%E0%B9%82%E0%B8%AD%E0%B9%82%E0%B8%9E%E0%B8%A3%E0%B9%80%E0%B8%97%E0%B8%81%20%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%203%20%E0%B8%A3%E0%B8%AA%E0%B8%88%E0%B8%B7%E0%B8%94%203000g"
+      },
+      {
+        "id": "ingested-1789297501243-xzxu-s2",
+        "platform": "shopee",
+        "storeName": "ร้านค้าแนะนำ ยอดขายดี",
+        "storeType": "preferred",
+        "price": 1018,
+        "estimatedAfterVoucher": 920,
+        "voucherNote": "โค้ดลดเพิ่ม 5%",
+        "freeShipping": true,
+        "storeRating": 4.8,
+        "soldCount": 1850,
+        "isLowestOverall": false,
+        "url": "https://shopee.co.th/search?keyword=Hi-Q%201%20Plus%20%E0%B8%99%E0%B8%A1%E0%B8%9C%E0%B8%87%20%E0%B8%9E%E0%B8%A3%E0%B8%B5%E0%B9%84%E0%B8%9A%E0%B9%82%E0%B8%AD%E0%B9%82%E0%B8%9E%E0%B8%A3%E0%B9%80%E0%B8%97%E0%B8%81%20%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%203%20%E0%B8%A3%E0%B8%AA%E0%B8%88%E0%B8%B7%E0%B8%94%203000g"
+      },
+      {
+        "id": "ingested-1789297501243-xzxu-s3",
+        "platform": "tiktok",
+        "storeName": "TikTok Live Shop",
+        "storeType": "verified",
+        "price": 991,
+        "estimatedAfterVoucher": 912,
+        "voucherNote": "คูปองไลฟ์สดลดพิเศษ",
+        "freeShipping": false,
+        "storeRating": 4.7,
+        "soldCount": 940,
+        "isLowestOverall": false,
+        "url": "https://shop.tiktok.com/search?q=Hi-Q%201%20Plus%20%E0%B8%99%E0%B8%A1%E0%B8%9C%E0%B8%87%20%E0%B8%9E%E0%B8%A3%E0%B8%B5%E0%B9%84%E0%B8%9A%E0%B9%82%E0%B8%AD%E0%B9%82%E0%B8%9E%E0%B8%A3%E0%B9%80%E0%B8%97%E0%B8%81%20%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%203%20%E0%B8%A3%E0%B8%AA%E0%B8%88%E0%B8%B7%E0%B8%94%203000g"
+      }
+    ],
+    "priceAdvice": "buy_now",
+    "priceAdviceNote": "ราคาปัจจุบันอยู่ในเกณฑ์ดี หากพบราคาต่ำกว่า 850 บาทถือว่าคุ้มค่าสำหรับการซื้อตุน",
+    "voucherStackFormula": {
+      "basePrice": 899,
+      "platformDiscount": 72,
+      "storeDiscount": 36,
+      "shippingDiscount": 40,
+      "finalPrice": 820
+    },
+    "affiliateUrl": "https://shopee.co.th/search?keyword=Hi-Q%201%20Plus%20%E0%B8%99%E0%B8%A1%E0%B8%9C%E0%B8%87%20%E0%B8%9E%E0%B8%A3%E0%B8%B5%E0%B9%84%E0%B8%9A%E0%B9%82%E0%B8%AD%E0%B9%82%E0%B8%9E%E0%B8%A3%E0%B9%80%E0%B8%97%E0%B8%81%20%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%203%20%E0%B8%A3%E0%B8%AA%E0%B8%88%E0%B8%B7%E0%B8%94%203000g"
   }
 ]

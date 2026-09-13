@@ -45,16 +45,16 @@ export function getPlatformMeta(platform: Platform) {
     case 'lazada':
       return {
         name: 'Lazada',
-        badgeColor: 'bg-[#0F146D] text-white',
+        badgeColor: 'bg-[#0F3EAA] text-white',
         lightBg: 'bg-[#F0F2FF]',
-        borderColor: 'border-[#0F146D]/30',
-        textColor: 'text-[#0F146D]',
-        accentHex: '#0F146D',
+        borderColor: 'border-[#0F3EAA]/30',
+        textColor: 'text-[#0F3EAA]',
+        accentHex: '#0F3EAA',
       };
     case 'tiktok':
       return {
         name: 'TikTok Shop',
-        badgeColor: 'bg-black text-white',
+        badgeColor: 'bg-gradient-to-r from-[#FE2C55] via-black to-[#25F4EE] text-white',
         lightBg: 'bg-neutral-100',
         borderColor: 'border-neutral-800/30',
         textColor: 'text-black',
@@ -117,8 +117,8 @@ export function filterAndRankDeals(
   if (filter.selectedPlatforms.length > 0 && filter.selectedPlatforms.length < 3) {
     filtered = filtered.filter(deal => {
       const matchesMain = filter.selectedPlatforms.includes(deal.platform);
-      const matchesComparisons = deal.priceComparisons?.some(pc => 
-        filter.selectedPlatforms.includes(pc.platform) && pc.inStock
+      const matchesComparisons = deal.priceComparisons.some(pc =>
+        filter.selectedPlatforms.includes(pc.platform)
       );
       const matchesStores = deal.stores?.some(s => 
         filter.selectedPlatforms.includes(s.platform)

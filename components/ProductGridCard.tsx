@@ -50,7 +50,7 @@ export function ProductGridCard({
   return (
     <article 
       onClick={() => onOpenDetail(deal)}
-      className="group relative bg-white rounded-2xl border border-neutral-200/80 hover:border-neutral-300 hover:shadow-card-hover transition-all duration-200 overflow-hidden cursor-pointer flex flex-col justify-between"
+      className="group relative bg-white rounded-2xl border border-neutral-200/80 hover:border-brand-500 card-hover overflow-hidden cursor-pointer flex flex-col justify-between"
     >
       
       {/* 1. Image Container */}
@@ -142,7 +142,7 @@ export function ProductGridCard({
           
           <div className="flex items-baseline justify-between gap-1 mb-2.5">
             <div className="flex items-baseline gap-1.5">
-              <span className="text-base sm:text-lg font-black text-neutral-900 tracking-tight">
+              <span className="price-tag text-base sm:text-lg tracking-tight">
                 {formatTHB(deal.estimatedFinalPrice)}
               </span>
               {deal.originalPrice > deal.estimatedFinalPrice && (
@@ -163,7 +163,7 @@ export function ProductGridCard({
               onClick={() => onOpenDetail(deal)}
               className="flex-1 py-1.5 px-2 rounded-xl bg-neutral-100/90 hover:bg-neutral-200 text-neutral-700 text-[11px] font-bold transition flex items-center justify-center gap-0.5"
             >
-              <span>เทียบ 3 แอป</span>
+              <span>{deal.priceComparisons.length >= 3 ? 'เทียบ 3 แอป' : 'ดูรายละเอียด'}</span>
               <ChevronRight className="w-3 h-3 text-neutral-400" />
             </button>
 
