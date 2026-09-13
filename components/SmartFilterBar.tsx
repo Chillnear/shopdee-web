@@ -57,18 +57,18 @@ export function SmartFilterBar({
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-2.5">
         
         {/* Row 1: Platform Chips & Limit Selectors */}
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+        <div className="flex flex-row items-center justify-between gap-2">
           
-          {/* Platform Tabs (Flex-wrap & Horizontal Scroll ensures Shopee, Lazada, TikTok are all 100% accessible) */}
-          <div className="flex flex-wrap items-center gap-1.5 py-0.5 overflow-x-auto no-scrollbar">
-            <span className="text-xs font-bold text-neutral-500 whitespace-nowrap mr-1 flex items-center gap-1">
+          {/* Platform Tabs — horizontal scroll, never wrap to second line */}
+          <div className="flex items-center gap-1.5 py-0.5 overflow-x-auto no-scrollbar min-w-0">
+            <span className="text-xs font-bold text-neutral-500 whitespace-nowrap mr-1 flex items-center gap-1 shrink-0">
               <span>แพลตฟอร์ม:</span>
             </span>
 
             {/* All Platforms */}
             <button
               onClick={() => handlePlatformToggle('all')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap shadow-xs cursor-pointer ${
+              className={`shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap shadow-xs cursor-pointer ${
                 isAllPlatforms
                   ? 'bg-brand-600 text-white shadow-md shadow-brand-600/20'
                   : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
@@ -80,7 +80,7 @@ export function SmartFilterBar({
             {/* Shopee */}
             <button
               onClick={() => handlePlatformToggle('shopee')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap border cursor-pointer ${
+              className={`shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap border cursor-pointer ${
                 filter.selectedPlatforms.includes('shopee') && !isAllPlatforms
                   ? 'bg-shopee text-white border-shopee shadow-md shadow-shopee/20'
                   : isAllPlatforms
@@ -98,7 +98,7 @@ export function SmartFilterBar({
             {/* Lazada */}
             <button
               onClick={() => handlePlatformToggle('lazada')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap border cursor-pointer ${
+              className={`shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap border cursor-pointer ${
                 filter.selectedPlatforms.includes('lazada') && !isAllPlatforms
                   ? 'bg-lazada text-white border-lazada shadow-md shadow-lazada/20'
                   : isAllPlatforms
@@ -116,7 +116,7 @@ export function SmartFilterBar({
             {/* TikTok */}
             <button
               onClick={() => handlePlatformToggle('tiktok')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap border cursor-pointer ${
+              className={`shrink-0 px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap border cursor-pointer ${
                 filter.selectedPlatforms.includes('tiktok') && !isAllPlatforms
                   ? 'bg-gradient-to-r from-[#FE2C55] via-black to-[#25F4EE] text-white border-black shadow-md'
                   : isAllPlatforms
