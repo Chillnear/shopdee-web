@@ -1,0 +1,114 @@
+import type { AffiliateSource, FeedPage } from './types';
+
+const MAX_FEED_BYTES = 8 * 1024 * 1024;
+const REQUEST_TIMEOUT_MS = 15_000;
+
+function parseCsv(input: string): Record<string, unknown>[] {
+  const rows: string[][] = [];
+  let row: string[] = [];
+  let cell = '';
+  let quoted = false;
+
+  for (let index = 0; index < input.length; index += 1) {
+    const char = input[index];
+    const next = input[index + 1];
+    if (char === '"' && quoted && next === '"') {
+      cell += '"';
+      index += 1;
+    } else if (char === '"') {
+      quoted = !quoted;
+    } else if (char === ',' && !quoted) {
+      row.push(cell.trim());
+      cell = '';
+    } else if ((char === '\n' || char === '\r') && !quoted) {
+      if (char === '\r' && next === '\n') index += 1;
+      row.push(cell.trim());
+      cell = '';
+      if (row.some((value) => value.length > 0)) rows.push(row);
+      row = [];
+    } else {
+      cell += char;
+    }
+  }
+  row.push(cell.trim());
+  if (row.some((value) => value.length > 0)) rows.push(row);
+
+  const headers = rows.shift() || [];
+  return rows.map((values) => Object.fromEntries(headers.map((header, index) => [header, values[index] ?? ''])));
+}
+
+function extractRows(payload: unknown): Record<string, unknown>[] {
+  if (Array.isArray(payload)) return payload.filter((item): item is Record<string, unknown> => Boolean(item && typeof item === 'object'));
+  if (!payload || typeof payload !== 'object') return [];
+  const record = payload as Record<string, unknown>;
+  for (const key of ['items', 'products', 'results', 'data']) {
+    const value = record[key];
+    if (Array.isArray(value)) return value.filter((item): item is Record<string, unknown> => Boolean(item && typeof item === 'object'));
+  }
+  return [];
+}
+
+async function readFeed(response: Response): Promise<{ rows: Record<string, unknown>[]; nextCursor: string | number | null }> {
+  const buffer = await response.arrayBuffer();
+  if (buffer.byteLength > MAX_FEED_BYTES) throw new Error('official_feed_too_large');
+  const text = new TextDecoder().decode(buffer);
+  const contentType = response.headers.get('content-type') || '';
+
+  if (contentType.includes('json') || text.trim().startsWith('{') || text.trim().startsWith('[')) {
+    const payload = JSON.parse(text) as Record<string, unknown> | unknown[];
+    const record = !Array.isArray(payload) && payload && typeof payload === 'object' ? payload : {};
+    const nextCursor = typeof record.next_cursor === 'string' || typeof record.next_cursor === 'number'
+      ? record.next_cursor
+      : typeof record.nextCursor === 'string' || typeof record.nextCursor === 'number'
+        ? record.nextCursor
+        : null;
+    return { rows: extractRows(payload), nextCursor };
+  }
+
+  return { rows: parseCsv(text), nextCursor: null };
+}
+
+export async function fetchOfficialFeedPage(
+  source: AffiliateSource,
+  cursor: Record<string, unknown>,
+): Promise<FeedPage> {
+  if (!['official_api', 'official_feed', 'manual_export'].includes(source.provider)) {
+    throw new Error('source_provider_not_supported');
+  }
+
+  const feedUrl = process.env[source.feed_env_key];
+  if (!feedUrl) throw new Error(`missing_feed_env:${source.feed_env_key}`);
+  const parsedUrl = new URL(feedUrl);
+  if (parsedUrl.protocol !== 'https:') throw new Error('official_feed_must_use_https');
+  const requestedCursor = typeof cursor.providerCursor === 'string' || typeof cursor.providerCursor === 'number'
+    ? String(cursor.providerCursor)
+    : null;
+  if (requestedCursor) parsedUrl.searchParams.set('cursor', requestedCursor);
+
+  const headers = new Headers({ Accept: 'application/json, text/csv;q=0.9' });
+  if (source.auth_env_key) {
+    const token = process.env[source.auth_env_key];
+    if (token) headers.set('Authorization', `Bearer ${token}`);
+  }
+
+  const response = await fetch(parsedUrl, {
+    headers,
+    redirect: 'error',
+    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+    cache: 'no-store',
+  });
+  if (!response.ok) throw new Error(`official_feed_http_${response.status}`);
+
+  const { rows, nextCursor: providerCursor } = await readFeed(response);
+  const offset = typeof cursor.offset === 'number' && cursor.offset >= 0 ? cursor.offset : 0;
+  const batchSize = Math.max(1, Math.min(250, source.batch_size || 50));
+  const items = rows.slice(offset, offset + batchSize);
+  const localDone = offset + items.length >= rows.length;
+  const nextCursor = providerCursor ?? (localDone ? null : offset + items.length);
+
+  return {
+    items,
+    nextCursor,
+    done: nextCursor === null || items.length === 0,
+  };
+}

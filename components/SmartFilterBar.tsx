@@ -48,7 +48,6 @@ export function SmartFilterBar({
     filter.onlyMall,
     filter.onlyFreeShipping,
     filter.hasVoucherOnly,
-    filter.minAuthenticity > 0,
     filter.maxPrice !== null,
   ].filter(Boolean).length;
 
@@ -173,7 +172,7 @@ export function SmartFilterBar({
                 onChange={(e) => onFilterChange({ ...filter, sortBy: e.target.value as any })}
                 className="text-xs font-bold bg-neutral-100 hover:bg-neutral-200 text-neutral-800 py-1.5 pl-2.5 pr-7 rounded-xl border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-neutral-400 cursor-pointer appearance-none"
               >
-                <option value="popular">🔥 ยอดนิยม / ขายดี (แนะนำ)</option>
+                <option value="popular">🔎 แนะนำจากข้อมูล source</option>
                 <option value="best_discount">🏷️ ลดคุ้มสุด (%)</option>
                 <option value="cheapest">💰 ราคาต่ำไปสูง</option>
                 <option value="expensive">💎 ราคาสูงไปต่ำ</option>

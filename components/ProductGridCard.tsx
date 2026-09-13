@@ -48,28 +48,28 @@ export function ProductGridCard({
   const isMultiPlatform = verifiedPlatforms.length >= 3;
   const verifiedStoresCount = (deal.stores || []).filter(s => s.isDirectProduct !== false).length;
 
-  // สรุป 1 บรรทัดจาก AI Insight ที่เข้าใจง่ายและตรงความเป็นจริง ไม่หลอกผู้ใช้
-  const getAIInsightHeadline = () => {
+  // Summarize only verified direct offers and source-backed fields.
+  const getDataHeadline = () => {
     if (deal.hasOptionBait) {
       return '⚠️ ตรวจสอบตัวเลือกก่อนสั่งซื้อ';
     }
     if (isMultiPlatform && deal.isAbsoluteCheapest) {
-      return `✓ ถูกสุดใน 3 แอป • เทียบ ${verifiedStoresCount || deal.stores?.length || 3} ร้าน`;
+      return `✓ ราคาต่ำสุดใน direct offers ที่พบ • เทียบ ${verifiedStoresCount || deal.stores?.length || 0} ร้าน`;
     }
     // หากมีแค่แอปเดียว ไม่หลอกผู้ใช้ แสดงสถานะตรงไปตรงมา
     if (deal.storeType === 'mall') {
-      return `✓ ร้านทางการแท้ 100% • พบใน ${platformMeta.name} เท่านั้น`;
+      return `✓ ประเภท Mall จาก source • พบใน ${platformMeta.name} เท่านั้น`;
     }
     if (deal.storeType === 'preferred') {
-      return `✓ ร้านแนะนำ Shopee • รอระบบดึงคู่เทียบ`;
+      return `✓ ร้านประเภท preferred จาก source • พบใน ${platformMeta.name} เท่านั้น`;
     }
     if (verifiedStoresCount > 1) {
-      return `✓ เทียบแล้ว ${verifiedStoresCount} ร้าน • คัดราคาดีสุด`;
+      return `✓ พบ direct offers ${verifiedStoresCount} ร้าน • เรียงตามราคาจาก source`;
     }
     if (hasValidDiscount && savePct >= 15) {
       return `✓ ประหยัด ${savePct}% • พบใน ${platformMeta.name} เท่านั้น`;
     }
-    return `📍 พบใน ${platformMeta.name} เท่านั้น • รอเทียบราคา 3 แอป`;
+    return `📍 พบลิงก์ตรงจาก ${platformMeta.name} เท่านั้น • ยังไม่มีข้อเสนอจากแอปอื่น`;
   };
 
   return (
@@ -96,7 +96,7 @@ export function ProductGridCard({
             </span>
           ) : (deal.isAbsoluteCheapest && isMultiPlatform) ? (
             <span className="inline-flex items-center bg-shopee text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-xs">
-              <span>ถูกสุด 3 แอป 🔥</span>
+              <span>พบ direct URL 3 แอป</span>
             </span>
           ) : !isMultiPlatform ? (
             <span className="inline-flex items-center bg-neutral-900/80 backdrop-blur-xs text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
@@ -145,12 +145,12 @@ export function ProductGridCard({
           </span>
           {deal.storeType === 'mall' && (
             <span className="text-[9px] font-black px-1.5 py-0.5 rounded bg-[#D0011B] text-white shadow-xs">
-              Shopee Mall
+              {platformMeta.name} Mall จาก source
             </span>
           )}
           {deal.storeType === 'preferred' && (
             <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-amber-500 text-white shadow-xs">
-              ร้านแนะนำ
+              preferred จาก source
             </span>
           )}
         </div>
@@ -167,7 +167,7 @@ export function ProductGridCard({
 
           {/* AI 1-line Insight (Clean & Subtle) */}
           <p className="text-[11px] text-neutral-500 font-medium mb-3 truncate flex items-center gap-1">
-            <span>{getAIInsightHeadline()}</span>
+            <span>{getDataHeadline()}</span>
           </p>
         </div>
 
@@ -187,7 +187,7 @@ export function ProductGridCard({
             </div>
 
             <span className="text-[10px] text-neutral-400 font-medium whitespace-nowrap">
-              ราคาสุทธิ
+              ราคาจาก source
             </span>
           </div>
 

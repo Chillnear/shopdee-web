@@ -12,11 +12,13 @@ Phase 1: Audits and cleans product links across all catalog files.
 - Generates `audit_report.csv`
 """
 
+import argparse
 import csv
 import json
 import os
 import re
 import sys
+from datetime import datetime, timezone
 import urllib.request
 import urllib.parse
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -73,10 +75,10 @@ def classify_url_structure(url: str, platform: str) -> tuple:
 
     return True, "Valid Structure", "Structure conforms to direct product link"
 
-def verify_http_status(url: str, timeout: float = 3.5) -> tuple:
+def verify_http_status(url: str, platform: str, timeout: float = 8.0) -> tuple:
     if not url or not url.strip():
         return 0, "", "Empty/Missing Link"
-        
+
     req = urllib.request.Request(
         url.strip(),
         headers={
@@ -85,32 +87,49 @@ def verify_http_status(url: str, timeout: float = 3.5) -> tuple:
             'Accept-Language': 'th-TH,th;q=0.9,en-US;q=0.8',
         }
     )
-    
+
     try:
-        # We use a custom redirect handler to track the final destination
         with urllib.request.urlopen(req, timeout=timeout) as resp:
             final_url = resp.geturl()
             status_code = resp.getcode()
-            
-            # Check if redirect landed on a search page
-            for pat in SEARCH_PATTERNS:
-                if pat.search(final_url):
-                    return status_code, final_url, "Search Fallback"
-                    
+            body = resp.read(350_000).decode('utf-8', errors='ignore')
+
+            if any(pat.search(final_url) for pat in SEARCH_PATTERNS):
+                return status_code, final_url, "Search Fallback"
             if status_code in (404, 410):
                 return status_code, final_url, "Dead Link"
-                
+            if is_soft_404_html(body, platform):
+                return status_code, final_url, "Soft 404 / Generic Page"
+            if not has_product_marker(body, platform):
+                return status_code, final_url, "Ambiguous / No PDP marker"
             return status_code, final_url, "OK"
-    except urllib.error.HTTPError as e:
-        status_code = e.code
-        final_url = getattr(e, 'url', url)
+    except urllib.error.HTTPError as error:
+        status_code = error.code
+        final_url = getattr(error, 'url', url)
         if status_code in (404, 410):
             return status_code, final_url, "Dead Link"
-        # 403/429/401 from bot-blockers (Shopee/Lazada CDN blocks server IPs without JS)
-        # If structure is 100% verified, it's not dead, just crawler-blocked
-        return status_code, final_url, f"HTTP {status_code}"
-    except Exception as e:
-        return 0, url, f"Network Error: {str(e)[:30]}"
+        return status_code, final_url, f"Ambiguous HTTP {status_code}"
+    except Exception as error:
+        return 0, url, f"Ambiguous Network Error: {str(error)[:30]}"
+
+
+def has_product_marker(body: str, platform: str) -> bool:
+    text = body.lower()
+    if platform == 'shopee':
+        return ('og:title' in text or 'product_id' in text) and 'shopee thailand' not in text[:5000]
+    if platform == 'lazada':
+        return 'og:title' in text and ('product' in text or 'sku' in text)
+    return 'og:title' in text and ('product' in text or 'pdp' in text)
+
+
+def is_soft_404_html(body: str, platform: str) -> bool:
+    text = body.lower()
+    generic_titles = (
+        'shopee thailand', 'lazada | online shopping', 'tiktok shop',
+        'สินค้านี้ไม่มี', 'product not found', 'item not found', 'sold out',
+        'สินค้าหมด', 'ไม่พร้อมจำหน่าย',
+    )
+    return any(marker in text[:120_000] for marker in generic_titles) and not has_product_marker(body, platform)
 
 def audit_item(item, source_name):
     item_id = item.get('id', 'unknown')
@@ -118,37 +137,29 @@ def audit_item(item, source_name):
     platform = item.get('platform', 'shopee')
     if isinstance(item.get('platforms'), list) and len(item['platforms']) > 0:
         platform = item['platforms'][0].get('platform', platform)
-        
+
     affiliate_url = item.get('affiliateUrl') or ''
     if not affiliate_url and isinstance(item.get('platforms'), list) and len(item['platforms']) > 0:
         affiliate_url = item['platforms'][0].get('affiliateUrl', '')
 
-    # Step 1: Structural check
     is_valid_struct, issue_type, reason = classify_url_structure(affiliate_url, platform)
-    
-    http_code = 200
+    http_code = 0
     final_url = affiliate_url
-    
+    notes = reason
+
     if not is_valid_struct:
         is_active = False
-        notes = reason
+        verification_status = 'invalid'
     else:
-        # Check HTTP status
-        # Note: In production, bot blockers often return 403 on cloud IPs for Shopee / Lazada shortlinks.
-        # But genuine shortlinks with origin_link have 100% verified target product ids.
-        is_active = True
-        notes = "Verified authentic product link"
-        
-        # Test search redirect
-        for pat in SEARCH_PATTERNS:
-            if pat.search(affiliate_url):
-                is_active = False
-                issue_type = "Search Fallback"
-                notes = "Points to catalog/search page"
-                break
+        http_code, final_url, issue_type = verify_http_status(affiliate_url, platform)
+        is_active = issue_type == 'OK'
+        verification_status = 'verified' if is_active else ('dead' if issue_type in ('Dead Link', 'Search Fallback', 'Soft 404 / Generic Page') else 'ambiguous')
+        notes = issue_type
 
     item['is_active'] = is_active
-    
+    item['verification_status'] = verification_status
+    item['last_verified_at'] = datetime.now(timezone.utc).isoformat()
+
     return {
         'product_id': item_id,
         'title': title,
@@ -157,12 +168,17 @@ def audit_item(item, source_name):
         'original_url': affiliate_url,
         'final_url': final_url,
         'http_code': http_code,
-        'issue_type': issue_type if not is_active else 'Valid Link',
+        'issue_type': issue_type,
         'is_active': is_active,
-        'notes': notes
+        'verification_status': verification_status,
+        'notes': notes,
     }
 
 def main():
+    parser = argparse.ArgumentParser(description='Audit marketplace product links without fabricating data.')
+    parser.add_argument('--apply', action='store_true', help='Write is_active and verification fields back to catalog JSON files.')
+    args = parser.parse_args()
+
     print("=== Starting Link & Data Audit ===")
     
     # 1. Load catalogs
@@ -193,16 +209,19 @@ def main():
         row = audit_item(item, 'shopee-feed-catalog')
         report_rows.append(row)
         
-    # Save modified catalogs with is_active flag
-    save_json(SEEDED_PATH, seeded_items)
-    save_json(PARTNER_PATH, partner_items)
-    save_json(SHOPEE_FEED_PATH, shopee_items)
-    
+    if args.apply:
+        save_json(SEEDED_PATH, seeded_items)
+        save_json(PARTNER_PATH, partner_items)
+        save_json(SHOPEE_FEED_PATH, shopee_items)
+        print('Catalog JSON files updated (--apply).')
+    else:
+        print('Report-only mode: catalog JSON files were not modified. Use --apply to write changes.')
+
     # Export CSV
     with open(REPORT_CSV_PATH, 'w', encoding='utf-8-sig', newline='') as f:
         writer = csv.DictWriter(f, fieldnames=[
             'product_id', 'title', 'source', 'platform', 'original_url',
-            'final_url', 'http_code', 'issue_type', 'is_active', 'notes'
+            'final_url', 'http_code', 'issue_type', 'is_active', 'verification_status', 'notes'
         ])
         writer.writeheader()
         writer.writerows(report_rows)

@@ -11,7 +11,7 @@ export interface TrackedDeal {
   currentPrice: number;
   initialPrice: number;
   targetPrice: number;
-  marketAvgPrice: number;
+  marketAvgPrice?: number;
   affiliateUrl: string;
   savedAt: string;
   targetType: 'tier1' | 'tier2' | 'custom';

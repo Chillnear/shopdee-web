@@ -23,9 +23,11 @@ export async function POST(req: NextRequest) {
       },
     });
   } catch (error: any) {
+    // Deal insight is intentionally unavailable until every input is source-backed.
+    // Treat it as "not implemented yet" rather than a server crash.
     return NextResponse.json(
-      { error: error?.message || 'Failed to analyze deal insight' },
-      { status: 500 }
+      { error: error?.message || 'Deal insight is not available' },
+      { status: 501 }
     );
   }
 }

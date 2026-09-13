@@ -3,7 +3,7 @@
  * ดึงข้อมูลสินค้าจริงจาก Shopee, Lazada, TikTok และประมวลผลด้วย Mimi Coach AI
  */
 
-import { ProductDeal, Platform, PlatformPriceComparison, StoreOffer, Voucher, ReviewSnippet } from '../types';
+import { ProductDeal, Platform, PlatformPriceComparison, StoreOffer } from '../types';
 import { isUsablePlatformUrl } from '../catalog-loader';
 
 export interface IngestRequest {
@@ -16,6 +16,7 @@ export interface ExtractedMeta {
   imageUrl: string;
   description: string;
   rawPrice?: number;
+  storeName?: string;
   platform: Platform;
   sourceUrl: string;
 }
@@ -96,11 +97,12 @@ export async function fetchUrlMetadata(targetUrl: string): Promise<ExtractedMeta
     });
 
     finalUrl = res.url || targetUrl;
-    if (res.ok) {
-      html = await res.text();
+    if (!res.ok) {
+      throw new Error(`Marketplace returned HTTP ${res.status}`);
     }
+    html = await res.text();
   } catch (err) {
-    console.warn('[Ingest] Failed to fetch URL HTML, fallback to slug:', err);
+    throw new Error(`Marketplace product page unavailable: ${err instanceof Error ? err.message : 'request failed'}`);
   }
 
   // Parse OpenGraph tags from HTML
@@ -112,7 +114,7 @@ export async function fetchUrlMetadata(targetUrl: string): Promise<ExtractedMeta
   const ogDescMatch = html.match(/<meta\s+property=["']og:description["']\s+content=["'](.*?)["']/i) ||
                       html.match(/<meta\s+content=["'](.*?)["']\s+property=["']og:description["']/i);
 
-  // Price from JSON-LD
+  // Price from JSON-LD supplied by the product page. Never invent a price.
   let rawPrice: number | undefined;
   const jsonLdMatches = html.match(/<script\s+type=["']application\/ld\+json["']>([\s\S]*?)<\/script>/gi);
   if (jsonLdMatches) {
@@ -120,26 +122,36 @@ export async function fetchUrlMetadata(targetUrl: string): Promise<ExtractedMeta
       try {
         const jsonContent = block.replace(/<script[^>]*>|<\/script>/gi, '').trim();
         const parsed = JSON.parse(jsonContent);
-        if (parsed.offers?.price) {
-          rawPrice = parseFloat(parsed.offers.price);
-          break;
+        const records = Array.isArray(parsed) ? parsed : [parsed];
+        for (const record of records) {
+          const price = record?.offers?.price ?? record?.offers?.lowPrice;
+          if (price !== undefined && Number(price) > 0) {
+            rawPrice = Number(price);
+            break;
+          }
         }
+        if (rawPrice) break;
       } catch {
-        // ignore JSON parse error
+        // Ignore unrelated JSON-LD blocks.
       }
     }
   }
 
   const slugTitle = extractTitleFromUrlSlug(finalUrl) || extractTitleFromUrlSlug(targetUrl);
-  const rawTitle = ogTitleMatch?.[1] || titleMatch?.[1] || slugTitle || 'สินค้าแนะนำ';
-  const imageUrl = ogImageMatch?.[1] || '/icon-192.png';
-  const description = ogDescMatch?.[1] || '';
+  const rawTitle = decodeHTMLEntities(ogTitleMatch?.[1] || titleMatch?.[1] || slugTitle || '');
+  const imageUrl = decodeHTMLEntities(ogImageMatch?.[1] || '');
+  const description = decodeHTMLEntities(ogDescMatch?.[1] || '');
+  const genericPage = /^(shopee thailand|lazada|tiktok shop)(\s*[|:].*)?$/i.test(rawTitle);
+
+  if (!rawTitle || genericPage || !imageUrl || imageUrl.includes('/icon-192.png') || !rawPrice) {
+    throw new Error('Product page did not expose verifiable title, image, and price metadata');
+  }
 
   return {
-    rawTitle: decodeHTMLEntities(rawTitle),
+    rawTitle,
     imageUrl,
-    description: decodeHTMLEntities(description),
-    rawPrice: rawPrice && !isNaN(rawPrice) && rawPrice > 0 ? rawPrice : undefined,
+    description,
+    rawPrice,
     platform,
     sourceUrl: finalUrl,
   };
@@ -165,23 +177,12 @@ export async function synthesizeDealWithAI(meta: ExtractedMeta): Promise<Product
   const model = process.env.MIMI_PRIMARY_MODEL || 'gemini-3.1-flash-lite-preview';
 
   if (!token) {
-    return generateFallbackDeal(meta);
+    throw new Error('MIMI_TOKEN is not configured');
   }
 
-  const systemPrompt = `You are the core intelligence engine for "ShopDee" (ช้อปดี), Thailand's leading multi-platform price comparison and consumer trust platform.
-Given an e-commerce product title, description, or URL, you must:
-1. Clean noisy marketing words (e.g. "[พร้อมส่ง]", "แท้100%", "ประกันศูนย์ 1 ปี", "ส่งฟรี") to extract the clean, canonical Thai title (e.g. "Hatari พัดลมตั้งโต๊ะ 16 นิ้ว รุ่น HT-T16M5").
-2. Accurately categorize into one of: "พัดลม & เครื่องใช้ไฟฟ้า", "ไอที & แกดเจ็ต", "ของใช้ในบ้าน", "สัตว์เลี้ยง", "แม่และเด็ก", "สกินแคร์ & บิวตี้".
-3. Estimate accurate realistic Thai e-commerce pricing (THB):
-   - basePrice: realistic store price for the main item
-   - originalPrice: MSRP / list price before discounts
-   - marketAvgPrice: average price across Thai platforms
-   - estimatedFinalPrice: best net price after applying typical vouchers (ลดร้านค้า + โค้ดส่งฟรี + โค้ดแพลตฟอร์ม)
-   - vipFinalPrice: price for VIP/Payday/Double-Digit events
-4. Create realistic 3-Platform price comparisons for Shopee, Lazada, and TikTok Shop.
-5. Identify Option Bait (e.g. when sellers list a 15 THB cable or adapter to bait low search price for a 500 THB item).
-6. Calculate Thai Authenticity Score (80-98%) with realistic reasons.
-7. Return ONLY valid JSON adhering strictly to the requested schema.`;
+  const systemPrompt = `You are a conservative data-normalization assistant for ShopDee.
+Use only facts present in the supplied product-page metadata. You may clean the title and assign a broad category, but you must never invent prices, stores, ratings, sales, reviews, vouchers, stock, or links.
+Return only valid JSON. For every field that is not directly supported by the input, return null, an empty array, or false as appropriate.`;
 
   const userPrompt = JSON.stringify({
     title: meta.rawTitle,
@@ -202,31 +203,10 @@ Given an e-commerce product title, description, or URL, you must:
         model,
         messages: [
           { role: 'system', content: systemPrompt },
-          { role: 'user', content: `Analyze this Thai product and return valid JSON only:\n${userPrompt}\n\nSchema:\n{
+          { role: 'user', content: `Normalize this product metadata and return valid JSON only:\n${userPrompt}\n\nSchema:\n{
   "cleanTitle": string,
   "category": string,
-  "tags": string[],
-  "brand": string,
-  "basePrice": number,
-  "originalPrice": number,
-  "marketAvgPrice": number,
-  "estimatedFinalPrice": number,
-  "vipFinalPrice": number,
-  "hasOptionBait": boolean,
-  "baitWarningNote": string,
-  "thaiAuthenticityScore": number,
-  "authenticitySummary": string,
-  "freeShipping": boolean,
-  "priceAdvice": "buy_now" | "wait_for_sale" | "fair_price",
-  "priceAdviceNote": string,
-  "shopeePrice": number,
-  "shopeeStore": string,
-  "lazadaPrice": number,
-  "lazadaStore": string,
-  "tiktokPrice": number,
-  "tiktokStore": string,
-  "reviewPros": string[],
-  "reviewCons": string[]
+  "tags": string[]
 }` },
         ],
         temperature: 0.2,
@@ -235,8 +215,7 @@ Given an e-commerce product title, description, or URL, you must:
     });
 
     if (!res.ok) {
-      console.warn(`[Ingest] Mimi returned HTTP ${res.status}, using fallback.`);
-      return generateFallbackDeal(meta);
+      throw new Error(`Mimi returned HTTP ${res.status}`);
     }
 
     const json = await res.json();
@@ -247,203 +226,81 @@ Given an e-commerce product title, description, or URL, you must:
     return constructProductDealFromAI(meta, parsed);
   } catch (err) {
     console.error('[Ingest] Error in AI synthesis:', err);
-    return generateFallbackDeal(meta);
+    throw err instanceof Error ? err : new Error('AI normalization failed');
   }
 }
 
 /**
- * แปลงผลจาก AI JSON เป็นโครงสร้าง ProductDeal เต็มรูปแบบ
+ * Build a deal from verified page metadata. AI may only normalize text fields.
  */
-function constructProductDealFromAI(meta: ExtractedMeta, ai: any): ProductDeal {
-  const dealId = `ingested-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
-  const cleanTitle = ai.cleanTitle || meta.rawTitle;
-  const basePrice = Number(ai.basePrice) || meta.rawPrice || 450;
-  const originalPrice = Number(ai.originalPrice) || Math.round(basePrice * 1.3);
-  const estimatedFinalPrice = Number(ai.estimatedFinalPrice) || Math.round(basePrice * 0.88);
-  const marketAvgPrice = Number(ai.marketAvgPrice) || basePrice;
-  const vipFinalPrice = Number(ai.vipFinalPrice) || Math.round(estimatedFinalPrice * 0.92);
-
-  const shopeePrice = Number(ai.shopeePrice) || estimatedFinalPrice;
-  const lazadaPrice = Number(ai.lazadaPrice) || Math.round(estimatedFinalPrice * 1.05);
-  const tiktokPrice = Number(ai.tiktokPrice) || Math.round(estimatedFinalPrice * 1.02);
-
-  const isDirect = isUsablePlatformUrl(meta.sourceUrl, meta.platform);
+function constructProductDealFromAI(meta: ExtractedMeta, ai: Record<string, unknown>): ProductDeal {
+  const dealId = `ingested-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+  const price = Number(meta.rawPrice);
   const platform = meta.platform;
-  const storeName = platform === 'shopee'
-    ? (ai.shopeeStore || 'Shopee Official Store')
-    : platform === 'lazada'
-    ? (ai.lazadaStore || 'LazMall Flagship Store')
-    : (ai.tiktokStore || 'TikTok Shop Official');
+  const title = typeof ai.cleanTitle === 'string' && ai.cleanTitle.trim() ? ai.cleanTitle.trim() : meta.rawTitle;
+  const category = typeof ai.category === 'string' && ai.category.trim() ? ai.category.trim() : 'สินค้า';
+  const tags = Array.isArray(ai.tags)
+    ? ai.tags.filter((tag): tag is string => typeof tag === 'string' && tag.trim().length > 0)
+    : [];
+  const storeName = meta.storeName || `ร้านค้า ${platform}`;
 
-  const priceComparisons: PlatformPriceComparison[] = [
-    {
-      platform: 'shopee',
-      price: platform === 'shopee' ? basePrice : 0,
-      estimatedAfterVoucher: platform === 'shopee' ? estimatedFinalPrice : 0,
-      storeName: platform === 'shopee' ? storeName : 'ยังไม่มีข้อมูลสินค้าบนแอปนี้',
-      storeType: platform === 'shopee' ? 'mall' : 'regular',
-      url: platform === 'shopee' ? meta.sourceUrl : '',
-      inStock: platform === 'shopee',
-      hasDirectProduct: platform === 'shopee' && isDirect,
-    },
-    {
-      platform: 'lazada',
-      price: platform === 'lazada' ? basePrice : 0,
-      estimatedAfterVoucher: platform === 'lazada' ? estimatedFinalPrice : 0,
-      storeName: platform === 'lazada' ? storeName : 'ยังไม่มีข้อมูลสินค้าบนแอปนี้',
-      storeType: platform === 'lazada' ? 'mall' : 'regular',
-      url: platform === 'lazada' ? meta.sourceUrl : '',
-      inStock: platform === 'lazada',
-      hasDirectProduct: platform === 'lazada' && isDirect,
-    },
-    {
-      platform: 'tiktok',
-      price: platform === 'tiktok' ? basePrice : 0,
-      estimatedAfterVoucher: platform === 'tiktok' ? estimatedFinalPrice : 0,
-      storeName: platform === 'tiktok' ? storeName : 'ยังไม่มีข้อมูลสินค้าบนแอปนี้',
-      storeType: platform === 'tiktok' ? 'verified' : 'regular',
-      url: platform === 'tiktok' ? meta.sourceUrl : '',
-      inStock: platform === 'tiktok',
-      hasDirectProduct: platform === 'tiktok' && isDirect,
-    },
-  ];
+  if (!Number.isFinite(price) || price <= 0 || !isUsablePlatformUrl(meta.sourceUrl, platform)) {
+    throw new Error('Verified product metadata is incomplete');
+  }
 
-  const stores: StoreOffer[] = [
-    {
-      id: `${dealId}-${platform}-main`,
-      platform,
-      storeName,
-      storeType: 'mall',
-      price: basePrice,
-      estimatedAfterVoucher: estimatedFinalPrice,
-      voucherNote: 'โค้ดส่วนลดร้านค้า + ส่งฟรี',
-      freeShipping: true,
-      storeRating: 4.9,
-      soldCount: 2450,
-      isLowestOverall: true,
-      isBestValue: true,
-      isBestStore: true,
-      badgeNote: 'ลิงก์ตรงหน้าสินค้า',
-      url: meta.sourceUrl,
-      isDirectProduct: isDirect,
-    },
-  ];
+  const comparison: PlatformPriceComparison = {
+    platform,
+    price,
+    estimatedAfterVoucher: price,
+    storeName,
+    storeType: 'regular',
+    url: meta.sourceUrl,
+    inStock: true,
+    hasDirectProduct: true,
+  };
 
-  const vouchers: Voucher[] = [
-    {
-      id: `v1-${dealId}`,
-      code: 'DEESHOP50',
-      discountText: 'ลด 50.- ขั้นต่ำ 300.-',
-      minSpend: 300,
-      discountAmount: 50,
-      tag: 'แพลตฟอร์ม',
-    },
-    {
-      id: `v2-${dealId}`,
-      code: 'MALL10PCT',
-      discountText: 'ลด 10% ร้าน Mall ทางการ',
-      minSpend: 500,
-      discountAmount: Math.round(basePrice * 0.1),
-      tag: 'ร้านค้า',
-    },
-    {
-      id: `v3-${dealId}`,
-      code: 'FREESHIP',
-      discountText: 'ส่งฟรี สูงสุด 40.-',
-      minSpend: 99,
-      discountAmount: 40,
-      tag: 'ส่งฟรี',
-    },
-  ];
-
-  const reviews: ReviewSnippet[] = [
-    {
-      id: `r1-${dealId}`,
-      author: 'ลูกค้าชาวไทย (ยืนยันคำสั่งซื้อ)',
-      comment: ai.reviewPros?.[0] || 'สินค้าตรงปก จัดส่งไว ลมแรงดี แพ็กของมาแน่นหนาไม่เสียหาย คุ้มราคามาก',
-      isAuthenticThai: true,
-      authenticityNote: 'ภาษาไทยธรรมชาติ รีวิวมีรูปภาพและวิดีโอแกะกล่องจริง',
-      rating: 5,
-      date: '3 วันที่แล้ว',
-    },
-    {
-      id: `r2-${dealId}`,
-      author: 'ช้อปดี รีวิวเวอร์',
-      comment: ai.reviewPros?.[1] || 'ใช้งานง่าย คุณภาพสมราคา เทียบกับราคาที่ได้ส่วนลดถือว่าคุ้มสุดๆ ครับ',
-      isAuthenticThai: true,
-      authenticityNote: 'ผู้ซื้อจริง มีประวัติการสั่งซื้อสม่ำเสมอ',
-      rating: 5,
-      date: '1 สัปดาห์ที่แล้ว',
-    },
-  ];
+  const store: StoreOffer = {
+    id: `${dealId}-${platform}-main`,
+    platform,
+    storeName,
+    storeType: 'regular',
+    price,
+    estimatedAfterVoucher: price,
+    freeShipping: false,
+    storeRating: 0,
+    soldCount: 0,
+    isLowestOverall: false,
+    isBestValue: false,
+    isBestStore: false,
+    badgeNote: 'ข้อมูลจากหน้าสินค้าโดยตรง',
+    url: meta.sourceUrl,
+    isDirectProduct: true,
+  };
 
   return {
     id: dealId,
-    title: cleanTitle,
+    title,
     imageUrl: meta.imageUrl,
-    category: ai.category || 'พัดลม & เครื่องใช้ไฟฟ้า',
-    tags: Array.isArray(ai.tags) && ai.tags.length > 0 ? ai.tags : ['สินค้าเพิ่มจากลิงก์', 'ร้านแท้ตรวจสอบแล้ว'],
+    category,
+    tags,
     platform,
     storeName,
-    storeType: 'mall',
-    storeRating: 4.9,
-    soldCount: 2450,
-    basePrice,
-    originalPrice,
-    marketAvgPrice,
-    estimatedFinalPrice,
-    vipFinalPrice,
-    hasOptionBait: Boolean(ai.hasOptionBait),
-    baitWarningNote: ai.baitWarningNote || (ai.hasOptionBait ? 'ตรวจพบตัวเลือกย่อยราคาต่ำผิดปกติเพื่อดึงดูดการคลิก' : undefined),
-    thaiAuthenticityScore: Number(ai.thaiAuthenticityScore) || 94,
-    authenticitySummary: ai.authenticitySummary || 'ร้านค้าทางการ รีวิวภาษาไทยแท้ มีการรับประกันศูนย์ไทย',
-    reviews,
-    freeShipping: ai.freeShipping !== undefined ? Boolean(ai.freeShipping) : true,
-    availableVouchers: vouchers,
+    storeType: 'regular',
+    storeRating: 0,
+    soldCount: 0,
+    basePrice: price,
+    originalPrice: price,
+    estimatedFinalPrice: price,
+    vipFinalPrice: price,
+    hasOptionBait: false,
+    thaiAuthenticityScore: 0,
+    authenticitySummary: 'ยังไม่มีข้อมูลยืนยันร้าน รีวิว หรือราคาเปรียบเทียบจากแพลตฟอร์มอื่น',
+    reviews: [],
+    freeShipping: false,
+    availableVouchers: [],
     isAbsoluteCheapest: false,
-    priceComparisons,
-    stores,
-    priceAdvice: ai.priceAdvice || 'buy_now',
-    priceAdviceNote: ai.priceAdviceNote || 'ราคานี้ใกล้เคียงจุดต่ำสุดในรอบ 30 วัน ซื้อได้เลย',
-    voucherStackFormula: {
-      basePrice,
-      platformDiscount: Math.round(basePrice * 0.08),
-      storeDiscount: Math.round(basePrice * 0.04),
-      shippingDiscount: 40,
-      finalPrice: estimatedFinalPrice,
-    },
+    priceComparisons: [comparison],
+    stores: [store],
     affiliateUrl: meta.sourceUrl,
   };
-}
-
-/**
- * Fallback ในกรณีไม่มี Token หรือเครือข่ายขัดข้อง 100% Guaranteed Fail-safe
- */
-export function generateFallbackDeal(meta: ExtractedMeta): ProductDeal {
-  const dealId = `ingested-local-${Date.now()}`;
-  const cleanTitle = meta.rawTitle.replace(/\[.*?\]|\(.*?\)|【.*?】/g, ' ').replace(/\s+/g, ' ').trim() || 'สินค้าที่คุณเพิ่ม';
-  const basePrice = meta.rawPrice || 590;
-  const originalPrice = Math.round(basePrice * 1.25);
-  const estimatedFinalPrice = Math.round(basePrice * 0.88);
-
-  return constructProductDealFromAI(meta, {
-    cleanTitle,
-    category: 'ของใช้ในบ้าน',
-    tags: ['สินค้าเพิ่มจากลิงก์', 'ร้านแท้ตรวจสอบแล้ว'],
-    basePrice,
-    originalPrice,
-    marketAvgPrice: basePrice,
-    estimatedFinalPrice,
-    vipFinalPrice: Math.round(estimatedFinalPrice * 0.93),
-    hasOptionBait: false,
-    thaiAuthenticityScore: 92,
-    authenticitySummary: 'ข้อมูลสรุปจากการวิเคราะห์ลิงก์และฐานข้อมูลราคากลาง e-Commerce ไทย',
-    freeShipping: true,
-    priceAdvice: 'fair_price',
-    priceAdviceNote: 'ราคาอยู่ในเกณฑ์มาตรฐานของตลาด สามารถใช้โค้ดลดเพิ่มได้',
-    shopeePrice: estimatedFinalPrice,
-    lazadaPrice: Math.round(estimatedFinalPrice * 1.04),
-    tiktokPrice: Math.round(estimatedFinalPrice * 1.02),
-    reviewPros: ['คุณภาพดีตรงตามรายละเอียด', 'ใช้งานได้ดีตามมาตรฐาน'],
-  });
 }

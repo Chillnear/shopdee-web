@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
-import { NextRequest } from 'next/server';
-import seededCatalog from '@/lib/seeded-catalog.json';
+import { NextRequest, NextResponse } from 'next/server';
+import verifiedCatalog from '@/lib/verified-catalog.json';
 import shopeeFeedCatalog from '@/lib/shopee-feed-catalog.json';
 import partnerCatalog from '@/lib/partner-catalog.json';
 
@@ -26,8 +26,8 @@ async function getKanitFont(): Promise<ArrayBuffer | null> {
 function findDealById(dealId: string): any | null {
   if (!dealId) return null;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const inSeeded = (seededCatalog as any[]).find((d) => d.id === dealId);
-  if (inSeeded) return inSeeded;
+  const inVerified = (verifiedCatalog as any[]).find((d) => d.id === dealId);
+  if (inVerified) return inVerified;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const inShopee = (shopeeFeedCatalog as any[]).find((d) => d.id === dealId);
   if (inShopee) return inShopee;
@@ -42,22 +42,31 @@ export async function GET(request: NextRequest) {
   const dealId = searchParams.get('dealId') || '';
   const isSquare = searchParams.get('format') === 'square';
 
-  // Find deal from real catalogs (No more Baseus Bowie H1 Pro mock fallback!)
+  // Resolve only records present in the source catalogs.
   const foundDeal = findDealById(dealId);
 
-  // Extract authentic deal properties with query parameter overrides
-  const title = searchParams.get('title') || foundDeal?.title || 'ดีลสินค้าลดราคาพิเศษ';
-  const currentPrice = Number(searchParams.get('price')) || foundDeal?.estimatedFinalPrice || foundDeal?.platforms?.[0]?.currentPrice || foundDeal?.basePrice || 0;
-  const rawRegularPrice = Number(searchParams.get('marketPrice')) || foundDeal?.originalPrice || foundDeal?.marketAvgPrice || foundDeal?.platforms?.[0]?.originalPrice || currentPrice;
+  if (!foundDeal) {
+    return NextResponse.json({ error: 'Product source record not found' }, { status: 404 });
+  }
+
+  // Read only fields from the verified catalog record; query parameters cannot invent data.
+  const title = String(foundDeal.title ?? '');
+  const sourcePlatform = Array.isArray(foundDeal.platforms)
+    ? foundDeal.platforms.find((item: any) => item?.platform === foundDeal.platform) ?? foundDeal.platforms[0]
+    : null;
+  const currentPrice = Number(sourcePlatform?.currentPrice ?? foundDeal.price ?? foundDeal.basePrice ?? 0);
+  const rawRegularPrice = Number(sourcePlatform?.originalPrice ?? foundDeal.originalPrice ?? foundDeal.original_price ?? currentPrice);
   const regularPrice = rawRegularPrice > currentPrice ? rawRegularPrice : currentPrice;
-  const platform = (searchParams.get('platform') || foundDeal?.platform || foundDeal?.platforms?.[0]?.platform || 'shopee').toLowerCase();
-  const storeName = searchParams.get('store') || foundDeal?.storeName || (foundDeal?.storeType === 'mall' ? 'ร้านทางการ Mall แท้ 100%' : 'ร้านค้าแนะนำ');
-  const rating = Number(searchParams.get('rating')) || foundDeal?.rating || foundDeal?.storeRating || 4.9;
-  const rawSold = searchParams.get('sold') || String(foundDeal?.reviewCount || foundDeal?.soldCount || 100);
-  const soldCount = Number(rawSold) >= 1000 ? `${(Number(rawSold) / 1000).toFixed(1)}k ชิ้น` : `${rawSold} ชิ้น`;
-  const imageUrl = searchParams.get('imageUrl') || foundDeal?.imageUrl || '';
-  
-  const savePercent = regularPrice > currentPrice ? Math.min(85, Math.round(((regularPrice - currentPrice) / regularPrice) * 100)) : 0;
+  const platform = String(foundDeal.platform ?? sourcePlatform?.platform ?? '').toLowerCase();
+  const storeName = String(foundDeal.storeName ?? foundDeal.shop_name ?? '');
+  const rating = Number(foundDeal.storeRating ?? foundDeal.rating ?? 0);
+  const imageUrl = String(foundDeal.imageUrl ?? foundDeal.image ?? '');
+
+  if (!title || !storeName || !platform || !Number.isFinite(currentPrice) || currentPrice <= 0) {
+    return NextResponse.json({ error: 'Product source record is incomplete' }, { status: 404 });
+  }
+
+  const savePercent = regularPrice > currentPrice ? Math.round(((regularPrice - currentPrice) / regularPrice) * 100) : 0;
   const saveAmount = Math.max(0, regularPrice - currentPrice);
 
   // Platform brand colours
@@ -173,7 +182,7 @@ export async function GET(request: NextRequest) {
                 </span>
               </div>
               <span style={{ fontSize: '13px', color: '#9ca3af', fontWeight: 600 }}>
-                ระบบเปรียบเทียบราคา 3 แพลตฟอร์ม • Shopee • Lazada • TikTok Shop
+                ข้อมูลสินค้าจาก {platformName}
               </span>
             </div>
           </div>
@@ -193,7 +202,7 @@ export async function GET(request: NextRequest) {
               fontWeight: 800,
             }}
           >
-            <span>ดีลของแท้ ราคาจริง</span>
+            <span>ราคาจาก source</span>
           </div>
         </div>
 
@@ -326,60 +335,29 @@ export async function GET(request: NextRequest) {
               <span style={{ fontSize: '13px', color: '#e5e7eb', fontWeight: 700 }}>
                 ร้าน: {storeName}
               </span>
-              <span style={{ fontSize: '12px', color: '#10b981', fontWeight: 700 }}>
-                • สินค้าแท้ 100%
-              </span>
+
             </div>
 
-            {/* Social Proof Tags */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '4px',
-                  background: 'rgba(245, 158, 11, 0.15)',
-                  border: '1px solid rgba(245, 158, 11, 0.3)',
-                  padding: '4px 12px',
-                  borderRadius: '9999px',
-                  color: '#fbbf24',
-                  fontSize: '13px',
-                  fontWeight: 700,
-                }}
-              >
-                <span>คะแนน {rating.toFixed(1)} / 5</span>
+            {rating > 0 && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px',
+                    background: 'rgba(245, 158, 11, 0.15)',
+                    border: '1px solid rgba(245, 158, 11, 0.3)',
+                    padding: '4px 12px',
+                    borderRadius: '9999px',
+                    color: '#fbbf24',
+                    fontSize: '13px',
+                    fontWeight: 700,
+                  }}
+                >
+                  <span>คะแนนจาก source {rating.toFixed(1)} / 5</span>
+                </div>
               </div>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '4px',
-                  background: 'rgba(255, 255, 255, 0.08)',
-                  padding: '4px 12px',
-                  borderRadius: '9999px',
-                  color: '#d1d5db',
-                  fontSize: '13px',
-                  fontWeight: 600,
-                }}
-              >
-                <span>ยอดขาย {soldCount}</span>
-              </div>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '4px',
-                  background: 'rgba(16, 185, 129, 0.15)',
-                  padding: '4px 12px',
-                  borderRadius: '9999px',
-                  color: '#34d399',
-                  fontSize: '13px',
-                  fontWeight: 700,
-                }}
-              >
-                <span>ตรวจแล้วราคาถูกสุด</span>
-              </div>
-            </div>
+            )}
 
             {/* Price Box */}
             <div
@@ -396,7 +374,7 @@ export async function GET(request: NextRequest) {
             >
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <span style={{ fontSize: '13px', color: '#10b981', fontWeight: 800 }}>
-                  ราคาสุทธิที่จ่ายจริง
+                  ราคาจาก source
                 </span>
                 <span
                   style={{

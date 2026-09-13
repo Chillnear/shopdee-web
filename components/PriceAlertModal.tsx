@@ -8,11 +8,7 @@ import {
   X, 
   Bell, 
   CheckCircle2, 
-  Sparkles, 
-  ShieldCheck,
-  TrendingDown,
   BookmarkCheck,
-  Heart,
   Sliders
 } from 'lucide-react';
 
@@ -29,7 +25,6 @@ export function PriceAlertModal({
   onClose,
   onOpenWatchlist,
 }: PriceAlertModalProps) {
-  const [selectedTarget, setSelectedTarget] = useState<'tier1' | 'tier2' | 'custom'>('tier1');
   const [customPriceInput, setCustomPriceInput] = useState<string>('');
   const [isSaved, setIsSaved] = useState(false);
   const [hasNotificationPermission, setHasNotificationPermission] = useState<boolean | null>(null);
@@ -37,19 +32,13 @@ export function PriceAlertModal({
   if (!isOpen || !deal) return null;
 
   const currentPrice = deal.estimatedFinalPrice;
-  const target1 = Math.round(currentPrice * 0.9); // 10% lower
-  const target2 = Math.round(currentPrice * 0.82); // 18% lower
 
-  const getComputedTargetPrice = (): number => {
-    if (selectedTarget === 'tier1') return target1;
-    if (selectedTarget === 'tier2') return target2;
-    const parsed = Number(customPriceInput);
-    return parsed > 0 ? parsed : target1;
-  };
+  const getComputedTargetPrice = (): number => Number(customPriceInput);
 
   const handleSaveToWatchlist = async () => {
     const finalTarget = getComputedTargetPrice();
-    addOrUpdateTrackedDeal(deal, finalTarget, selectedTarget);
+    if (!Number.isFinite(finalTarget) || finalTarget <= 0 || finalTarget >= currentPrice) return;
+    addOrUpdateTrackedDeal(deal, finalTarget, 'custom');
     setIsSaved(true);
 
     // Request browser notification if available
@@ -122,12 +111,9 @@ export function PriceAlertModal({
                 <span className="text-sm font-extrabold text-emerald-700">
                   {formatTHB(currentPrice)}
                 </span>
-                <span className="text-[10px] text-neutral-400 line-through">
-                  {formatTHB(deal.marketAvgPrice)}
-                </span>
               </div>
               <div className="text-[10px] text-neutral-500 mt-0.5 flex items-center gap-1">
-                <span>เทียบราคา Shopee • Lazada • TikTok Shop</span>
+                <span>ราคาอ้างอิงจาก source ที่บันทึกไว้</span>
               </div>
             </div>
           </div>
@@ -143,7 +129,7 @@ export function PriceAlertModal({
                   บันทึกการติดตามราคาเรียบร้อยแล้ว!
                 </h4>
                 <p className="text-xs text-emerald-800 leading-relaxed max-w-xs mx-auto">
-                  ระบบบนเว็บจะคอยตรวจราคาให้คุณทุกครั้งที่เปิดเข้ามาดู เมื่อราคาลดลงมาต่ำกว่า{' '}
+                  เมื่อมีการตรวจพบข้อมูลราคาที่ต่ำกว่าค่านี้จาก source รอบใหม่ ระบบจะแสดงสถานะให้คุณ{' '}
                   <strong className="font-black text-emerald-900 underline">
                     {formatTHB(getComputedTargetPrice())}
                   </strong>{' '}
@@ -178,119 +164,36 @@ export function PriceAlertModal({
               </div>
             </div>
           ) : (
-            /* Target Price Selector */
             <div className="space-y-3">
               <label className="text-xs font-bold text-neutral-700 block">
-                เลือกเป้าหมายราคาที่คุณต้องการให้เตือน:
+                ระบุราคาเป้าหมายจากราคาที่คุณต้องการเอง:
               </label>
-
-              <div className="space-y-2">
-                
-                {/* Option 1: -10% */}
-                <button
-                  type="button"
-                  onClick={() => setSelectedTarget('tier1')}
-                  className={`w-full p-3 rounded-2xl border text-left transition flex items-center justify-between cursor-pointer ${
-                    selectedTarget === 'tier1'
-                      ? 'border-emerald-600 bg-emerald-50/60 ring-2 ring-emerald-600/20'
-                      : 'border-neutral-200 hover:bg-neutral-50'
-                  }`}
-                >
-                  <div className="flex items-center gap-2.5">
-                    <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                      selectedTarget === 'tier1' ? 'border-emerald-600 bg-emerald-600' : 'border-neutral-300'
-                    }`}>
-                      {selectedTarget === 'tier1' && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
-                    </div>
-                    <div>
-                      <div className="font-bold text-xs text-neutral-900 flex items-center gap-1.5">
-                        <span>ลดลงมา 10% (แนะนำ)</span>
-                        <span className="text-[10px] bg-emerald-100 text-emerald-800 px-1.5 py-0.2 rounded font-extrabold">ยอดนิยม</span>
-                      </div>
-                      <div className="text-[11px] text-neutral-500">
-                        เมื่อราคาแตะที่ <strong className="text-emerald-700 font-extrabold">{formatTHB(target1)}</strong> (ประหยัดเพิ่ม ฿{currentPrice - target1})
-                      </div>
-                    </div>
-                  </div>
-                  <TrendingDown className="w-4 h-4 text-emerald-600 shrink-0" />
-                </button>
-
-                {/* Option 2: -18% Payday */}
-                <button
-                  type="button"
-                  onClick={() => setSelectedTarget('tier2')}
-                  className={`w-full p-3 rounded-2xl border text-left transition flex items-center justify-between cursor-pointer ${
-                    selectedTarget === 'tier2'
-                      ? 'border-emerald-600 bg-emerald-50/60 ring-2 ring-emerald-600/20'
-                      : 'border-neutral-200 hover:bg-neutral-50'
-                  }`}
-                >
-                  <div className="flex items-center gap-2.5">
-                    <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                      selectedTarget === 'tier2' ? 'border-emerald-600 bg-emerald-600' : 'border-neutral-300'
-                    }`}>
-                      {selectedTarget === 'tier2' && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
-                    </div>
-                    <div>
-                      <div className="font-bold text-xs text-neutral-900 flex items-center gap-1.5">
-                        <span>ลดลงมา 18% (ช่วง Payday / เลขเบิ้ล)</span>
-                      </div>
-                      <div className="text-[11px] text-neutral-500">
-                        เมื่อราคาแตะที่ <strong className="text-emerald-700 font-extrabold">{formatTHB(target2)}</strong> (ประหยัดเพิ่ม ฿{currentPrice - target2})
-                      </div>
-                    </div>
-                  </div>
-                  <Sparkles className="w-4 h-4 text-amber-500 shrink-0" />
-                </button>
-
-                {/* Option 3: Custom Price */}
-                <button
-                  type="button"
-                  onClick={() => setSelectedTarget('custom')}
-                  className={`w-full p-3 rounded-2xl border text-left transition flex flex-col gap-2 cursor-pointer ${
-                    selectedTarget === 'custom'
-                      ? 'border-emerald-600 bg-emerald-50/60 ring-2 ring-emerald-600/20'
-                      : 'border-neutral-200 hover:bg-neutral-50'
-                  }`}
-                >
-                  <div className="flex items-center justify-between w-full">
-                    <div className="flex items-center gap-2.5">
-                      <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                        selectedTarget === 'custom' ? 'border-emerald-600 bg-emerald-600' : 'border-neutral-300'
-                      }`}>
-                        {selectedTarget === 'custom' && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
-                      </div>
-                      <div className="font-bold text-xs text-neutral-900">
-                        กำหนดราคาเป้าหมายเอง
-                      </div>
-                    </div>
-                    <Sliders className="w-3.5 h-3.5 text-neutral-400" />
-                  </div>
-
-                  {selectedTarget === 'custom' && (
-                    <div className="pt-1 pl-6" onClick={(e) => e.stopPropagation()}>
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs text-neutral-500 font-bold">เตือนเมื่อต่ำกว่า:</span>
-                        <input
-                          type="number"
-                          value={customPriceInput}
-                          onChange={(e) => setCustomPriceInput(e.target.value)}
-                          placeholder={`เช่น ${Math.round(currentPrice * 0.85)}`}
-                          className="w-32 py-1 px-2 text-xs border border-neutral-300 rounded-lg focus:outline-none focus:border-emerald-600 font-mono font-bold text-neutral-900"
-                        />
-                        <span className="text-xs text-neutral-500">บาท</span>
-                      </div>
-                    </div>
-                  )}
-                </button>
-
+              <div className="p-3 rounded-2xl border border-neutral-200 bg-neutral-50">
+                <div className="flex items-center gap-2">
+                  <Sliders className="w-4 h-4 text-neutral-500 shrink-0" />
+                  <span className="text-xs text-neutral-600 font-bold">เตือนเมื่อต่ำกว่า:</span>
+                  <input
+                    type="number"
+                    min="1"
+                    max={currentPrice}
+                    value={customPriceInput}
+                    onChange={(e) => setCustomPriceInput(e.target.value)}
+                    placeholder="เช่น 500"
+                    className="w-32 py-1.5 px-2 text-xs border border-neutral-300 rounded-lg focus:outline-none focus:border-emerald-600 font-mono font-bold text-neutral-900"
+                  />
+                  <span className="text-xs text-neutral-500">บาท</span>
+                </div>
+                <p className="text-[11px] text-neutral-500 mt-2 pl-6">
+                  ShopDee จะไม่คาดการณ์ส่วนลดหรือแคมเปญแทนแพลตฟอร์ม
+                </p>
               </div>
 
               {/* Action Button */}
               <div className="pt-2">
                 <button
                   onClick={handleSaveToWatchlist}
-                  className="w-full py-3.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25 transition active:scale-98 cursor-pointer"
+                  disabled={!Number.isFinite(Number(customPriceInput)) || Number(customPriceInput) <= 0 || Number(customPriceInput) >= currentPrice}
+                  className="w-full py-3.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 disabled:bg-neutral-300 disabled:cursor-not-allowed text-white font-extrabold text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25 transition active:scale-98 cursor-pointer"
                 >
                   <BookmarkCheck className="w-4 h-4" />
                   <span>บันทึกการติดตามราคาบนเว็บนี้</span>

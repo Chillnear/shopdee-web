@@ -95,33 +95,6 @@ export function FilterDrawer({
             </div>
           </div>
 
-          {/* Section: Trust & Authenticity Threshold */}
-          <div>
-            <label className="font-bold text-neutral-900 block mb-1">
-              ดัชนีรีวิวคนไทยแท้ (Thai Authenticity)
-            </label>
-            <p className="text-xs text-neutral-500 mb-3">คัดกรองรีวิวบอทจีน และภาษาแปลอัตโนมัติ</p>
-            <div className="grid grid-cols-3 gap-2">
-              {[
-                { label: 'ไม่จำกัด', val: 0 },
-                { label: '90%+ ขึ้นไป', val: 90 },
-                { label: '95%+ แท้ชัวร์', val: 95 },
-              ].map((tier) => (
-                <button
-                  key={tier.val}
-                  onClick={() => onFilterChange({ ...filter, minAuthenticity: tier.val })}
-                  className={`py-2 px-2.5 rounded-xl border text-xs font-bold transition ${
-                    filter.minAuthenticity === tier.val
-                      ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
-                      : 'bg-white text-neutral-600 border-neutral-200 hover:bg-neutral-50'
-                  }`}
-                >
-                  {tier.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
           {/* Section: Shop & Shipping Badges */}
           <div>
             <label className="font-bold text-neutral-900 block mb-2">
@@ -134,7 +107,7 @@ export function FilterDrawer({
                   <ShieldCheck className="w-5 h-5 text-emerald-600" />
                   <div>
                     <span className="font-bold text-neutral-800 text-xs block">เฉพาะร้านทางการ (Mall / Flagship)</span>
-                    <span className="text-[11px] text-neutral-500">รับประกันของแท้ 100% มีประกันศูนย์</span>
+                    <span className="text-[11px] text-neutral-500">กรองตามประเภท Mall/Flagship ที่ source ระบุ</span>
                   </div>
                 </div>
                 <input
@@ -161,19 +134,19 @@ export function FilterDrawer({
                 />
               </label>
 
-              <label className="flex items-center justify-between p-3 rounded-xl border border-neutral-200 hover:bg-neutral-50 cursor-pointer transition">
+              <label className="flex items-center justify-between p-3 rounded-xl border border-neutral-200 opacity-60 cursor-not-allowed">
                 <div className="flex items-center gap-2.5">
                   <Ticket className="w-5 h-5 text-purple-600" />
                   <div>
                     <span className="font-bold text-neutral-800 text-xs block">มีคูปอง/โค้ดลดพร้อมใช้</span>
-                    <span className="text-[11px] text-neutral-500">มีโค้ดร้านค้าหรือโค้ดแพลตฟอร์มลดทันที</span>
+                    <span className="text-[11px] text-neutral-500">ยังไม่มีข้อมูล voucher จาก source ในขณะนี้</span>
                   </div>
                 </div>
                 <input
                   type="checkbox"
-                  checked={filter.hasVoucherOnly}
-                  onChange={(e) => onFilterChange({ ...filter, hasVoucherOnly: e.target.checked })}
-                  className="w-4 h-4 text-shopee rounded border-neutral-300 focus:ring-shopee"
+                  checked={false}
+                  disabled
+                  className="w-4 h-4 text-shopee rounded border-neutral-300"
                 />
               </label>
 

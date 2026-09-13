@@ -1,31 +1,17 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { 
   X, 
-  ShieldCheck, 
-  Sparkles, 
+  ShieldCheck,
   ExternalLink, 
-  AlertTriangle, 
-  Copy, 
-  Check, 
-  Tag, 
-  Award, 
-  Star,
-  CheckCircle2,
+  Award,
   Bell,
-  Flame,
   Share2
 } from 'lucide-react';
 import { ProductDeal, Platform } from '@/lib/types';
 import { formatTHB, formatSoldCount, getPlatformMeta, getSmartAffiliateUrl, cleanProductTitle } from '@/lib/engine';
 import { StoreComparisonTable } from '@/components/StoreComparisonTable';
-import { PriceTrendGraph } from '@/components/PriceTrendGraph';
-import { ReviewSentimentTags } from '@/components/ReviewSentimentTags';
-import { VoucherStackFormula } from '@/components/VoucherStackFormula';
-import { localDealInsightProvider } from '@/lib/ai/providers/local-engine';
-import { DealInsight } from '@/lib/ai/types';
-import { useDealViewers } from '@/lib/view-tracker';
 
 interface ProductDetailModalProps {
   deal: ProductDeal | null;
@@ -44,25 +30,9 @@ export function ProductDetailModal({
   onOpenShare,
   selectedPlatform = 'all' 
 }: ProductDetailModalProps) {
-  const [copiedCode, setCopiedCode] = useState<string | null>(null);
-  const [insight, setInsight] = useState<DealInsight | null>(null);
-  const viewersCount = useDealViewers(deal ? deal.id : '', deal ? deal.soldCount : 0, Boolean(deal));
-
-  React.useEffect(() => {
-    if (deal) {
-      localDealInsightProvider.execute(deal, new AbortController().signal).then(setInsight);
-    }
-  }, [deal]);
-
   if (!deal) return null;
 
   const platformMeta = getPlatformMeta(deal.platform);
-
-  const handleCopy = (code: string) => {
-    navigator.clipboard.writeText(code);
-    setCopiedCode(code);
-    setTimeout(() => setCopiedCode(null), 2000);
-  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-xs animate-in fade-in">
@@ -78,7 +48,7 @@ export function ProductDetailModal({
               <Award className="w-3.5 h-3.5" />
               <span>อันดับ #{rank}</span>
             </span>
-            <span className="text-xs font-bold text-neutral-600">เจาะลึกราคาและความปลอดภัย</span>
+            <span className="text-xs font-bold text-neutral-600">รายละเอียดจาก source</span>
           </div>
 
           <button
@@ -110,7 +80,7 @@ export function ProductDetailModal({
                 {deal.storeType === 'mall' && (
                   <span className="text-[10px] font-bold text-red-700 bg-red-50 border border-red-200 px-1.5 py-0.5 rounded flex items-center gap-1">
                     <ShieldCheck className="w-3 h-3 text-red-600" />
-                    <span>Mall แท้ 100%</span>
+                    <span>Mall จาก source</span>
                   </span>
                 )}
               </div>
@@ -120,83 +90,21 @@ export function ProductDetailModal({
               </h3>
 
               <div className="text-xs text-neutral-500 font-medium">
-                ร้าน: <strong className="text-neutral-700">{deal.storeName}</strong> • ขายแล้ว {formatSoldCount(deal.soldCount)}
+                ร้าน: <strong className="text-neutral-700">{deal.storeName}</strong>
               </div>
             </div>
           </div>
 
-          {/* AI Deal Value Insight Card */}
-          {insight && (
-            <div className="rounded-2xl border border-neutral-200/90 bg-gradient-to-br from-neutral-50 via-white to-orange-50/20 p-4 shadow-xs">
-              <div className="flex items-center justify-between gap-2 mb-3">
-                <div className="flex items-center gap-2.5">
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-black text-sm text-white shadow-xs ${
-                    insight.verdict === 'excellent' ? 'bg-emerald-600' :
-                    insight.verdict === 'good' ? 'bg-blue-600' :
-                    insight.verdict === 'caution' ? 'bg-amber-600' : 'bg-neutral-700'
-                  }`}>
-                    {insight.score}
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-xs font-bold text-neutral-900">{insight.verdictLabel}</span>
-                      <span className="text-[10px] text-neutral-400 font-medium">({insight.score}/100)</span>
-                    </div>
-                    <p className="text-[11px] text-neutral-600 font-medium">{insight.headline}</p>
-                  </div>
-                </div>
-
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-neutral-100 text-neutral-600 border border-neutral-200 shrink-0">
-                  AI วิเคราะห์
-                </span>
-              </div>
-
-              {/* Highlights & Timing */}
-              <div className="space-y-1.5 pt-2 border-t border-neutral-100">
-                {insight.keyHighlights.map((hl, i) => (
-                  <div key={i} className="flex items-center gap-2 text-xs text-neutral-700 font-medium">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                    <span>{hl}</span>
-                  </div>
-                ))}
-                {insight.cautionPoints.map((cp, i) => (
-                  <div key={`c-${i}`} className="flex items-center gap-2 text-xs text-amber-800 font-medium">
-                    <AlertTriangle className="w-3.5 h-3.5 text-amber-600 shrink-0" />
-                    <span>{cp}</span>
-                  </div>
-                ))}
-                <div className="text-[11px] text-neutral-600 font-medium bg-neutral-100/70 px-2.5 py-1.5 rounded-xl border border-neutral-200/60 mt-2">
-                  <span>💡 {insight.priceAssessment.timingAdviceText}</span>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Option Bait Warning */}
-          {deal.hasOptionBait && deal.baitWarningNote && (
-            <div className="bg-amber-50 border border-amber-200 rounded-2xl p-3 text-xs text-amber-900 flex items-start gap-2.5">
-              <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
-              <div>
-                <span className="font-bold block">ดักจับราคาตัวเลือกหลอก (Option Bait):</span>
-                <span className="text-amber-800 leading-normal">{deal.baitWarningNote}</span>
-              </div>
-            </div>
-          )}
-
-          {/* Social Proof & Quick Actions Bar */}
+          {/* Source-backed sales statistic and quick actions */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 p-2.5 sm:p-3 rounded-2xl bg-neutral-50/90 border border-neutral-200/80">
-            {/* Left: Viewers & Sales Stats */}
             <div className="flex items-center gap-2 flex-wrap text-xs">
-              <span className="inline-flex items-center gap-1.5 text-rose-600 font-bold bg-rose-50 border border-rose-200/80 px-2.5 py-1 rounded-xl shadow-2xs whitespace-nowrap">
-                <Flame className="w-3.5 h-3.5 text-rose-500 shrink-0" />
-                <span>{viewersCount} คนกำลังดูตอนนี้</span>
-              </span>
-
-              {deal.soldCount > 0 && (
-                <span className="inline-flex items-center gap-1 text-neutral-600 font-medium bg-white border border-neutral-200/80 px-2.5 py-1 rounded-xl shadow-2xs whitespace-nowrap">
+              {deal.soldCount > 0 ? (
+                <span className="inline-flex items-center gap-1.5 text-neutral-600 font-medium bg-white border border-neutral-200/80 px-2.5 py-1 rounded-xl shadow-2xs whitespace-nowrap">
                   <span>ขายแล้ว</span>
                   <strong className="text-neutral-900 font-bold">{formatSoldCount(deal.soldCount)}</strong>
                 </span>
+              ) : (
+                <span className="text-xs text-neutral-500">ยังไม่มีข้อมูลยอดขายจาก source</span>
               )}
             </div>
 
@@ -297,149 +205,13 @@ export function ProductDetailModal({
             </div>
           )}
 
-          {/* AI Review Sentiment Tags */}
-          <ReviewSentimentTags
-            highlights={deal.reviewHighlights}
-            thaiAuthenticityScore={deal.thaiAuthenticityScore}
-            reviewCount={deal.reviews.length}
-          />
-
-          {/* Price Trend Graph & Timing Advice */}
-          <PriceTrendGraph
-            history={deal.priceHistory}
-            currentPrice={deal.estimatedFinalPrice}
-            marketAvgPrice={deal.marketAvgPrice}
-            advice={deal.priceAdvice}
-            adviceNote={deal.priceAdviceNote}
-            defaultExpanded={false}
-          />
-
-          {/* Voucher Stacking Formula (Trip.com Style) */}
-          <VoucherStackFormula
-            formula={deal.voucherStackFormula}
-            basePrice={deal.basePrice}
-            finalPrice={deal.estimatedFinalPrice}
-          />
-
-          {/* Thai Authenticity Review Proof */}
-          <div className="bg-emerald-50/60 rounded-2xl p-3.5 border border-emerald-200 space-y-2">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-900">
-                <span>🇹🇭 รีวิวคนไทยแท้ {deal.thaiAuthenticityScore}%</span>
-              </div>
-              <span className="text-[10px] text-emerald-700 font-semibold">
-                ผ่านการตรวจกรองบอทจีน
-              </span>
-            </div>
-
-            {deal.reviews.slice(0, 2).map((r) => (
-              <div key={r.id} className="bg-white p-2.5 rounded-xl border border-emerald-150 text-xs text-neutral-700">
-                <div className="flex items-center justify-between text-[11px] text-neutral-500 mb-1">
-                  <span className="font-bold text-neutral-800">{r.author}</span>
-                  <div className="flex text-amber-400">
-                    {Array.from({ length: r.rating }).map((_, i) => (
-                      <Star key={i} className="w-2.5 h-2.5 fill-amber-400" />
-                    ))}
-                  </div>
-                </div>
-                <p className="text-[11px] text-neutral-600 italic">"{r.comment}"</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Available Vouchers with Copy Button & Usage Guide */}
-          {deal.availableVouchers.length > 0 && (
-            <div className="space-y-2.5 rounded-2xl p-3 sm:p-3.5 bg-neutral-50 border border-neutral-200">
-              <div className="flex items-center justify-between gap-2">
-                <div className="flex items-center gap-1.5">
-                  <Tag className="w-3.5 h-3.5 text-neutral-700 shrink-0" />
-                  <span className="text-xs font-bold text-neutral-800">
-                    คูปองส่วนลดสำหรับ {platformMeta.name}:
-                  </span>
-                </div>
-                <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded ${platformMeta.badgeColor}`}>
-                  ใช้บน {platformMeta.name}
-                </span>
-              </div>
-
-              <div className="space-y-1.5">
-                {deal.availableVouchers.map((v) => (
-                  <div 
-                    key={v.id} 
-                    className={`p-2.5 rounded-xl border border-dashed flex items-center justify-between gap-2 ${
-                      deal.platform === 'shopee'
-                        ? 'border-orange-300 bg-orange-50/50'
-                        : deal.platform === 'lazada'
-                        ? 'border-blue-300 bg-blue-50/50'
-                        : 'border-neutral-300 bg-white'
-                    }`}
-                  >
-                    <div>
-                      <div className="flex items-center gap-1.5 mb-0.5">
-                        <span className={`font-mono font-bold text-xs ${
-                          deal.platform === 'shopee'
-                            ? 'text-shopee'
-                            : deal.platform === 'lazada'
-                            ? 'text-lazada'
-                            : 'text-neutral-900'
-                        }`}>
-                          {v.code}
-                        </span>
-                        <span className="text-[9px] bg-white px-1.5 py-0.2 rounded border border-neutral-200 font-semibold text-neutral-600">
-                          {v.tag}
-                        </span>
-                      </div>
-                      <span className="text-[11px] text-neutral-700 font-medium block">{v.discountText}</span>
-                    </div>
-
-                    <button
-                      onClick={() => handleCopy(v.code)}
-                      className={`px-2.5 py-1.5 rounded-lg text-white text-xs font-bold flex items-center gap-1 active:scale-95 transition shrink-0 ${
-                        copiedCode === v.code
-                          ? 'bg-emerald-600'
-                          : deal.platform === 'shopee'
-                          ? 'bg-shopee hover:bg-shopee-hover'
-                          : deal.platform === 'lazada'
-                          ? 'bg-lazada hover:bg-lazada-accent'
-                          : 'bg-black hover:bg-neutral-800'
-                      }`}
-                    >
-                      {copiedCode === v.code ? (
-                        <>
-                          <Check className="w-3 h-3" />
-                          <span>คัดลอกแล้ว</span>
-                        </>
-                      ) : (
-                        <>
-                          <Copy className="w-3 h-3" />
-                          <span>คัดลอก</span>
-                        </>
-                      )}
-                    </button>
-                  </div>
-                ))}
-              </div>
-
-              {/* Step-by-step How to Use banner */}
-              <div className="bg-white p-2.5 rounded-xl border border-neutral-200/80 text-[11px] text-neutral-600 space-y-1">
-                <div className="font-bold text-neutral-800 flex items-center gap-1">
-                  <span>💡 วิธีใช้โค้ดส่วนลดใน {platformMeta.name}:</span>
-                </div>
-                <ol className="list-decimal list-inside space-y-0.5 text-neutral-600 pl-0.5">
-                  <li>กดปุ่ม <strong>"คัดลอก"</strong> ที่โค้ดด้านบน</li>
-                  <li>กดปุ่มด้านล่าง <strong>"ไปสั่งซื้อบน {platformMeta.name}"</strong> เพื่อเปิดแอป</li>
-                  <li>ในหน้าสรุปคำสั่งซื้อ / ชำระเงิน นำโค้ดไปวางในช่อง <strong>"โค้ดส่วนลด"</strong> ก่อนยืนยันชำระเงิน</li>
-                </ol>
-              </div>
-            </div>
-          )}
 
         </div>
 
         {/* Sticky Footer CTA */}
         <div className="p-4 border-t border-neutral-200 bg-neutral-50 flex items-center justify-between gap-3">
           <div>
-            <span className="text-[11px] text-neutral-400 block font-medium">ราคาหลังใช้โค้ด</span>
+            <span className="text-[11px] text-neutral-400 block font-medium">ราคาจาก source</span>
             <span className="text-xl sm:text-2xl font-black text-shopee tracking-tight">
               {formatTHB(deal.estimatedFinalPrice)}
             </span>

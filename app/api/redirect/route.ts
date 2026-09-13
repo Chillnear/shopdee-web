@@ -1,12 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { isUsablePlatformUrl } from '@/lib/catalog-loader';
+import { Platform } from '@/lib/types';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
-  const targetUrl = searchParams.get('url') || 'https://shopee.co.th';
-  const platform = (searchParams.get('platform') || 'shopee').toLowerCase();
-  const dealId = searchParams.get('dealId') || 'unknown';
+  const targetUrl = searchParams.get('url')?.trim() || '';
+  const platformParam = searchParams.get('platform')?.toLowerCase() || '';
+  const dealId = searchParams.get('dealId')?.trim() || '';
+  const platform = platformParam as Platform;
+
+  if (!dealId || !isUsablePlatformUrl(targetUrl, platform)) {
+    return NextResponse.json({ error: 'Invalid direct product URL' }, { status: 400 });
+  }
 
   const userAgent = request.headers.get('user-agent') || '';
   const isMobile = /iPhone|iPad|iPod|Android/i.test(userAgent);
@@ -137,11 +144,8 @@ export async function GET(request: NextRequest) {
     <div class="logo">SD</div>
     <div class="spinner"></div>
     <h1>กำลังเปิดแอป ${platformName}...</h1>
-    <p>ระบบกำลังพาคุณไปยังหน้าร้านค้าที่มีโค้ดลดและราคาคุ้มที่สุดบนแอปมือถือ</p>
+    <p>ระบบกำลังพาคุณไปยังหน้าสินค้าโดยตรงบน ${platformName}</p>
     <a href="${targetUrl}" class="btn" id="fallbackBtn">หากไม่เปิดอัตโนมัติ กดที่นี่</a>
-    <div>
-      <span class="badge">✓ การันตีเปิดแอปแท้ ปลอดภัย 100%</span>
-    </div>
   </div>
 
   <script>

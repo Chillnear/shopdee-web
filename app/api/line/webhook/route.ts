@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
-import { MOCK_DEALS } from '@/lib/mock-data';
+import { loadFullCatalog } from '@/lib/catalog-loader';
 import { filterAndRankDeals, DEFAULT_FILTER_STATE, formatTHB, getSmartAffiliateUrl } from '@/lib/engine';
 import { createPriceAlert } from '@/lib/db';
 import { ProductDeal } from '@/lib/types';
@@ -28,7 +28,6 @@ function verifySignature(body: string, signature: string | null): boolean {
  */
 function buildDealFlexBubble(deal: ProductDeal, rank: number, baseUrl: string) {
   const deepLink = `${baseUrl}${getSmartAffiliateUrl(deal.affiliateUrl, deal.platform, deal.id)}`;
-  const savePct = Math.round(((deal.marketAvgPrice - deal.estimatedFinalPrice) / deal.marketAvgPrice) * 100);
 
   // Other stores comparison rows
   const storeRows = (deal.stores || []).slice(0, 3).map((st, idx) => ({
@@ -66,11 +65,7 @@ function buildDealFlexBubble(deal: ProductDeal, rank: number, baseUrl: string) {
       contents: [
         {
           type: 'text',
-          text: `👑 อันดับ #${rank} ${
-            (deal.priceComparisons?.filter(pc => pc.hasDirectProduct !== false && pc.price > 0).length || 1) >= 3
-              ? 'ถูกสุดใน 3 แอป'
-              : 'ดีลคุ้มค่าอันดับ 1'
-          }`,
+          text: `อันดับ #${rank} • ข้อมูลจาก source`,
           color: '#ffffff',
           weight: 'bold',
           size: 'xs',
@@ -78,7 +73,7 @@ function buildDealFlexBubble(deal: ProductDeal, rank: number, baseUrl: string) {
         },
         {
           type: 'text',
-          text: `ประหยัด -${savePct}%`,
+          text: 'ตรวจสอบราคาในหน้าร้าน',
           color: '#fef08a',
           weight: 'bold',
           size: 'xs',
@@ -120,7 +115,7 @@ function buildDealFlexBubble(deal: ProductDeal, rank: number, baseUrl: string) {
               contents: [
                 {
                   type: 'text',
-                  text: 'ราคาเน็ตหลังหักโค้ด:',
+                  text: 'ราคาจาก source:',
                   size: 'xxs',
                   color: '#059669',
                   weight: 'bold',
@@ -135,26 +130,6 @@ function buildDealFlexBubble(deal: ProductDeal, rank: number, baseUrl: string) {
                 },
               ],
             },
-            {
-              type: 'box',
-              layout: 'baseline',
-              contents: [
-                {
-                  type: 'text',
-                  text: 'ราคาปกติหน้าร้าน:',
-                  size: 'xxs',
-                  color: '#9ca3af',
-                },
-                {
-                  type: 'text',
-                  text: formatTHB(deal.marketAvgPrice),
-                  size: 'xs',
-                  color: '#9ca3af',
-                  decoration: 'line-through',
-                  align: 'end',
-                },
-              ],
-            },
           ],
         },
         // Comparison table
@@ -165,9 +140,7 @@ function buildDealFlexBubble(deal: ProductDeal, rank: number, baseUrl: string) {
           contents: [
             {
               type: 'text',
-              text: (deal.priceComparisons?.filter(pc => pc.hasDirectProduct !== false && pc.price > 0).length || 1) >= 3
-                ? '🔍 เทียบราคา 3 แอปเรียลไทม์:'
-                : '🔍 ตรวจสอบราคาบนร้านค้า:',
+              text: '🔍 ข้อเสนอจาก source:',
               size: 'xxs',
               color: '#9ca3af',
               weight: 'bold',
@@ -222,6 +195,7 @@ export async function POST(request: NextRequest) {
     const events = payload.events || [];
 
     const origin = request.nextUrl.origin || 'https://shopdee.th';
+    const catalog = await loadFullCatalog();
 
     for (const event of events) {
       const replyToken = event.replyToken;
@@ -232,7 +206,7 @@ export async function POST(request: NextRequest) {
         const userText = event.message.text.trim();
 
         // Search deals with query
-        const { deals } = filterAndRankDeals(MOCK_DEALS, userText, DEFAULT_FILTER_STATE);
+        const { deals } = filterAndRankDeals(catalog, userText, DEFAULT_FILTER_STATE);
         const topDeals = deals.slice(0, 4);
 
         let replyPayload: any;
@@ -245,11 +219,11 @@ export async function POST(request: NextRequest) {
             messages: [
               {
                 type: 'text',
-                text: `🔍 พบดีลราคาถูกสุด ${topDeals.length} รายการสำหรับ "${userText}":`,
+                text: `🔍 พบสินค้า ${topDeals.length} รายการสำหรับ "${userText}" จาก catalog source:`,
               },
               {
                 type: 'flex',
-                altText: `รวมดีลถูกสุดสำหรับ ${userText} จาก ShopDee`,
+                altText: `สินค้า ${userText} จาก catalog source ของ ShopDee`,
                 contents: {
                   type: 'carousel',
                   contents: bubbles,
@@ -258,25 +232,12 @@ export async function POST(request: NextRequest) {
             ],
           };
         } else {
-          // No direct match -> suggest trending deals
-          const trending = MOCK_DEALS.slice(0, 3);
-          const bubbles = trending.map((deal, idx) => buildDealFlexBubble(deal, idx + 1, origin));
           replyPayload = {
             replyToken,
-            messages: [
-              {
-                type: 'text',
-                text: `ไม่พบดีลที่ตรงกับคำว่า "${userText}" ตรงๆ แต่ ShopDee รวมดีลเด็ดลดแรงประจำวันมาให้ลองดูครับ 👇`,
-              },
-              {
-                type: 'flex',
-                altText: 'ดีลเด็ดประจำวัน ShopDee',
-                contents: {
-                  type: 'carousel',
-                  contents: bubbles,
-                },
-              },
-            ],
+            messages: [{
+              type: 'text',
+              text: `ไม่พบสินค้าที่ตรงกับ "${userText}" จาก catalog source ที่มีอยู่`,
+            }],
           };
         }
 
@@ -307,8 +268,11 @@ export async function POST(request: NextRequest) {
         const dealId = params.get('dealId');
 
         if (action === 'alert' && dealId) {
-          const deal = MOCK_DEALS.find((d) => d.id === dealId);
-          const targetPrice = deal ? Math.round(deal.estimatedFinalPrice * 0.9) : 500;
+          const deal = catalog.find((d) => d.id === dealId);
+          if (!deal) {
+            continue;
+          }
+          const targetPrice = deal.estimatedFinalPrice;
 
           await createPriceAlert(dealId, userId, targetPrice);
 
@@ -317,7 +281,7 @@ export async function POST(request: NextRequest) {
             messages: [
               {
                 type: 'text',
-                text: `✅ ตั้งเตือนราคาลดสำหรับ "${deal?.title || 'สินค้า'}" เรียบร้อยแล้ว!\n\n🔔 เมื่อราคาปรับลดลงมาต่ำกว่า ${formatTHB(targetPrice)} หรือมีโค้ดลดลับรอบดึก 00:00 น. บอท ShopDee จะส่งข้อความแจ้งเตือนคุณทันทีครับ!`,
+                text: `ตั้งเตือนสำหรับ "${deal.title}" แล้ว\nราคาอ้างอิงจาก source ปัจจุบัน: ${formatTHB(targetPrice)}\nระบบจะแจ้งเมื่อมีข้อมูลราคาต่ำกว่าค่านี้`,
               },
             ],
           };

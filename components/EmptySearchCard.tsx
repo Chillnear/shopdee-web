@@ -65,7 +65,7 @@ export function EmptySearchCard({
       </h3>
       
       <p className="text-xs sm:text-sm text-neutral-500 mb-6 leading-relaxed max-w-md mx-auto">
-        วางลิงก์หน้าสินค้าจริงจาก Shopee, Lazada หรือ TikTok Shop เพื่อให้ระบบดึงข้อมูล วิเคราะห์ราคา และคำนวณโค้ดลดที่คุ้มที่สุดให้คุณทันที
+        วางลิงก์หน้าสินค้าจริงจาก Shopee, Lazada หรือ TikTok Shop เพื่อให้ระบบดึงข้อมูลจากหน้าสินค้าและแสดงเฉพาะ direct URL ที่ตรวจสอบรูปแบบแล้ว
       </p>
 
       {/* Direct Link Ingestion Box */}

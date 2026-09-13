@@ -3,8 +3,7 @@
  * ประมวลผลใน TypeScript บริสุทธิ์ในระดับ 1-5ms โดยไม่ต้องพึ่งเครือข่ายภายนอก
  */
 
-import { AIProvider, SearchIntent, DealInsight } from '../types';
-import { ProductDeal } from '../../types';
+import { AIProvider, SearchIntent } from '../types';
 
 // พจนานุกรมหมวดหมู่และความต้องการในภาษาไทย
 const CATEGORY_MAP: Record<string, string[]> = {
@@ -109,106 +108,6 @@ export const localSearchProvider: AIProvider<string, SearchIntent> = {
       preferredPlatform,
       sortHint,
       summaryThai,
-    };
-  },
-};
-
-export const localDealInsightProvider: AIProvider<ProductDeal, DealInsight> = {
-  name: 'local-deal-insight-v1',
-  tier: 'local',
-  timeoutMs: 30,
-  async execute(deal: ProductDeal): Promise<DealInsight> {
-    let score = 55;
-    const keyHighlights: string[] = [];
-    const cautionPoints: string[] = [];
-
-    // ประเมินราคาเทียบค่าเฉลี่ยตลาด
-    const saveAmt = deal.marketAvgPrice - deal.estimatedFinalPrice;
-    const savePct = Math.round((saveAmt / deal.marketAvgPrice) * 100);
-
-    if (savePct >= 15) {
-      score += 20;
-      keyHighlights.push(`ราคาถูกกว่าค่าเฉลี่ยตลาด ${savePct}% (ประหยัด ฿${saveAmt.toLocaleString()})`);
-    } else if (savePct > 0) {
-      score += 10;
-      keyHighlights.push(`ราคาประหยัดกว่าค่าเฉลี่ย ${savePct}%`);
-    } else if (savePct < -10) {
-      score -= 15;
-      cautionPoints.push('ราคาสูงกว่าค่าเฉลี่ยตลาดทั่วไป');
-    }
-
-    // ประเมินความน่าเชื่อถือ
-    if (deal.thaiAuthenticityScore >= 95) {
-      score += 15;
-      keyHighlights.push(`ความน่าเชื่อถือสูงมาก (คะแนนแท้ ${deal.thaiAuthenticityScore}%)`);
-    }
-
-    if (deal.storeType === 'mall') {
-      score += 10;
-      keyHighlights.push('ร้านค้าทางการ (Official Mall) มั่นใจของแท้');
-    }
-
-    // ตรวจจับจุดเสี่ยง
-    if (deal.hasOptionBait) {
-      score -= 25;
-      cautionPoints.push(deal.baitWarningNote || 'ร้านนี้มีตัวเลือกดักราคา กรุณาเช็กตัวเลือกก่อนชำระเงิน');
-    }
-
-    // มีโค้ดลดพร้อมใช้
-    if (deal.availableVouchers && deal.availableVouchers.length > 0) {
-      score += 5;
-      const maxDiscount = Math.max(...deal.availableVouchers.map(v => v.discountAmount || 0));
-      if (maxDiscount > 0) {
-        keyHighlights.push(`มีโค้ดส่วนลดพร้อมใช้สูงสุด ฿${maxDiscount.toLocaleString()}`);
-      } else {
-        keyHighlights.push('มีโค้ดส่วนลดพร้อมใช้');
-      }
-    }
-
-    score = Math.max(10, Math.min(99, score));
-
-    // กำหนด Verdict
-    let verdict: DealInsight['verdict'] = 'good';
-    let verdictLabel = 'น่าซื้อ';
-    if (deal.hasOptionBait) {
-      verdict = 'caution';
-      verdictLabel = 'ระวังตัวเลือกหลอก';
-    } else if (score >= 80) {
-      verdict = 'excellent';
-      verdictLabel = 'คุ้มค่าที่สุด';
-    } else if (score < 50) {
-      verdict = 'fair';
-      verdictLabel = 'ราคาปกติ';
-    }
-
-    // คำแนะนำจังหวะซื้อ
-    let timingAdvice: DealInsight['priceAssessment']['timingAdvice'] = 'neutral';
-    let timingAdviceText = 'ราคาสมเหตุสมผล ซื้อได้ตามความจำเป็น';
-    if (deal.priceAdvice === 'buy_now' || savePct >= 18) {
-      timingAdvice = 'buy_now';
-      timingAdviceText = '🎯 ซื้อได้ทันที: ราคานี้ต่ำกว่าปกติอย่างมีนัยสำคัญ';
-    } else if (deal.priceAdvice === 'wait_for_sale') {
-      timingAdvice = 'wait_campaign';
-      timingAdviceText = '⏳ ถ้ารอได้: แนะนำรอกดโค้ดลดเพิ่มวัน Double Day หรือ Payday';
-    }
-
-    const headline = keyHighlights[0] || `ราคาจ่ายจริง ฿${deal.estimatedFinalPrice.toLocaleString()}`;
-
-    return {
-      dealId: deal.id,
-      verdict,
-      verdictLabel,
-      score,
-      headline,
-      keyHighlights,
-      cautionPoints,
-      priceAssessment: {
-        isHistoricLow: deal.isAbsoluteCheapest || deal.priceAdvice === 'buy_now',
-        discountPct: Math.max(0, savePct),
-        fairMarketPrice: deal.marketAvgPrice,
-        timingAdvice,
-        timingAdviceText,
-      },
     };
   },
 };

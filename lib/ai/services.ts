@@ -9,7 +9,7 @@
 import { AIRouter } from './router';
 import { SearchIntent, DealInsight, AIResult } from './types';
 import { createMimiIntentProvider } from './providers/mimi-provider';
-import { localSearchProvider, localDealInsightProvider } from './providers/local-engine';
+import { localSearchProvider } from './providers/local-engine';
 import { ProductDeal } from '../types';
 
 // 1. Search Intent Router: Mimi Coach LiteLLM -> Local Engine Baseline
@@ -28,14 +28,6 @@ export const searchIntentRouter = new AIRouter<string, SearchIntent>({
     localSearchProvider, // 100% Guaranteed Offline Baseline
   ],
   validate: (out) => Array.isArray(out.cleanKeywords) && out.cleanKeywords.length > 0,
-});
-
-// 2. Deal Insight Router: ประเมินความคุ้มค่าและสรุปข้อดี-ข้อควรระวัง
-export const dealInsightRouter = new AIRouter<ProductDeal, DealInsight>({
-  providers: [
-    localDealInsightProvider, // 1-5ms instant rule engine
-  ],
-  validate: (out) => typeof out.score === 'number' && out.score >= 0,
 });
 
 /** ฟังก์ชันสำหรับเรียกค้นหา Intent อัจฉริยะ */
@@ -63,7 +55,10 @@ export async function parseSearchIntent(rawQuery: string): Promise<AIResult<Sear
   return searchIntentRouter.run(rawQuery);
 }
 
-/** ฟังก์ชันสำหรับประเมินความคุ้มค่าของดีล */
-export async function analyzeDealInsight(deal: ProductDeal): Promise<AIResult<DealInsight>> {
-  return dealInsightRouter.run(deal);
+/**
+ * Deal scoring is intentionally unavailable until every input is source-backed.
+ * Returning an invented score would violate the catalog data policy.
+ */
+export async function analyzeDealInsight(_deal: ProductDeal): Promise<AIResult<DealInsight>> {
+  throw new Error('Source-backed deal insight is not available');
 }

@@ -115,7 +115,7 @@ export function HeroSearch({
           เทียบราคาจ่ายจริง <span className="text-shopee font-black">Shopee • Lazada • TikTok</span>
         </h1>
         <p className="text-xs sm:text-sm text-neutral-500 max-w-xl mx-auto mb-5 font-normal">
-          รวมโค้ดลดและค่าส่ง คำนวณราคาสุทธิที่ถูกและคุ้มค่าที่สุดในที่เดียว
+          ดูข้อมูลราคา ร้านค้า รูปภาพ และ direct URL จาก source ในที่เดียว
         </p>
 
         {/* 1. Prominent Dual Mode Tabs: วางลิงก์ vs ค้นหาชื่อสินค้า */}

@@ -19,9 +19,7 @@ import {
   CheckCircle2, 
   Store,
   Zap,
-  Sparkles,
-  Flame,
-  Search
+  Flame
 } from 'lucide-react';
 
 interface StoreComparisonTableProps {
@@ -31,72 +29,8 @@ interface StoreComparisonTableProps {
   initiallyExpanded?: boolean;
 }
 
-function extractSearchKeywords(title: string): string {
-  return title
-    .replace(/[【\[\(][^】\]\)]*[】\]\)]/g, ' ')
-    .replace(/[^\w\s\u0E00-\u0E7F]/gi, ' ')
-    .replace(/\b(COD|TH|BK|PRO|HOT|SALE)\b/gi, ' ')
-    .replace(/(ใหม่|สินค้าใหม่|ของแท้|ส่งฟรี|พร้อมส่ง|ลดราคา|แท้100%?|ราคาถูก|โปรโมชั่น|1แถม1|ซื้อ 1 แถม 1|ในไทย|จัดส่งไว|ด่วน)/gi, ' ')
-    .replace(/\s+/g, ' ')
-    .trim()
-    .split(' ')
-    .filter(w => w.length > 1)
-    .slice(0, 5)
-    .join(' ');
-}
-
-interface SearchAssistantProps {
-  dealTitle?: string;
-  missingPlatforms: Platform[];
-}
-
-function SearchAssistant({ dealTitle, missingPlatforms }: SearchAssistantProps) {
-  if (!dealTitle || missingPlatforms.length === 0) return null;
-
-  const cleanKeywords = extractSearchKeywords(dealTitle);
-  const queryEnc = encodeURIComponent(cleanKeywords);
-
-  return (
-    <div className="mt-3 p-3 bg-white rounded-xl border border-neutral-200/90 shadow-2xs">
-      <div className="flex items-center gap-1.5 mb-1 text-xs font-bold text-neutral-800">
-        <Search className="w-3.5 h-3.5 text-neutral-500" />
-        <span>🔍 ค้นหาเปรียบเทียบเพิ่มเติมบนแอปอื่น ({missingPlatforms.map(p => getPlatformMeta(p).name).join(', ')})</span>
-      </div>
-      <p className="text-[11px] text-neutral-500 mb-2 leading-relaxed">
-        *ระบบยังไม่มีลิงก์ตรงของสินค้านี้บนแอปอื่น ท่านสามารถกดปุ่มด้านล่างเพื่อเปิดผลการค้นหาตามชื่อสินค้าบนแอปนั้นๆ ได้โดยตรง
-      </p>
-      <div className="flex flex-wrap gap-2">
-        {missingPlatforms.map(platform => {
-          const meta = getPlatformMeta(platform);
-          let searchUrl = '';
-          if (platform === 'lazada') {
-            searchUrl = `https://www.lazada.co.th/catalog/?q=${queryEnc}`;
-          } else if (platform === 'tiktok') {
-            searchUrl = `https://www.tiktok.com/search?q=${queryEnc}`;
-          } else {
-            searchUrl = `https://shopee.co.th/search?keyword=${queryEnc}`;
-          }
-          return (
-            <a
-              key={platform}
-              href={searchUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="py-1.5 px-3 rounded-lg border border-neutral-200 bg-neutral-50 hover:bg-neutral-100 text-neutral-700 text-xs font-bold flex items-center gap-1 transition active:scale-95"
-            >
-              <span>ค้นหาชื่อนี้บน {meta.name}</span>
-              <ExternalLink className="w-3 h-3 text-neutral-400" />
-            </a>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
 export function StoreComparisonTable({
   stores,
-  dealTitle,
   defaultPlatform = 'all',
   initiallyExpanded = false,
 }: StoreComparisonTableProps) {
@@ -115,17 +49,13 @@ export function StoreComparisonTable({
   if (validStores.length === 0) return null;
 
   const representedPlatforms = new Set(validStores.map(s => s.platform));
-  const missingPlatforms: Platform[] = (['shopee', 'lazada', 'tiktok'] as Platform[]).filter(
-    p => !representedPlatforms.has(p)
-  );
-
   const getStoreTypeBadge = (type: StoreType) => {
     switch (type) {
       case 'mall':
         return (
           <span className="inline-flex items-center gap-0.5 bg-red-50 text-red-700 border border-red-200 text-[10px] font-bold px-1.5 py-0.5 rounded">
             <ShieldCheck className="w-3 h-3 text-red-600" />
-            <span>Mall ทางการแท้</span>
+            <span>Mall จาก source</span>
           </span>
         );
       case 'preferred':
@@ -167,7 +97,7 @@ export function StoreComparisonTable({
           </div>
           <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full flex items-center gap-1">
             <CheckCircle2 className="w-2.5 h-2.5" />
-            <span>ลิงก์ตรงสินค้าแท้ 100%</span>
+            <span>ลิงก์ตรงจาก source</span>
           </span>
         </div>
 
@@ -196,8 +126,7 @@ export function StoreComparisonTable({
                     <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
                     <span>{singleStore.storeRating}</span>
                   </span>
-                  <span>•</span>
-                  <span>ขายแล้ว {formatSoldCount(singleStore.soldCount)}</span>
+                  {singleStore.soldCount > 0 && <><span>•</span><span>ขายแล้ว {formatSoldCount(singleStore.soldCount)}</span></>}
                 </div>
               </div>
 
@@ -212,13 +141,13 @@ export function StoreComparisonTable({
             <div className="flex items-center justify-between sm:justify-end gap-3 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-neutral-150">
               <div className="text-left sm:text-right">
                 <div className="flex items-baseline gap-1.5 sm:justify-end">
-                  <span className="text-[10px] text-neutral-400">เหลือเพียง</span>
+                  <span className="text-[10px] text-neutral-400">ราคา source</span>
                   <span className="text-base sm:text-lg font-black text-emerald-700">
-                    {formatTHB(singleStore.estimatedAfterVoucher)}
+                    {formatTHB(singleStore.price)}
                   </span>
                 </div>
                 <div className="text-[10px] text-neutral-400">
-                  ราคาหน้าร้าน: {formatTHB(singleStore.price)}
+                  direct URL จาก source
                 </div>
               </div>
 
@@ -241,7 +170,6 @@ export function StoreComparisonTable({
           </div>
         </div>
 
-        <SearchAssistant dealTitle={dealTitle} missingPlatforms={missingPlatforms} />
       </div>
     );
   }
@@ -254,11 +182,11 @@ export function StoreComparisonTable({
   let displayedStores: StoreOffer[] = [];
 
   if (activeTab === 'all') {
-    displayedStores = [...validStores].sort((a, b) => a.estimatedAfterVoucher - b.estimatedAfterVoucher);
+    displayedStores = [...validStores].sort((a, b) => a.price - b.price);
   } else {
     displayedStores = validStores
       .filter(s => s.platform === activeTab)
-      .sort((a, b) => a.estimatedAfterVoucher - b.estimatedAfterVoucher);
+      .sort((a, b) => a.price - b.price);
   }
 
   // 1. ร้านถูกสุด (Lowest Price)
@@ -268,15 +196,16 @@ export function StoreComparisonTable({
   const bestStore = displayedStores.find(s => (s.isBestStore || s.storeType === 'mall') && s.id !== cheapestStore?.id) ||
                     displayedStores.find(s => s.isBestStore || s.storeType === 'mall') ||
                     [...displayedStores].sort((a, b) => b.storeRating - a.storeRating)[0];
-  const hasDistinctBest = Boolean(bestStore && bestStore.id !== cheapestStore?.id);
+  const hasDistinctBest = false;
 
+  // Keep only source-backed price ordering; do not infer value or trust from heuristics.
   // 3. ร้านคุ้มค่าสุด (Best Value: ส่งฟรี + เรตติ้งดี + คูปองคุ้ม + ราคาจับต้องได้) - prefer distinct ID
   const bestValueStore = displayedStores.find(s => s.id !== cheapestStore?.id && s.id !== bestStore?.id && (s.isBestValue || s.freeShipping)) ||
                          displayedStores.find(s => s.id !== cheapestStore?.id && s.id !== bestStore?.id) ||
                          displayedStores.find(s => s.id !== cheapestStore?.id) ||
                          displayedStores[1] ||
                          cheapestStore;
-  const hasDistinctValue = Boolean(bestValueStore && bestValueStore.id !== cheapestStore?.id && bestValueStore.id !== bestStore?.id);
+  const hasDistinctValue = false;
 
   // Visible items (3 if collapsed, all if expanded)
   const visibleStores = isExpanded ? displayedStores : displayedStores.slice(0, 3);
@@ -295,7 +224,7 @@ export function StoreComparisonTable({
             </h4>
           </div>
           <p className="text-[11px] text-neutral-500 mt-0.5">
-            เปรียบเทียบร้านค้าจริงที่มีลิงก์ตรง: ถูกสุด • คุ้มสุด • ดีสุด
+            เรียงข้อเสนอที่มีลิงก์ตรงตามราคาจาก source
           </p>
         </div>
 
@@ -380,9 +309,9 @@ export function StoreComparisonTable({
                 {cheapestStore.storeName}
               </p>
               <div className="flex items-baseline gap-1 mt-1">
-                <span className="text-[10px] text-neutral-500">จ่ายน้อยสุด</span>
+                <span className="text-[10px] text-neutral-500">ราคาต่ำสุดในรายการ</span>
                 <span className="text-sm sm:text-base font-black text-emerald-700">
-                  {formatTHB(cheapestStore.estimatedAfterVoucher)}
+                                      {formatTHB(cheapestStore.price)}
                 </span>
               </div>
             </div>
@@ -416,11 +345,9 @@ export function StoreComparisonTable({
                 </p>
                 <div className="flex items-baseline gap-1 mt-1">
                   <span className="text-sm sm:text-base font-black text-amber-800">
-                    {formatTHB(bestValueStore.estimatedAfterVoucher)}
+                    {formatTHB(bestValueStore.price)}
                   </span>
-                  <span className="text-[10px] text-amber-700 font-bold">
-                    • ส่งฟรี 0.-
-                  </span>
+
                 </div>
               </div>
 
@@ -443,7 +370,7 @@ export function StoreComparisonTable({
                 <div className="flex items-center justify-between gap-1 mb-1">
                   <span className="text-[10px] font-black bg-blue-600 text-white px-1.5 py-0.5 rounded flex items-center gap-0.5">
                     <ShieldCheck className="w-2.5 h-2.5" />
-                    <span>👑 ดีสุด (Mall แท้)</span>
+                    <span>ข้อมูลร้านเด่นจาก source</span>
                   </span>
                   <span className="text-[10px] font-bold text-neutral-500">
                     {getPlatformMeta(bestStore.platform).name}
@@ -454,10 +381,10 @@ export function StoreComparisonTable({
                 </p>
                 <div className="flex items-baseline gap-1 mt-1">
                   <span className="text-sm sm:text-base font-black text-blue-800">
-                    {formatTHB(bestStore.estimatedAfterVoucher)}
+                    {formatTHB(bestStore.price)}
                   </span>
                   <span className="text-[10px] text-blue-600 font-bold">
-                    • แท้ 100%
+                    • ประเภทร้านจาก source
                   </span>
                 </div>
               </div>
@@ -468,25 +395,11 @@ export function StoreComparisonTable({
                 rel="noopener noreferrer"
                 className="py-1.5 px-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-black flex items-center justify-center gap-1 shrink-0 shadow-2xs transition active:scale-95"
               >
-                <span>ซื้อร้านแท้ ({getPlatformMeta(bestStore.platform).name})</span>
+                <span>ไปที่ร้านค้า ({getPlatformMeta(bestStore.platform).name})</span>
                 <ExternalLink className="w-2.5 h-2.5" />
               </a>
             </div>
-          ) : (
-            <div className="p-2.5 rounded-xl bg-purple-50/90 border border-purple-200 flex flex-col justify-between gap-1 shadow-2xs">
-              <div className="flex items-center gap-1 mb-0.5">
-                <span className="text-[10px] font-black bg-purple-600 text-white px-1.5 py-0.2 rounded">
-                  👑 คุ้ม 2 ต่อ
-                </span>
-                <span className="text-[10px] font-bold text-purple-800">
-                  ร้านถูกสุดเป็น Mall ทางการ
-                </span>
-              </div>
-              <p className="text-xs font-black text-purple-950">
-                ได้ทั้งราคาถูกสุดและได้ของแท้ 100% ในร้านเดียว!
-              </p>
-            </div>
-          )}
+          ) : null}
         </div>
       )}
 
@@ -495,7 +408,7 @@ export function StoreComparisonTable({
         {visibleStores.map((store, index) => {
           const platformMeta = getPlatformMeta(store.platform);
           const isCheapest = store.id === cheapestStore?.id;
-          const isBestValue = store.id === bestValueStore?.id && !isCheapest;
+          const isBestValue = hasDistinctValue && store.id === bestValueStore?.id && !isCheapest;
           const isBest = store.id === bestStore?.id && !isCheapest && !isBestValue && hasDistinctBest;
 
           return (
@@ -567,8 +480,7 @@ export function StoreComparisonTable({
                         <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
                         <span>{store.storeRating}</span>
                       </span>
-                      <span>•</span>
-                      <span>ขายแล้ว {formatSoldCount(store.soldCount)}</span>
+                      {store.soldCount > 0 && <><span>•</span><span>ขายแล้ว {formatSoldCount(store.soldCount)}</span></>}
                     </div>
                   </div>
 
@@ -585,7 +497,7 @@ export function StoreComparisonTable({
                 <div className="flex items-center justify-between sm:justify-end gap-3 sm:gap-4 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-neutral-150">
                   <div className="text-left sm:text-right">
                     <div className="flex items-baseline gap-1.5 sm:justify-end">
-                      <span className="text-[10px] text-neutral-400">เหลือเพียง</span>
+                      <span className="text-[10px] text-neutral-400">ราคา source</span>
                       <span className={`text-base sm:text-lg font-black tracking-tight ${
                         isCheapest 
                           ? 'text-emerald-700' 
@@ -595,11 +507,11 @@ export function StoreComparisonTable({
                           ? 'text-blue-800' 
                           : 'text-neutral-900'
                       }`}>
-                        {formatTHB(store.estimatedAfterVoucher)}
+                        {formatTHB(store.price)}
                       </span>
                     </div>
                     <div className="text-[10px] text-neutral-400">
-                      ราคาหน้าร้าน: {formatTHB(store.price)}
+                      direct URL จาก source
                     </div>
                   </div>
 
@@ -654,9 +566,6 @@ export function StoreComparisonTable({
           )}
         </button>
       )}
-
-      {/* Honest Search Assistant for missing platforms */}
-      <SearchAssistant dealTitle={dealTitle} missingPlatforms={missingPlatforms} />
 
     </div>
   );

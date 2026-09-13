@@ -8,12 +8,9 @@ import { FilterDrawer } from '@/components/FilterDrawer';
 import { ProductCard } from '@/components/ProductCard';
 import { ProductGridCard } from '@/components/ProductGridCard';
 import { ProductDetailModal } from '@/components/ProductDetailModal';
-import { ReviewModal } from '@/components/ReviewModal';
-import { VoucherModal } from '@/components/VoucherModal';
 import { PriceAlertModal } from '@/components/PriceAlertModal';
 import { ShareDealModal } from '@/components/ShareDealModal';
 import { WatchlistDrawer } from '@/components/WatchlistDrawer';
-import { PriceDropToast } from '@/components/PriceDropToast';
 import { LineOptinBanner } from '@/components/LineOptinBanner';
 import { EmptySearchCard } from '@/components/EmptySearchCard';
 import { isValidPersistedDeal, loadFullCatalog } from '@/lib/catalog-loader';
@@ -68,8 +65,6 @@ export default function Home() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   
   // Modals state
-  const [activeReviewDeal, setActiveReviewDeal] = useState<ProductDeal | null>(null);
-  const [activeVoucherDeal, setActiveVoucherDeal] = useState<ProductDeal | null>(null);
   const [activeDetailDeal, setActiveDetailDeal] = useState<{ deal: ProductDeal; rank: number } | null>(null);
   const [activeAlertDeal, setActiveAlertDeal] = useState<ProductDeal | null>(null);
   const [activeShareDeal, setActiveShareDeal] = useState<ProductDeal | null>(null);
@@ -245,7 +240,7 @@ export default function Home() {
             <h2 className="text-lg sm:text-xl font-black text-neutral-900 flex items-center gap-2">
               <Flame className="w-5 h-5 text-rose-500" />
               <span>
-                {searchQuery ? `ผลการค้นหา "${searchQuery}"` : 'ดีลยอดนิยมที่ถูกและคุ้มที่สุด'}
+                {searchQuery ? `ผลการค้นหา "${searchQuery}"` : 'สินค้าจากแหล่งข้อมูลที่ตรวจสอบได้'}
               </span>
             </h2>
             <span className="bg-neutral-200 text-neutral-700 text-xs font-bold px-2 py-0.5 rounded-full">
@@ -273,7 +268,7 @@ export default function Home() {
             </span>
             <span className="text-neutral-400">•</span>
             <span>
-              เรียงตาม: {filter.sortBy === 'popular' ? '🔥 ยอดนิยม / ขายดี' : filter.sortBy === 'best_discount' ? '🏷️ ลดคุ้มสุด %' : filter.sortBy === 'cheapest' ? '💰 ราคาต่ำไปสูง' : filter.sortBy === 'expensive' ? '💎 ราคาสูงไปต่ำ' : '🛡️ ร้านทางการ'}
+              เรียงตาม: {filter.sortBy === 'popular' ? '🔎 ข้อมูล source' : filter.sortBy === 'best_discount' ? '🏷️ ลดจากราคาหน้าร้าน %' : filter.sortBy === 'cheapest' ? '💰 ราคาต่ำไปสูง' : filter.sortBy === 'expensive' ? '💎 ราคาสูงไปต่ำ' : '🛡️ ร้านทางการจาก source'}
             </span>
           </div>
         </div>
@@ -303,8 +298,6 @@ export default function Home() {
                     key={deal.id}
                     deal={deal}
                     rank={index + 1}
-                    onOpenReviews={(d) => setActiveReviewDeal(d)}
-                    onOpenVouchers={(d) => setActiveVoucherDeal(d)}
                     onOpenPriceAlert={(d) => setActiveAlertDeal(d)}
                     onOpenShare={(d) => setActiveShareDeal(d)}
                     selectedPlatform={filter.selectedPlatforms.length === 1 ? filter.selectedPlatforms[0] : 'all'}
@@ -374,7 +367,7 @@ export default function Home() {
               <span>ภารกิจของเรา: ไม่ยอมให้คนไทยโดนหลอก</span>
             </div>
             <h3 className="text-lg sm:text-xl font-extrabold text-white">
-              ช้อปปิ้งฉลาดขึ้น ประหยัดเงินปีละหลายหมื่นบาท
+              ช้อปปิ้งฉลาดขึ้นด้วยข้อมูลสินค้าจาก source
             </h3>
             <p className="text-xs text-neutral-400 max-w-xl">
               ShopDee (ช้อปดี) ไม่ใช่ร้านค้า แต่เป็นเครื่องมือช่วยค้นหาและเปรียบเทียบราคาที่โปร่งใสที่สุด ไม่เก็บค่าบริการ ไม่ต้องสมัครสมาชิก ใช้ฟรีได้ตลอดชีพ
@@ -399,7 +392,7 @@ export default function Home() {
               ShopDee (ช้อปดี)
             </div>
             <p className="text-[11px] text-neutral-400">
-              © {new Date().getFullYear()} ShopDee. ช้อปของดี ราคาแท้ ไม่จกตา • เชื่อมต่อลิงก์ค้นหาสด 3 แพลตฟอร์ม • เปรียบเทียบ 3 ตัวเลือก: ถูกสุด คุ้มสุด ดีสุด
+              © {new Date().getFullYear()} ShopDee. แสดงข้อมูลสินค้าจาก source พร้อม direct URL ของ Shopee, Lazada และ TikTok Shop
             </p>
           </div>
 
@@ -446,19 +439,6 @@ export default function Home() {
         onClose={() => setActiveAlertDeal(null)}
         onOpenWatchlist={() => setIsWatchlistOpen(true)}
       />
-
-      <ReviewModal
-        deal={activeReviewDeal}
-        onClose={() => setActiveReviewDeal(null)}
-      />
-
-      <VoucherModal
-        deal={activeVoucherDeal}
-        onClose={() => setActiveVoucherDeal(null)}
-      />
-
-      {/* Floating Price Drop Notification Toast */}
-      <PriceDropToast onOpenWatchlist={() => setIsWatchlistOpen(true)} />
 
       {/* Ingestion Success Toast */}
       {toastMessage && (

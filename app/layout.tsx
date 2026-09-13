@@ -17,9 +17,9 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://shopdee.th'),
-  title: "ShopDee (ช้อปดี) • รวมดีลถูกจริงข้าม 3 แพลตฟอร์ม ไม่จกตา",
-  description: "ShopDee ช้อปดี เทียบราคาจริง Shopee, Lazada, TikTok Shop กรองราคาตัวเลือกหลอก กรองรีวิวบอทจีนแปลภาษา คัดเฉพาะร้านทางการและร้านแนะนำ ใช้งานฟรี 100% ไม่ต้องสมัครสมาชิก",
-  keywords: ["ShopDee", "ช้อปดี", "เช็คราคา", "ราคาถูกสุด", "shopee ถูกสุด", "lazada ถูกสุด", "tiktok shop", "โค้ดลด shopee", "เทียบราคา", "ของแท้"],
+  title: "ShopDee (ช้อปดี) • ตรวจสอบข้อมูลสินค้าจาก Shopee, Lazada และ TikTok Shop",
+  description: "ShopDee แสดงข้อมูลสินค้าจาก source พร้อมราคา ร้านค้า รูปภาพ และ direct URL ที่ตรวจสอบรูปแบบแล้วจาก Shopee, Lazada และ TikTok Shop",
+  keywords: ["ShopDee", "ช้อปดี", "เช็คราคา", "Shopee", "Lazada", "TikTok Shop", "เทียบราคา", "direct URL"],
   manifest: "/manifest.json",
   icons: {
     icon: [

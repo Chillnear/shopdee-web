@@ -63,8 +63,8 @@ export function getPlatformMeta(platform: Platform) {
 }
 
 export function getSmartAffiliateUrl(url: string, platform: Platform, dealId?: string): string {
-  if (!url) return '#';
-  return `/api/redirect?url=${encodeURIComponent(url)}&platform=${platform}&dealId=${dealId || 'deal'}`;
+  if (!url || !dealId) return '';
+  return `/api/redirect?url=${encodeURIComponent(url)}&platform=${platform}&dealId=${encodeURIComponent(dealId)}`;
 }
 
 export function filterAndRankDeals(
@@ -172,9 +172,13 @@ export function filterAndRankDeals(
     filtered = filtered.filter(deal => deal.freeShipping);
   }
 
-  // 5. Thai Authenticity Threshold
+  // 5. Trust threshold (source-backed): Mall store and/or store rating.
+  // thaiAuthenticityScore is not sourced from any feed, so it must not gate results.
   if (filter.minAuthenticity > 0) {
-    filtered = filtered.filter(deal => deal.thaiAuthenticityScore >= filter.minAuthenticity);
+    filtered = filtered.filter(deal => {
+      const t = (deal.storeType === 'mall' ? 80 : deal.storeType === 'preferred' ? 50 : 20) + deal.storeRating * 10;
+      return t >= filter.minAuthenticity;
+    });
   }
 
   // 6. Has Voucher Only
@@ -205,9 +209,16 @@ export function filterAndRankDeals(
         return discountPctB - discountPctA;
       }
       case 'highest_trust': {
-        const trustA = a.thaiAuthenticityScore * (a.storeType === 'mall' ? 1.3 : 1.0);
-        const trustB = b.thaiAuthenticityScore * (b.storeType === 'mall' ? 1.3 : 1.0);
-        return trustB - trustA;
+        // Source-backed trust signal: Mall store + store rating + verified cross-platform offers.
+        // thaiAuthenticityScore is not sourced from any feed, so it is not used here.
+        const trustOf = (deal: ProductDeal) => {
+          let t = deal.storeType === 'mall' ? 100 : deal.storeType === 'preferred' ? 60 : 30;
+          t += deal.storeRating * 10;
+          const verified = deal.priceComparisons ? deal.priceComparisons.filter(pc => pc.hasDirectProduct !== false && pc.price > 0).length : 0;
+          t += verified * 8;
+          return t;
+        };
+        return trustOf(b) - trustOf(a);
       }
       case 'popular':
       default: {

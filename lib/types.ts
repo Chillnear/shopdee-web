@@ -88,7 +88,7 @@ export interface ProductDeal {
   // Pricing
   basePrice: number;            // ราคาจริงของตัวสินค้าหลัก (ตัดตัวเลือกหลอกแล้ว)
   originalPrice: number;        // ราคาป้ายก่อนลด
-  marketAvgPrice: number;       // ราคากลางเปรียบเทียบในตลาด
+  marketAvgPrice?: number;      // มีเฉพาะเมื่อ source ให้ราคากลางจริง
   estimatedFinalPrice: number;  // ราคาคาดการณ์หลังหักโค้ดลดทั่วไป
   vipFinalPrice: number;        // ราคาสำหรับคนมีสิทธิ์ VIP / Payday
   

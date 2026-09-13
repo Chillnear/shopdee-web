@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { MOCK_DEALS } from '@/lib/mock-data';
+import { loadFullCatalog } from '@/lib/catalog-loader';
 
 export const dynamic = 'force-dynamic';
 
@@ -9,7 +9,6 @@ export async function GET(request: NextRequest) {
   const authHeader = request.headers.get('authorization');
   const querySecret = request.nextUrl.searchParams.get('secret');
 
-  // Verify cron secret if configured
   if (CRON_SECRET) {
     const isTokenValid =
       authHeader === `Bearer ${CRON_SECRET}` || querySecret === CRON_SECRET;
@@ -18,43 +17,42 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  const now = new Date().toISOString();
+  const catalog = await loadFullCatalog();
   const checkedDeals: Array<{
     id: string;
     title: string;
     currentPrice: number;
-    lowestIn30Days: number;
+    lowestInHistory: number;
     isLowestNow: boolean;
-    dropPercent: number;
   }> = [];
 
-  for (const deal of MOCK_DEALS) {
-    const prices = (deal.priceHistory || []).map((p) => p.price);
-    const minHistoricalPrice = prices.length > 0 ? Math.min(...prices) : deal.estimatedFinalPrice;
-    const isLowestNow = deal.estimatedFinalPrice <= minHistoricalPrice;
-    const dropPercent = Math.round(
-      ((deal.marketAvgPrice - deal.estimatedFinalPrice) / deal.marketAvgPrice) * 100
-    );
+  for (const deal of catalog) {
+    const prices = (deal.priceHistory || [])
+      .map((point) => Number(point.price))
+      .filter((price) => Number.isFinite(price) && price > 0);
+    if (prices.length < 2) continue;
 
+    const currentPrice = deal.basePrice;
+    const lowestInHistory = Math.min(...prices);
     checkedDeals.push({
       id: deal.id,
       title: deal.title,
-      currentPrice: deal.estimatedFinalPrice,
-      lowestIn30Days: minHistoricalPrice,
-      isLowestNow,
-      dropPercent,
+      currentPrice,
+      lowestInHistory,
+      isLowestNow: currentPrice <= lowestInHistory,
     });
   }
 
-  // Filter deals that are at their 30-day lowest record
-  const flashDeals = checkedDeals.filter((d) => d.isLowestNow && d.dropPercent >= 20);
+  const lowestPriceDeals = checkedDeals.filter((deal) => deal.isLowestNow);
 
   return NextResponse.json({
     success: true,
-    syncedAt: now,
+    syncedAt: new Date().toISOString(),
     totalDealsChecked: checkedDeals.length,
-    flashDealsFound: flashDeals.length,
-    flashDeals,
-    message: `Price sync completed successfully. Found ${flashDeals.length} all-time low deals.`,
+    lowestPriceDealsFound: lowestPriceDeals.length,
+    lowestPriceDeals,
+    message: checkedDeals.length > 0
+      ? `ตรวจสอบประวัติราคาจริงแล้ว ${checkedDeals.length} รายการ`
+      : 'ยังไม่มีข้อมูลประวัติราคาจริงเพียงพอสำหรับการเปรียบเทียบ',
   });
 }

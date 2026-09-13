@@ -33,83 +33,57 @@ export function ShareDealModal({ deal, onClose }: ShareDealModalProps) {
   const origin = typeof window !== 'undefined' ? window.location.origin : 'https://shopdee-th.com';
   const affiliateRedirectUrl = `${origin}/api/redirect?dealId=${deal.id}&platform=${deal.platform}&url=${encodeURIComponent(deal.affiliateUrl)}`;
   
-  // Pass complete authentic deal parameters so OG image card preview & download 100% matches the exact product
+  // The OG route resolves all display fields from the source catalog by ID.
   const ogParams = new URLSearchParams({
     dealId: deal.id,
-    title: deal.title,
-    price: String(deal.estimatedFinalPrice),
-    marketPrice: String(deal.originalPrice || deal.marketAvgPrice || deal.estimatedFinalPrice),
-    platform: deal.platform,
-    store: deal.storeName,
-    rating: String(deal.storeRating || 4.9),
-    sold: String(deal.soldCount || 120),
-    imageUrl: deal.imageUrl,
     format: cardFormat,
   });
   const ogImageUrl = `${origin}/api/og/deal?${ogParams.toString()}`;
   
-  const saveAmount = Math.max(0, (deal.originalPrice || deal.marketAvgPrice) - deal.estimatedFinalPrice);
-  const discountPercent = Math.round((((deal.originalPrice || deal.marketAvgPrice) - deal.estimatedFinalPrice) / (deal.originalPrice || deal.marketAvgPrice)) * 100);
-
-  const isMulti = (deal.priceComparisons?.filter(pc => pc.hasDirectProduct !== false && pc.price > 0).length || 1) >= 3;
-
-  // Platform specific viral caption templates
   const captionTemplates: Record<'facebook' | 'instagram' | 'tiktok' | 'line', { title: string; caption: string; tip: string }> = {
     facebook: {
       title: 'Facebook Page / กลุ่มป้ายยา',
-      tip: 'เหมาะสำหรับโพสต์เพจหรือแชร์ลงกลุ่มป้ายยา ชี้เป้าโค้ดซ้อน 4 ต่อ เพิ่มอัตราคลิกสูงสุด',
-      caption: `🔥 ชี้เป้าโปรลับ! ${deal.title}
-📉 เหลือเพียง ${formatTHB(deal.estimatedFinalPrice)} (จากราคาปกติ ${formatTHB(deal.marketAvgPrice)}) ประหยัดทันที ${formatTHB(saveAmount)}!
-
-⚡ ทริคเก็บโค้ดซ้อน 4 ต่อ (ตรวจแล้วใช้ได้จริง):
-1. คูปองส่วนลดร้านค้า: ${deal.storeName}
-2. โค้ดลดแอป ${deal.platform.toUpperCase()}
-3. โค้ดส่งฟรี 0 บาท
-4. โบนัส/เหรียญสะสม
-
-👉 สั่งซื้อด่วนก่อนโค้ดหมด:
-${affiliateRedirectUrl}
-
-#ShopDee #ช้อปดี #ชี้เป้าโปรถูก #ดีลเด็ด #ของดีบอกต่อ #${deal.platform === 'shopee' ? 'ShopeeTH' : deal.platform === 'lazada' ? 'LazadaTH' : 'TikTokShopTH'}`
-    },
-    instagram: {
-      title: 'Instagram & Threads',
-      tip: 'สไตล์ Aesthetic อารมณ์เพื่อนป้ายยาเพื่อน สั้นกระชับ ชี้เป้าลิงก์ใน Bio หรือ Story',
-      caption: `แกรรร ลดโหดมากกก! 😭✨
-${deal.title}
-เหลือแค่ ${formatTHB(deal.estimatedFinalPrice)} เท่านั้น (ปกติ ${formatTHB(deal.marketAvgPrice)})
-
-${isMulti ? '⚡ เช็คราคา 3 แอปแล้ว ร้านนี้ถูกและคุ้มสุด' : '⚡ ตรวจสอบราคาแล้ว ร้านนี้แท้และคุ้มค่าสุด'}
-พิกัดจิ้มลิงก์หน้า Bio หรือแคปรูปนี้ไปเสิร์ชได้เลยน้า 👆✨
+      tip: 'แชร์ข้อมูลสินค้าจาก source พร้อมลิงก์ตรง',
+      caption: `📦 ${deal.title}
+💰 ราคาอ้างอิงจาก source: ${formatTHB(deal.estimatedFinalPrice)}
+🏪 ร้านค้า: ${deal.storeName}
 
 🔗 ลิงก์ตรง: ${affiliateRedirectUrl}
 
-#ของมันต้องมี #ป้ายยาของใช้ในบ้าน #ของดีบอกต่อ #รีวิวของแท้ #threads #igdeals`
+ราคาและสถานะสินค้าอาจเปลี่ยนเมื่อเปิดหน้าร้าน
+#ShopDee #ช้อปดี`
+    },
+    instagram: {
+      title: 'Instagram & Threads',
+      tip: 'แชร์ชื่อสินค้า ราคา และลิงก์ตรงจาก source',
+      caption: `📦 ${deal.title}
+💰 ${formatTHB(deal.estimatedFinalPrice)}
+🏪 ${deal.storeName}
+
+🔗 ลิงก์ตรง: ${affiliateRedirectUrl}
+ตรวจสอบราคาและสถานะล่าสุดบนหน้าร้านก่อนสั่งซื้อ
+#ShopDee #ช้อปดี`
     },
     tiktok: {
-      title: 'TikTok / Reels (สคริปต์ 15 วิ + ตะกร้า)',
-      tip: 'มีทั้งบทพูดเปิดคลิปฮุค 3 วินาที (3s Hook) + แคปชันปักหมุดตะกร้าเหลือง',
-      caption: `🎙️ [สคริปต์พูดคลิปสั้น 15 วินาที]
-(0-3s) "ใครกำลังจะซื้อ ${deal.title} หยุดดูก่อน! อย่าเพิ่งจ่ายราคาเต็ม"
-(3-10s) "เพราะวันนี้ใน ShopDee เช็คมาให้แล้ว เหลือแค่ ${formatTHB(deal.estimatedFinalPrice)} จากปกติ ${formatTHB(deal.marketAvgPrice)} ลดซ้อน 4 ต่อ คุ้มมากกก"
-(10-15s) "รีบกดตรงตะกร้าสีเหลืองซ้ายมือ หรือจิ้มลิงก์หน้าโปรไฟล์ด่วนเลย ก่อนโค้ดจะหมด!"
+      title: 'TikTok / Reels',
+      tip: 'สคริปต์สั้นจากข้อมูลสินค้าที่ตรวจพบ',
+      caption: `สินค้า: ${deal.title}
+ราคาอ้างอิงจาก source: ${formatTHB(deal.estimatedFinalPrice)}
+ร้านค้า: ${deal.storeName}
 
-📌 [แคปชันใต้คลิป TikTok]:
-ดีลเด็ดประจำวัน ลดเหลือ ${formatTHB(deal.estimatedFinalPrice)} (-${discountPercent}%) พิกัดในคลิปหรือหน้าไบโอ 👇
-${affiliateRedirectUrl}
-
-#tiktokป้ายยา #ของดีบอกต่อ #พิกัดของใช้ #ช้อปกันวันเงินออก #นายหน้าtiktok`
+ลิงก์ตรง: ${affiliateRedirectUrl}
+ราคาและสต็อกอาจเปลี่ยนแปลง โปรดตรวจสอบบนหน้าร้าน
+#ShopDee #ช้อปดี`
     },
     line: {
       title: 'LINE OA / แชทเพื่อน',
-      tip: 'ฟอร์แมตสะอาดตา เหมาะสำหรับบรอดแคสต์ LINE Official Account หรือส่งให้คนสนิท',
-      caption: `🟢 ดีลเด็ดลดแรง ประจำวันนี้!
-📦 ${deal.title}
-💰 พิเศษ ${formatTHB(deal.estimatedFinalPrice)} (ปกติ ${formatTHB(deal.marketAvgPrice)})
-🔥 ประหยัดไป ${formatTHB(saveAmount)} (-${discountPercent}%)
+      tip: 'ส่งชื่อสินค้า ราคา และ direct URL',
+      caption: `📦 ${deal.title}
+💰 ราคา: ${formatTHB(deal.estimatedFinalPrice)}
+🏪 ร้านค้า: ${deal.storeName}
+🔗 ${affiliateRedirectUrl}
 
-🛒 สั่งซื้อพร้อมรับสิทธิ์โค้ดลดที่นี่:
-${affiliateRedirectUrl}`
+ข้อมูลจาก source โปรดตรวจสอบราคาและสถานะล่าสุดก่อนสั่งซื้อ`
     }
   };
 
@@ -405,7 +379,7 @@ ${affiliateRedirectUrl}`
         <div className="p-4 border-t border-neutral-150 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/80 flex items-center justify-between rounded-b-3xl">
           <div className="flex items-center gap-1.5 text-xs text-neutral-500 dark:text-neutral-400">
             <Sparkles className="w-3.5 h-3.5 text-orange-500" />
-            <span>สร้างยอดขาย Affiliate อัตโนมัติ 0 บาท</span>
+            <span>ลิงก์ Affiliate จาก source ของสินค้า</span>
           </div>
 
           <button

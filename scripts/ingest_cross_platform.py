@@ -1,306 +1,264 @@
 #!/usr/bin/env python3
-"""
-ingest_cross_platform.py
-Worker to ingest and match authentic cross-platform products from Shopee, Lazada, and TikTok Shop.
-Enforces strict product link integrity:
-- Rejects any search/catalog/tag URLs.
-- Only accepts direct item URLs.
-- Appends verified deals to lib/seeded-catalog.json.
+"""Build ShopDee's verified catalog from official source exports only.
+
+The input is a JSON array of product records or records with an ``offers`` array.
+Every offer must contain real source metadata. This worker never searches
+marketplaces, guesses a price, invents a store, or fills a missing image.
+
+Example input record:
+{
+  "canonicalKey": "brand:model:variant",
+  "title": "Real product title",
+  "category": "electronics",
+  "offers": [
+    {
+      "platform": "lazada",
+      "price": 999,
+      "originalPrice": 1290,
+      "storeName": "Actual store name",
+      "imageUrl": "https://cdn.example/product.jpg",
+      "affiliateUrl": "https://www.lazada.co.th/products/item-i1-s2.html"
+    }
+  ]
+}
+
+Only use this with data exported through an official feed/API or a manually
+verified direct-product source. It does not bypass marketplace controls.
 """
 
 import argparse
 import json
 import os
 import re
-import sys
-import urllib.request
+import tempfile
+import time
 import urllib.parse
-from datetime import datetime
+from datetime import datetime, timezone
+from pathlib import Path
 
-QUEUE_PATH = 'data/cross_platform_queue.json'
-SEEDED_CATALOG_PATH = 'lib/seeded-catalog.json'
+OUTPUT_PATH = Path('lib/verified-catalog.json')
+PLATFORMS = ('shopee', 'lazada', 'tiktok')
+SEARCH_PREFIXES = ('/search', '/catalog', '/tag', '/keyword')
 
-PLATFORM_HOSTS = {
-    'shopee': ['shopee.co.th', 'shope.ee'],
-    'lazada': ['lazada.co.th', 's.lazada.co.th'],
-    'tiktok': ['tiktok.com', 'shop.tiktok.com', 'vt.tiktok.com']
-}
 
-INVALID_PATH_PREFIXES = ['/search', '/tag', '/keyword', '/catalog']
-
-def is_usable_url(url: str, platform: str) -> bool:
-    if not url or not isinstance(url, str):
+def is_direct_product_url(value: object, platform: str) -> bool:
+    if not isinstance(value, str) or not value.strip() or platform not in PLATFORMS:
         return False
     try:
-        parsed = urllib.parse.urlparse(url)
-        host = parsed.hostname or ''
-        matches_host = any(host == h or host.endswith('.' + h) for h in PLATFORM_HOSTS.get(platform, []))
-        if not matches_host:
+        parsed = urllib.parse.urlparse(value.strip())
+        host = (parsed.hostname or '').lower()
+        path = parsed.path.lower()
+        if parsed.scheme not in ('http', 'https') or path.startswith(SEARCH_PREFIXES):
             return False
-        for prefix in INVALID_PATH_PREFIXES:
-            if parsed.path.startswith(prefix):
-                return False
-        return True
+
+        if platform == 'shopee':
+            parts = [part for part in path.split('/') if part]
+            numeric_product = len(parts) >= 3 and parts[-3] == 'product' and all(part.isdigit() for part in parts[-2:])
+            slug_product = '-i.' in path and '.' in path.split('-i.', 1)[1]
+            try:
+                decoded_query = urllib.parse.unquote(parsed.query).lower()
+            except Exception:
+                decoded_query = parsed.query.lower()
+            short_product = host == 'shope.ee' and path == '/an_redir' and 'origin_link=' in decoded_query and '/product/' in decoded_query
+            return host in ('shopee.co.th', 'shope.ee') and (numeric_product or slug_product or short_product)
+
+        if platform == 'lazada':
+            direct = host == 'lazada.co.th' or host.endswith('.lazada.co.th')
+            return (direct and path.startswith('/products/') and '-i' in path and '-s' in path) or (host == 's.lazada.co.th' and path.startswith('/s.'))
+
+        return (
+            (host == 'vt.tiktok.com' and len(path) > 1) or
+            (host == 'shop.tiktok.com' and ('/pdp/' in path or '/product/' in path)) or
+            (host == 'tiktok.com' and '/view/product/' in path) or
+            (host == 'tiktokshop.com' and '/product/' in path)
+        )
     except Exception:
         return False
 
-def load_json(path, default=None):
-    if not os.path.exists(path):
-        return default if default is not None else []
+
+def load_json(path: Path):
+    with path.open('r', encoding='utf-8') as handle:
+        value = json.load(handle)
+    if isinstance(value, dict):
+        value = value.get('products') or value.get('items') or value.get('data') or []
+    if not isinstance(value, list):
+        raise ValueError('source JSON must be an array or contain products/items/data')
+    return value
+
+
+def number(value: object, default: float = 0) -> float:
     try:
-        with open(path, 'r', encoding='utf-8') as f:
-            return json.load(f)
-    except Exception as e:
-        print(f"Error loading {path}: {e}")
-        return default if default is not None else []
+        result = float(value)
+        return result if result > 0 else default
+    except (TypeError, ValueError):
+        return default
 
-def save_json(path, data):
-    with open(path, 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
 
-def add_to_queue(title, category, brand, shopee_url, lazada_url, tiktok_url, priority=2):
-    queue = load_json(QUEUE_PATH, [])
-    slug = re.sub(r'[^a-zA-Z0-9]', '-', brand.lower()) if brand else 'item'
-    item_id = f"queue-{slug}-{int(datetime.now().timestamp())}"
-    
-    new_entry = {
-        "id": item_id,
-        "title": title.strip(),
-        "category": category.strip(),
-        "brand": brand.strip(),
-        "status": "pending",
-        "priority": priority,
-        "shopeeUrl": shopee_url.strip() if shopee_url else "",
-        "lazadaUrl": lazada_url.strip() if lazada_url else "",
-        "tiktokUrl": tiktok_url.strip() if tiktok_url else "",
-        "createdAt": datetime.now().isoformat()
+def normalize_offer(raw: dict, parent: dict) -> dict | None:
+    platform = str(raw.get('platform') or parent.get('platform') or '').lower()
+    url = raw.get('affiliateUrl') or raw.get('url') or raw.get('productUrl')
+    title = str(raw.get('title') or parent.get('title') or '').strip()
+    image = str(raw.get('imageUrl') or parent.get('imageUrl') or '').strip()
+    store = str(raw.get('storeName') or parent.get('storeName') or '').strip()
+    price = number(raw.get('price') or raw.get('currentPrice'))
+    if (
+        platform not in PLATFORMS or
+        not is_direct_product_url(url, platform) or
+        not title or not image or image.startswith('/') or 'unsplash.com' in image or
+        not store or price <= 0
+    ):
+        return None
+
+    original = number(raw.get('originalPrice') or raw.get('listPrice'), price)
+    if original < price:
+        original = price
+    return {
+        'platform': platform,
+        'title': title,
+        'imageUrl': image,
+        'storeName': store,
+        'storeType': raw.get('storeType') if raw.get('storeType') in ('mall', 'preferred', 'verified', 'regular') else 'regular',
+        'price': price,
+        'originalPrice': original,
+        'url': str(url).strip(),
+        'rating': number(raw.get('storeRating') or raw.get('rating')),
+        'soldCount': int(number(raw.get('soldCount') or raw.get('reviewCount'))),
+        'estimatedAfterVoucher': number(raw.get('estimatedAfterVoucher'), price),
     }
-    
-    queue.append(new_entry)
-    save_json(QUEUE_PATH, queue)
-    print(f"Added to queue: [{brand}] {title} (ID: {item_id})")
 
-def process_queue():
-    queue = load_json(QUEUE_PATH, [])
-    catalog = load_json(SEEDED_CATALOG_PATH, [])
-    catalog_ids = {c['id'] for c in catalog}
-    
-    pending = [q for q in queue if q.get('status') == 'pending']
-    print(f"Processing queue: {len(pending)} pending items...")
-    
-    updated_count = 0
-    for item in pending:
-        title = item.get('title', '')
-        brand = item.get('brand', 'Official')
-        category = item.get('category', 'home')
-        shopee_url = item.get('shopeeUrl', '')
-        lazada_url = item.get('lazadaUrl', '')
-        tiktok_url = item.get('tiktokUrl', '')
-        
-        # Validate URLs
-        valid_shopee = is_usable_url(shopee_url, 'shopee')
-        valid_lazada = is_usable_url(lazada_url, 'lazada')
-        valid_tiktok = is_usable_url(tiktok_url, 'tiktok')
-        
-        if not (valid_shopee or valid_lazada or valid_tiktok):
-            print(f"Skipping {item['id']}: No valid direct product URLs")
-            item['status'] = 'invalid_urls'
-            continue
-            
-        print(f"Ingesting deal: {title[:40]}...")
-        # Synthesize verified comparison deal
-        deal_id = f"seeded-{item['id'].replace('queue-', '')}"
-        
-        # Estimate reference price or extract from title
-        base_price = 490.0
-        if 'หม้อทอด' in title: base_price = 1490.0
-        elif 'แก้ว' in title or 'กระบอก' in title: base_price = 450.0
-        elif 'ลำโพง' in title: base_price = 4990.0
-        elif 'สเปรย์' in title: base_price = 189.0
-        
-        shopee_price = round(base_price * 0.96)
-        lazada_price = round(base_price * 0.98)
-        tiktok_price = round(base_price * 1.02)
-        orig_price = round(base_price * 1.35)
-        
-        comparisons = []
-        stores = []
-        
-        if valid_shopee:
-            comparisons.append({
-                "platform": "shopee",
-                "price": shopee_price,
-                "estimatedAfterVoucher": round(shopee_price * 0.95),
-                "storeName": f"{brand} Official Store (Shopee Mall)",
-                "storeType": "mall",
-                "url": shopee_url,
-                "inStock": True,
-                "hasDirectProduct": True
-            })
-            stores.append({
-                "id": f"{deal_id}-shopee-mall",
-                "platform": "shopee",
-                "storeName": f"{brand} Official Store",
-                "storeType": "mall",
-                "price": shopee_price,
-                "estimatedAfterVoucher": round(shopee_price * 0.95),
-                "voucherNote": "โค้ด MALL ลด 5% + ส่งฟรี",
-                "freeShipping": True,
-                "storeRating": 4.9,
-                "soldCount": 2400,
-                "isLowestOverall": True,
-                "isBestValue": True,
-                "isBestStore": True,
-                "badgeNote": "ถูกสุดใน 3 แอป 🏆",
-                "url": shopee_url,
-                "isDirectProduct": True
-            })
-            
-        if valid_lazada:
-            comparisons.append({
-                "platform": "lazada",
-                "price": lazada_price,
-                "estimatedAfterVoucher": round(lazada_price * 0.95),
-                "storeName": f"{brand} LazMall Flagship",
-                "storeType": "mall",
-                "url": lazada_url,
-                "inStock": True,
-                "hasDirectProduct": True
-            })
-            stores.append({
-                "id": f"{deal_id}-lazada-mall",
-                "platform": "lazada",
-                "storeName": f"{brand} LazMall Flagship",
-                "storeType": "mall",
-                "price": lazada_price,
-                "estimatedAfterVoucher": round(lazada_price * 0.95),
-                "voucherNote": "คูปองส่งฟรี + LazCoins",
-                "freeShipping": True,
-                "storeRating": 4.8,
-                "soldCount": 1800,
-                "isLowestOverall": False,
-                "isBestValue": False,
-                "isBestStore": True,
-                "badgeNote": "LazMall แท้ 100%",
-                "url": lazada_url,
-                "isDirectProduct": True
-            })
-            
-        if valid_tiktok:
-            comparisons.append({
-                "platform": "tiktok",
-                "price": tiktok_price,
-                "estimatedAfterVoucher": round(tiktok_price * 0.92),
-                "storeName": f"{brand} Official TikTok Shop",
-                "storeType": "mall",
-                "url": tiktok_url,
-                "inStock": True,
-                "hasDirectProduct": True
-            })
-            stores.append({
-                "id": f"{deal_id}-tiktok-mall",
-                "platform": "tiktok",
-                "storeName": f"{brand} Official TikTok Shop",
-                "storeType": "mall",
-                "price": tiktok_price,
-                "estimatedAfterVoucher": round(tiktok_price * 0.92),
-                "voucherNote": "คูปองไลฟ์สดลดเพิ่ม",
-                "freeShipping": True,
-                "storeRating": 4.8,
-                "soldCount": 1100,
-                "isLowestOverall": False,
-                "isBestValue": False,
-                "isBestStore": False,
-                "badgeNote": "TikTok Shop แท้",
-                "url": tiktok_url,
-                "isDirectProduct": True
-            })
-            
-        deal_entry = {
-            "id": deal_id,
-            "title": title,
-            "category": category,
-            "brand": brand,
-            "imageUrl": "https://cf.shopee.co.th/file/th-11134207-7r98r-ls8921829102",
-            "rating": 4.9,
-            "reviewCount": sum(s['soldCount'] for s in stores),
-            "source": "cross-platform-worker",
-            "platform": "shopee" if valid_shopee else ("lazada" if valid_lazada else "tiktok"),
-            "storeName": f"{brand} Official Store",
-            "storeType": "mall",
-            "storeRating": 4.9,
-            "soldCount": sum(s['soldCount'] for s in stores),
-            "basePrice": shopee_price if valid_shopee else lazada_price,
-            "originalPrice": orig_price,
-            "marketAvgPrice": round((shopee_price + lazada_price + tiktok_price) / 3),
-            "estimatedFinalPrice": round(shopee_price * 0.95),
-            "vipFinalPrice": round(shopee_price * 0.90),
-            "hasOptionBait": False,
-            "thaiAuthenticityScore": 98,
-            "authenticitySummary": "ร้านค้าทางการ 100% ครบทั้ง 3 แพลตฟอร์ม มีการรับประกันศูนย์ไทย",
-            "reviews": [
-                {
-                    "id": f"rev-{deal_id}-1",
-                    "author": "ผู้ใช้ที่ยืนยันตัวตน",
-                    "rating": 5,
-                    "comment": f"สินค้า {brand} แท้แน่นอน จัดส่งไว แพ็คมาดีมากครับ",
-                    "platform": "shopee",
-                    "date": "2026-09-01"
-                }
-            ],
-            "freeShipping": True,
-            "availableVouchers": [
-                {
-                    "id": f"v-{deal_id}-mall",
-                    "code": "MALLDEAL5",
-                    "discountText": "ลด 5%",
-                    "minSpend": 500,
-                    "discountAmount": 50,
-                    "isVipOnly": False,
-                    "tag": "Mall Official"
-                }
-            ],
-            "isAbsoluteCheapest": len(comparisons) >= 3,
-            "priceComparisons": comparisons,
-            "stores": stores,
-            "affiliateUrl": shopee_url if valid_shopee else (lazada_url if valid_lazada else tiktok_url),
-            "priceAdvice": "buy_now",
-            "priceAdviceNote": f"พบราคาบน 3 แพลตฟอร์มชัดเจน Shopee ถูกสุดที่ ฿{shopee_price:,} ประหยัดกว่า",
-            "tags": [category, brand, "Mall", "เทียบ3แอป"]
+
+def build_deal(group_key: str, parent: dict, offers: list[dict]) -> dict:
+    offers.sort(key=lambda offer: offer['estimatedAfterVoucher'])
+    primary = offers[0]
+    comparisons = [
+        {
+            'platform': offer['platform'],
+            'price': offer['price'],
+            'estimatedAfterVoucher': offer['estimatedAfterVoucher'],
+            'storeName': offer['storeName'],
+            'storeType': offer['storeType'],
+            'url': offer['url'],
+            'inStock': True,
+            'hasDirectProduct': True,
         }
-        
-        if deal_id in catalog_ids:
-            catalog = [c if c['id'] != deal_id else deal_entry for c in catalog]
-        else:
-            catalog.append(deal_entry)
-            catalog_ids.add(deal_id)
-            
-        item['status'] = 'completed'
-        item['completedAt'] = datetime.now().isoformat()
-        updated_count += 1
+        for offer in offers
+    ]
+    stores = [
+        {
+            'id': f"{group_key}-{index}",
+            'platform': offer['platform'],
+            'storeName': offer['storeName'],
+            'storeType': offer['storeType'],
+            'price': offer['price'],
+            'estimatedAfterVoucher': offer['estimatedAfterVoucher'],
+            'freeShipping': False,
+            'storeRating': offer['rating'],
+            'soldCount': offer['soldCount'],
+            'isLowestOverall': index == 0,
+            'isBestValue': False,
+            'isBestStore': offer['storeType'] in ('mall', 'verified'),
+            'badgeNote': 'ลิงก์ตรงจาก official source',
+            'url': offer['url'],
+            'isDirectProduct': True,
+        }
+        for index, offer in enumerate(offers)
+    ]
+    prices = [offer['price'] for offer in offers]
+    return {
+        'id': f"verified-{re.sub(r'[^a-z0-9]+', '-', group_key.lower()).strip('-')}",
+        'title': primary['title'],
+        'imageUrl': primary['imageUrl'],
+        'category': str(parent.get('category') or 'อื่นๆ'),
+        'tags': parent.get('tags') if isinstance(parent.get('tags'), list) else [],
+        'platform': primary['platform'],
+        'storeName': primary['storeName'],
+        'storeType': primary['storeType'],
+        'storeRating': primary['rating'],
+        'soldCount': primary['soldCount'],
+        'basePrice': primary['price'],
+        'originalPrice': primary['originalPrice'],
+        'marketAvgPrice': round(sum(prices) / len(prices), 2),
+        'estimatedFinalPrice': primary['estimatedAfterVoucher'],
+        'vipFinalPrice': primary['estimatedAfterVoucher'],
+        'hasOptionBait': False,
+        'thaiAuthenticityScore': 0,
+        'authenticitySummary': 'ข้อมูลจาก official source; ยังไม่มีการประเมินความน่าเชื่อถือเพิ่มเติม',
+        'reviews': [],
+        'freeShipping': False,
+        'availableVouchers': [],
+        'isAbsoluteCheapest': len(offers) >= 3,
+        'priceComparisons': comparisons,
+        'stores': stores,
+        'priceAdvice': 'fair_price',
+        'priceAdviceNote': 'ราคาจาก official source ณ เวลาที่ refresh',
+        'affiliateUrl': primary['url'],
+        'source': parent.get('source') or 'official-source',
+        'verification_status': 'source_validated',
+        'last_verified_at': datetime.now(timezone.utc).isoformat(),
+        'is_active': True,
+    }
 
-    save_json(QUEUE_PATH, queue)
-    save_json(SEEDED_CATALOG_PATH, catalog)
-    print(f"Successfully processed {updated_count} items and updated {SEEDED_CATALOG_PATH}!")
-    print(f"Total seeded 3-platform comparison deals now: {len(catalog)}")
+
+def build_catalog(source: Path) -> tuple[list[dict], int]:
+    groups: dict[str, tuple[dict, list[dict]]] = {}
+    rejected = 0
+    for index, parent in enumerate(load_json(source)):
+        if not isinstance(parent, dict):
+            rejected += 1
+            continue
+        raw_offers = parent.get('offers') if isinstance(parent.get('offers'), list) else [parent]
+        for offer_index, raw_offer in enumerate(raw_offers):
+            if not isinstance(raw_offer, dict):
+                rejected += 1
+                continue
+            offer = normalize_offer(raw_offer, parent)
+            if offer is None:
+                rejected += 1
+                continue
+            canonical_key = str(parent.get('canonicalKey') or raw_offer.get('canonicalKey') or '').strip()
+            group_key = canonical_key or f"{offer['platform']}:{offer['url']}"
+            if group_key not in groups:
+                groups[group_key] = (parent, [])
+            groups[group_key][1].append(offer)
+
+    catalog = [build_deal(key, parent, offers) for key, (parent, offers) in groups.items() if offers]
+    return catalog, rejected
+
+
+def write_catalog(catalog: list[dict], output: Path) -> None:
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile('w', encoding='utf-8', dir=output.parent, delete=False) as handle:
+        json.dump(catalog, handle, ensure_ascii=False, indent=2)
+        handle.write('\n')
+        temp_name = handle.name
+    os.replace(temp_name, output)
+
+
+def run_once(source: Path, output: Path) -> None:
+    catalog, rejected = build_catalog(source)
+    write_catalog(catalog, output)
+    print(f'Wrote {len(catalog)} verified products to {output}; rejected {rejected} incomplete or non-direct offers.')
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description='Refresh ShopDee from official product exports without synthetic data.')
+    parser.add_argument('--source', required=True, type=Path, help='JSON export produced by an official feed/API adapter')
+    parser.add_argument('--output', type=Path, default=OUTPUT_PATH)
+    parser.add_argument('--watch', type=int, metavar='SECONDS', help='Repeat when source mtime changes; safe for overnight local runs')
+    args = parser.parse_args()
+
+    if not args.source.exists():
+        raise SystemExit(f'Source file does not exist: {args.source}')
+    run_once(args.source, args.output)
+    if args.watch:
+        previous_mtime = args.source.stat().st_mtime_ns
+        while True:
+            time.sleep(max(30, args.watch))
+            current_mtime = args.source.stat().st_mtime_ns
+            if current_mtime != previous_mtime:
+                run_once(args.source, args.output)
+                previous_mtime = current_mtime
+
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Cross-platform Ingestion Worker")
-    parser.add_argument('--process-queue', action='store_true', help="Process all pending items in queue")
-    parser.add_argument('--add-url', type=str, help="Add a product URL")
-    parser.add_argument('--platform', type=str, choices=['shopee', 'lazada', 'tiktok'], help="Platform for the URL")
-    parser.add_argument('--title', type=str, help="Product title")
-    parser.add_argument('--brand', type=str, default="Official", help="Brand name")
-    parser.add_argument('--category', type=str, default="home", help="Category")
-    
-    args = parser.parse_args()
-    
-    if args.process_queue:
-        process_queue()
-    elif args.add_url and args.platform and args.title:
-        s_url = args.add_url if args.platform == 'shopee' else ""
-        l_url = args.add_url if args.platform == 'lazada' else ""
-        t_url = args.add_url if args.platform == 'tiktok' else ""
-        add_to_queue(args.title, args.category, args.brand, s_url, l_url, t_url)
-    else:
-        parser.print_help()
+    main()

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import { 
   ShieldCheck, 
@@ -14,10 +14,8 @@ import {
   TrendingDown, 
   ChevronRight,
   Star,
-  Flame,
   Award,
   Bell,
-  Eye,
   Share2
 } from 'lucide-react';
 import { ProductDeal, Platform } from '@/lib/types';
@@ -30,16 +28,10 @@ import {
   getSanitizedOriginalPrice
 } from '@/lib/engine';
 import { StoreComparisonTable } from '@/components/StoreComparisonTable';
-import { PriceTrendGraph } from '@/components/PriceTrendGraph';
-import { ReviewSentimentTags } from '@/components/ReviewSentimentTags';
-import { VoucherStackFormula } from '@/components/VoucherStackFormula';
-import { useDealViewers } from '@/lib/view-tracker';
 
 interface ProductCardProps {
   deal: ProductDeal;
   rank: number;
-  onOpenReviews: (deal: ProductDeal) => void;
-  onOpenVouchers: (deal: ProductDeal) => void;
   onOpenPriceAlert?: (deal: ProductDeal) => void;
   onOpenShare?: (deal: ProductDeal) => void;
   selectedPlatform?: Platform | 'all';
@@ -48,15 +40,10 @@ interface ProductCardProps {
 export function ProductCard({
   deal,
   rank,
-  onOpenReviews,
-  onOpenVouchers,
   onOpenPriceAlert,
   onOpenShare,
   selectedPlatform = 'all',
 }: ProductCardProps) {
-  const [copiedCode, setCopiedCode] = useState<string | null>(null);
-  const viewersCount = useDealViewers(deal.id, deal.soldCount, false);
-
   const platformMeta = getPlatformMeta(deal.platform);
   const cleanedTitle = cleanProductTitle(deal.title);
 
@@ -70,13 +57,6 @@ export function ProductCard({
     pc => pc.hasDirectProduct !== false && pc.price > 0
   );
   const isMultiPlatform = verifiedPlatforms.length >= 3;
-
-  const handleCopy = (code: string, e: React.MouseEvent) => {
-    e.stopPropagation();
-    navigator.clipboard.writeText(code);
-    setCopiedCode(code);
-    setTimeout(() => setCopiedCode(null), 2000);
-  };
 
   // Rank Styling
   const getRankBadge = (r: number) => {
@@ -92,7 +72,7 @@ export function ProductCard({
       return (
         <span className="inline-flex items-center gap-1 bg-gradient-to-r from-amber-500 to-yellow-500 text-white text-xs font-black px-2.5 py-1 rounded-full shadow-sm">
           <Award className="w-3.5 h-3.5" />
-          <span>คุ้มสุด #1</span>
+          <span>อันดับ #1</span>
         </span>
       );
     }
@@ -127,22 +107,22 @@ export function ProductCard({
         <div className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 text-white px-4 py-1.5 flex items-center justify-between text-xs font-bold">
           <div className="flex items-center gap-1.5">
             <Sparkles className="w-3.5 h-3.5 text-yellow-300 animate-spin-slow" />
-            <span>ถูกสุดข้ามแพลตฟอร์ม: ซื้อบน {platformMeta.name} คุ้มที่สุด ณ เวลานี้</span>
+            <span>ราคาต่ำสุดใน direct offers ที่พบ: {platformMeta.name}</span>
           </div>
           <span className="bg-white/20 text-[10px] px-2 py-0.5 rounded-full font-bold">
             {(() => {
               const other = deal.priceComparisons?.find(pc => pc.platform !== deal.platform && pc.hasDirectProduct !== false && pc.price > deal.basePrice);
-              return other ? `ประหยัดกว่าเจ้าอื่น ~฿${other.price - deal.basePrice}` : 'ราคาดีที่สุด ณ เวลานี้';
+              return other ? `ต่างจากข้อเสนออื่น ฿${other.price - deal.basePrice}` : 'ราคาอ้างอิงจาก source';
             })()}
           </span>
         </div>
       ) : !isMultiPlatform ? (
         <div className="bg-neutral-50 text-neutral-700 px-4 py-1.5 flex items-center justify-between text-xs font-medium border-b border-neutral-200/80">
           <div className="flex items-center gap-1.5">
-            <span>📍 พบใน {platformMeta.name} เท่านั้น • รอเปรียบเทียบราคา 3 แอป</span>
+            <span>📍 พบลิงก์ตรงจาก {platformMeta.name} เท่านั้น • ยังไม่มีข้อเสนอจากแอปอื่น</span>
           </div>
           <span className="text-[10px] text-neutral-500 font-semibold">
-            {deal.storeType === 'mall' ? 'ร้านทางการแท้ 100%' : 'เทียบ 1 ร้าน'}
+            {deal.storeType === 'mall' ? 'ประเภท Mall จาก source' : 'มีลิงก์ตรง 1 ร้าน'}
           </span>
         </div>
       ) : null}
@@ -188,35 +168,31 @@ export function ProductCard({
                 {deal.storeType === 'mall' && (
                   <span className="inline-flex items-center gap-1 bg-red-50 text-red-700 border border-red-200 text-[11px] font-bold px-2 py-0.5 rounded-md">
                     <ShieldCheck className="w-3 h-3 text-red-600" />
-                    <span>Mall ทางการแท้ 100%</span>
+                    <span>Mall จาก source</span>
                   </span>
                 )}
                 {deal.storeType === 'preferred' && (
                   <span className="inline-flex items-center gap-1 bg-orange-50 text-orange-700 border border-orange-200 text-[11px] font-bold px-2 py-0.5 rounded-md">
                     <Award className="w-3 h-3 text-orange-600" />
-                    <span>ร้านแนะนำ</span>
+                    <span>preferred จาก source</span>
                   </span>
                 )}
 
-                {/* Rating & Sold count */}
-                <div className="flex items-center gap-2 text-xs text-neutral-500 font-medium ml-auto">
-                  <span className="flex items-center gap-0.5 text-amber-500 font-bold">
-                    <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                    <span>{deal.storeRating}</span>
-                  </span>
-                  <span>•</span>
-                  <span>ขายแล้ว {formatSoldCount(deal.soldCount)}</span>
-                </div>
+                {/* Source metrics, shown only when supplied by the source. */}
+                {deal.storeRating > 0 && (
+                  <div className="flex items-center gap-2 text-xs text-neutral-500 font-medium ml-auto">
+                    <span className="flex items-center gap-0.5 text-amber-500 font-bold">
+                      <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                      <span>{deal.storeRating}</span>
+                    </span>
+                  </div>
+                )}
 
               </div>
 
               {/* Social Proof & Quick Actions Bar */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2 p-2 rounded-xl bg-neutral-50/80 border border-neutral-200/70">
                 <div className="flex items-center gap-2 text-xs">
-                  <span className="inline-flex items-center gap-1 text-rose-600 font-bold bg-rose-50 border border-rose-200/80 px-2 py-0.5 rounded-lg shadow-2xs whitespace-nowrap">
-                    <Flame className="w-3 h-3 text-rose-500 shrink-0" />
-                    <span>{viewersCount} คนกำลังดูตอนนี้</span>
-                  </span>
                   {deal.soldCount > 0 && (
                     <span className="inline-flex items-center gap-1 text-[11px] text-neutral-600 font-medium bg-white border border-neutral-200/80 px-2 py-0.5 rounded-lg whitespace-nowrap">
                       <span>ขายแล้ว</span>
@@ -282,12 +258,17 @@ export function ProductCard({
                 <div className="mb-3 bg-neutral-50 rounded-xl p-2.5 border border-neutral-200">
                   <div className="text-[11px] font-bold text-neutral-500 mb-1.5 flex items-center justify-between">
                     <span>เปรียบเทียบราคา 3 แพลตฟอร์ม:</span>
-                    <span className="text-neutral-400">อัปเดตล่าสุดวันนี้</span>
+                    <span className="text-neutral-400">ราคาจาก source</span>
                   </div>
                   <div className="grid grid-cols-3 gap-1.5 text-xs">
-                    {deal.priceComparisons.map((pc) => {
-                      const hasDirect = pc.hasDirectProduct !== false && pc.price > 0;
-                      const isLowest = pc.platform === deal.platform && hasDirect;
+                    {(() => {
+                      const directPrices = deal.priceComparisons
+                        .filter(pc => pc.hasDirectProduct !== false && pc.price > 0)
+                        .map(pc => pc.price);
+                      const lowestPrice = directPrices.length > 0 ? Math.min(...directPrices) : null;
+                      return deal.priceComparisons.map((pc) => {
+                        const hasDirect = pc.hasDirectProduct !== false && pc.price > 0;
+                        const isLowest = hasDirect && lowestPrice !== null && pc.price === lowestPrice;
                       const meta = getPlatformMeta(pc.platform);
                       return (
                         <div
@@ -317,40 +298,11 @@ export function ProductCard({
                           )}
                         </div>
                       );
-                    })}
+                      });
+                    })()}
                   </div>
                 </div>
               )}
-
-              {/* AI Review Sentiment Tags (Trip.com Style) */}
-              <div className="mb-3">
-                <ReviewSentimentTags
-                  highlights={deal.reviewHighlights}
-                  thaiAuthenticityScore={deal.thaiAuthenticityScore}
-                  onViewAllReviews={() => onOpenReviews(deal)}
-                  reviewCount={deal.reviews.length}
-                />
-              </div>
-
-              {/* Price Trend & Timing Advice (Trip.com Style) */}
-              <div className="mb-3">
-                <PriceTrendGraph
-                  history={deal.priceHistory}
-                  currentPrice={deal.estimatedFinalPrice}
-                  marketAvgPrice={deal.marketAvgPrice}
-                  advice={deal.priceAdvice}
-                  adviceNote={deal.priceAdviceNote}
-                />
-              </div>
-
-              {/* Voucher Stacking Formula (Trip.com Style) */}
-              <div className="mb-3">
-                <VoucherStackFormula
-                  formula={deal.voucherStackFormula}
-                  basePrice={deal.basePrice}
-                  finalPrice={deal.estimatedFinalPrice}
-                />
-              </div>
 
             </div>
 
@@ -360,7 +312,7 @@ export function ProductCard({
               {/* Price Tier Block */}
               <div>
                 <div className="flex items-baseline gap-2 mb-1 flex-wrap">
-                  <span className="text-xs text-neutral-500 font-medium">ราคาหลังโค้ด:</span>
+                  <span className="text-xs text-neutral-500 font-medium">ราคาจาก source:</span>
                   <span className="text-2xl sm:text-3xl font-black text-shopee tracking-tight price-tag">
                     {formatTHB(deal.estimatedFinalPrice)}
                   </span>
@@ -376,33 +328,14 @@ export function ProductCard({
                   )}
                 </div>
 
-                <div className="flex items-center gap-2 text-[11px] text-neutral-500 font-medium">
-                  <span>ราคาหน้าร้าน: <strong className="text-neutral-700">{formatTHB(deal.basePrice)}</strong></span>
-                  <span>•</span>
-                  <span>สิทธิ์ VIP/Payday: <strong className="text-emerald-600">~{formatTHB(deal.vipFinalPrice)}</strong></span>
+                <div className="text-[11px] text-neutral-500 font-medium">
+                  ราคาสินค้าจาก source: <strong className="text-neutral-700">{formatTHB(deal.basePrice)}</strong>
                 </div>
               </div>
 
               {/* Vouchers & Buy CTA */}
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                 
-                {/* 1-Tap Copy Voucher Pill */}
-                {deal.availableVouchers.length > 0 && (
-                  <button
-                    onClick={(e) => handleCopy(deal.availableVouchers[0].code, e)}
-                    className="px-3 py-2.5 rounded-xl border border-dashed border-shopee/60 bg-orange-50/70 hover:bg-orange-100/80 text-shopee font-bold text-xs flex items-center justify-center gap-1.5 transition active:scale-95"
-                    title="กดเพื่อคัดลอกโค้ดลด"
-                  >
-                    <Tag className="w-3.5 h-3.5" />
-                    <span>{deal.availableVouchers[0].code}</span>
-                    {copiedCode === deal.availableVouchers[0].code ? (
-                      <span className="text-[10px] text-emerald-600 bg-emerald-50 px-1 rounded font-bold">คัดลอกแล้ว!</span>
-                    ) : (
-                      <Copy className="w-3 h-3 text-shopee/70" />
-                    )}
-                  </button>
-                )}
-
                 {/* Primary Buy CTA Button (Affiliate Redirect) */}
                 <a
                   href={getSmartAffiliateUrl(deal.affiliateUrl, deal.platform, deal.id)}
