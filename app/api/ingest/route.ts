@@ -73,7 +73,7 @@ export async function POST(req: NextRequest) {
 
       const meta: ExtractedMeta = {
         rawTitle: sanitized.sanitized,
-        imageUrl: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80',
+        imageUrl: '/icon-192.png',
         description: `เปรียบเทียบราคา ${sanitized.sanitized} 3 แอป`,
         platform: 'shopee',
         sourceUrl: `https://shopee.co.th/search?keyword=${encodeURIComponent(sanitized.sanitized)}`,

@@ -47,24 +47,43 @@ export function StoreComparisonTable({
   const tiktokStores = stores.filter(s => s.platform === 'tiktok');
 
   // Filtered stores based on active tab
-  const displayedStores = (activeTab === 'all' 
-    ? [...stores] 
-    : stores.filter(s => s.platform === activeTab)
-  ).sort((a, b) => a.estimatedAfterVoucher - b.estimatedAfterVoucher);
+  let displayedStores: StoreOffer[] = [];
+
+  if (activeTab === 'all') {
+    // 1. Guaranteed representation of all 3 platforms in top 3 slots
+    const primaryShopee = shopeeStores[0];
+    const primaryLazada = lazadaStores[0];
+    const primaryTiktok = tiktokStores[0];
+
+    const crossPlatformPrimary = [primaryShopee, primaryLazada, primaryTiktok]
+      .filter(Boolean)
+      .sort((a, b) => a.estimatedAfterVoucher - b.estimatedAfterVoucher);
+
+    const primaryIds = new Set(crossPlatformPrimary.map(s => s.id));
+    const otherStores = stores
+      .filter(s => !primaryIds.has(s.id))
+      .sort((a, b) => a.estimatedAfterVoucher - b.estimatedAfterVoucher);
+
+    displayedStores = [...crossPlatformPrimary, ...otherStores];
+  } else {
+    displayedStores = stores
+      .filter(s => s.platform === activeTab)
+      .sort((a, b) => a.estimatedAfterVoucher - b.estimatedAfterVoucher);
+  }
 
   // 1. ร้านถูกสุด (Lowest Price)
   const cheapestStore = displayedStores[0];
 
-  // 2. ร้านดีสุด (Best / Official Mall)
-  const bestStore = displayedStores.find(s => s.isBestStore || s.storeType === 'mall') || 
+  // 2. ร้านดีสุด (Best / Official Mall) - prefer Mall with distinct ID from cheapest
+  const bestStore = displayedStores.find(s => (s.isBestStore || s.storeType === 'mall') && s.id !== cheapestStore?.id) ||
+                    displayedStores.find(s => s.isBestStore || s.storeType === 'mall') ||
                     [...displayedStores].sort((a, b) => b.storeRating - a.storeRating)[0];
   const hasDistinctBest = Boolean(bestStore && bestStore.id !== cheapestStore?.id);
 
-  // 3. ร้านคุ้มค่าสุด (Best Value: ส่งฟรี + เรตติ้งดี + คูปองคุ้ม + ราคาจับต้องได้)
-  const bestValueStore = displayedStores.find(s => s.isBestValue && s.id !== cheapestStore?.id && s.id !== bestStore?.id) ||
-                         displayedStores.find(s => s.freeShipping && s.storeRating >= 4.8 && s.id !== cheapestStore?.id && s.id !== bestStore?.id) ||
-                         displayedStores.find(s => s.isBestValue && s.id !== cheapestStore?.id) ||
+  // 3. ร้านคุ้มค่าสุด (Best Value: ส่งฟรี + เรตติ้งดี + คูปองคุ้ม + ราคาจับต้องได้) - prefer distinct ID
+  const bestValueStore = displayedStores.find(s => s.id !== cheapestStore?.id && s.id !== bestStore?.id && (s.isBestValue || s.freeShipping)) ||
                          displayedStores.find(s => s.id !== cheapestStore?.id && s.id !== bestStore?.id) ||
+                         displayedStores.find(s => s.id !== cheapestStore?.id) ||
                          displayedStores[1] ||
                          cheapestStore;
   const hasDistinctValue = Boolean(bestValueStore && bestValueStore.id !== cheapestStore?.id && bestValueStore.id !== bestStore?.id);
@@ -214,7 +233,7 @@ export function StoreComparisonTable({
               rel="noopener noreferrer"
               className="py-1.5 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black flex items-center justify-center gap-1 shrink-0 shadow-2xs transition active:scale-95"
             >
-              <span>ซื้อถูกสุด</span>
+              <span>ซื้อถูกสุด ({getPlatformMeta(cheapestStore.platform).name})</span>
               <ExternalLink className="w-2.5 h-2.5" />
             </a>
           </div>
@@ -251,7 +270,7 @@ export function StoreComparisonTable({
                 rel="noopener noreferrer"
                 className="py-1.5 px-3 rounded-lg bg-amber-500 hover:bg-amber-600 text-white text-xs font-black flex items-center justify-center gap-1 shrink-0 shadow-2xs transition active:scale-95"
               >
-                <span>ซื้อตัวคุ้มค่า</span>
+                <span>ซื้อตัวคุ้มค่า ({getPlatformMeta(bestValueStore.platform).name})</span>
                 <ExternalLink className="w-2.5 h-2.5" />
               </a>
             </div>
@@ -289,7 +308,7 @@ export function StoreComparisonTable({
                 rel="noopener noreferrer"
                 className="py-1.5 px-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-black flex items-center justify-center gap-1 shrink-0 shadow-2xs transition active:scale-95"
               >
-                <span>ซื้อร้านแท้</span>
+                <span>ซื้อร้านแท้ ({getPlatformMeta(bestStore.platform).name})</span>
                 <ExternalLink className="w-2.5 h-2.5" />
               </a>
             </div>
@@ -442,7 +461,7 @@ export function StoreComparisonTable({
                         : 'bg-black hover:bg-neutral-800'
                     }`}
                   >
-                    <span>ไปร้านนี้</span>
+                    <span>ไป {platformMeta.name}</span>
                     <ExternalLink className="w-3 h-3" />
                   </a>
                 </div>

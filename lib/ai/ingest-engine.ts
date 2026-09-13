@@ -131,7 +131,7 @@ export async function fetchUrlMetadata(targetUrl: string): Promise<ExtractedMeta
 
   const slugTitle = extractTitleFromUrlSlug(finalUrl) || extractTitleFromUrlSlug(targetUrl);
   const rawTitle = ogTitleMatch?.[1] || titleMatch?.[1] || slugTitle || 'สินค้าแนะนำ';
-  const imageUrl = ogImageMatch?.[1] || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80';
+  const imageUrl = ogImageMatch?.[1] || '/icon-192.png';
   const description = ogDescMatch?.[1] || '';
 
   return {
