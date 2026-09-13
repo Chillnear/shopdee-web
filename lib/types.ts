@@ -44,6 +44,8 @@ export interface StoreOffer {
   storeRating: number;
   soldCount: number;
   isLowestOverall?: boolean;
+  isBestStore?: boolean;
+  badgeNote?: string;
   url: string;
 }
 

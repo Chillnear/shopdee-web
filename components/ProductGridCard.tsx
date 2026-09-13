@@ -35,19 +35,19 @@ export function ProductGridCard({
     if (deal.hasOptionBait) {
       return '⚠️ ตรวจสอบตัวเลือกก่อนสั่งซื้อ';
     }
+    if (deal.isAbsoluteCheapest) {
+      return `✓ ถูกสุดใน 3 แอป • เทียบ ${deal.stores?.length || 4} ร้าน`;
+    }
     if (deal.storeType === 'mall') {
-      return `✓ ร้านทางการ Shopee Mall (${deal.storeName})`;
+      return `✓ ร้านทางการ Mall แท้ • เทียบ 3 แอป`;
     }
     if (savePct >= 15) {
-      return `✓ ถูกกว่าค่าเฉลี่ย ${savePct}% • ประกันแท้`;
+      return `✓ ประหยัด ${savePct}% • เทียบ ${deal.stores?.length || 4} ร้าน`;
     }
     if (deal.storeType === 'preferred') {
-      return `✓ ร้านแนะนำ (${deal.storeName})`;
+      return `✓ ร้านแนะนำ • เทียบ ${deal.stores?.length || 4} ร้าน`;
     }
-    if (deal.freeShipping) {
-      return '✓ ส่งฟรี • ร้านค้าได้รับความนิยม';
-    }
-    return `✓ เทียบแล้ว ${deal.stores?.length || 3} ร้าน`;
+    return `✓ เทียบราคา 3 แอป (${deal.stores?.length || 4} ร้านค้า)`;
   };
 
   return (
