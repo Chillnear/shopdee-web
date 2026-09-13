@@ -56,20 +56,20 @@ export function ProductGridCard({
     if (isMultiPlatform && deal.isAbsoluteCheapest) {
       return `✓ ถูกสุดใน 3 แอป • เทียบ ${verifiedStoresCount || deal.stores?.length || 3} ร้าน`;
     }
-    // หากมีแค่แอปเดียว ไม่หลอกผู้ใช้ แสดงความจริงอย่างโปร่งใส
+    // หากมีแค่แอปเดียว ไม่หลอกผู้ใช้ แสดงสถานะตรงไปตรงมา
     if (deal.storeType === 'mall') {
-      return `✓ ร้านทางการแท้ 100% • ไม่พบคู่เทียบในแอปอื่น`;
+      return `✓ ร้านทางการแท้ 100% • พบใน ${platformMeta.name} เท่านั้น`;
     }
     if (deal.storeType === 'preferred') {
-      return `✓ ร้านแนะนำ Shopee • ไม่พบคู่เทียบในแอปอื่น`;
+      return `✓ ร้านแนะนำ Shopee • รอระบบดึงคู่เทียบ`;
     }
     if (verifiedStoresCount > 1) {
       return `✓ เทียบแล้ว ${verifiedStoresCount} ร้าน • คัดราคาดีสุด`;
     }
     if (hasValidDiscount && savePct >= 15) {
-      return `✓ ประหยัด ${savePct}% • ไม่พบคู่เทียบในแอปอื่น`;
+      return `✓ ประหยัด ${savePct}% • พบใน ${platformMeta.name} เท่านั้น`;
     }
-    return `✓ ตรวจสอบแล้ว • ไม่พบคู่เทียบในแอปอื่น`;
+    return `📍 พบใน ${platformMeta.name} เท่านั้น • รอเทียบราคา 3 แอป`;
   };
 
   return (
@@ -87,21 +87,20 @@ export function ProductGridCard({
           loading="lazy"
         />
 
-        {/* Single Primary Badge (จุดสีเดียวบนภาพ สบายตา ไม่แย่งซีน) */}
+        {/* Single Primary Badge (จุดสีเดียวบนภาพ สบายตา ไม่หลอกตา) */}
         <div className="absolute top-2.5 left-2.5 z-10">
           {deal.id.startsWith('ingested-') ? (
             <span className="inline-flex items-center gap-1 bg-gradient-to-r from-orange-500 to-amber-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-xs animate-fade-in">
               <Sparkles className="w-2.5 h-2.5" />
               <span>ดึงจากลิงก์สด ⚡</span>
             </span>
-          ) : rank === 1 ? (
-            <span className="inline-flex items-center gap-1 bg-emerald-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-xs">
-              <Sparkles className="w-2.5 h-2.5" />
-              <span>คุ้มสุด #1</span>
-            </span>
           ) : (deal.isAbsoluteCheapest && isMultiPlatform) ? (
             <span className="inline-flex items-center bg-shopee text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-xs">
-              <span>ถูกสุด 3 แอป</span>
+              <span>ถูกสุด 3 แอป 🔥</span>
+            </span>
+          ) : !isMultiPlatform ? (
+            <span className="inline-flex items-center bg-neutral-900/80 backdrop-blur-xs text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+              <span>พบใน {platformMeta.name} เท่านั้น</span>
             </span>
           ) : (hasValidDiscount && savePct >= 15) ? (
             <span className="inline-flex items-center bg-neutral-900/80 backdrop-blur-xs text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
@@ -110,7 +109,7 @@ export function ProductGridCard({
           ) : null}
         </div>
 
-        {/* Top-Right Quick Actions: Watchlist & Share (Backdrop blur + shadow to pop clearly on all backgrounds) */}
+        {/* Top-Right Quick Actions: Watchlist & Share (Solid white circle + crisp border to never blend into image) */}
         <div className="absolute top-2.5 right-2.5 z-10 flex items-center gap-1.5">
           {onOpenPriceAlert && (
             <button
@@ -118,7 +117,7 @@ export function ProductGridCard({
                 e.stopPropagation();
                 onOpenPriceAlert(deal);
               }}
-              className="w-7 h-7 rounded-full bg-white/90 backdrop-blur-md text-neutral-700 hover:text-emerald-700 flex items-center justify-center shadow-md border border-black/5 transition hover:scale-110 active:scale-95 cursor-pointer"
+              className="w-7 h-7 rounded-full bg-white text-neutral-800 hover:text-orange-600 flex items-center justify-center shadow-md border border-neutral-200/90 transition hover:scale-110 active:scale-95 cursor-pointer"
               title="ติดตามราคาลด"
             >
               <Bell className="w-3.5 h-3.5" />
@@ -131,7 +130,7 @@ export function ProductGridCard({
                 e.stopPropagation();
                 onOpenShare(deal);
               }}
-              className="w-7 h-7 rounded-full bg-white/90 backdrop-blur-md text-neutral-700 hover:text-orange-700 flex items-center justify-center shadow-md border border-black/5 transition hover:scale-110 active:scale-95 cursor-pointer"
+              className="w-7 h-7 rounded-full bg-white text-neutral-800 hover:text-orange-600 flex items-center justify-center shadow-md border border-neutral-200/90 transition hover:scale-110 active:scale-95 cursor-pointer"
               title="แชร์ดีล"
             >
               <Share2 className="w-3.5 h-3.5" />
@@ -192,13 +191,13 @@ export function ProductGridCard({
             </span>
           </div>
 
-          {/* Action Row */}
+          {/* Action Row: Clear Distinct Buttons */}
           <div className="flex items-center gap-1.5">
             <button
               onClick={() => onOpenDetail(deal)}
-              className="flex-1 py-1.5 px-2 rounded-xl bg-neutral-100/90 hover:bg-neutral-200 text-neutral-700 text-[11px] font-bold transition flex items-center justify-center gap-0.5"
+              className="flex-1 py-2 px-2 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-800 text-[11px] font-bold transition flex items-center justify-center gap-0.5 cursor-pointer"
             >
-              <span>{deal.priceComparisons?.filter(pc => pc.hasDirectProduct !== false && pc.price > 0).length >= 3 ? 'เทียบ 3 แอป' : 'ดูรายละเอียด'}</span>
+              <span>{isMultiPlatform ? 'ตารางเทียบ 3 แอป' : 'ตารางเทียบราคา'}</span>
               <ChevronRight className="w-3 h-3 text-neutral-400" />
             </button>
 
@@ -207,7 +206,7 @@ export function ProductGridCard({
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className={`py-1.5 px-2.5 rounded-xl text-white text-[11px] font-bold flex items-center justify-center gap-1 shadow-xs transition active:scale-95 shrink-0 ${
+              className={`py-2 px-2.5 rounded-xl text-white text-[11px] font-bold flex items-center justify-center gap-1 shadow-xs transition active:scale-95 shrink-0 cursor-pointer ${
                 deal.platform === 'shopee'
                   ? 'bg-shopee hover:bg-shopee-hover'
                   : deal.platform === 'lazada'
@@ -216,7 +215,7 @@ export function ProductGridCard({
               }`}
               title={`ไปซื้อที่ ${platformMeta.name}`}
             >
-              <span>ซื้อ</span>
+              <span>ซื้อที่ {platformMeta.name === 'TikTok Shop' ? 'TikTok' : platformMeta.name}</span>
               <ExternalLink className="w-2.5 h-2.5" />
             </a>
           </div>

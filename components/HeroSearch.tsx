@@ -130,7 +130,7 @@ export function HeroSearch({
             }`}
           >
             <LinkIcon className="w-4 h-4" />
-            <span>วางลิงก์สินค้า (แอปใดก็ได้)</span>
+            <span>วางลิงก์สินค้าจากแอปใดก็ได้</span>
             <span className="bg-shopee/10 text-shopee text-[10px] font-black px-1.5 py-0.2 rounded-full hidden sm:inline">
               แนะนำ
             </span>
@@ -169,7 +169,7 @@ export function HeroSearch({
               onChange={(e) => setLocalInput(e.target.value)}
               placeholder={
                 activeTab === 'link'
-                  ? "วางลิงก์สินค้า 1 ลิงก์จาก Shopee, Lazada หรือ TikTok..."
+                  ? "วางลิงก์สินค้า 1 ลิงก์จาก Shopee, Lazada หรือ TikTok เพื่อเทียบ 3 แอปทันที..."
                   : "พิมพ์ชื่อสินค้า เช่น พัดลมตั้งโต๊ะ, หูฟังไร้สาย, อาหารแมว..."
               }
               className="w-full py-2 text-xs sm:text-base text-neutral-800 placeholder:text-neutral-400 focus:outline-none bg-transparent font-medium"

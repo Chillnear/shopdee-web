@@ -46,7 +46,7 @@ export function Navbar({ onOpenWatchlist, onResetHome }: NavbarProps) {
                 </span>
               </div>
               <p className="text-[11px] text-orange-100 font-medium hidden sm:block">
-                เทียบราคา 3 แพลตฟอร์ม • กรองบอทจีน • ช้อปของแท้ถูกจริง
+                เทียบราคาจริง 3 แพลตฟอร์ม • ดักราคาหลอก • คัดร้านทางการ Mall แท้ 100%
               </p>
             </div>
           </a>

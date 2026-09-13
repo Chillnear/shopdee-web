@@ -77,10 +77,10 @@
       "discount": 67,
       "score": 17343.0
     },
-    "storeType": "mall",
+    "storeType": "regular",
     "storeName": "Oukeya Thailand Cosmetic",
     "sellerName": "thoukeya",
-    "isOfficialShop": true,
+    "isOfficialShop": false,
     "isPreferredShop": false
   },
   {
@@ -161,10 +161,10 @@
       "discount": 90,
       "score": 12916.0
     },
-    "storeType": "mall",
+    "storeType": "regular",
     "storeName": "JMCY Cosmetics TH",
     "sellerName": "jmcycosmetics.th",
-    "isOfficialShop": true,
+    "isOfficialShop": false,
     "isPreferredShop": false
   },
   {
@@ -1505,10 +1505,10 @@
       "discount": 82,
       "score": 10693.8
     },
-    "storeType": "mall",
+    "storeType": "regular",
     "storeName": "JMCY Cosmetics TH",
     "sellerName": "jmcycosmetics.th",
-    "isOfficialShop": true,
+    "isOfficialShop": false,
     "isPreferredShop": false
   },
   {
@@ -1673,10 +1673,10 @@
       "discount": 97,
       "score": 10675.0
     },
-    "storeType": "mall",
+    "storeType": "regular",
     "storeName": "SINGAYE Official Shop",
     "sellerName": "singaye",
-    "isOfficialShop": true,
+    "isOfficialShop": false,
     "isPreferredShop": false
   },
   {
@@ -2009,10 +2009,10 @@
       "discount": 96,
       "score": 10584.4
     },
-    "storeType": "mall",
+    "storeType": "regular",
     "storeName": "ANJOSIRMA Official Store",
     "sellerName": "anjosirma.th",
-    "isOfficialShop": true,
+    "isOfficialShop": false,
     "isPreferredShop": true
   },
   {
@@ -3857,10 +3857,10 @@
       "discount": 94,
       "score": 10402.0
     },
-    "storeType": "mall",
+    "storeType": "regular",
     "storeName": "Retail.mall",
     "sellerName": "retail.mall",
-    "isOfficialShop": true,
+    "isOfficialShop": false,
     "isPreferredShop": false
   },
   {
@@ -4445,10 +4445,10 @@
       "discount": 87,
       "score": 10329.6
     },
-    "storeType": "mall",
+    "storeType": "regular",
     "storeName": "JULYJAR MALL",
     "sellerName": "tata_beauti",
-    "isOfficialShop": true,
+    "isOfficialShop": false,
     "isPreferredShop": true
   },
   {
@@ -7637,10 +7637,10 @@
       "discount": 90,
       "score": 10063.0
     },
-    "storeType": "mall",
+    "storeType": "regular",
     "storeName": "OSGEER_Thailan_official.th",
     "sellerName": "dcdz8880.th",
-    "isOfficialShop": true,
+    "isOfficialShop": false,
     "isPreferredShop": false
   },
   {
@@ -7889,10 +7889,10 @@
       "discount": 90,
       "score": 10025.0
     },
-    "storeType": "mall",
+    "storeType": "regular",
     "storeName": "SenbenbaoHS.th",
     "sellerName": "senbenbaohs.th",
-    "isOfficialShop": true,
+    "isOfficialShop": false,
     "isPreferredShop": false
   },
   {
@@ -8561,10 +8561,10 @@
       "discount": 88,
       "score": 9997.4
     },
-    "storeType": "mall",
+    "storeType": "regular",
     "storeName": "Bajiss Thailand Store",
     "sellerName": "bajiss.shop",
-    "isOfficialShop": true,
+    "isOfficialShop": false,
     "isPreferredShop": false
   },
   {
@@ -11333,10 +11333,10 @@
       "discount": 88,
       "score": 9875.4
     },
-    "storeType": "mall",
+    "storeType": "regular",
     "storeName": "Hrold Global Mall Thailand",
     "sellerName": "hrold.mall",
-    "isOfficialShop": true,
+    "isOfficialShop": false,
     "isPreferredShop": false
   },
   {
@@ -12089,10 +12089,10 @@
       "discount": 85,
       "score": 9834.4
     },
-    "storeType": "mall",
+    "storeType": "regular",
     "storeName": "OSGEER Mall Store.th",
     "sellerName": "osgeer_001.th",
-    "isOfficialShop": true,
+    "isOfficialShop": false,
     "isPreferredShop": false
   },
   {
@@ -14693,10 +14693,10 @@
       "discount": 87,
       "score": 9732.0
     },
-    "storeType": "mall",
+    "storeType": "regular",
     "storeName": "FONKEN Mall Store",
     "sellerName": "fonken.th",
-    "isOfficialShop": true,
+    "isOfficialShop": false,
     "isPreferredShop": false
   },
   {
@@ -14945,10 +14945,10 @@
       "discount": 81,
       "score": 9718.4
     },
-    "storeType": "mall",
+    "storeType": "regular",
     "storeName": "AIDIYTECH mall",
     "sellerName": "aidiytechmall",
-    "isOfficialShop": true,
+    "isOfficialShop": false,
     "isPreferredShop": true
   },
   {

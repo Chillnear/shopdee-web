@@ -132,15 +132,15 @@ export function SmartFilterBar({
             </button>
           </div>
 
-          {/* Ranking Limit & Sorter Controls */}
+          {/* Sorter & Filter Drawer Controls */}
           <div className="flex items-center justify-between sm:justify-end gap-2 shrink-0">
             
-            {/* View Mode Switcher: Grid (ช่อง) vs List (รายการ) */}
+            {/* View Mode Switcher: Grid vs List */}
             <div className="flex items-center bg-neutral-100 p-1 rounded-xl border border-neutral-200 text-xs">
               <button
                 type="button"
                 onClick={() => onViewModeChange('grid')}
-                className={`p-1.5 rounded-lg font-bold transition flex items-center gap-1 ${
+                className={`p-1.5 rounded-lg font-bold transition flex items-center gap-1 cursor-pointer ${
                   viewMode === 'grid'
                     ? 'bg-white text-neutral-900 shadow-xs border border-neutral-200/80'
                     : 'text-neutral-500 hover:text-neutral-900'
@@ -154,7 +154,7 @@ export function SmartFilterBar({
               <button
                 type="button"
                 onClick={() => onViewModeChange('list')}
-                className={`p-1.5 rounded-lg font-bold transition flex items-center gap-1 ${
+                className={`p-1.5 rounded-lg font-bold transition flex items-center gap-1 cursor-pointer ${
                   viewMode === 'list'
                     ? 'bg-white text-neutral-900 shadow-xs border border-neutral-200/80'
                     : 'text-neutral-500 hover:text-neutral-900'
@@ -166,40 +166,12 @@ export function SmartFilterBar({
               </button>
             </div>
 
-            {/* Limit Selector: Top 5, Top 10, Top 20, All */}
-            <div className="flex items-center bg-neutral-100 p-1 rounded-xl border border-neutral-200 text-xs">
-              <span className="text-neutral-500 font-bold px-1.5 hidden sm:inline">โชว์:</span>
-              {[5, 10, 20, 30].map((num) => (
-                <button
-                  key={num}
-                  onClick={() => onFilterChange({ ...filter, limit: num })}
-                  className={`px-2.5 py-1 rounded-lg font-bold transition ${
-                    filter.limit === num
-                      ? 'bg-white text-neutral-900 shadow-xs border border-neutral-200/80'
-                      : 'text-neutral-600 hover:text-neutral-900'
-                  }`}
-                >
-                  Top {num}
-                </button>
-              ))}
-              <button
-                onClick={() => onFilterChange({ ...filter, limit: 999 })}
-                className={`px-2.5 py-1 rounded-lg font-bold transition ${
-                  filter.limit === 999
-                    ? 'bg-white text-neutral-900 shadow-xs border border-neutral-200/80'
-                    : 'text-neutral-600 hover:text-neutral-900'
-                }`}
-              >
-                ทั้งหมด
-              </button>
-            </div>
-
             {/* Sort Dropdown */}
             <div className="relative">
               <select
                 value={filter.sortBy}
                 onChange={(e) => onFilterChange({ ...filter, sortBy: e.target.value as any })}
-                className="text-xs font-bold bg-neutral-100 hover:bg-neutral-200 text-neutral-800 py-2 pl-2.5 pr-7 rounded-xl border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-neutral-400 cursor-pointer appearance-none"
+                className="text-xs font-bold bg-neutral-100 hover:bg-neutral-200 text-neutral-800 py-1.5 pl-2.5 pr-7 rounded-xl border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-neutral-400 cursor-pointer appearance-none"
               >
                 <option value="popular">🔥 ยอดนิยม / ขายดี (แนะนำ)</option>
                 <option value="best_discount">🏷️ ลดคุ้มสุด (%)</option>
@@ -215,14 +187,14 @@ export function SmartFilterBar({
             {/* Filter Drawer Toggle */}
             <button
               onClick={onOpenDrawer}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-bold transition ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-bold transition cursor-pointer ${
                 activeCount > 0
                   ? 'bg-brand-600 border-brand-600 text-white shadow-sm'
                   : 'bg-white border-neutral-200 text-neutral-700 hover:bg-warm-100'
               }`}
             >
               <SlidersHorizontal className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">ตัวกรอง</span>
+              <span>ตัวกรอง</span>
               {activeCount > 0 && (
                 <span className="w-4 h-4 rounded-full bg-brand-700 text-white text-[10px] flex items-center justify-center font-bold">
                   {activeCount}
@@ -234,78 +206,39 @@ export function SmartFilterBar({
 
         </div>
 
-        {/* Row 2: Category Filter Bar */}
-        <div className="mt-2 pt-2 border-t border-neutral-100 flex items-center gap-1.5 overflow-x-auto no-scrollbar">
-          {[
-            { id: 'ทั้งหมด', label: '🔥 ทั้งหมด' },
-            { id: 'พัดลม & เครื่องใช้ไฟฟ้า', label: '🔌 พัดลม & เครื่องใช้ไฟฟ้า' },
-            { id: 'ไอที & แกดเจ็ต', label: '📱 ไอที & แกดเจ็ต' },
-            { id: 'ของใช้ในบ้าน', label: '🏠 ของใช้ในบ้าน' },
-            { id: 'สัตว์เลี้ยง', label: '🐱 สัตว์เลี้ยง' },
-            { id: 'แม่และเด็ก', label: '👶 แม่และเด็ก' },
-            { id: 'สกินแคร์ & บิวตี้', label: '💄 สกินแคร์ & บิวตี้' },
-            { id: 'แฟชั่น', label: '👗 แฟชั่น & เครื่องประดับ' },
-          ].map((cat) => {
-            const isSelected = (filter.selectedCategory || 'ทั้งหมด') === cat.id;
-            return (
-              <button
-                key={cat.id}
-                onClick={() => onFilterChange({ ...filter, selectedCategory: cat.id })}
-                className={`px-3 py-1 rounded-full text-xs font-bold transition whitespace-nowrap shrink-0 cursor-pointer ${
-                  isSelected
-                    ? 'bg-brand-600 text-white shadow-xs'
-                    : 'bg-neutral-100 text-neutral-600 hover:bg-warm-100'
-                }`}
-              >
-                {cat.label}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Row 3: Quick Filter Toggles */}
-        <div className="mt-2 pt-1.5 flex items-center gap-2 overflow-x-auto no-scrollbar">
-          
-          <button
-            onClick={() => onFilterChange({ ...filter, onlyMall: !filter.onlyMall })}
-            className={`px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1 transition shrink-0 cursor-pointer ${
-              filter.onlyMall
-                ? 'bg-emerald-600 text-white'
-                : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
-            }`}
-          >
-            <ShieldCheck className="w-3.5 h-3.5" />
-            <span>เฉพาะร้านทางการ (Mall)</span>
-          </button>
-
-          <button
-            onClick={() => onFilterChange({ ...filter, onlyFreeShipping: !filter.onlyFreeShipping })}
-            className={`px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1 transition shrink-0 cursor-pointer ${
-              filter.onlyFreeShipping
-                ? 'bg-blue-600 text-white'
-                : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
-            }`}
-          >
-            <Truck className="w-3.5 h-3.5" />
-            <span>ส่งฟรีเท่านั้น</span>
-          </button>
-
-          <button
-            onClick={() => onFilterChange({ ...filter, hasVoucherOnly: !filter.hasVoucherOnly })}
-            className={`px-2.5 py-1 rounded-lg text-xs font-semibold flex items-center gap-1 transition shrink-0 cursor-pointer ${
-              filter.hasVoucherOnly
-                ? 'bg-purple-600 text-white'
-                : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
-            }`}
-          >
-            <Ticket className="w-3.5 h-3.5" />
-            <span>มีโค้ดลดพร้อมใช้</span>
-          </button>
-
-          <div className="ml-auto text-[11px] font-semibold text-neutral-400 shrink-0">
-            พบ {totalMatching} รายการ
+        {/* Row 2: Category Filter Bar with Count on Right */}
+        <div className="mt-2 pt-1.5 border-t border-neutral-100 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+            {[
+              { id: 'ทั้งหมด', label: '🔥 ทั้งหมด' },
+              { id: 'พัดลม & เครื่องใช้ไฟฟ้า', label: '🔌 เครื่องใช้ไฟฟ้า' },
+              { id: 'ไอที & แกดเจ็ต', label: '📱 ไอที & แกดเจ็ต' },
+              { id: 'ของใช้ในบ้าน', label: '🏠 ของใช้ในบ้าน' },
+              { id: 'สกินแคร์ & บิวตี้', label: '💄 สกินแคร์' },
+              { id: 'สัตว์เลี้ยง', label: '🐱 สัตว์เลี้ยง' },
+              { id: 'แม่และเด็ก', label: '👶 แม่และเด็ก' },
+              { id: 'แฟชั่น', label: '👗 แฟชั่น' },
+            ].map((cat) => {
+              const isSelected = (filter.selectedCategory || 'ทั้งหมด') === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => onFilterChange({ ...filter, selectedCategory: cat.id })}
+                  className={`px-3 py-1 rounded-full text-xs font-bold transition whitespace-nowrap shrink-0 cursor-pointer ${
+                    isSelected
+                      ? 'bg-brand-600 text-white shadow-xs'
+                      : 'bg-neutral-100 text-neutral-600 hover:bg-warm-100'
+                  }`}
+                >
+                  {cat.label}
+                </button>
+              );
+            })}
           </div>
 
+          <div className="text-[11px] font-semibold text-neutral-400 whitespace-nowrap hidden sm:block shrink-0">
+            พบ {totalMatching} รายการ
+          </div>
         </div>
 
       </div>

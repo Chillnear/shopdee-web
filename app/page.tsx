@@ -283,48 +283,39 @@ export default function Home() {
           <div>
             {/* GRID VIEW (Shopee Style 2-Columns on Mobile) */}
             {viewMode === 'grid' ? (
-              <div className="space-y-6">
-                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-                  {displayedDeals.map((deal, index) => (
-                    <ProductGridCard
-                      key={deal.id}
-                      deal={deal}
-                      rank={index + 1}
-                      onOpenDetail={(d) => setActiveDetailDeal({ deal: d, rank: index + 1 })}
-                      onOpenPriceAlert={(d) => setActiveAlertDeal(d)}
-                      onOpenShare={(d) => setActiveShareDeal(d)}
-                    />
-                  ))}
-                </div>
-
-                {/* Web Watchlist & Price Tracker Banner */}
-                <LineOptinBanner onOpenWatchlist={() => setIsWatchlistOpen(true)} />
+              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+                {displayedDeals.map((deal, index) => (
+                  <ProductGridCard
+                    key={deal.id}
+                    deal={deal}
+                    rank={index + 1}
+                    onOpenDetail={(d) => setActiveDetailDeal({ deal: d, rank: index + 1 })}
+                    onOpenPriceAlert={(d) => setActiveAlertDeal(d)}
+                    onOpenShare={(d) => setActiveShareDeal(d)}
+                  />
+                ))}
               </div>
             ) : (
               /* LIST VIEW (Detailed Multi-Platform View) */
               <div className="space-y-4 sm:space-y-5">
                 {displayedDeals.map((deal, index) => (
-                  <React.Fragment key={deal.id}>
-                    <ProductCard
-                      deal={deal}
-                      rank={index + 1}
-                      onOpenReviews={(d) => setActiveReviewDeal(d)}
-                      onOpenVouchers={(d) => setActiveVoucherDeal(d)}
-                      onOpenPriceAlert={(d) => setActiveAlertDeal(d)}
-                      onOpenShare={(d) => setActiveShareDeal(d)}
-                      selectedPlatform={filter.selectedPlatforms.length === 1 ? filter.selectedPlatforms[0] : 'all'}
-                    />
-                    
-                    {/* Insert Banner right after the #1 Top Deal in List mode */}
-                    {index === 0 && <LineOptinBanner onOpenWatchlist={() => setIsWatchlistOpen(true)} />}
-                  </React.Fragment>
+                  <ProductCard
+                    key={deal.id}
+                    deal={deal}
+                    rank={index + 1}
+                    onOpenReviews={(d) => setActiveReviewDeal(d)}
+                    onOpenVouchers={(d) => setActiveVoucherDeal(d)}
+                    onOpenPriceAlert={(d) => setActiveAlertDeal(d)}
+                    onOpenShare={(d) => setActiveShareDeal(d)}
+                    selectedPlatform={filter.selectedPlatforms.length === 1 ? filter.selectedPlatforms[0] : 'all'}
+                  />
                 ))}
               </div>
             )}
 
-            {/* Progressive Load More Pagination Section */}
+            {/* Progressive Load More Pagination Section (Immediately follows items) */}
             {hasMore ? (
-              <div className="flex flex-col items-center justify-center pt-10 pb-6 gap-3">
+              <div className="flex flex-col items-center justify-center pt-8 pb-4 gap-3">
                 <div className="text-xs font-bold text-neutral-600">
                   แสดงแล้ว <span className="text-brand-600">{displayedDeals.length}</span> จากทั้งหมด <span className="text-neutral-900">{deals.length}</span> รายการ
                 </div>
@@ -343,7 +334,7 @@ export default function Home() {
                 </button>
               </div>
             ) : deals.length > 16 ? (
-              <div className="flex flex-col items-center justify-center pt-10 pb-6 gap-2">
+              <div className="flex flex-col items-center justify-center pt-8 pb-4 gap-2">
                 <div className="text-xs font-bold text-neutral-500">
                   🎉 แสดงสินค้าทั้งหมดครบแล้ว ({deals.length} รายการ)
                 </div>
@@ -356,6 +347,11 @@ export default function Home() {
                 </button>
               </div>
             ) : null}
+
+            {/* Web Watchlist & Price Tracker Banner (Positioned smoothly at the bottom) */}
+            <div className="pt-4">
+              <LineOptinBanner onOpenWatchlist={() => setIsWatchlistOpen(true)} />
+            </div>
           </div>
         ) : (
           /* Empty State Upgraded with Smart Ingestion */

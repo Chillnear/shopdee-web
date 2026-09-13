@@ -211,12 +211,13 @@ export function filterAndRankDeals(
       }
       case 'popular':
       default: {
-        // Smart popularity scoring: balances sold count, verified discount, and filters out 1-baht knick-knacks from dominating
+        // Smart popularity scoring: prioritizes real cross-platform comparisons and verified Mall brands
         const getScore = (deal: ProductDeal) => {
           const price = getEffectivePrice(deal);
           const priceFactor = price < 15 ? 0.05 : price < 29 ? 0.4 : 1.0;
-          const multiBonus = deal.priceComparisons && deal.priceComparisons.filter(pc => pc.hasDirectProduct !== false && pc.price > 0).length > 1 ? 2.5 : 1.0;
-          const mallBonus = deal.storeType === 'mall' ? 1.3 : 1.0;
+          const verifiedCompsCount = deal.priceComparisons ? deal.priceComparisons.filter(pc => pc.hasDirectProduct !== false && pc.price > 0).length : 1;
+          const multiBonus = verifiedCompsCount >= 3 ? 5.0 : verifiedCompsCount > 1 ? 2.5 : 1.0;
+          const mallBonus = deal.storeType === 'mall' ? 2.5 : deal.storeType === 'preferred' ? 1.5 : 1.0;
           const savings = Math.max(0, deal.originalPrice - price);
           return (deal.soldCount * 1.0 + savings * 0.1) * priceFactor * multiBonus * mallBonus;
         };
@@ -232,14 +233,15 @@ export function filterAndRankDeals(
 }
 
 /**
- * Clean up product titles: remove trailing dangling punctuation, open brackets, and unclosed parentheses
+ * Clean up product titles: remove trailing dangling punctuation, open brackets,
+ * unclosed parentheses, and truncated Thai syllables/words cut by hard limit.
  */
 export function cleanProductTitle(title: string): string {
   if (!title) return '';
   let cleaned = title.trim();
 
   // 1. Remove dangling trailing open punctuation/separators
-  cleaned = cleaned.replace(/[\s\(\[\{【（\-\|\/\&,:]+$/, '');
+  cleaned = cleaned.replace(/[\s\(\[\{【（\-\|\/\&,:\u2010-\u2015]+$/, '');
 
   // 2. Unmatched open parenthesis near the end
   const openParen = (cleaned.match(/\(/g) || []).length;
@@ -261,15 +263,21 @@ export function cleanProductTitle(title: string): string {
     }
   }
 
-  // 4. Remove any trailing dangling punctuation again after bracket removal
-  cleaned = cleaned.replace(/[\s\(\[\{【（\-\|\/\&,:]+$/, '').trim();
+  // 4. Truncated Thai words cut by hard character limits
+  cleaned = cleaned.replace(/\s[ก-ฮ]$/, '');
+  cleaned = cleaned.replace(/(เหมาะสำ|ทนต่อการสึกห|มีคุณภา|ไม่ต้อ|สกัดก|Skin Fa|Digital Di)$/, '');
+  cleaned = cleaned.replace(/\s(จา|สำ|ที|ส|พ)$/, '');
+
+  // 5. Remove any trailing dangling punctuation again after word removal
+  cleaned = cleaned.replace(/[\s\(\[\{【（\-\|\/\&,:\u2010-\u2015]+$/, '').trim();
 
   return cleaned || title;
 }
 
 /**
  * Detects and filters out scam anchor prices (e.g. Mascara ฿9,999 down to ฿379).
- * Returns null if the original price is missing, <= current price, or artificially inflated (> 3.5x).
+ * Returns null if the original price is missing, <= current price, artificially inflated (> 3.5x),
+ * or claims an abnormal fake discount (> 85%).
  */
 export function getSanitizedOriginalPrice(currentPrice: number, originalPrice: number): number | null {
   if (!originalPrice || !currentPrice || !Number.isFinite(originalPrice) || !Number.isFinite(currentPrice)) {
@@ -280,6 +288,11 @@ export function getSanitizedOriginalPrice(currentPrice: number, originalPrice: n
   }
   // If original price is more than 3.5x current price, it is an inflated anchor price
   if (originalPrice > currentPrice * 3.5) {
+    return null;
+  }
+  // If discount percentage exceeds 85%, it's almost always a seller anchor price trick
+  const discountPct = (originalPrice - currentPrice) / originalPrice;
+  if (discountPct > 0.85) {
     return null;
   }
   return originalPrice;

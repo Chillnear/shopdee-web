@@ -37,14 +37,14 @@ export function LineOptinBanner({ onOpenWatchlist }: LineOptinBannerProps) {
               <span className="bg-emerald-600 text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full uppercase tracking-wider">
                 Web Watchlist
               </span>
-              <span className="text-xs font-bold text-neutral-700">บันทึกบนเครื่อง • ไม่ต้องสมัครสมาชิก</span>
+              <span className="text-xs font-bold text-neutral-700">บันทึกบนเบราว์เซอร์เครื่องนี้ • ไม่ต้องสมัครสมาชิก</span>
             </div>
 
             <h4 className="font-extrabold text-base text-neutral-900 leading-snug">
               อยากรอราคาลงกว่านี้? กดปุ่ม "ตั้งเตือนราคาลด" ที่ตัวสินค้าได้เลย!
             </h4>
             <p className="text-xs text-neutral-600 leading-relaxed mt-0.5">
-              ระบบบนเว็บจะคอยตรวจราคา Shopee, Lazada และ TikTok ให้ เมื่อราคาดิ่งถึงเป้าจะมีแถบแจ้งเตือนบอกทันที
+              บันทึกบนเบราว์เซอร์เครื่องนี้ • แจ้งเตือนเมื่อกลับมาเปิดเว็บ (หรือเชื่อมต่อ LINE Notify สำหรับแจ้งเตือนทันทีบนมือถือ)
             </p>
           </div>
         </div>
