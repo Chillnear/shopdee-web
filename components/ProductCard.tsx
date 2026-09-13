@@ -237,27 +237,6 @@ export function ProductCard({
                 </div>
               )}
 
-              {/* AI Review Sentiment Tags (Trip.com Style) */}
-              <div className="mb-3">
-                <ReviewSentimentTags
-                  highlights={deal.reviewHighlights}
-                  thaiAuthenticityScore={deal.thaiAuthenticityScore}
-                  onViewAllReviews={() => onOpenReviews(deal)}
-                  reviewCount={deal.reviews.length}
-                />
-              </div>
-
-              {/* Price Trend & Timing Advice (Trip.com Style) */}
-              <div className="mb-3">
-                <PriceTrendGraph
-                  history={deal.priceHistory}
-                  currentPrice={deal.estimatedFinalPrice}
-                  marketAvgPrice={deal.marketAvgPrice}
-                  advice={deal.priceAdvice}
-                  adviceNote={deal.priceAdviceNote}
-                />
-              </div>
-
               {/* Intra-Platform & Cross-Platform Multi-Store Comparison */}
               {deal.stores && deal.stores.length > 0 ? (
                 <div className="mb-3">
@@ -311,6 +290,27 @@ export function ProductCard({
                   </div>
                 </div>
               )}
+
+              {/* AI Review Sentiment Tags (Trip.com Style) */}
+              <div className="mb-3">
+                <ReviewSentimentTags
+                  highlights={deal.reviewHighlights}
+                  thaiAuthenticityScore={deal.thaiAuthenticityScore}
+                  onViewAllReviews={() => onOpenReviews(deal)}
+                  reviewCount={deal.reviews.length}
+                />
+              </div>
+
+              {/* Price Trend & Timing Advice (Trip.com Style) */}
+              <div className="mb-3">
+                <PriceTrendGraph
+                  history={deal.priceHistory}
+                  currentPrice={deal.estimatedFinalPrice}
+                  marketAvgPrice={deal.marketAvgPrice}
+                  advice={deal.priceAdvice}
+                  adviceNote={deal.priceAdviceNote}
+                />
+              </div>
 
               {/* Voucher Stacking Formula (Trip.com Style) */}
               <div className="mb-3">

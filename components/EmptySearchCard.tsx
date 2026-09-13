@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Sparkles, Link as LinkIcon, Clipboard, ArrowRight, Loader2, RotateCcw } from 'lucide-react';
+import { Sparkles, Link as LinkIcon, Clipboard, ArrowRight, Loader2, RotateCcw, Search, ExternalLink } from 'lucide-react';
 
 interface EmptySearchCardProps {
   searchQuery: string;
@@ -23,8 +23,9 @@ export function EmptySearchCard({
     try {
       if (typeof navigator !== 'undefined' && navigator.clipboard) {
         const text = await navigator.clipboard.readText();
-        if (text && (text.startsWith('http://') || text.startsWith('https://') || text.includes('shopee') || text.includes('lazada') || text.includes('tiktok'))) {
-          setPastedUrl(text.trim());
+        const trimmed = text?.trim();
+        if (trimmed && (trimmed.startsWith('http://') || trimmed.startsWith('https://') || trimmed.includes('shopee') || trimmed.includes('lazada') || trimmed.includes('tiktok'))) {
+          setPastedUrl(trimmed);
           setPasteError(null);
         } else {
           setPasteError('ไม่พบลบล็อกหรือลิงก์สินค้าในคลิปบอร์ด');
@@ -37,14 +38,19 @@ export function EmptySearchCard({
 
   const handleUrlSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!pastedUrl.trim()) return;
-    onIngest({ url: pastedUrl.trim() });
+    const trimmed = pastedUrl.trim();
+    if (!trimmed) return;
+
+    const lower = trimmed.toLowerCase();
+    if (lower.includes('/search') || lower.includes('/catalog') || lower.includes('/tag/') || lower.includes('keyword=') || lower.includes('?q=')) {
+      setPasteError('กรุณาวางลิงก์หน้าสินค้าโดยตรง (ไม่ใช่ลิงก์หน้าค้นหา) เพื่อให้ระบบวิเคราะห์ราคาและร้านค้าจริงได้ถูกต้อง');
+      return;
+    }
+
+    onIngest({ url: trimmed });
   };
 
-  const handleGenerateFromQuery = () => {
-    if (!searchQuery.trim()) return;
-    onIngest({ query: searchQuery.trim() });
-  };
+  const queryEnc = encodeURIComponent(searchQuery.trim());
 
   return (
     <div className="bg-white rounded-3xl border border-neutral-200/90 shadow-sm p-6 sm:p-8 text-center max-w-xl mx-auto my-8 animate-fade-in">
@@ -59,10 +65,10 @@ export function EmptySearchCard({
       </h3>
       
       <p className="text-xs sm:text-sm text-neutral-500 mb-6 leading-relaxed max-w-md mx-auto">
-        แต่ไม่ต้องกังวล! คุณสามารถวางลิงก์จาก Shopee, Lazada หรือ TikTok Shop เพื่อให้ระบบดึงข้อมูลและคำนวณราคาจ่ายจริง 3 แอปให้คุณได้ทันที
+        วางลิงก์หน้าสินค้าจริงจาก Shopee, Lazada หรือ TikTok Shop เพื่อให้ระบบดึงข้อมูล วิเคราะห์ราคา และคำนวณโค้ดลดที่คุ้มที่สุดให้คุณทันที
       </p>
 
-      {/* Option 1: Direct Link Ingestion Box */}
+      {/* Direct Link Ingestion Box */}
       <form onSubmit={handleUrlSubmit} className="space-y-3 mb-6">
         <div className="relative flex items-center bg-neutral-50 rounded-2xl border border-neutral-300 focus-within:border-shopee focus-within:bg-white focus-within:ring-2 focus-within:ring-shopee/20 transition-all p-1.5 pl-3">
           <LinkIcon className="w-4 h-4 text-neutral-400 shrink-0 mr-2" />
@@ -74,7 +80,7 @@ export function EmptySearchCard({
               setPastedUrl(e.target.value);
               setPasteError(null);
             }}
-            placeholder="วางลิงก์ Shopee / Lazada / TikTok ตรงนี้..."
+            placeholder="วางลิงก์หน้าสินค้า Shopee / Lazada / TikTok..."
             className="w-full py-1.5 text-xs sm:text-sm text-neutral-800 placeholder:text-neutral-400 focus:outline-none bg-transparent font-medium"
             disabled={isIngesting}
           />
@@ -101,7 +107,7 @@ export function EmptySearchCard({
               </>
             ) : (
               <>
-                <span>เทียบราคา</span>
+                <span>ดึงข้อมูลสินค้า</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </>
             )}
@@ -115,32 +121,57 @@ export function EmptySearchCard({
         )}
       </form>
 
-      {/* Option 2: 1-Click AI On-Demand Comparison (if user typed a query) */}
+      {/* Honest Search Assistant (เปิดค้นหาในแอปจริง ไม่สร้างดีลปลอม) */}
       {searchQuery && (
-        <div className="pt-4 border-t border-neutral-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-left">
-          <div className="text-xs text-neutral-600">
-            <span className="font-bold text-neutral-800">ไม่มีลิงก์ในมือ?</span>
-            <p className="text-[11px] text-neutral-400">ให้ AI สรุปราคากลางและเทียบ 3 แอปสำหรับคำนี้โดยตรง</p>
+        <div className="pt-5 border-t border-neutral-150 text-left">
+          <div className="flex items-center gap-1.5 text-xs font-bold text-neutral-800 mb-1">
+            <Search className="w-3.5 h-3.5 text-neutral-500" />
+            <span>ค้นหาคำว่า "{searchQuery}" บนแพลตฟอร์มโดยตรง:</span>
           </div>
+          <p className="text-[11px] text-neutral-500 mb-3 leading-relaxed">
+            เลือกเปิดค้นหาในแอป เมื่อเจอสินค้าที่ถูกใจ สามารถคัดลอกลิงก์หน้าสินค้านั้นมาวางในช่องด้านบนได้เลย
+          </p>
 
-          <button
-            type="button"
-            onClick={handleGenerateFromQuery}
-            disabled={isIngesting}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-neutral-900 hover:bg-shopee text-white font-bold text-xs transition shadow-xs cursor-pointer disabled:opacity-50"
-          >
-            {isIngesting ? (
-              <>
-                <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                <span>กำลังคำนวณ...</span>
-              </>
-            ) : (
-              <>
-                <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                <span>ค้นหาผ่าน AI ทันที</span>
-              </>
-            )}
-          </button>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+            <a
+              href={`https://shopee.co.th/search?keyword=${queryEnc}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2.5 rounded-xl border border-orange-200 bg-orange-50/60 hover:bg-orange-100/70 text-neutral-800 text-xs font-bold flex items-center justify-between transition"
+            >
+              <div className="flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-shopee"></span>
+                <span>Shopee</span>
+              </div>
+              <ExternalLink className="w-3 h-3 text-neutral-400" />
+            </a>
+
+            <a
+              href={`https://www.lazada.co.th/catalog/?q=${queryEnc}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2.5 rounded-xl border border-blue-200 bg-blue-50/60 hover:bg-blue-100/70 text-neutral-800 text-xs font-bold flex items-center justify-between transition"
+            >
+              <div className="flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-lazada"></span>
+                <span>Lazada</span>
+              </div>
+              <ExternalLink className="w-3 h-3 text-neutral-400" />
+            </a>
+
+            <a
+              href={`https://www.tiktok.com/search?q=${queryEnc}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2.5 rounded-xl border border-neutral-200 bg-neutral-50 hover:bg-neutral-100 text-neutral-800 text-xs font-bold flex items-center justify-between transition"
+            >
+              <div className="flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-neutral-900"></span>
+                <span>TikTok Shop</span>
+              </div>
+              <ExternalLink className="w-3 h-3 text-neutral-400" />
+            </a>
+          </div>
         </div>
       )}
 

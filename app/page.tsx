@@ -178,7 +178,7 @@ export default function Home() {
         setActiveDetailDeal({ deal: newDeal, rank: 1 });
         
         // Show celebratory toast
-        setToastMessage(`✨ ดึงข้อมูล "${newDeal.title.slice(0, 30)}..." และเทียบราคา 3 แอปเรียบร้อย!`);
+        setToastMessage(`✨ ดึงข้อมูล "${newDeal.title.slice(0, 30)}..." สำเร็จ พร้อมวิเคราะห์ราคาจริงแล้ว!`);
         setTimeout(() => setToastMessage(null), 5000);
       } else {
         alert(data.message || 'ไม่สามารถดึงข้อมูลสินค้านี้ได้ กรุณาตรวจสอบลิงก์หรือลองใหม่อีกครั้ง');

@@ -63,9 +63,28 @@ export function isValidPersistedDeal(value: unknown): value is ProductDeal {
   const deal = value as AnyRecord;
   const platform = deal.platform as Platform;
   const img = String(deal.imageUrl || '');
-  if (img.includes('unsplash.com')) return false;
-  const idStr = String(deal.id || '');
-  if (idStr.startsWith('ingested-')) return false;
+  if (img.includes('unsplash.com') || img.includes('/icon-192.png')) return false;
+
+  const affUrl = String(deal.affiliateUrl || '');
+  if (
+    affUrl.includes('/search') ||
+    affUrl.includes('/catalog') ||
+    affUrl.includes('/tag/') ||
+    affUrl.includes('keyword=') ||
+    affUrl.includes('?q=')
+  ) {
+    return false;
+  }
+
+  // ปฏิเสธดีลที่มีร้านค้าเป็น Search URL
+  if (Array.isArray(deal.stores)) {
+    const hasSearchStore = deal.stores.some((s: any) =>
+      typeof s?.url === 'string' &&
+      (s.url.includes('/search') || s.url.includes('/catalog') || s.url.includes('/tag/'))
+    );
+    if (hasSearchStore) return false;
+  }
+
   return Boolean(
     deal.id &&
     deal.title &&
@@ -249,8 +268,7 @@ function adaptFeedItem(raw: AnyRecord): ProductDeal | null {
         shopeePrice >= 99
       ),
     ];
-
-    const isAbsoluteCheapest = true;
+    const isAbsoluteCheapest = priceComparisons.filter(pc => pc.hasDirectProduct !== false && pc.price > 0).length >= 3;
 
     const availableVouchers: Voucher[] = [
       makeVoucher('shopee', discount, shopeePrice),
@@ -394,7 +412,7 @@ function normalizePartnerItem(raw: AnyRecord): ProductDeal | null {
       reviews: [],
       freeShipping: Boolean(raw.freeShipping),
       availableVouchers: [],
-      isAbsoluteCheapest: true,
+      isAbsoluteCheapest: priceComparisons.filter(pc => pc.hasDirectProduct !== false && pc.price > 0).length >= 3,
       priceComparisons,
       stores,
       affiliateUrl,

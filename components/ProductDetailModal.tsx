@@ -221,24 +221,7 @@ export function ProductDetailModal({
             </div>
           </div>
 
-          {/* AI Review Sentiment Tags */}
-          <ReviewSentimentTags
-            highlights={deal.reviewHighlights}
-            thaiAuthenticityScore={deal.thaiAuthenticityScore}
-            reviewCount={deal.reviews.length}
-          />
-
-          {/* Price Trend Graph & Timing Advice */}
-          <PriceTrendGraph
-            history={deal.priceHistory}
-            currentPrice={deal.estimatedFinalPrice}
-            marketAvgPrice={deal.marketAvgPrice}
-            advice={deal.priceAdvice}
-            adviceNote={deal.priceAdviceNote}
-            defaultExpanded={true}
-          />
-
-          {/* Intra-Platform & Cross-Platform Multi-Store Comparison Table */}
+          {/* Intra-Platform & Cross-Platform Multi-Store Comparison Table (แสดงร้านค้าและราคาเปรียบเทียบเป็นอันดับแรก) */}
           {deal.stores && deal.stores.length > 0 ? (
             <StoreComparisonTable
               stores={deal.stores}
@@ -302,6 +285,23 @@ export function ProductDetailModal({
               </div>
             </div>
           )}
+
+          {/* AI Review Sentiment Tags */}
+          <ReviewSentimentTags
+            highlights={deal.reviewHighlights}
+            thaiAuthenticityScore={deal.thaiAuthenticityScore}
+            reviewCount={deal.reviews.length}
+          />
+
+          {/* Price Trend Graph & Timing Advice */}
+          <PriceTrendGraph
+            history={deal.priceHistory}
+            currentPrice={deal.estimatedFinalPrice}
+            marketAvgPrice={deal.marketAvgPrice}
+            advice={deal.priceAdvice}
+            adviceNote={deal.priceAdviceNote}
+            defaultExpanded={false}
+          />
 
           {/* Voucher Stacking Formula (Trip.com Style) */}
           <VoucherStackFormula

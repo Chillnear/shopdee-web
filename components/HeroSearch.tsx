@@ -64,12 +64,13 @@ export function HeroSearch({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!localInput.trim()) return;
+    const trimmed = localInput.trim();
+    if (!trimmed) return;
 
-    if ((isUrl || activeTab === 'link') && onIngestUrl) {
-      onIngestUrl(localInput.trim());
+    if (isUrl && onIngestUrl) {
+      onIngestUrl(trimmed);
     } else {
-      onSearchChange(localInput.trim());
+      onSearchChange(trimmed);
     }
   };
 
@@ -77,13 +78,15 @@ export function HeroSearch({
     try {
       if (typeof navigator !== 'undefined' && navigator.clipboard) {
         const text = await navigator.clipboard.readText();
-        if (text && text.trim()) {
-          setLocalInput(text.trim());
-          if ((text.startsWith('http://') || text.startsWith('https://') || text.includes('shopee') || text.includes('lazada') || text.includes('tiktok')) && onIngestUrl) {
+        const trimmed = text?.trim();
+        if (trimmed) {
+          setLocalInput(trimmed);
+          const isPastedUrl = /^(https?:\/\/)?([\w.-]+\.)?(shopee\.co\.th|shp\.ee|lazada\.co\.th|laz\.co\.th|tiktok\.com|shop\.tiktok\.com)\b/i.test(trimmed) || /^https?:\/\/.+/i.test(trimmed);
+          if (isPastedUrl && onIngestUrl) {
             setActiveTab('link');
-            onIngestUrl(text.trim());
+            onIngestUrl(trimmed);
           } else {
-            onSearchChange(text.trim());
+            onSearchChange(trimmed);
           }
         }
       }

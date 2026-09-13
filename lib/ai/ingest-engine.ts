@@ -267,57 +267,59 @@ function constructProductDealFromAI(meta: ExtractedMeta, ai: any): ProductDeal {
   const lazadaPrice = Number(ai.lazadaPrice) || Math.round(estimatedFinalPrice * 1.05);
   const tiktokPrice = Number(ai.tiktokPrice) || Math.round(estimatedFinalPrice * 1.02);
 
-  const minPrice = Math.min(shopeePrice, lazadaPrice, tiktokPrice);
-  const cheapestPlatform: Platform = 
-    minPrice === shopeePrice ? 'shopee' : minPrice === lazadaPrice ? 'lazada' : 'tiktok';
-
   const isDirect = isUsablePlatformUrl(meta.sourceUrl, meta.platform);
+  const platform = meta.platform;
+  const storeName = platform === 'shopee'
+    ? (ai.shopeeStore || 'Shopee Official Store')
+    : platform === 'lazada'
+    ? (ai.lazadaStore || 'LazMall Flagship Store')
+    : (ai.tiktokStore || 'TikTok Shop Official');
 
   const priceComparisons: PlatformPriceComparison[] = [
     {
       platform: 'shopee',
-      price: meta.platform === 'shopee' ? shopeePrice : 0,
-      estimatedAfterVoucher: meta.platform === 'shopee' ? shopeePrice : 0,
-      storeName: meta.platform === 'shopee' ? (ai.shopeeStore || 'Shopee Mall Official') : 'ยังไม่มีลิงก์ตรง',
-      storeType: meta.platform === 'shopee' ? 'mall' : 'regular',
-      url: meta.platform === 'shopee' ? meta.sourceUrl : '',
-      inStock: meta.platform === 'shopee',
-      hasDirectProduct: meta.platform === 'shopee' && isDirect,
+      price: platform === 'shopee' ? basePrice : 0,
+      estimatedAfterVoucher: platform === 'shopee' ? estimatedFinalPrice : 0,
+      storeName: platform === 'shopee' ? storeName : 'ยังไม่มีข้อมูลสินค้าบนแอปนี้',
+      storeType: platform === 'shopee' ? 'mall' : 'regular',
+      url: platform === 'shopee' ? meta.sourceUrl : '',
+      inStock: platform === 'shopee',
+      hasDirectProduct: platform === 'shopee' && isDirect,
     },
     {
       platform: 'lazada',
-      price: meta.platform === 'lazada' ? lazadaPrice : 0,
-      estimatedAfterVoucher: meta.platform === 'lazada' ? lazadaPrice : 0,
-      storeName: meta.platform === 'lazada' ? (ai.lazadaStore || 'LazMall Flagship') : 'ยังไม่มีลิงก์ตรง',
-      storeType: meta.platform === 'lazada' ? 'mall' : 'regular',
-      url: meta.platform === 'lazada' ? meta.sourceUrl : '',
-      inStock: meta.platform === 'lazada',
-      hasDirectProduct: meta.platform === 'lazada' && isDirect,
+      price: platform === 'lazada' ? basePrice : 0,
+      estimatedAfterVoucher: platform === 'lazada' ? estimatedFinalPrice : 0,
+      storeName: platform === 'lazada' ? storeName : 'ยังไม่มีข้อมูลสินค้าบนแอปนี้',
+      storeType: platform === 'lazada' ? 'mall' : 'regular',
+      url: platform === 'lazada' ? meta.sourceUrl : '',
+      inStock: platform === 'lazada',
+      hasDirectProduct: platform === 'lazada' && isDirect,
     },
     {
       platform: 'tiktok',
-      price: meta.platform === 'tiktok' ? tiktokPrice : 0,
-      estimatedAfterVoucher: meta.platform === 'tiktok' ? tiktokPrice : 0,
-      storeName: meta.platform === 'tiktok' ? (ai.tiktokStore || 'TikTok Shop Official') : 'ยังไม่มีลิงก์ตรง',
-      storeType: meta.platform === 'tiktok' ? 'verified' : 'regular',
-      url: meta.platform === 'tiktok' ? meta.sourceUrl : '',
-      inStock: meta.platform === 'tiktok',
-      hasDirectProduct: meta.platform === 'tiktok' && isDirect,
+      price: platform === 'tiktok' ? basePrice : 0,
+      estimatedAfterVoucher: platform === 'tiktok' ? estimatedFinalPrice : 0,
+      storeName: platform === 'tiktok' ? storeName : 'ยังไม่มีข้อมูลสินค้าบนแอปนี้',
+      storeType: platform === 'tiktok' ? 'verified' : 'regular',
+      url: platform === 'tiktok' ? meta.sourceUrl : '',
+      inStock: platform === 'tiktok',
+      hasDirectProduct: platform === 'tiktok' && isDirect,
     },
   ];
 
   const stores: StoreOffer[] = [
     {
-      id: `${dealId}-s1`,
-      platform: meta.platform,
-      storeName: meta.platform === 'shopee' ? (ai.shopeeStore || 'Shopee Mall') : meta.platform === 'lazada' ? (ai.lazadaStore || 'LazMall') : (ai.tiktokStore || 'TikTok Official'),
+      id: `${dealId}-${platform}-main`,
+      platform,
+      storeName,
       storeType: 'mall',
-      price: Math.round(estimatedFinalPrice * 1.1),
+      price: basePrice,
       estimatedAfterVoucher: estimatedFinalPrice,
       voucherNote: 'โค้ดส่วนลดร้านค้า + ส่งฟรี',
       freeShipping: true,
       storeRating: 4.9,
-      soldCount: 3200,
+      soldCount: 2450,
       isLowestOverall: true,
       isBestValue: true,
       isBestStore: true,
@@ -380,9 +382,9 @@ function constructProductDealFromAI(meta: ExtractedMeta, ai: any): ProductDeal {
     title: cleanTitle,
     imageUrl: meta.imageUrl,
     category: ai.category || 'พัดลม & เครื่องใช้ไฟฟ้า',
-    tags: Array.isArray(ai.tags) && ai.tags.length > 0 ? ai.tags : ['สินค้าเพิ่มจากลิงก์', 'เทียบราคา 3 แอป'],
-    platform: cheapestPlatform,
-    storeName: ai.shopeeStore || 'ร้านค้าทางการ Official',
+    tags: Array.isArray(ai.tags) && ai.tags.length > 0 ? ai.tags : ['สินค้าเพิ่มจากลิงก์', 'ร้านแท้ตรวจสอบแล้ว'],
+    platform,
+    storeName,
     storeType: 'mall',
     storeRating: 4.9,
     soldCount: 2450,
@@ -398,7 +400,7 @@ function constructProductDealFromAI(meta: ExtractedMeta, ai: any): ProductDeal {
     reviews,
     freeShipping: ai.freeShipping !== undefined ? Boolean(ai.freeShipping) : true,
     availableVouchers: vouchers,
-    isAbsoluteCheapest: true,
+    isAbsoluteCheapest: false,
     priceComparisons,
     stores,
     priceAdvice: ai.priceAdvice || 'buy_now',
@@ -427,7 +429,7 @@ export function generateFallbackDeal(meta: ExtractedMeta): ProductDeal {
   return constructProductDealFromAI(meta, {
     cleanTitle,
     category: 'ของใช้ในบ้าน',
-    tags: ['สินค้าเพิ่มจากลิงก์', 'เทียบราคา 3 แอป'],
+    tags: ['สินค้าเพิ่มจากลิงก์', 'ร้านแท้ตรวจสอบแล้ว'],
     basePrice,
     originalPrice,
     marketAvgPrice: basePrice,

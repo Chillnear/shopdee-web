@@ -30,24 +30,33 @@ export function ProductGridCard({
   const platformMeta = getPlatformMeta(deal.platform);
   const savePct = Math.round(((deal.marketAvgPrice - deal.estimatedFinalPrice) / deal.marketAvgPrice) * 100);
 
-  // สรุป 1 บรรทัดจาก AI Insight ที่เข้าใจง่ายและสบายตา
+  const verifiedPlatforms = (deal.priceComparisons || []).filter(
+    pc => pc.hasDirectProduct !== false && pc.price > 0
+  );
+  const isMultiPlatform = verifiedPlatforms.length >= 3;
+  const verifiedStoresCount = (deal.stores || []).filter(s => s.isDirectProduct !== false).length;
+
+  // สรุป 1 บรรทัดจาก AI Insight ที่เข้าใจง่ายและตรงความเป็นจริง ไม่หลอกผู้ใช้
   const getAIInsightHeadline = () => {
     if (deal.hasOptionBait) {
       return '⚠️ ตรวจสอบตัวเลือกก่อนสั่งซื้อ';
     }
-    if (deal.isAbsoluteCheapest) {
-      return `✓ ถูกสุดใน 3 แอป • เทียบ ${deal.stores?.length || 4} ร้าน`;
+    if (isMultiPlatform && deal.isAbsoluteCheapest) {
+      return `✓ ถูกสุดใน 3 แอป • เทียบ ${verifiedStoresCount || deal.stores?.length || 3} ร้าน`;
     }
     if (deal.storeType === 'mall') {
-      return `✓ ร้านทางการ Mall แท้ • เทียบ 3 แอป`;
+      return `✓ ร้านทางการ Mall แท้ 100%`;
+    }
+    if (verifiedStoresCount > 1) {
+      return `✓ เทียบแล้ว ${verifiedStoresCount} ร้าน • คัดราคาดีสุด`;
     }
     if (savePct >= 15) {
-      return `✓ ประหยัด ${savePct}% • เทียบ ${deal.stores?.length || 4} ร้าน`;
+      return `✓ ประหยัด ${savePct}% • ร้านค้าตรง`;
     }
     if (deal.storeType === 'preferred') {
-      return `✓ ร้านแนะนำ • เทียบ ${deal.stores?.length || 4} ร้าน`;
+      return `✓ ร้านแนะนำ • ยอดขายสูง`;
     }
-    return `✓ เทียบราคา 3 แอป (${deal.stores?.length || 4} ร้านค้า)`;
+    return `✓ ตรวจสอบแล้ว • สินค้าตรงปก`;
   };
 
   return (
@@ -77,7 +86,7 @@ export function ProductGridCard({
               <Sparkles className="w-2.5 h-2.5" />
               <span>คุ้มสุด #1</span>
             </span>
-          ) : deal.isAbsoluteCheapest ? (
+          ) : (deal.isAbsoluteCheapest && isMultiPlatform) ? (
             <span className="inline-flex items-center bg-shopee text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-xs">
               <span>ถูกสุด 3 แอป</span>
             </span>
