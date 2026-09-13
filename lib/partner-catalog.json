@@ -4,7 +4,11 @@
     "title": "SIPIAO กระดาษครัว 240 แผ่น (SPC7003-5)",
     "imageUrl": "https://p16-oec-sg.ibyteimg.com/tos-alisg-i-aphluv4xwc-sg/2c1d460153864b1b9cf443c26929da96~tplv-aphluv4xwc-resize-webp:260:260.webp?dr=15582&t=555f072d&ps=933b5bde&shp=7745054a&shcp=9b759fb9&idc=my&from=2001012042",
     "category": "ของใช้ในบ้าน",
-    "tags": ["SIPIAO", "กระดาษครัว", "กระดาษอเนกประสงค์"],
+    "tags": [
+      "SIPIAO",
+      "กระดาษครัว",
+      "กระดาษอเนกประสงค์"
+    ],
     "platform": "tiktok",
     "storeName": "SIPIAO Shop",
     "storeType": "regular",
@@ -14,14 +18,19 @@
     "originalPrice": 285,
     "affiliateUrl": "https://vt.tiktok.com/ZS9SbQHtMFSq9-wWpS8/",
     "freeShipping": false,
-    "priceNote": "ราคาที่อ่านได้จาก TikTok Shop ณ เวลาที่ดึงข้อมูล; ค่าส่งเริ่มต้น ฿29"
+    "priceNote": "ราคาที่อ่านได้จาก TikTok Shop ณ เวลาที่ดึงข้อมูล; ค่าส่งเริ่มต้น ฿29",
+    "is_active": true
   },
   {
     "id": "partner-lazada-1404464662-3596186331",
     "title": "SYSTEMA แปรงสีฟัน ซิสเท็มมา รุ่นหัวแปรงขนาดกลาง (แพ็ค 6)",
     "imageUrl": "https://th-live.slatic.net/p/650a95fb3000919d07c994a9d5e23828.jpg_400x400.jpg",
     "category": "ของใช้ในบ้าน",
-    "tags": ["SYSTEMA", "แปรงสีฟัน", "แพ็ค 6"],
+    "tags": [
+      "SYSTEMA",
+      "แปรงสีฟัน",
+      "แพ็ค 6"
+    ],
     "platform": "lazada",
     "storeName": "Lazada seller (item 1404464662)",
     "storeType": "regular",
@@ -31,6 +40,7 @@
     "originalPrice": 378,
     "affiliateUrl": "https://s.lazada.co.th/s.ZjP8AJ?c=w",
     "freeShipping": false,
-    "priceNote": "ราคาที่อ่านได้จาก Lazada product page; item 1404464662 / SKU 3596186331"
+    "priceNote": "ราคาที่อ่านได้จาก Lazada product page; item 1404464662 / SKU 3596186331",
+    "is_active": true
   }
 ]

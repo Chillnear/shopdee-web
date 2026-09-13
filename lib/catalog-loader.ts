@@ -193,6 +193,7 @@ function makeVoucher(platform: Platform, discount: number, minSpend: number): Vo
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function adaptFeedItem(raw: AnyRecord): ProductDeal | null {
   try {
+    if (raw.is_active === false) return null;
     const id = raw.id as string;
     const shopeePrice = Number(raw.platforms?.[0]?.currentPrice ?? raw.sale_price ?? 0);
     const rawOrigPrice = Number(raw.platforms?.[0]?.originalPrice ?? raw.original_price ?? 0);
@@ -316,6 +317,7 @@ function adaptFeedItem(raw: AnyRecord): ProductDeal | null {
 // ─── Partner links manually verified from marketplace product pages ──────────
 function normalizePartnerItem(raw: AnyRecord): ProductDeal | null {
   try {
+    if (raw.is_active === false) return null;
     const platform = raw.platform as Platform;
     const price = Number(raw.price);
     const rawOrigPrice = Number(raw.originalPrice ?? price);
@@ -431,6 +433,7 @@ function normalizePartnerItem(raw: AnyRecord): ProductDeal | null {
 // These are already in ProductDeal format (synthesized by Mimi AI)
 function normalizeSeededItem(raw: AnyRecord): ProductDeal | null {
   try {
+    if (raw.is_active === false) return null;
     // Items from seed-worker are accepted only when every outbound URL is verifiable.
     if (!raw.id || !raw.title || !PLATFORM_HOSTS[raw.platform as Platform]) return null;
     if (String(raw.imageUrl ?? '').includes('unsplash.com')) return null;

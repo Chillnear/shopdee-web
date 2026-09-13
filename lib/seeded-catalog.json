@@ -171,7 +171,8 @@
         "date": "วันนี้",
         "price": 473
       }
-    ]
+    ],
+    "is_active": true
   },
   {
     "id": "seeded-xiaomi-air4c",
@@ -315,7 +316,8 @@
         "date": "วันนี้",
         "price": 1790
       }
-    ]
+    ],
+    "is_active": true
   },
   {
     "id": "seeded-anker-ace45w",
@@ -439,7 +441,8 @@
         "date": "วันนี้",
         "price": 469
       }
-    ]
+    ],
+    "is_active": true
   },
   {
     "id": "seeded-tefal-sochef28",
@@ -561,7 +564,8 @@
         "date": "วันนี้",
         "price": 640
       }
-    ]
+    ],
+    "is_active": true
   },
   {
     "id": "seeded-logitech-m331",
@@ -683,7 +687,8 @@
         "date": "วันนี้",
         "price": 464
       }
-    ]
+    ],
+    "is_active": true
   },
   {
     "id": "seeded-drpong-kpowder",
@@ -805,7 +810,8 @@
         "date": "วันนี้",
         "price": 284
       }
-    ]
+    ],
+    "is_active": true
   },
   {
     "id": "seeded-baseus-bowiee3",
@@ -927,7 +933,8 @@
         "date": "วันนี้",
         "price": 445
       }
-    ]
+    ],
+    "is_active": true
   },
   {
     "id": "seeded-dreame-pocket",
@@ -1049,7 +1056,8 @@
         "date": "วันนี้",
         "price": 2390
       }
-    ]
+    ],
+    "is_active": true
   },
   {
     "id": "seeded-philips-hd9200",
@@ -1192,7 +1200,8 @@
       "Philips",
       "Mall",
       "เทียบ3แอป"
-    ]
+    ],
+    "is_active": true
   },
   {
     "id": "seeded-simplus-fryer",
@@ -1335,7 +1344,8 @@
       "Simplus",
       "Mall",
       "เทียบ3แอป"
-    ]
+    ],
+    "is_active": true
   },
   {
     "id": "seeded-locknlock-tumbler",
@@ -1478,7 +1488,8 @@
       "LocknLock",
       "Mall",
       "เทียบ3แอป"
-    ]
+    ],
+    "is_active": true
   },
   {
     "id": "seeded-dettol-hygiene",
@@ -1621,7 +1632,8 @@
       "Dettol",
       "Mall",
       "เทียบ3แอป"
-    ]
+    ],
+    "is_active": true
   },
   {
     "id": "seeded-marshall-emberton",
@@ -1764,6 +1776,7 @@
       "Marshall",
       "Mall",
       "เทียบ3แอป"
-    ]
+    ],
+    "is_active": true
   }
 ]

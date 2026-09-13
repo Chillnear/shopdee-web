@@ -130,7 +130,7 @@ export function HeroSearch({
             }`}
           >
             <LinkIcon className="w-4 h-4" />
-            <span>วางลิงก์สินค้าจากแอปใดก็ได้</span>
+            <span>วางลิงก์สินค้า (แอปใดก็ได้)</span>
             <span className="bg-shopee/10 text-shopee text-[10px] font-black px-1.5 py-0.2 rounded-full hidden sm:inline">
               แนะนำ
             </span>

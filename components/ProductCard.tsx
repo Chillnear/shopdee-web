@@ -123,7 +123,7 @@ export function ProductCard({
     }`}>
       
       {/* Absolute Cheapest Banner (แสดงเฉพาะเมื่อเทียบครบ 3 แพลตฟอร์มจริง) */}
-      {isMultiPlatform && deal.isAbsoluteCheapest && (
+      {isMultiPlatform && deal.isAbsoluteCheapest ? (
         <div className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 text-white px-4 py-1.5 flex items-center justify-between text-xs font-bold">
           <div className="flex items-center gap-1.5">
             <Sparkles className="w-3.5 h-3.5 text-yellow-300 animate-spin-slow" />
@@ -136,7 +136,16 @@ export function ProductCard({
             })()}
           </span>
         </div>
-      )}
+      ) : !isMultiPlatform ? (
+        <div className="bg-neutral-50 text-neutral-700 px-4 py-1.5 flex items-center justify-between text-xs font-medium border-b border-neutral-200/80">
+          <div className="flex items-center gap-1.5">
+            <span>📍 พบใน {platformMeta.name} เท่านั้น • รอเปรียบเทียบราคา 3 แอป</span>
+          </div>
+          <span className="text-[10px] text-neutral-500 font-semibold">
+            {deal.storeType === 'mall' ? 'ร้านทางการแท้ 100%' : 'เทียบ 1 ร้าน'}
+          </span>
+        </div>
+      ) : null}
 
       <div className="p-4 sm:p-5">
         <div className="flex flex-col md:flex-row gap-4 sm:gap-6">
@@ -407,7 +416,7 @@ export function ProductCard({
                       : 'bg-black hover:bg-neutral-800 shadow-neutral-900/30'
                   }`}
                 >
-                  <span>ไปซื้อบน {platformMeta.name}</span>
+                  <span>ซื้อที่ {platformMeta.name === 'TikTok Shop' ? 'TikTok' : platformMeta.name}</span>
                   <ExternalLink className="w-4 h-4" />
                 </a>
 

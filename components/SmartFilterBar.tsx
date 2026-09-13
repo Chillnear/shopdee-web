@@ -59,8 +59,8 @@ export function SmartFilterBar({
         {/* Row 1: Platform Chips & Limit Selectors */}
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
           
-          {/* Platform Tabs (Flex-wrap ensures Shopee, Lazada, TikTok are all visible without horizontal overflow) */}
-          <div className="flex flex-wrap items-center gap-1.5 py-0.5">
+          {/* Platform Tabs (Flex-wrap & Horizontal Scroll ensures Shopee, Lazada, TikTok are all 100% accessible) */}
+          <div className="flex flex-wrap items-center gap-1.5 py-0.5 overflow-x-auto no-scrollbar">
             <span className="text-xs font-bold text-neutral-500 whitespace-nowrap mr-1 flex items-center gap-1">
               <span>แพลตฟอร์ม:</span>
             </span>
