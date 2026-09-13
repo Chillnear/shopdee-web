@@ -11,6 +11,7 @@ import { ProductDeal, Platform, StoreType, PlatformPriceComparison, StoreOffer, 
 
 // ─── Static imports (Next.js bundles at build time for SSR) ───────────────────
 import seededRaw from './seeded-catalog.json';
+import partnerRaw from './partner-catalog.json';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyRecord = Record<string, any>;
@@ -161,6 +162,83 @@ function adaptFeedItem(raw: AnyRecord): ProductDeal | null {
   }
 }
 
+// ─── Partner links manually verified from marketplace product pages ──────────
+function normalizePartnerItem(raw: AnyRecord): ProductDeal | null {
+  try {
+    const platform = raw.platform as Platform;
+    const price = Number(raw.price);
+    const originalPrice = Number(raw.originalPrice ?? price);
+    const affiliateUrl = String(raw.affiliateUrl ?? '');
+    const title = String(raw.title ?? '');
+
+    if (
+      !title ||
+      !PLATFORM_HOSTS[platform] ||
+      !isUsablePlatformUrl(affiliateUrl, platform) ||
+      !Number.isFinite(price) ||
+      price <= 0
+    ) {
+      return null;
+    }
+
+    const comparison: PlatformPriceComparison = {
+      platform,
+      price,
+      estimatedAfterVoucher: price,
+      storeName: String(raw.storeName ?? `${platform} store`),
+      storeType: (raw.storeType as StoreType) ?? 'regular',
+      url: affiliateUrl,
+      inStock: true,
+    };
+    const store: StoreOffer = {
+      id: `${raw.id}-store`,
+      platform,
+      storeName: comparison.storeName,
+      storeType: comparison.storeType,
+      price,
+      estimatedAfterVoucher: price,
+      voucherNote: String(raw.priceNote ?? 'ราคาจากหน้าสินค้าจริง ยังไม่รวมโค้ดส่วนลด'),
+      freeShipping: Boolean(raw.freeShipping),
+      storeRating: Number(raw.storeRating ?? 0),
+      soldCount: Number(raw.reviewCount ?? 0),
+      isLowestOverall: false,
+      url: affiliateUrl,
+    };
+
+    return {
+      id: String(raw.id),
+      title,
+      imageUrl: String(raw.imageUrl ?? ''),
+      category: String(raw.category ?? 'ของใช้ในบ้าน'),
+      tags: Array.isArray(raw.tags) ? raw.tags as string[] : [],
+      platform,
+      storeName: comparison.storeName,
+      storeType: comparison.storeType,
+      storeRating: store.storeRating,
+      soldCount: store.soldCount,
+      basePrice: price,
+      originalPrice: Number.isFinite(originalPrice) && originalPrice > 0 ? originalPrice : price,
+      marketAvgPrice: price,
+      estimatedFinalPrice: price,
+      vipFinalPrice: price,
+      hasOptionBait: false,
+      thaiAuthenticityScore: 0,
+      authenticitySummary: 'ยังไม่ได้ตรวจสอบความแท้ของร้านหรือสินค้า',
+      reviews: [],
+      freeShipping: store.freeShipping,
+      availableVouchers: [],
+      isAbsoluteCheapest: false,
+      priceComparisons: [comparison],
+      stores: [store],
+      affiliateUrl,
+      priceAdvice: 'fair_price',
+      priceAdviceNote: String(raw.priceNote ?? 'ราคาจากหน้าสินค้าจริง ยังไม่รวมโค้ดส่วนลด'),
+    };
+  } catch {
+    return null;
+  }
+}
+
 // ─── Seeded catalog items (from AI worker) ───────────────────────────────────
 // These are already in ProductDeal format (synthesized by Mimi AI)
 function normalizeSeededItem(raw: AnyRecord): ProductDeal | null {
@@ -212,6 +290,12 @@ async function loadFeedCatalog(): Promise<ProductDeal[]> {
 
 // ─── Main export ─────────────────────────────────────────────────────────────
 
+/** Synchronously returns partner links verified from marketplace pages. */
+export function getPartnerCatalog(): ProductDeal[] {
+  const raw = partnerRaw as unknown as AnyRecord[];
+  return raw.map(normalizePartnerItem).filter(Boolean) as ProductDeal[];
+}
+
 /** Synchronously returns seeded catalog items (available at SSR/client load time). */
 export function getSeededCatalog(): ProductDeal[] {
   const raw = seededRaw as unknown as AnyRecord[];
@@ -221,16 +305,17 @@ export function getSeededCatalog(): ProductDeal[] {
 /** Async — loads Shopee feed catalog (200 top items from official affiliate feed). */
 export { loadFeedCatalog };
 
-/** Combined real catalog (seeded + feed). Call from client useEffect. */
+/** Combined real catalog (partner links + seeded + feed). Call from client useEffect. */
 export async function loadFullCatalog(): Promise<ProductDeal[]> {
   const [seeded, feed] = await Promise.all([
     Promise.resolve(getSeededCatalog()),
     loadFeedCatalog(),
   ]);
+  const partner = getPartnerCatalog();
   // Merge, deduplicate by id
   const seen = new Set<string>();
   const all: ProductDeal[] = [];
-  for (const d of [...seeded, ...feed]) {
+  for (const d of [...partner, ...seeded, ...feed]) {
     if (!seen.has(d.id)) {
       seen.add(d.id);
       all.push(d);

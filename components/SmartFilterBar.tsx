@@ -33,19 +33,11 @@ export function SmartFilterBar({
     }
 
     const current = filter.selectedPlatforms;
-    let updated: Platform[];
-
-    if (current.includes(platform)) {
-      // Don't allow deselecting all
-      if (current.length === 1) return;
-      updated = current.filter(p => p !== platform);
-    } else {
-      updated = [...current, platform];
-    }
+    const isOnlySelected = current.length === 1 && current[0] === platform;
 
     onFilterChange({
       ...filter,
-      selectedPlatforms: updated,
+      selectedPlatforms: isOnlySelected ? ['shopee', 'lazada', 'tiktok'] : [platform],
     });
   };
 
