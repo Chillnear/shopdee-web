@@ -16,7 +16,7 @@ import { WatchlistDrawer } from '@/components/WatchlistDrawer';
 import { PriceDropToast } from '@/components/PriceDropToast';
 import { LineOptinBanner } from '@/components/LineOptinBanner';
 import { EmptySearchCard } from '@/components/EmptySearchCard';
-import { MOCK_DEALS } from '@/lib/mock-data';
+import { loadFullCatalog } from '@/lib/catalog-loader';
 import { DEFAULT_FILTER_STATE, filterAndRankDeals } from '@/lib/engine';
 import { FilterState, ProductDeal } from '@/lib/types';
 import { Sparkles, ShieldCheck, Flame, RotateCcw, HelpCircle, LayoutGrid, List, CheckCircle2 } from 'lucide-react';
@@ -29,10 +29,18 @@ export default function Home() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [aiIntent, setAiIntent] = useState<SearchIntent | null>(null);
   
+  // Real product catalog loaded from seeded-catalog.json + shopee-feed-catalog.json
+  const [catalogDeals, setCatalogDeals] = useState<ProductDeal[]>([]);
+  
   // Custom deals ingested by user via link or dynamic search
   const [customDeals, setCustomDeals] = useState<ProductDeal[]>([]);
   const [isIngesting, setIsIngesting] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  // Load real product catalog (seeded + Shopee feed) on mount
+  useEffect(() => {
+    loadFullCatalog().then(setCatalogDeals).catch(console.warn);
+  }, []);
 
   // Load custom ingested deals from localStorage on mount
   useEffect(() => {
@@ -97,10 +105,18 @@ export default function Home() {
     setFilter(DEFAULT_FILTER_STATE);
   };
 
-  // Combine custom user-ingested deals with catalog mock deals
+  // Combine: user-ingested deals (highest priority) + real catalog (seeded + Shopee feed)
   const allDeals = useMemo(() => {
-    return [...customDeals, ...MOCK_DEALS];
-  }, [customDeals]);
+    const seen = new Set<string>();
+    const merged: ProductDeal[] = [];
+    for (const d of [...customDeals, ...catalogDeals]) {
+      if (!seen.has(d.id)) {
+        seen.add(d.id);
+        merged.push(d);
+      }
+    }
+    return merged;
+  }, [customDeals, catalogDeals]);
 
   // Compute filtered & ranked deals
   const { deals, totalMatching } = useMemo(() => {

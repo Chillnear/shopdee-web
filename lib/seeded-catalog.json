@@ -1,0 +1,2518 @@
+[
+  {
+    "id": "ingested-1789296289041-0eyv",
+    "title": "Hatari พัดลมตั้งโต๊ะ 16 นิ้ว รุ่น HT-T16M5",
+    "imageUrl": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80",
+    "category": "พัดลม & เครื่องใช้ไฟฟ้า",
+    "tags": [
+      "Hatari",
+      "พัดลมตั้งโต๊ะ",
+      "เครื่องใช้ไฟฟ้า",
+      "HT-T16M5"
+    ],
+    "platform": "tiktok",
+    "storeName": "Hatari Official Store",
+    "storeType": "mall",
+    "storeRating": 4.9,
+    "soldCount": 2450,
+    "basePrice": 898,
+    "originalPrice": 1050,
+    "marketAvgPrice": 920,
+    "estimatedFinalPrice": 780,
+    "vipFinalPrice": 699,
+    "hasOptionBait": false,
+    "baitWarningNote": "ไม่มีการตั้งราคาหลอก (Option Bait) สินค้าเป็นรุ่นมาตรฐาน",
+    "thaiAuthenticityScore": 98,
+    "authenticitySummary": "สินค้าแบรนด์ Hatari เป็นสินค้ากระแสหลักในไทย มีการรับประกันมอเตอร์ 3 ปีจากศูนย์โดยตรง โอกาสเป็นของปลอมต่ำมาก",
+    "reviews": [
+      {
+        "id": "r1-ingested-1789296289041-0eyv",
+        "author": "ลูกค้าชาวไทย (ยืนยันคำสั่งซื้อ)",
+        "comment": "ลมแรงกระจายทั่วถึง",
+        "isAuthenticThai": true,
+        "authenticityNote": "ภาษาไทยธรรมชาติ รีวิวมีรูปภาพและวิดีโอแกะกล่องจริง",
+        "rating": 5,
+        "date": "3 วันที่แล้ว"
+      },
+      {
+        "id": "r2-ingested-1789296289041-0eyv",
+        "author": "ช้อปดี รีวิวเวอร์",
+        "comment": "ปรับระดับความสูงได้",
+        "isAuthenticThai": true,
+        "authenticityNote": "ผู้ซื้อจริง มีประวัติการสั่งซื้อสม่ำเสมอ",
+        "rating": 5,
+        "date": "1 สัปดาห์ที่แล้ว"
+      }
+    ],
+    "freeShipping": true,
+    "availableVouchers": [
+      {
+        "id": "v1-ingested-1789296289041-0eyv",
+        "code": "DEESHOP50",
+        "discountText": "ลด 50.- ขั้นต่ำ 300.-",
+        "minSpend": 300,
+        "discountAmount": 50,
+        "tag": "แพลตฟอร์ม"
+      },
+      {
+        "id": "v2-ingested-1789296289041-0eyv",
+        "code": "MALL10PCT",
+        "discountText": "ลด 10% ร้าน Mall ทางการ",
+        "minSpend": 500,
+        "discountAmount": 90,
+        "tag": "ร้านค้า"
+      },
+      {
+        "id": "v3-ingested-1789296289041-0eyv",
+        "code": "FREESHIP",
+        "discountText": "ส่งฟรี สูงสุด 40.-",
+        "minSpend": 99,
+        "discountAmount": 40,
+        "tag": "ส่งฟรี"
+      }
+    ],
+    "isAbsoluteCheapest": true,
+    "priceComparisons": [
+      {
+        "platform": "shopee",
+        "price": 988,
+        "estimatedAfterVoucher": 898,
+        "storeName": "Hatari Official Store",
+        "storeType": "mall",
+        "url": "https://shopee.co.th/search?keyword=Hatari%20%E0%B8%9E%E0%B8%B1%E0%B8%94%E0%B8%A5%E0%B8%A1%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B9%82%E0%B8%95%E0%B9%8A%E0%B8%B0%2016%20%E0%B8%99%E0%B8%B4%E0%B9%89%E0%B8%A7%20%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%20HT-T16M5",
+        "inStock": true
+      },
+      {
+        "platform": "lazada",
+        "price": 974,
+        "estimatedAfterVoucher": 885,
+        "storeName": "Hatari Flagship Store",
+        "storeType": "mall",
+        "url": "https://www.lazada.co.th/tag/Hatari%20%E0%B8%9E%E0%B8%B1%E0%B8%94%E0%B8%A5%E0%B8%A1%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B9%82%E0%B8%95%E0%B9%8A%E0%B8%B0%2016%20%E0%B8%99%E0%B8%B4%E0%B9%89%E0%B8%A7%20%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%20HT-T16M5",
+        "inStock": true
+      },
+      {
+        "platform": "tiktok",
+        "price": 940,
+        "estimatedAfterVoucher": 870,
+        "storeName": "Hatari Official Shop",
+        "storeType": "verified",
+        "url": "https://shop.tiktok.com/search?q=Hatari%20%E0%B8%9E%E0%B8%B1%E0%B8%94%E0%B8%A5%E0%B8%A1%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B9%82%E0%B8%95%E0%B9%8A%E0%B8%B0%2016%20%E0%B8%99%E0%B8%B4%E0%B9%89%E0%B8%A7%20%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%20HT-T16M5",
+        "inStock": true
+      }
+    ],
+    "stores": [
+      {
+        "id": "ingested-1789296289041-0eyv-s1",
+        "platform": "tiktok",
+        "storeName": "TikTok Official",
+        "storeType": "mall",
+        "price": 957,
+        "estimatedAfterVoucher": 870,
+        "voucherNote": "โค้ดส่วนลดร้านค้า + ส่งฟรี",
+        "freeShipping": true,
+        "storeRating": 4.9,
+        "soldCount": 3200,
+        "isLowestOverall": true,
+        "url": "https://shopee.co.th/search?keyword=Hatari%20%E0%B8%9E%E0%B8%B1%E0%B8%94%E0%B8%A5%E0%B8%A1%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B9%82%E0%B8%95%E0%B9%8A%E0%B8%B0%2016%20%E0%B8%99%E0%B8%B4%E0%B9%89%E0%B8%A7%20%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%20HT-T16M5"
+      },
+      {
+        "id": "ingested-1789296289041-0eyv-s2",
+        "platform": "shopee",
+        "storeName": "ร้านค้าแนะนำ ยอดขายดี",
+        "storeType": "preferred",
+        "price": 1000,
+        "estimatedAfterVoucher": 905,
+        "voucherNote": "โค้ดลดเพิ่ม 5%",
+        "freeShipping": true,
+        "storeRating": 4.8,
+        "soldCount": 1850,
+        "isLowestOverall": false,
+        "url": "https://shopee.co.th/search?keyword=Hatari%20%E0%B8%9E%E0%B8%B1%E0%B8%94%E0%B8%A5%E0%B8%A1%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B9%82%E0%B8%95%E0%B9%8A%E0%B8%B0%2016%20%E0%B8%99%E0%B8%B4%E0%B9%89%E0%B8%A7%20%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%20HT-T16M5"
+      },
+      {
+        "id": "ingested-1789296289041-0eyv-s3",
+        "platform": "tiktok",
+        "storeName": "TikTok Live Shop",
+        "storeType": "verified",
+        "price": 974,
+        "estimatedAfterVoucher": 896,
+        "voucherNote": "คูปองไลฟ์สดลดพิเศษ",
+        "freeShipping": false,
+        "storeRating": 4.7,
+        "soldCount": 940,
+        "isLowestOverall": false,
+        "url": "https://shop.tiktok.com/search?q=Hatari%20%E0%B8%9E%E0%B8%B1%E0%B8%94%E0%B8%A5%E0%B8%A1%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B9%82%E0%B8%95%E0%B9%8A%E0%B8%B0%2016%20%E0%B8%99%E0%B8%B4%E0%B9%89%E0%B8%A7%20%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%20HT-T16M5"
+      }
+    ],
+    "priceAdvice": "fair_price",
+    "priceAdviceNote": "ราคาปัจจุบันอยู่ในเกณฑ์มาตรฐาน หากรอช่วงแคมเปญ Double Day (เช่น 11.11) จะได้ราคาที่คุ้มค่ากว่า",
+    "voucherStackFormula": {
+      "basePrice": 898,
+      "platformDiscount": 72,
+      "storeDiscount": 36,
+      "shippingDiscount": 40,
+      "finalPrice": 780
+    },
+    "affiliateUrl": "https://shopee.co.th/search?keyword=Hatari%20%E0%B8%9E%E0%B8%B1%E0%B8%94%E0%B8%A5%E0%B8%A1%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87%E0%B9%82%E0%B8%95%E0%B9%8A%E0%B8%B0%2016%20%E0%B8%99%E0%B8%B4%E0%B9%89%E0%B8%A7%20%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%20HT-T16M5"
+  },
+  {
+    "id": "ingested-1789296304367-745j",
+    "title": "Hatari พัดลมปรับระดับ 18 นิ้ว รุ่น HT-S18M2",
+    "imageUrl": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80",
+    "category": "พัดลม & เครื่องใช้ไฟฟ้า",
+    "tags": [
+      "Hatari",
+      "พัดลมปรับระดับ",
+      "พัดลม 18 นิ้ว",
+      "เครื่องใช้ไฟฟ้าในบ้าน"
+    ],
+    "platform": "tiktok",
+    "storeName": "Hatari Official Shop",
+    "storeType": "mall",
+    "storeRating": 4.9,
+    "soldCount": 2450,
+    "basePrice": 1150,
+    "originalPrice": 1450,
+    "marketAvgPrice": 1180,
+    "estimatedFinalPrice": 990,
+    "vipFinalPrice": 890,
+    "hasOptionBait": false,
+    "baitWarningNote": "ไม่พบการตั้งราคาหลอกลวงในตัวเลือกสินค้า",
+    "thaiAuthenticityScore": 98,
+    "authenticitySummary": "สินค้าแบรนด์ Hatari มีการจัดจำหน่ายผ่านร้านค้าทางการ (Official Store) และตัวแทนจำหน่ายที่เชื่อถือได้สูงในไทย",
+    "reviews": [
+      {
+        "id": "r1-ingested-1789296304367-745j",
+        "author": "ลูกค้าชาวไทย (ยืนยันคำสั่งซื้อ)",
+        "comment": "ปรับระดับความสูงได้หลายระดับ",
+        "isAuthenticThai": true,
+        "authenticityNote": "ภาษาไทยธรรมชาติ รีวิวมีรูปภาพและวิดีโอแกะกล่องจริง",
+        "rating": 5,
+        "date": "3 วันที่แล้ว"
+      },
+      {
+        "id": "r2-ingested-1789296304367-745j",
+        "author": "ช้อปดี รีวิวเวอร์",
+        "comment": "ลมแรง กระจายลมได้ดี",
+        "isAuthenticThai": true,
+        "authenticityNote": "ผู้ซื้อจริง มีประวัติการสั่งซื้อสม่ำเสมอ",
+        "rating": 5,
+        "date": "1 สัปดาห์ที่แล้ว"
+      }
+    ],
+    "freeShipping": true,
+    "availableVouchers": [
+      {
+        "id": "v1-ingested-1789296304367-745j",
+        "code": "DEESHOP50",
+        "discountText": "ลด 50.- ขั้นต่ำ 300.-",
+        "minSpend": 300,
+        "discountAmount": 50,
+        "tag": "แพลตฟอร์ม"
+      },
+      {
+        "id": "v2-ingested-1789296304367-745j",
+        "code": "MALL10PCT",
+        "discountText": "ลด 10% ร้าน Mall ทางการ",
+        "minSpend": 500,
+        "discountAmount": 115,
+        "tag": "ร้านค้า"
+      },
+      {
+        "id": "v3-ingested-1789296304367-745j",
+        "code": "FREESHIP",
+        "discountText": "ส่งฟรี สูงสุด 40.-",
+        "minSpend": 99,
+        "discountAmount": 40,
+        "tag": "ส่งฟรี"
+      }
+    ],
+    "isAbsoluteCheapest": true,
+    "priceComparisons": [
+      {
+        "platform": "shopee",
+        "price": 1232,
+        "estimatedAfterVoucher": 1120,
+        "storeName": "Hatari Official Shop",
+        "storeType": "mall",
+        "url": "https://shopee.co.th/search?keyword=Hatari%20%E0%B8%9E%E0%B8%B1%E0%B8%94%E0%B8%A5%E0%B8%A1%E0%B8%9B%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%A3%E0%B8%B0%E0%B8%94%E0%B8%B1%E0%B8%9A%2018%20%E0%B8%99%E0%B8%B4%E0%B9%89%E0%B8%A7%20%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%20HT-S18M2",
+        "inStock": true
+      },
+      {
+        "platform": "lazada",
+        "price": 1265,
+        "estimatedAfterVoucher": 1150,
+        "storeName": "Hatari Flagship Store",
+        "storeType": "mall",
+        "url": "https://www.lazada.co.th/tag/Hatari%20%E0%B8%9E%E0%B8%B1%E0%B8%94%E0%B8%A5%E0%B8%A1%E0%B8%9B%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%A3%E0%B8%B0%E0%B8%94%E0%B8%B1%E0%B8%9A%2018%20%E0%B8%99%E0%B8%B4%E0%B9%89%E0%B8%A7%20%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%20HT-S18M2",
+        "inStock": true
+      },
+      {
+        "platform": "tiktok",
+        "price": 1177,
+        "estimatedAfterVoucher": 1090,
+        "storeName": "Hatari Thailand",
+        "storeType": "verified",
+        "url": "https://shop.tiktok.com/search?q=Hatari%20%E0%B8%9E%E0%B8%B1%E0%B8%94%E0%B8%A5%E0%B8%A1%E0%B8%9B%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%A3%E0%B8%B0%E0%B8%94%E0%B8%B1%E0%B8%9A%2018%20%E0%B8%99%E0%B8%B4%E0%B9%89%E0%B8%A7%20%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%20HT-S18M2",
+        "inStock": true
+      }
+    ],
+    "stores": [
+      {
+        "id": "ingested-1789296304367-745j-s1",
+        "platform": "tiktok",
+        "storeName": "TikTok Official",
+        "storeType": "mall",
+        "price": 1199,
+        "estimatedAfterVoucher": 1090,
+        "voucherNote": "โค้ดส่วนลดร้านค้า + ส่งฟรี",
+        "freeShipping": true,
+        "storeRating": 4.9,
+        "soldCount": 3200,
+        "isLowestOverall": true,
+        "url": "https://shopee.co.th/search?keyword=Hatari%20%E0%B8%9E%E0%B8%B1%E0%B8%94%E0%B8%A5%E0%B8%A1%E0%B8%9B%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%A3%E0%B8%B0%E0%B8%94%E0%B8%B1%E0%B8%9A%2018%20%E0%B8%99%E0%B8%B4%E0%B9%89%E0%B8%A7%20%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%20HT-S18M2"
+      },
+      {
+        "id": "ingested-1789296304367-745j-s2",
+        "platform": "shopee",
+        "storeName": "ร้านค้าแนะนำ ยอดขายดี",
+        "storeType": "preferred",
+        "price": 1254,
+        "estimatedAfterVoucher": 1134,
+        "voucherNote": "โค้ดลดเพิ่ม 5%",
+        "freeShipping": true,
+        "storeRating": 4.8,
+        "soldCount": 1850,
+        "isLowestOverall": false,
+        "url": "https://shopee.co.th/search?keyword=Hatari%20%E0%B8%9E%E0%B8%B1%E0%B8%94%E0%B8%A5%E0%B8%A1%E0%B8%9B%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%A3%E0%B8%B0%E0%B8%94%E0%B8%B1%E0%B8%9A%2018%20%E0%B8%99%E0%B8%B4%E0%B9%89%E0%B8%A7%20%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%20HT-S18M2"
+      },
+      {
+        "id": "ingested-1789296304367-745j-s3",
+        "platform": "tiktok",
+        "storeName": "TikTok Live Shop",
+        "storeType": "verified",
+        "price": 1221,
+        "estimatedAfterVoucher": 1123,
+        "voucherNote": "คูปองไลฟ์สดลดพิเศษ",
+        "freeShipping": false,
+        "storeRating": 4.7,
+        "soldCount": 940,
+        "isLowestOverall": false,
+        "url": "https://shop.tiktok.com/search?q=Hatari%20%E0%B8%9E%E0%B8%B1%E0%B8%94%E0%B8%A5%E0%B8%A1%E0%B8%9B%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%A3%E0%B8%B0%E0%B8%94%E0%B8%B1%E0%B8%9A%2018%20%E0%B8%99%E0%B8%B4%E0%B9%89%E0%B8%A7%20%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%20HT-S18M2"
+      }
+    ],
+    "priceAdvice": "fair_price",
+    "priceAdviceNote": "ราคาปัจจุบันอยู่ในเกณฑ์มาตรฐาน หากรอช่วงแคมเปญ Double Day (เช่น 11.11, 12.12) จะได้ราคาที่คุ้มค่ากว่า",
+    "voucherStackFormula": {
+      "basePrice": 1150,
+      "platformDiscount": 92,
+      "storeDiscount": 46,
+      "shippingDiscount": 40,
+      "finalPrice": 990
+    },
+    "affiliateUrl": "https://shopee.co.th/search?keyword=Hatari%20%E0%B8%9E%E0%B8%B1%E0%B8%94%E0%B8%A5%E0%B8%A1%E0%B8%9B%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%A3%E0%B8%B0%E0%B8%94%E0%B8%B1%E0%B8%9A%2018%20%E0%B8%99%E0%B8%B4%E0%B9%89%E0%B8%A7%20%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%20HT-S18M2"
+  },
+  {
+    "id": "ingested-1789296358144-5m9i",
+    "title": "Philips หม้อทอดไร้น้ำมัน รุ่น HD9200 4.1 ลิตร",
+    "imageUrl": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80",
+    "category": "พัดลม & เครื่องใช้ไฟฟ้า",
+    "tags": [
+      "Philips",
+      "หม้อทอดไร้น้ำมัน",
+      "เครื่องใช้ไฟฟ้าในครัว",
+      "Air Fryer"
+    ],
+    "platform": "lazada",
+    "storeName": "Philips Official Store",
+    "storeType": "mall",
+    "storeRating": 4.9,
+    "soldCount": 2450,
+    "basePrice": 2290,
+    "originalPrice": 3990,
+    "marketAvgPrice": 2350,
+    "estimatedFinalPrice": 1950,
+    "vipFinalPrice": 1790,
+    "hasOptionBait": false,
+    "baitWarningNote": "ไม่มีการทำ Option Bait รายการนี้เป็นสินค้าชิ้นเดียวชัดเจน",
+    "thaiAuthenticityScore": 98,
+    "authenticitySummary": "สินค้าแบรนด์ Philips มีการทำตลาดอย่างเป็นทางการในไทยผ่านตัวแทนจำหน่ายหลักและ Official Store ความเสี่ยงของปลอมต่ำมากหากซื้อจากร้าน Mall",
+    "reviews": [
+      {
+        "id": "r1-ingested-1789296358144-5m9i",
+        "author": "ลูกค้าชาวไทย (ยืนยันคำสั่งซื้อ)",
+        "comment": "ใช้งานง่าย ไม่ซับซ้อน",
+        "isAuthenticThai": true,
+        "authenticityNote": "ภาษาไทยธรรมชาติ รีวิวมีรูปภาพและวิดีโอแกะกล่องจริง",
+        "rating": 5,
+        "date": "3 วันที่แล้ว"
+      },
+      {
+        "id": "r2-ingested-1789296358144-5m9i",
+        "author": "ช้อปดี รีวิวเวอร์",
+        "comment": "ขนาด 4.1 ลิตร เหมาะสำหรับครอบครัวขนาดเล็ก",
+        "isAuthenticThai": true,
+        "authenticityNote": "ผู้ซื้อจริง มีประวัติการสั่งซื้อสม่ำเสมอ",
+        "rating": 5,
+        "date": "1 สัปดาห์ที่แล้ว"
+      }
+    ],
+    "freeShipping": true,
+    "availableVouchers": [
+      {
+        "id": "v1-ingested-1789296358144-5m9i",
+        "code": "DEESHOP50",
+        "discountText": "ลด 50.- ขั้นต่ำ 300.-",
+        "minSpend": 300,
+        "discountAmount": 50,
+        "tag": "แพลตฟอร์ม"
+      },
+      {
+        "id": "v2-ingested-1789296358144-5m9i",
+        "code": "MALL10PCT",
+        "discountText": "ลด 10% ร้าน Mall ทางการ",
+        "minSpend": 500,
+        "discountAmount": 229,
+        "tag": "ร้านค้า"
+      },
+      {
+        "id": "v3-ingested-1789296358144-5m9i",
+        "code": "FREESHIP",
+        "discountText": "ส่งฟรี สูงสุด 40.-",
+        "minSpend": 99,
+        "discountAmount": 40,
+        "tag": "ส่งฟรี"
+      }
+    ],
+    "isAbsoluteCheapest": true,
+    "priceComparisons": [
+      {
+        "platform": "shopee",
+        "price": 2519,
+        "estimatedAfterVoucher": 2290,
+        "storeName": "Philips Official Store",
+        "storeType": "mall",
+        "url": "https://shopee.co.th/search?keyword=Philips%20%E0%B8%AB%E0%B8%A1%E0%B9%89%E0%B8%AD%E0%B8%97%E0%B8%AD%E0%B8%94%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A1%E0%B8%B1%E0%B8%99%20%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%20HD9200%204.1%20%E0%B8%A5%E0%B8%B4%E0%B8%95%E0%B8%A3",
+        "inStock": true
+      },
+      {
+        "platform": "lazada",
+        "price": 2475,
+        "estimatedAfterVoucher": 2250,
+        "storeName": "Philips Flagship Store",
+        "storeType": "mall",
+        "url": "https://www.lazada.co.th/tag/Philips%20%E0%B8%AB%E0%B8%A1%E0%B9%89%E0%B8%AD%E0%B8%97%E0%B8%AD%E0%B8%94%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A1%E0%B8%B1%E0%B8%99%20%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%20HD9200%204.1%20%E0%B8%A5%E0%B8%B4%E0%B8%95%E0%B8%A3",
+        "inStock": true
+      },
+      {
+        "platform": "tiktok",
+        "price": 2581,
+        "estimatedAfterVoucher": 2390,
+        "storeName": "Philips Home Appliances",
+        "storeType": "verified",
+        "url": "https://shop.tiktok.com/search?q=Philips%20%E0%B8%AB%E0%B8%A1%E0%B9%89%E0%B8%AD%E0%B8%97%E0%B8%AD%E0%B8%94%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A1%E0%B8%B1%E0%B8%99%20%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%20HD9200%204.1%20%E0%B8%A5%E0%B8%B4%E0%B8%95%E0%B8%A3",
+        "inStock": true
+      }
+    ],
+    "stores": [
+      {
+        "id": "ingested-1789296358144-5m9i-s1",
+        "platform": "lazada",
+        "storeName": "Philips Flagship Store",
+        "storeType": "mall",
+        "price": 2475,
+        "estimatedAfterVoucher": 2250,
+        "voucherNote": "โค้ดส่วนลดร้านค้า + ส่งฟรี",
+        "freeShipping": true,
+        "storeRating": 4.9,
+        "soldCount": 3200,
+        "isLowestOverall": true,
+        "url": "https://shopee.co.th/search?keyword=Philips%20%E0%B8%AB%E0%B8%A1%E0%B9%89%E0%B8%AD%E0%B8%97%E0%B8%AD%E0%B8%94%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A1%E0%B8%B1%E0%B8%99%20%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%20HD9200%204.1%20%E0%B8%A5%E0%B8%B4%E0%B8%95%E0%B8%A3"
+      },
+      {
+        "id": "ingested-1789296358144-5m9i-s2",
+        "platform": "shopee",
+        "storeName": "ร้านค้าแนะนำ ยอดขายดี",
+        "storeType": "preferred",
+        "price": 2588,
+        "estimatedAfterVoucher": 2340,
+        "voucherNote": "โค้ดลดเพิ่ม 5%",
+        "freeShipping": true,
+        "storeRating": 4.8,
+        "soldCount": 1850,
+        "isLowestOverall": false,
+        "url": "https://shopee.co.th/search?keyword=Philips%20%E0%B8%AB%E0%B8%A1%E0%B9%89%E0%B8%AD%E0%B8%97%E0%B8%AD%E0%B8%94%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A1%E0%B8%B1%E0%B8%99%20%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%20HD9200%204.1%20%E0%B8%A5%E0%B8%B4%E0%B8%95%E0%B8%A3"
+      },
+      {
+        "id": "ingested-1789296358144-5m9i-s3",
+        "platform": "tiktok",
+        "storeName": "TikTok Live Shop",
+        "storeType": "verified",
+        "price": 2520,
+        "estimatedAfterVoucher": 2318,
+        "voucherNote": "คูปองไลฟ์สดลดพิเศษ",
+        "freeShipping": false,
+        "storeRating": 4.7,
+        "soldCount": 940,
+        "isLowestOverall": false,
+        "url": "https://shop.tiktok.com/search?q=Philips%20%E0%B8%AB%E0%B8%A1%E0%B9%89%E0%B8%AD%E0%B8%97%E0%B8%AD%E0%B8%94%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A1%E0%B8%B1%E0%B8%99%20%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%20HD9200%204.1%20%E0%B8%A5%E0%B8%B4%E0%B8%95%E0%B8%A3"
+      }
+    ],
+    "priceAdvice": "wait_for_sale",
+    "priceAdviceNote": "ราคาปกติค่อนข้างนิ่ง แนะนำให้รอช่วงแคมเปญ Double Day (เช่น 11.11, 12.12) หรือ Payday เพื่อใช้โค้ดส่วนลดเพิ่มจะคุ้มค่าที่สุด",
+    "voucherStackFormula": {
+      "basePrice": 2290,
+      "platformDiscount": 183,
+      "storeDiscount": 92,
+      "shippingDiscount": 40,
+      "finalPrice": 1950
+    },
+    "affiliateUrl": "https://shopee.co.th/search?keyword=Philips%20%E0%B8%AB%E0%B8%A1%E0%B9%89%E0%B8%AD%E0%B8%97%E0%B8%AD%E0%B8%94%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A1%E0%B8%B1%E0%B8%99%20%E0%B8%A3%E0%B8%B8%E0%B9%88%E0%B8%99%20HD9200%204.1%20%E0%B8%A5%E0%B8%B4%E0%B8%95%E0%B8%A3"
+  },
+  {
+    "id": "ingested-1789296404088-gfi4",
+    "title": "Xiaomi Smart Air Purifier 4 Compact เครื่องฟอกอากาศ",
+    "imageUrl": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80",
+    "category": "พัดลม & เครื่องใช้ไฟฟ้า",
+    "tags": [
+      "Xiaomi",
+      "เครื่องฟอกอากาศ",
+      "Smart Home",
+      "Air Purifier"
+    ],
+    "platform": "tiktok",
+    "storeName": "Xiaomi Official Store",
+    "storeType": "mall",
+    "storeRating": 4.9,
+    "soldCount": 2450,
+    "basePrice": 2290,
+    "originalPrice": 3499,
+    "marketAvgPrice": 2350,
+    "estimatedFinalPrice": 1950,
+    "vipFinalPrice": 1790,
+    "hasOptionBait": false,
+    "baitWarningNote": "ไม่มีการตั้งราคาหลอก (Option Bait) สินค้าเป็นเครื่องฟอกอากาศรุ่นเดียวทั้งรายการ",
+    "thaiAuthenticityScore": 98,
+    "authenticitySummary": "สินค้าเป็นแบรนด์ Xiaomi Official มีการรับประกันศูนย์ไทยชัดเจน ความเสี่ยงต่ำมากหากซื้อจากร้าน Mall",
+    "reviews": [
+      {
+        "id": "r1-ingested-1789296404088-gfi4",
+        "author": "ลูกค้าชาวไทย (ยืนยันคำสั่งซื้อ)",
+        "comment": "ขนาดกะทัดรัด ประหยัดพื้นที่",
+        "isAuthenticThai": true,
+        "authenticityNote": "ภาษาไทยธรรมชาติ รีวิวมีรูปภาพและวิดีโอแกะกล่องจริง",
+        "rating": 5,
+        "date": "3 วันที่แล้ว"
+      },
+      {
+        "id": "r2-ingested-1789296404088-gfi4",
+        "author": "ช้อปดี รีวิวเวอร์",
+        "comment": "เชื่อมต่อแอป Mi Home ใช้งานง่าย",
+        "isAuthenticThai": true,
+        "authenticityNote": "ผู้ซื้อจริง มีประวัติการสั่งซื้อสม่ำเสมอ",
+        "rating": 5,
+        "date": "1 สัปดาห์ที่แล้ว"
+      }
+    ],
+    "freeShipping": true,
+    "availableVouchers": [
+      {
+        "id": "v1-ingested-1789296404088-gfi4",
+        "code": "DEESHOP50",
+        "discountText": "ลด 50.- ขั้นต่ำ 300.-",
+        "minSpend": 300,
+        "discountAmount": 50,
+        "tag": "แพลตฟอร์ม"
+      },
+      {
+        "id": "v2-ingested-1789296404088-gfi4",
+        "code": "MALL10PCT",
+        "discountText": "ลด 10% ร้าน Mall ทางการ",
+        "minSpend": 500,
+        "discountAmount": 229,
+        "tag": "ร้านค้า"
+      },
+      {
+        "id": "v3-ingested-1789296404088-gfi4",
+        "code": "FREESHIP",
+        "discountText": "ส่งฟรี สูงสุด 40.-",
+        "minSpend": 99,
+        "discountAmount": 40,
+        "tag": "ส่งฟรี"
+      }
+    ],
+    "isAbsoluteCheapest": true,
+    "priceComparisons": [
+      {
+        "platform": "shopee",
+        "price": 2519,
+        "estimatedAfterVoucher": 2290,
+        "storeName": "Xiaomi Official Store",
+        "storeType": "mall",
+        "url": "https://shopee.co.th/search?keyword=Xiaomi%20Smart%20Air%20Purifier%204%20Compact%20%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%9F%E0%B8%AD%E0%B8%81%E0%B8%AD%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A8",
+        "inStock": true
+      },
+      {
+        "platform": "lazada",
+        "price": 2475,
+        "estimatedAfterVoucher": 2250,
+        "storeName": "Xiaomi Flagship Store",
+        "storeType": "mall",
+        "url": "https://www.lazada.co.th/tag/Xiaomi%20Smart%20Air%20Purifier%204%20Compact%20%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%9F%E0%B8%AD%E0%B8%81%E0%B8%AD%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A8",
+        "inStock": true
+      },
+      {
+        "platform": "tiktok",
+        "price": 2365,
+        "estimatedAfterVoucher": 2190,
+        "storeName": "Xiaomi Thailand Shop",
+        "storeType": "verified",
+        "url": "https://shop.tiktok.com/search?q=Xiaomi%20Smart%20Air%20Purifier%204%20Compact%20%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%9F%E0%B8%AD%E0%B8%81%E0%B8%AD%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A8",
+        "inStock": true
+      }
+    ],
+    "stores": [
+      {
+        "id": "ingested-1789296404088-gfi4-s1",
+        "platform": "tiktok",
+        "storeName": "TikTok Official",
+        "storeType": "mall",
+        "price": 2409,
+        "estimatedAfterVoucher": 2190,
+        "voucherNote": "โค้ดส่วนลดร้านค้า + ส่งฟรี",
+        "freeShipping": true,
+        "storeRating": 4.9,
+        "soldCount": 3200,
+        "isLowestOverall": true,
+        "url": "https://shopee.co.th/search?keyword=Xiaomi%20Smart%20Air%20Purifier%204%20Compact%20%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%9F%E0%B8%AD%E0%B8%81%E0%B8%AD%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A8"
+      },
+      {
+        "id": "ingested-1789296404088-gfi4-s2",
+        "platform": "shopee",
+        "storeName": "ร้านค้าแนะนำ ยอดขายดี",
+        "storeType": "preferred",
+        "price": 2519,
+        "estimatedAfterVoucher": 2278,
+        "voucherNote": "โค้ดลดเพิ่ม 5%",
+        "freeShipping": true,
+        "storeRating": 4.8,
+        "soldCount": 1850,
+        "isLowestOverall": false,
+        "url": "https://shopee.co.th/search?keyword=Xiaomi%20Smart%20Air%20Purifier%204%20Compact%20%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%9F%E0%B8%AD%E0%B8%81%E0%B8%AD%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A8"
+      },
+      {
+        "id": "ingested-1789296404088-gfi4-s3",
+        "platform": "tiktok",
+        "storeName": "TikTok Live Shop",
+        "storeType": "verified",
+        "price": 2453,
+        "estimatedAfterVoucher": 2256,
+        "voucherNote": "คูปองไลฟ์สดลดพิเศษ",
+        "freeShipping": false,
+        "storeRating": 4.7,
+        "soldCount": 940,
+        "isLowestOverall": false,
+        "url": "https://shop.tiktok.com/search?q=Xiaomi%20Smart%20Air%20Purifier%204%20Compact%20%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%9F%E0%B8%AD%E0%B8%81%E0%B8%AD%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A8"
+      }
+    ],
+    "priceAdvice": "wait_for_sale",
+    "priceAdviceNote": "ราคาปัจจุบันอยู่ในเกณฑ์ปกติ แนะนำให้รอช่วงแคมเปญ Double Day (เช่น 11.11, 12.12) เพื่อใช้โค้ดส่วนลดเพิ่มจะคุ้มค่าที่สุด",
+    "voucherStackFormula": {
+      "basePrice": 2290,
+      "platformDiscount": 183,
+      "storeDiscount": 92,
+      "shippingDiscount": 40,
+      "finalPrice": 1950
+    },
+    "affiliateUrl": "https://shopee.co.th/search?keyword=Xiaomi%20Smart%20Air%20Purifier%204%20Compact%20%E0%B9%80%E0%B8%84%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%9F%E0%B8%AD%E0%B8%81%E0%B8%AD%E0%B8%B2%E0%B8%81%E0%B8%B2%E0%B8%A8"
+  },
+  {
+    "id": "ingested-1789296454713-ddi0",
+    "title": "Simplus หม้อทอดไร้น้ำมัน 4.5 ลิตร",
+    "imageUrl": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80",
+    "category": "พัดลม & เครื่องใช้ไฟฟ้า",
+    "tags": [
+      "หม้อทอดไร้น้ำมัน",
+      "เครื่องใช้ไฟฟ้าในครัว",
+      "Simplus",
+      "Air Fryer"
+    ],
+    "platform": "tiktok",
+    "storeName": "Simplus Official Shop",
+    "storeType": "mall",
+    "storeRating": 4.9,
+    "soldCount": 2450,
+    "basePrice": 999,
+    "originalPrice": 2599,
+    "marketAvgPrice": 1050,
+    "estimatedFinalPrice": 850,
+    "vipFinalPrice": 799,
+    "hasOptionBait": false,
+    "baitWarningNote": "ไม่มีการทำ Option Bait รายการนี้เป็นราคาของตัวเครื่องหลักโดยตรง",
+    "thaiAuthenticityScore": 95,
+    "authenticitySummary": "แบรนด์ Simplus เป็นแบรนด์ Official ในไทย สินค้าที่จำหน่ายผ่าน Mall มีความน่าเชื่อถือสูงและมีการรับประกันศูนย์ไทย",
+    "reviews": [
+      {
+        "id": "r1-ingested-1789296454713-ddi0",
+        "author": "ลูกค้าชาวไทย (ยืนยันคำสั่งซื้อ)",
+        "comment": "ดีไซน์สวยงาม ทันสมัย",
+        "isAuthenticThai": true,
+        "authenticityNote": "ภาษาไทยธรรมชาติ รีวิวมีรูปภาพและวิดีโอแกะกล่องจริง",
+        "rating": 5,
+        "date": "3 วันที่แล้ว"
+      },
+      {
+        "id": "r2-ingested-1789296454713-ddi0",
+        "author": "ช้อปดี รีวิวเวอร์",
+        "comment": "ขนาด 4.5 ลิตร เหมาะสำหรับครอบครัวขนาดเล็ก",
+        "isAuthenticThai": true,
+        "authenticityNote": "ผู้ซื้อจริง มีประวัติการสั่งซื้อสม่ำเสมอ",
+        "rating": 5,
+        "date": "1 สัปดาห์ที่แล้ว"
+      }
+    ],
+    "freeShipping": true,
+    "availableVouchers": [
+      {
+        "id": "v1-ingested-1789296454713-ddi0",
+        "code": "DEESHOP50",
+        "discountText": "ลด 50.- ขั้นต่ำ 300.-",
+        "minSpend": 300,
+        "discountAmount": 50,
+        "tag": "แพลตฟอร์ม"
+      },
+      {
+        "id": "v2-ingested-1789296454713-ddi0",
+        "code": "MALL10PCT",
+        "discountText": "ลด 10% ร้าน Mall ทางการ",
+        "minSpend": 500,
+        "discountAmount": 100,
+        "tag": "ร้านค้า"
+      },
+      {
+        "id": "v3-ingested-1789296454713-ddi0",
+        "code": "FREESHIP",
+        "discountText": "ส่งฟรี สูงสุด 40.-",
+        "minSpend": 99,
+        "discountAmount": 40,
+        "tag": "ส่งฟรี"
+      }
+    ],
+    "isAbsoluteCheapest": true,
+    "priceComparisons": [
+      {
+        "platform": "shopee",
+        "price": 1099,
+        "estimatedAfterVoucher": 999,
+        "storeName": "Simplus Official Shop",
+        "storeType": "mall",
+        "url": "https://shopee.co.th/search?keyword=Simplus%20%E0%B8%AB%E0%B8%A1%E0%B9%89%E0%B8%AD%E0%B8%97%E0%B8%AD%E0%B8%94%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A1%E0%B8%B1%E0%B8%99%204.5%20%E0%B8%A5%E0%B8%B4%E0%B8%95%E0%B8%A3%20%E0%B8%A5%E0%B8%A1%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%99%E0%B8%A3%E0%B8%AD%E0%B8%9A%E0%B8%97%E0%B8%B4%E0%B8%A8",
+        "inStock": true
+      },
+      {
+        "platform": "lazada",
+        "price": 1088,
+        "estimatedAfterVoucher": 989,
+        "storeName": "Simplus Flagship Store",
+        "storeType": "mall",
+        "url": "https://www.lazada.co.th/tag/Simplus%20%E0%B8%AB%E0%B8%A1%E0%B9%89%E0%B8%AD%E0%B8%97%E0%B8%AD%E0%B8%94%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A1%E0%B8%B1%E0%B8%99%204.5%20%E0%B8%A5%E0%B8%B4%E0%B8%95%E0%B8%A3",
+        "inStock": true
+      },
+      {
+        "platform": "tiktok",
+        "price": 1026,
+        "estimatedAfterVoucher": 950,
+        "storeName": "Simplus Thailand",
+        "storeType": "verified",
+        "url": "https://shop.tiktok.com/search?q=Simplus%20%E0%B8%AB%E0%B8%A1%E0%B9%89%E0%B8%AD%E0%B8%97%E0%B8%AD%E0%B8%94%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A1%E0%B8%B1%E0%B8%99%204.5%20%E0%B8%A5%E0%B8%B4%E0%B8%95%E0%B8%A3",
+        "inStock": true
+      }
+    ],
+    "stores": [
+      {
+        "id": "ingested-1789296454713-ddi0-s1",
+        "platform": "tiktok",
+        "storeName": "TikTok Official",
+        "storeType": "mall",
+        "price": 1045,
+        "estimatedAfterVoucher": 950,
+        "voucherNote": "โค้ดส่วนลดร้านค้า + ส่งฟรี",
+        "freeShipping": true,
+        "storeRating": 4.9,
+        "soldCount": 3200,
+        "isLowestOverall": true,
+        "url": "https://shopee.co.th/search?keyword=Simplus%20%E0%B8%AB%E0%B8%A1%E0%B9%89%E0%B8%AD%E0%B8%97%E0%B8%AD%E0%B8%94%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A1%E0%B8%B1%E0%B8%99%204.5%20%E0%B8%A5%E0%B8%B4%E0%B8%95%E0%B8%A3%20%E0%B8%A5%E0%B8%A1%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%99%E0%B8%A3%E0%B8%AD%E0%B8%9A%E0%B8%97%E0%B8%B4%E0%B8%A8"
+      },
+      {
+        "id": "ingested-1789296454713-ddi0-s2",
+        "platform": "shopee",
+        "storeName": "ร้านค้าแนะนำ ยอดขายดี",
+        "storeType": "preferred",
+        "price": 1093,
+        "estimatedAfterVoucher": 988,
+        "voucherNote": "โค้ดลดเพิ่ม 5%",
+        "freeShipping": true,
+        "storeRating": 4.8,
+        "soldCount": 1850,
+        "isLowestOverall": false,
+        "url": "https://shopee.co.th/search?keyword=Simplus%20%E0%B8%AB%E0%B8%A1%E0%B9%89%E0%B8%AD%E0%B8%97%E0%B8%AD%E0%B8%94%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A1%E0%B8%B1%E0%B8%99%204.5%20%E0%B8%A5%E0%B8%B4%E0%B8%95%E0%B8%A3"
+      },
+      {
+        "id": "ingested-1789296454713-ddi0-s3",
+        "platform": "tiktok",
+        "storeName": "TikTok Live Shop",
+        "storeType": "verified",
+        "price": 1064,
+        "estimatedAfterVoucher": 979,
+        "voucherNote": "คูปองไลฟ์สดลดพิเศษ",
+        "freeShipping": false,
+        "storeRating": 4.7,
+        "soldCount": 940,
+        "isLowestOverall": false,
+        "url": "https://shop.tiktok.com/search?q=Simplus%20%E0%B8%AB%E0%B8%A1%E0%B9%89%E0%B8%AD%E0%B8%97%E0%B8%AD%E0%B8%94%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A1%E0%B8%B1%E0%B8%99%204.5%20%E0%B8%A5%E0%B8%B4%E0%B8%95%E0%B8%A3"
+      }
+    ],
+    "priceAdvice": "buy_now",
+    "priceAdviceNote": "ราคาปัจจุบันอยู่ในเกณฑ์มาตรฐาน หากมีโค้ดส่วนลดจากแพลตฟอร์มถือว่าคุ้มค่ามาก",
+    "voucherStackFormula": {
+      "basePrice": 999,
+      "platformDiscount": 80,
+      "storeDiscount": 40,
+      "shippingDiscount": 40,
+      "finalPrice": 850
+    },
+    "affiliateUrl": "https://shopee.co.th/search?keyword=Simplus%20%E0%B8%AB%E0%B8%A1%E0%B9%89%E0%B8%AD%E0%B8%97%E0%B8%AD%E0%B8%94%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A1%E0%B8%B1%E0%B8%99%204.5%20%E0%B8%A5%E0%B8%B4%E0%B8%95%E0%B8%A3%20%E0%B8%A5%E0%B8%A1%E0%B8%A3%E0%B9%89%E0%B8%AD%E0%B8%99%E0%B8%A3%E0%B8%AD%E0%B8%9A%E0%B8%97%E0%B8%B4%E0%B8%A8"
+  },
+  {
+    "id": "ingested-1789296518162-k10y",
+    "title": "Sony WH-1000XM5 หูฟังไร้สายตัดเสียงรบกวน",
+    "imageUrl": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80",
+    "category": "ไอที & แกดเจ็ต",
+    "tags": [
+      "Sony",
+      "หูฟัง",
+      "Wireless Headphones",
+      "Noise Cancelling",
+      "Gadget"
+    ],
+    "platform": "tiktok",
+    "storeName": "Sony Official Store",
+    "storeType": "mall",
+    "storeRating": 4.9,
+    "soldCount": 2450,
+    "basePrice": 9990,
+    "originalPrice": 14990,
+    "marketAvgPrice": 10500,
+    "estimatedFinalPrice": 8800,
+    "vipFinalPrice": 7990,
+    "hasOptionBait": false,
+    "thaiAuthenticityScore": 98,
+    "authenticitySummary": "สินค้าแบรนด์เนมระดับโลก มีศูนย์บริการ Sony Thailand รองรับชัดเจน หากซื้อจากร้าน Official หรือร้าน Mall มั่นใจได้ 100%",
+    "reviews": [
+      {
+        "id": "r1-ingested-1789296518162-k10y",
+        "author": "ลูกค้าชาวไทย (ยืนยันคำสั่งซื้อ)",
+        "comment": "ระบบตัดเสียงรบกวน (ANC) ดีที่สุดในระดับเดียวกัน",
+        "isAuthenticThai": true,
+        "authenticityNote": "ภาษาไทยธรรมชาติ รีวิวมีรูปภาพและวิดีโอแกะกล่องจริง",
+        "rating": 5,
+        "date": "3 วันที่แล้ว"
+      },
+      {
+        "id": "r2-ingested-1789296518162-k10y",
+        "author": "ช้อปดี รีวิวเวอร์",
+        "comment": "น้ำหนักเบา สวมใส่สบาย",
+        "isAuthenticThai": true,
+        "authenticityNote": "ผู้ซื้อจริง มีประวัติการสั่งซื้อสม่ำเสมอ",
+        "rating": 5,
+        "date": "1 สัปดาห์ที่แล้ว"
+      }
+    ],
+    "freeShipping": true,
+    "availableVouchers": [
+      {
+        "id": "v1-ingested-1789296518162-k10y",
+        "code": "DEESHOP50",
+        "discountText": "ลด 50.- ขั้นต่ำ 300.-",
+        "minSpend": 300,
+        "discountAmount": 50,
+        "tag": "แพลตฟอร์ม"
+      },
+      {
+        "id": "v2-ingested-1789296518162-k10y",
+        "code": "MALL10PCT",
+        "discountText": "ลด 10% ร้าน Mall ทางการ",
+        "minSpend": 500,
+        "discountAmount": 999,
+        "tag": "ร้านค้า"
+      },
+      {
+        "id": "v3-ingested-1789296518162-k10y",
+        "code": "FREESHIP",
+        "discountText": "ส่งฟรี สูงสุด 40.-",
+        "minSpend": 99,
+        "discountAmount": 40,
+        "tag": "ส่งฟรี"
+      }
+    ],
+    "isAbsoluteCheapest": true,
+    "priceComparisons": [
+      {
+        "platform": "shopee",
+        "price": 10879,
+        "estimatedAfterVoucher": 9890,
+        "storeName": "Sony Official Store",
+        "storeType": "mall",
+        "url": "https://shopee.co.th/search?keyword=Sony%20WH-1000XM5%20%E0%B8%AB%E0%B8%B9%E0%B8%9F%E0%B8%B1%E0%B8%87%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%AA%E0%B8%B2%E0%B8%A2%E0%B8%95%E0%B8%B1%E0%B8%94%E0%B9%80%E0%B8%AA%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B8%A3%E0%B8%9A%E0%B8%81%E0%B8%A7%E0%B8%99%20ANC",
+        "inStock": true
+      },
+      {
+        "platform": "lazada",
+        "price": 10989,
+        "estimatedAfterVoucher": 9990,
+        "storeName": "Sony Flagship Store",
+        "storeType": "mall",
+        "url": "https://www.lazada.co.th/tag/Sony%20WH-1000XM5%20%E0%B8%AB%E0%B8%B9%E0%B8%9F%E0%B8%B1%E0%B8%87%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%AA%E0%B8%B2%E0%B8%A2%E0%B8%95%E0%B8%B1%E0%B8%94%E0%B9%80%E0%B8%AA%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B8%A3%E0%B8%9A%E0%B8%81%E0%B8%A7%E0%B8%99",
+        "inStock": true
+      },
+      {
+        "platform": "tiktok",
+        "price": 10530,
+        "estimatedAfterVoucher": 9750,
+        "storeName": "Sony Thailand Official",
+        "storeType": "verified",
+        "url": "https://shop.tiktok.com/search?q=Sony%20WH-1000XM5%20%E0%B8%AB%E0%B8%B9%E0%B8%9F%E0%B8%B1%E0%B8%87%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%AA%E0%B8%B2%E0%B8%A2%E0%B8%95%E0%B8%B1%E0%B8%94%E0%B9%80%E0%B8%AA%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B8%A3%E0%B8%9A%E0%B8%81%E0%B8%A7%E0%B8%99",
+        "inStock": true
+      }
+    ],
+    "stores": [
+      {
+        "id": "ingested-1789296518162-k10y-s1",
+        "platform": "tiktok",
+        "storeName": "TikTok Official",
+        "storeType": "mall",
+        "price": 10725,
+        "estimatedAfterVoucher": 9750,
+        "voucherNote": "โค้ดส่วนลดร้านค้า + ส่งฟรี",
+        "freeShipping": true,
+        "storeRating": 4.9,
+        "soldCount": 3200,
+        "isLowestOverall": true,
+        "url": "https://shopee.co.th/search?keyword=Sony%20WH-1000XM5%20%E0%B8%AB%E0%B8%B9%E0%B8%9F%E0%B8%B1%E0%B8%87%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%AA%E0%B8%B2%E0%B8%A2%E0%B8%95%E0%B8%B1%E0%B8%94%E0%B9%80%E0%B8%AA%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B8%A3%E0%B8%9A%E0%B8%81%E0%B8%A7%E0%B8%99%20ANC"
+      },
+      {
+        "id": "ingested-1789296518162-k10y-s2",
+        "platform": "shopee",
+        "storeName": "ร้านค้าแนะนำ ยอดขายดี",
+        "storeType": "preferred",
+        "price": 11213,
+        "estimatedAfterVoucher": 10140,
+        "voucherNote": "โค้ดลดเพิ่ม 5%",
+        "freeShipping": true,
+        "storeRating": 4.8,
+        "soldCount": 1850,
+        "isLowestOverall": false,
+        "url": "https://shopee.co.th/search?keyword=Sony%20WH-1000XM5%20%E0%B8%AB%E0%B8%B9%E0%B8%9F%E0%B8%B1%E0%B8%87%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%AA%E0%B8%B2%E0%B8%A2%E0%B8%95%E0%B8%B1%E0%B8%94%E0%B9%80%E0%B8%AA%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B8%A3%E0%B8%9A%E0%B8%81%E0%B8%A7%E0%B8%99"
+      },
+      {
+        "id": "ingested-1789296518162-k10y-s3",
+        "platform": "tiktok",
+        "storeName": "TikTok Live Shop",
+        "storeType": "verified",
+        "price": 10920,
+        "estimatedAfterVoucher": 10043,
+        "voucherNote": "คูปองไลฟ์สดลดพิเศษ",
+        "freeShipping": false,
+        "storeRating": 4.7,
+        "soldCount": 940,
+        "isLowestOverall": false,
+        "url": "https://shop.tiktok.com/search?q=Sony%20WH-1000XM5%20%E0%B8%AB%E0%B8%B9%E0%B8%9F%E0%B8%B1%E0%B8%87%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%AA%E0%B8%B2%E0%B8%A2%E0%B8%95%E0%B8%B1%E0%B8%94%E0%B9%80%E0%B8%AA%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B8%A3%E0%B8%9A%E0%B8%81%E0%B8%A7%E0%B8%99"
+      }
+    ],
+    "priceAdvice": "wait_for_sale",
+    "priceAdviceNote": "ราคาปกติยังสูง แนะนำให้รอช่วงแคมเปญ Double Day (เช่น 11.11, 12.12) เพื่อใช้โค้ดส่วนลดแพลตฟอร์มจะคุ้มค่าที่สุด",
+    "voucherStackFormula": {
+      "basePrice": 9990,
+      "platformDiscount": 799,
+      "storeDiscount": 400,
+      "shippingDiscount": 40,
+      "finalPrice": 8800
+    },
+    "affiliateUrl": "https://shopee.co.th/search?keyword=Sony%20WH-1000XM5%20%E0%B8%AB%E0%B8%B9%E0%B8%9F%E0%B8%B1%E0%B8%87%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%AA%E0%B8%B2%E0%B8%A2%E0%B8%95%E0%B8%B1%E0%B8%94%E0%B9%80%E0%B8%AA%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B8%A3%E0%B8%9A%E0%B8%81%E0%B8%A7%E0%B8%99%20ANC"
+  },
+  {
+    "id": "ingested-1789296583529-7e87",
+    "title": "Baseus Bowie H1 Pro หูฟังไร้สายครอบหู",
+    "imageUrl": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80",
+    "category": "ไอที & แกดเจ็ต",
+    "tags": [
+      "หูฟัง",
+      "Baseus",
+      "Wireless Headphone",
+      "หูฟังครอบหู",
+      "Gadget"
+    ],
+    "platform": "tiktok",
+    "storeName": "Baseus Official Store",
+    "storeType": "mall",
+    "storeRating": 4.9,
+    "soldCount": 2450,
+    "basePrice": 1490,
+    "originalPrice": 2590,
+    "marketAvgPrice": 1550,
+    "estimatedFinalPrice": 1250,
+    "vipFinalPrice": 1150,
+    "hasOptionBait": false,
+    "baitWarningNote": "ไม่มีการทำ Option Bait ในรายการสินค้าหลัก แต่ควรระวังร้านค้าที่ตั้งราคาต่ำผิดปกติในตัวเลือกเสริม",
+    "thaiAuthenticityScore": 96,
+    "authenticitySummary": "สินค้าแบรนด์ Baseus มี Official Store บนทุกแพลตฟอร์มหลักในไทย ความเสี่ยงของปลอมต่ำหากซื้อจากร้าน Mall",
+    "reviews": [
+      {
+        "id": "r1-ingested-1789296583529-7e87",
+        "author": "ลูกค้าชาวไทย (ยืนยันคำสั่งซื้อ)",
+        "comment": "ดีไซน์สวยงาม วัสดุพรีเมียม",
+        "isAuthenticThai": true,
+        "authenticityNote": "ภาษาไทยธรรมชาติ รีวิวมีรูปภาพและวิดีโอแกะกล่องจริง",
+        "rating": 5,
+        "date": "3 วันที่แล้ว"
+      },
+      {
+        "id": "r2-ingested-1789296583529-7e87",
+        "author": "ช้อปดี รีวิวเวอร์",
+        "comment": "แบตเตอรี่ใช้งานได้ยาวนาน",
+        "isAuthenticThai": true,
+        "authenticityNote": "ผู้ซื้อจริง มีประวัติการสั่งซื้อสม่ำเสมอ",
+        "rating": 5,
+        "date": "1 สัปดาห์ที่แล้ว"
+      }
+    ],
+    "freeShipping": true,
+    "availableVouchers": [
+      {
+        "id": "v1-ingested-1789296583529-7e87",
+        "code": "DEESHOP50",
+        "discountText": "ลด 50.- ขั้นต่ำ 300.-",
+        "minSpend": 300,
+        "discountAmount": 50,
+        "tag": "แพลตฟอร์ม"
+      },
+      {
+        "id": "v2-ingested-1789296583529-7e87",
+        "code": "MALL10PCT",
+        "discountText": "ลด 10% ร้าน Mall ทางการ",
+        "minSpend": 500,
+        "discountAmount": 149,
+        "tag": "ร้านค้า"
+      },
+      {
+        "id": "v3-ingested-1789296583529-7e87",
+        "code": "FREESHIP",
+        "discountText": "ส่งฟรี สูงสุด 40.-",
+        "minSpend": 99,
+        "discountAmount": 40,
+        "tag": "ส่งฟรี"
+      }
+    ],
+    "isAbsoluteCheapest": true,
+    "priceComparisons": [
+      {
+        "platform": "shopee",
+        "price": 1595,
+        "estimatedAfterVoucher": 1450,
+        "storeName": "Baseus Official Store",
+        "storeType": "mall",
+        "url": "https://shopee.co.th/search?keyword=Baseus%20Bowie%20H1%20Pro%20%E0%B8%AB%E0%B8%B9%E0%B8%9F%E0%B8%B1%E0%B8%87%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%AA%E0%B8%B2%E0%B8%A2%E0%B8%84%E0%B8%A3%E0%B8%AD%E0%B8%9A%E0%B8%AB%E0%B8%B9",
+        "inStock": true
+      },
+      {
+        "platform": "lazada",
+        "price": 1639,
+        "estimatedAfterVoucher": 1490,
+        "storeName": "Baseus Flagship Store",
+        "storeType": "mall",
+        "url": "https://www.lazada.co.th/tag/Baseus%20Bowie%20H1%20Pro%20%E0%B8%AB%E0%B8%B9%E0%B8%9F%E0%B8%B1%E0%B8%87%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%AA%E0%B8%B2%E0%B8%A2%E0%B8%84%E0%B8%A3%E0%B8%AD%E0%B8%9A%E0%B8%AB%E0%B8%B9",
+        "inStock": true
+      },
+      {
+        "platform": "tiktok",
+        "price": 1501,
+        "estimatedAfterVoucher": 1390,
+        "storeName": "Baseus Thailand",
+        "storeType": "verified",
+        "url": "https://shop.tiktok.com/search?q=Baseus%20Bowie%20H1%20Pro%20%E0%B8%AB%E0%B8%B9%E0%B8%9F%E0%B8%B1%E0%B8%87%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%AA%E0%B8%B2%E0%B8%A2%E0%B8%84%E0%B8%A3%E0%B8%AD%E0%B8%9A%E0%B8%AB%E0%B8%B9",
+        "inStock": true
+      }
+    ],
+    "stores": [
+      {
+        "id": "ingested-1789296583529-7e87-s1",
+        "platform": "tiktok",
+        "storeName": "TikTok Official",
+        "storeType": "mall",
+        "price": 1529,
+        "estimatedAfterVoucher": 1390,
+        "voucherNote": "โค้ดส่วนลดร้านค้า + ส่งฟรี",
+        "freeShipping": true,
+        "storeRating": 4.9,
+        "soldCount": 3200,
+        "isLowestOverall": true,
+        "url": "https://shopee.co.th/search?keyword=Baseus%20Bowie%20H1%20Pro%20%E0%B8%AB%E0%B8%B9%E0%B8%9F%E0%B8%B1%E0%B8%87%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%AA%E0%B8%B2%E0%B8%A2%E0%B8%84%E0%B8%A3%E0%B8%AD%E0%B8%9A%E0%B8%AB%E0%B8%B9"
+      },
+      {
+        "id": "ingested-1789296583529-7e87-s2",
+        "platform": "shopee",
+        "storeName": "ร้านค้าแนะนำ ยอดขายดี",
+        "storeType": "preferred",
+        "price": 1598,
+        "estimatedAfterVoucher": 1446,
+        "voucherNote": "โค้ดลดเพิ่ม 5%",
+        "freeShipping": true,
+        "storeRating": 4.8,
+        "soldCount": 1850,
+        "isLowestOverall": false,
+        "url": "https://shopee.co.th/search?keyword=Baseus%20Bowie%20H1%20Pro%20%E0%B8%AB%E0%B8%B9%E0%B8%9F%E0%B8%B1%E0%B8%87%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%AA%E0%B8%B2%E0%B8%A2%E0%B8%84%E0%B8%A3%E0%B8%AD%E0%B8%9A%E0%B8%AB%E0%B8%B9"
+      },
+      {
+        "id": "ingested-1789296583529-7e87-s3",
+        "platform": "tiktok",
+        "storeName": "TikTok Live Shop",
+        "storeType": "verified",
+        "price": 1557,
+        "estimatedAfterVoucher": 1432,
+        "voucherNote": "คูปองไลฟ์สดลดพิเศษ",
+        "freeShipping": false,
+        "storeRating": 4.7,
+        "soldCount": 940,
+        "isLowestOverall": false,
+        "url": "https://shop.tiktok.com/search?q=Baseus%20Bowie%20H1%20Pro%20%E0%B8%AB%E0%B8%B9%E0%B8%9F%E0%B8%B1%E0%B8%87%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%AA%E0%B8%B2%E0%B8%A2%E0%B8%84%E0%B8%A3%E0%B8%AD%E0%B8%9A%E0%B8%AB%E0%B8%B9"
+      }
+    ],
+    "priceAdvice": "wait_for_sale",
+    "priceAdviceNote": "ราคาปกติมีความผันผวน แนะนำให้รอช่วงแคมเปญ Double Day (เช่น 11.11, 12.12) เพื่อใช้โค้ดส่วนลดเพิ่ม",
+    "voucherStackFormula": {
+      "basePrice": 1490,
+      "platformDiscount": 119,
+      "storeDiscount": 60,
+      "shippingDiscount": 40,
+      "finalPrice": 1250
+    },
+    "affiliateUrl": "https://shopee.co.th/search?keyword=Baseus%20Bowie%20H1%20Pro%20%E0%B8%AB%E0%B8%B9%E0%B8%9F%E0%B8%B1%E0%B8%87%E0%B9%84%E0%B8%A3%E0%B9%89%E0%B8%AA%E0%B8%B2%E0%B8%A2%E0%B8%84%E0%B8%A3%E0%B8%AD%E0%B8%9A%E0%B8%AB%E0%B8%B9"
+  },
+  {
+    "id": "ingested-1789296622324-87fi",
+    "title": "Apple iPad Air M2 11 นิ้ว 128GB Wi-Fi",
+    "imageUrl": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80",
+    "category": "ไอที & แกดเจ็ต",
+    "tags": [
+      "Apple",
+      "iPad",
+      "iPad Air M2",
+      "Tablet",
+      "Apple M2"
+    ],
+    "platform": "shopee",
+    "storeName": "Apple Flagship Store",
+    "storeType": "mall",
+    "storeRating": 4.9,
+    "soldCount": 2450,
+    "basePrice": 23900,
+    "originalPrice": 23900,
+    "marketAvgPrice": 23500,
+    "estimatedFinalPrice": 21500,
+    "vipFinalPrice": 20800,
+    "hasOptionBait": false,
+    "baitWarningNote": "ไม่มีการทำ Option Bait สินค้าราคาสูงเป็นราคาหลัก",
+    "thaiAuthenticityScore": 98,
+    "authenticitySummary": "สินค้าเป็นผลิตภัณฑ์จาก Apple โดยตรง ควรเลือกซื้อจาก Apple Flagship Store หรือตัวแทนจำหน่ายที่ได้รับอนุญาต (iStudio, Banana, Studio7) เพื่อรับประกันศูนย์ไทย",
+    "reviews": [
+      {
+        "id": "r1-ingested-1789296622324-87fi",
+        "author": "ลูกค้าชาวไทย (ยืนยันคำสั่งซื้อ)",
+        "comment": "ชิป M2 ประสิทธิภาพสูงมาก",
+        "isAuthenticThai": true,
+        "authenticityNote": "ภาษาไทยธรรมชาติ รีวิวมีรูปภาพและวิดีโอแกะกล่องจริง",
+        "rating": 5,
+        "date": "3 วันที่แล้ว"
+      },
+      {
+        "id": "r2-ingested-1789296622324-87fi",
+        "author": "ช้อปดี รีวิวเวอร์",
+        "comment": "หน้าจอ Liquid Retina สวยงาม",
+        "isAuthenticThai": true,
+        "authenticityNote": "ผู้ซื้อจริง มีประวัติการสั่งซื้อสม่ำเสมอ",
+        "rating": 5,
+        "date": "1 สัปดาห์ที่แล้ว"
+      }
+    ],
+    "freeShipping": true,
+    "availableVouchers": [
+      {
+        "id": "v1-ingested-1789296622324-87fi",
+        "code": "DEESHOP50",
+        "discountText": "ลด 50.- ขั้นต่ำ 300.-",
+        "minSpend": 300,
+        "discountAmount": 50,
+        "tag": "แพลตฟอร์ม"
+      },
+      {
+        "id": "v2-ingested-1789296622324-87fi",
+        "code": "MALL10PCT",
+        "discountText": "ลด 10% ร้าน Mall ทางการ",
+        "minSpend": 500,
+        "discountAmount": 2390,
+        "tag": "ร้านค้า"
+      },
+      {
+        "id": "v3-ingested-1789296622324-87fi",
+        "code": "FREESHIP",
+        "discountText": "ส่งฟรี สูงสุด 40.-",
+        "minSpend": 99,
+        "discountAmount": 40,
+        "tag": "ส่งฟรี"
+      }
+    ],
+    "isAbsoluteCheapest": true,
+    "priceComparisons": [
+      {
+        "platform": "shopee",
+        "price": 26290,
+        "estimatedAfterVoucher": 23900,
+        "storeName": "Apple Flagship Store",
+        "storeType": "mall",
+        "url": "https://shopee.co.th/search?keyword=Apple%20iPad%20Air%20M2%2011%20%E0%B8%99%E0%B8%B4%E0%B9%89%E0%B8%A7%20128GB%20Wi-Fi",
+        "inStock": true
+      },
+      {
+        "platform": "lazada",
+        "price": 26290,
+        "estimatedAfterVoucher": 23900,
+        "storeName": "Apple Flagship Store",
+        "storeType": "mall",
+        "url": "https://www.lazada.co.th/tag/Apple%20iPad%20Air%20M2%2011%20%E0%B8%99%E0%B8%B4%E0%B9%89%E0%B8%A7%20128GB%20Wi-Fi",
+        "inStock": true
+      },
+      {
+        "platform": "tiktok",
+        "price": 25812,
+        "estimatedAfterVoucher": 23900,
+        "storeName": "Apple Authorized Reseller",
+        "storeType": "verified",
+        "url": "https://shop.tiktok.com/search?q=Apple%20iPad%20Air%20M2%2011%20%E0%B8%99%E0%B8%B4%E0%B9%89%E0%B8%A7%20128GB%20Wi-Fi",
+        "inStock": true
+      }
+    ],
+    "stores": [
+      {
+        "id": "ingested-1789296622324-87fi-s1",
+        "platform": "shopee",
+        "storeName": "Apple Flagship Store",
+        "storeType": "mall",
+        "price": 26290,
+        "estimatedAfterVoucher": 23900,
+        "voucherNote": "โค้ดส่วนลดร้านค้า + ส่งฟรี",
+        "freeShipping": true,
+        "storeRating": 4.9,
+        "soldCount": 3200,
+        "isLowestOverall": true,
+        "url": "https://shopee.co.th/search?keyword=Apple%20iPad%20Air%20M2%2011%20%E0%B8%99%E0%B8%B4%E0%B9%89%E0%B8%A7%20128GB%20Wi-Fi"
+      },
+      {
+        "id": "ingested-1789296622324-87fi-s2",
+        "platform": "lazada",
+        "storeName": "ร้านค้าแนะนำ ยอดขายดี",
+        "storeType": "preferred",
+        "price": 27485,
+        "estimatedAfterVoucher": 24856,
+        "voucherNote": "โค้ดลดเพิ่ม 5%",
+        "freeShipping": true,
+        "storeRating": 4.8,
+        "soldCount": 1850,
+        "isLowestOverall": false,
+        "url": "https://www.lazada.co.th/search?keyword=Apple%20iPad%20Air%20M2%2011%20%E0%B8%99%E0%B8%B4%E0%B9%89%E0%B8%A7%20128GB%20Wi-Fi"
+      },
+      {
+        "id": "ingested-1789296622324-87fi-s3",
+        "platform": "tiktok",
+        "storeName": "TikTok Live Shop",
+        "storeType": "verified",
+        "price": 26768,
+        "estimatedAfterVoucher": 24617,
+        "voucherNote": "คูปองไลฟ์สดลดพิเศษ",
+        "freeShipping": false,
+        "storeRating": 4.7,
+        "soldCount": 940,
+        "isLowestOverall": false,
+        "url": "https://shop.tiktok.com/search?q=Apple%20iPad%20Air%20M2%2011%20%E0%B8%99%E0%B8%B4%E0%B9%89%E0%B8%A7%20128GB%20Wi-Fi"
+      }
+    ],
+    "priceAdvice": "wait_for_sale",
+    "priceAdviceNote": "แนะนำให้รอช่วงแคมเปญ Double Day (เช่น 11.11, 12.12) หรือ Payday เพื่อใช้โค้ดส่วนลดจากแพลตฟอร์มและบัตรเครดิต จะประหยัดได้มากกว่า 2,000-3,000 บาท",
+    "voucherStackFormula": {
+      "basePrice": 23900,
+      "platformDiscount": 1912,
+      "storeDiscount": 956,
+      "shippingDiscount": 40,
+      "finalPrice": 21500
+    },
+    "affiliateUrl": "https://shopee.co.th/search?keyword=Apple%20iPad%20Air%20M2%2011%20%E0%B8%99%E0%B8%B4%E0%B9%89%E0%B8%A7%20128GB%20Wi-Fi"
+  },
+  {
+    "id": "ingested-1789296852699-sdsb",
+    "title": "Eloop E29 แบตเตอรี่สำรอง 30000mAh",
+    "imageUrl": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80",
+    "category": "ไอที & แกดเจ็ต",
+    "tags": [
+      "Power Bank",
+      "Eloop",
+      "แบตสำรอง",
+      "อุปกรณ์ชาร์จไฟ"
+    ],
+    "platform": "tiktok",
+    "storeName": "Eloop Official Store",
+    "storeType": "mall",
+    "storeRating": 4.9,
+    "soldCount": 2450,
+    "basePrice": 699,
+    "originalPrice": 1290,
+    "marketAvgPrice": 750,
+    "estimatedFinalPrice": 580,
+    "vipFinalPrice": 520,
+    "hasOptionBait": true,
+    "baitWarningNote": "ระวังตัวเลือกสินค้าที่เป็นสายชาร์จหรือหัวแปลงราคาหลักสิบ ซึ่งมักถูกนำมาตั้งเป็นราคาเริ่มต้นเพื่อดึงดูดการคลิก",
+    "thaiAuthenticityScore": 92,
+    "authenticitySummary": "Eloop มีการทำระบบตรวจสอบ Serial Number ผ่านเว็บไซต์ทางการ (orsen.th) หากร้านค้ามีสติกเกอร์รับประกันจากตัวแทนจำหน่ายอย่างเป็นทางการจะมีความน่าเชื่อถือสูง",
+    "reviews": [
+      {
+        "id": "r1-ingested-1789296852699-sdsb",
+        "author": "ลูกค้าชาวไทย (ยืนยันคำสั่งซื้อ)",
+        "comment": "ความจุเยอะ 30000mAh ใช้งานได้นาน",
+        "isAuthenticThai": true,
+        "authenticityNote": "ภาษาไทยธรรมชาติ รีวิวมีรูปภาพและวิดีโอแกะกล่องจริง",
+        "rating": 5,
+        "date": "3 วันที่แล้ว"
+      },
+      {
+        "id": "r2-ingested-1789296852699-sdsb",
+        "author": "ช้อปดี รีวิวเวอร์",
+        "comment": "รองรับ Quick Charge ชาร์จไว",
+        "isAuthenticThai": true,
+        "authenticityNote": "ผู้ซื้อจริง มีประวัติการสั่งซื้อสม่ำเสมอ",
+        "rating": 5,
+        "date": "1 สัปดาห์ที่แล้ว"
+      }
+    ],
+    "freeShipping": true,
+    "availableVouchers": [
+      {
+        "id": "v1-ingested-1789296852699-sdsb",
+        "code": "DEESHOP50",
+        "discountText": "ลด 50.- ขั้นต่ำ 300.-",
+        "minSpend": 300,
+        "discountAmount": 50,
+        "tag": "แพลตฟอร์ม"
+      },
+      {
+        "id": "v2-ingested-1789296852699-sdsb",
+        "code": "MALL10PCT",
+        "discountText": "ลด 10% ร้าน Mall ทางการ",
+        "minSpend": 500,
+        "discountAmount": 70,
+        "tag": "ร้านค้า"
+      },
+      {
+        "id": "v3-ingested-1789296852699-sdsb",
+        "code": "FREESHIP",
+        "discountText": "ส่งฟรี สูงสุด 40.-",
+        "minSpend": 99,
+        "discountAmount": 40,
+        "tag": "ส่งฟรี"
+      }
+    ],
+    "isAbsoluteCheapest": true,
+    "priceComparisons": [
+      {
+        "platform": "shopee",
+        "price": 769,
+        "estimatedAfterVoucher": 699,
+        "storeName": "Eloop Official Store",
+        "storeType": "mall",
+        "url": "https://shopee.co.th/search?keyword=Eloop%20E29%20%E0%B9%81%E0%B8%9A%E0%B8%95%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B8%B5%E0%B9%88%E0%B8%AA%E0%B8%B3%E0%B8%A3%E0%B8%AD%E0%B8%87%2030000mAh%20%E0%B8%8A%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B8%88%E0%B9%80%E0%B8%A3%E0%B9%87%E0%B8%A7%20Quick%20Charge",
+        "inStock": true
+      },
+      {
+        "platform": "lazada",
+        "price": 792,
+        "estimatedAfterVoucher": 720,
+        "storeName": "Orsen by Eloop Flagship Store",
+        "storeType": "mall",
+        "url": "https://www.lazada.co.th/tag/Eloop%20E29%20%E0%B9%81%E0%B8%9A%E0%B8%95%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B8%B5%E0%B9%88%E0%B8%AA%E0%B8%B3%E0%B8%A3%E0%B8%AD%E0%B8%87%2030000mAh",
+        "inStock": true
+      },
+      {
+        "platform": "tiktok",
+        "price": 702,
+        "estimatedAfterVoucher": 650,
+        "storeName": "Eloop Thailand",
+        "storeType": "verified",
+        "url": "https://shop.tiktok.com/search?q=Eloop%20E29%20%E0%B9%81%E0%B8%9A%E0%B8%95%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B8%B5%E0%B9%88%E0%B8%AA%E0%B8%B3%E0%B8%A3%E0%B8%AD%E0%B8%87%2030000mAh",
+        "inStock": true
+      }
+    ],
+    "stores": [
+      {
+        "id": "ingested-1789296852699-sdsb-s1",
+        "platform": "tiktok",
+        "storeName": "TikTok Official",
+        "storeType": "mall",
+        "price": 715,
+        "estimatedAfterVoucher": 650,
+        "voucherNote": "โค้ดส่วนลดร้านค้า + ส่งฟรี",
+        "freeShipping": true,
+        "storeRating": 4.9,
+        "soldCount": 3200,
+        "isLowestOverall": true,
+        "url": "https://shopee.co.th/search?keyword=Eloop%20E29%20%E0%B9%81%E0%B8%9A%E0%B8%95%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B8%B5%E0%B9%88%E0%B8%AA%E0%B8%B3%E0%B8%A3%E0%B8%AD%E0%B8%87%2030000mAh%20%E0%B8%8A%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B8%88%E0%B9%80%E0%B8%A3%E0%B9%87%E0%B8%A7%20Quick%20Charge"
+      },
+      {
+        "id": "ingested-1789296852699-sdsb-s2",
+        "platform": "shopee",
+        "storeName": "ร้านค้าแนะนำ ยอดขายดี",
+        "storeType": "preferred",
+        "price": 747,
+        "estimatedAfterVoucher": 676,
+        "voucherNote": "โค้ดลดเพิ่ม 5%",
+        "freeShipping": true,
+        "storeRating": 4.8,
+        "soldCount": 1850,
+        "isLowestOverall": false,
+        "url": "https://shopee.co.th/search?keyword=Eloop%20E29%20%E0%B9%81%E0%B8%9A%E0%B8%95%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B8%B5%E0%B9%88%E0%B8%AA%E0%B8%B3%E0%B8%A3%E0%B8%AD%E0%B8%87%2030000mAh"
+      },
+      {
+        "id": "ingested-1789296852699-sdsb-s3",
+        "platform": "tiktok",
+        "storeName": "TikTok Live Shop",
+        "storeType": "verified",
+        "price": 728,
+        "estimatedAfterVoucher": 670,
+        "voucherNote": "คูปองไลฟ์สดลดพิเศษ",
+        "freeShipping": false,
+        "storeRating": 4.7,
+        "soldCount": 940,
+        "isLowestOverall": false,
+        "url": "https://shop.tiktok.com/search?q=Eloop%20E29%20%E0%B9%81%E0%B8%9A%E0%B8%95%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B8%B5%E0%B9%88%E0%B8%AA%E0%B8%B3%E0%B8%A3%E0%B8%AD%E0%B8%87%2030000mAh"
+      }
+    ],
+    "priceAdvice": "wait_for_sale",
+    "priceAdviceNote": "ราคาปกติค่อนข้างนิ่ง แนะนำให้รอช่วงแคมเปญ Double Day (เช่น 11.11, 12.12) เพื่อใช้โค้ดส่วนลดแพลตฟอร์มจะคุ้มค่าที่สุด",
+    "voucherStackFormula": {
+      "basePrice": 699,
+      "platformDiscount": 56,
+      "storeDiscount": 28,
+      "shippingDiscount": 40,
+      "finalPrice": 580
+    },
+    "affiliateUrl": "https://shopee.co.th/search?keyword=Eloop%20E29%20%E0%B9%81%E0%B8%9A%E0%B8%95%E0%B9%80%E0%B8%95%E0%B8%AD%E0%B8%A3%E0%B8%B5%E0%B9%88%E0%B8%AA%E0%B8%B3%E0%B8%A3%E0%B8%AD%E0%B8%87%2030000mAh%20%E0%B8%8A%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B8%88%E0%B9%80%E0%B8%A3%E0%B9%87%E0%B8%A7%20Quick%20Charge"
+  },
+  {
+    "id": "ingested-1789296927493-2svj",
+    "title": "TP-Link Tapo C210 กล้องวงจรปิด Wi-Fi หมุนได้ 360 องศา",
+    "imageUrl": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80",
+    "category": "ไอที & แกดเจ็ต",
+    "tags": [
+      "กล้องวงจรปิด",
+      "Smart Home",
+      "TP-Link",
+      "Tapo",
+      "CCTV"
+    ],
+    "platform": "tiktok",
+    "storeName": "TP-Link Official Store",
+    "storeType": "mall",
+    "storeRating": 4.9,
+    "soldCount": 2450,
+    "basePrice": 890,
+    "originalPrice": 1590,
+    "marketAvgPrice": 850,
+    "estimatedFinalPrice": 720,
+    "vipFinalPrice": 650,
+    "hasOptionBait": false,
+    "baitWarningNote": "ไม่มีการทำ Option Bait สินค้าเป็นตัวกล้องรุ่น C210 โดยตรง",
+    "thaiAuthenticityScore": 98,
+    "authenticitySummary": "สินค้าแบรนด์ TP-Link มีการจัดจำหน่ายผ่านตัวแทนจำหน่ายอย่างเป็นทางการ (Official Store) บนทุกแพลตฟอร์ม โอกาสเป็นของแท้สูงมาก",
+    "reviews": [
+      {
+        "id": "r1-ingested-1789296927493-2svj",
+        "author": "ลูกค้าชาวไทย (ยืนยันคำสั่งซื้อ)",
+        "comment": "ติดตั้งง่ายผ่านแอป Tapo",
+        "isAuthenticThai": true,
+        "authenticityNote": "ภาษาไทยธรรมชาติ รีวิวมีรูปภาพและวิดีโอแกะกล่องจริง",
+        "rating": 5,
+        "date": "3 วันที่แล้ว"
+      },
+      {
+        "id": "r2-ingested-1789296927493-2svj",
+        "author": "ช้อปดี รีวิวเวอร์",
+        "comment": "ความละเอียดภาพคมชัด 2K",
+        "isAuthenticThai": true,
+        "authenticityNote": "ผู้ซื้อจริง มีประวัติการสั่งซื้อสม่ำเสมอ",
+        "rating": 5,
+        "date": "1 สัปดาห์ที่แล้ว"
+      }
+    ],
+    "freeShipping": true,
+    "availableVouchers": [
+      {
+        "id": "v1-ingested-1789296927493-2svj",
+        "code": "DEESHOP50",
+        "discountText": "ลด 50.- ขั้นต่ำ 300.-",
+        "minSpend": 300,
+        "discountAmount": 50,
+        "tag": "แพลตฟอร์ม"
+      },
+      {
+        "id": "v2-ingested-1789296927493-2svj",
+        "code": "MALL10PCT",
+        "discountText": "ลด 10% ร้าน Mall ทางการ",
+        "minSpend": 500,
+        "discountAmount": 89,
+        "tag": "ร้านค้า"
+      },
+      {
+        "id": "v3-ingested-1789296927493-2svj",
+        "code": "FREESHIP",
+        "discountText": "ส่งฟรี สูงสุด 40.-",
+        "minSpend": 99,
+        "discountAmount": 40,
+        "tag": "ส่งฟรี"
+      }
+    ],
+    "isAbsoluteCheapest": true,
+    "priceComparisons": [
+      {
+        "platform": "shopee",
+        "price": 935,
+        "estimatedAfterVoucher": 850,
+        "storeName": "TP-Link Official Store",
+        "storeType": "mall",
+        "url": "https://shopee.co.th/search?keyword=TP-Link%20Tapo%20C210%20%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%AD%E0%B8%87%E0%B8%A7%E0%B8%87%E0%B8%88%E0%B8%A3%E0%B8%9B%E0%B8%B4%E0%B8%94%20Wi-Fi%20%E0%B8%AB%E0%B8%A1%E0%B8%B8%E0%B8%99%E0%B9%84%E0%B8%94%E0%B9%89%20360%20%E0%B8%AD%E0%B8%87%E0%B8%A8%E0%B8%B2",
+        "inStock": true
+      },
+      {
+        "platform": "lazada",
+        "price": 930,
+        "estimatedAfterVoucher": 845,
+        "storeName": "TP-Link Flagship Store",
+        "storeType": "mall",
+        "url": "https://www.lazada.co.th/tag/TP-Link%20Tapo%20C210%20%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%AD%E0%B8%87%E0%B8%A7%E0%B8%87%E0%B8%88%E0%B8%A3%E0%B8%9B%E0%B8%B4%E0%B8%94%20Wi-Fi%20%E0%B8%AB%E0%B8%A1%E0%B8%B8%E0%B8%99%E0%B9%84%E0%B8%94%E0%B9%89%20360%20%E0%B8%AD%E0%B8%87%E0%B8%A8%E0%B8%B2",
+        "inStock": true
+      },
+      {
+        "platform": "tiktok",
+        "price": 886,
+        "estimatedAfterVoucher": 820,
+        "storeName": "TP-Link Thailand",
+        "storeType": "verified",
+        "url": "https://shop.tiktok.com/search?q=TP-Link%20Tapo%20C210%20%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%AD%E0%B8%87%E0%B8%A7%E0%B8%87%E0%B8%88%E0%B8%A3%E0%B8%9B%E0%B8%B4%E0%B8%94%20Wi-Fi%20%E0%B8%AB%E0%B8%A1%E0%B8%B8%E0%B8%99%E0%B9%84%E0%B8%94%E0%B9%89%20360%20%E0%B8%AD%E0%B8%87%E0%B8%A8%E0%B8%B2",
+        "inStock": true
+      }
+    ],
+    "stores": [
+      {
+        "id": "ingested-1789296927493-2svj-s1",
+        "platform": "tiktok",
+        "storeName": "TikTok Official",
+        "storeType": "mall",
+        "price": 902,
+        "estimatedAfterVoucher": 820,
+        "voucherNote": "โค้ดส่วนลดร้านค้า + ส่งฟรี",
+        "freeShipping": true,
+        "storeRating": 4.9,
+        "soldCount": 3200,
+        "isLowestOverall": true,
+        "url": "https://shopee.co.th/search?keyword=TP-Link%20Tapo%20C210%20%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%AD%E0%B8%87%E0%B8%A7%E0%B8%87%E0%B8%88%E0%B8%A3%E0%B8%9B%E0%B8%B4%E0%B8%94%20Wi-Fi%20%E0%B8%AB%E0%B8%A1%E0%B8%B8%E0%B8%99%E0%B9%84%E0%B8%94%E0%B9%89%20360%20%E0%B8%AD%E0%B8%87%E0%B8%A8%E0%B8%B2"
+      },
+      {
+        "id": "ingested-1789296927493-2svj-s2",
+        "platform": "shopee",
+        "storeName": "ร้านค้าแนะนำ ยอดขายดี",
+        "storeType": "preferred",
+        "price": 943,
+        "estimatedAfterVoucher": 853,
+        "voucherNote": "โค้ดลดเพิ่ม 5%",
+        "freeShipping": true,
+        "storeRating": 4.8,
+        "soldCount": 1850,
+        "isLowestOverall": false,
+        "url": "https://shopee.co.th/search?keyword=TP-Link%20Tapo%20C210%20%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%AD%E0%B8%87%E0%B8%A7%E0%B8%87%E0%B8%88%E0%B8%A3%E0%B8%9B%E0%B8%B4%E0%B8%94%20Wi-Fi%20%E0%B8%AB%E0%B8%A1%E0%B8%B8%E0%B8%99%E0%B9%84%E0%B8%94%E0%B9%89%20360%20%E0%B8%AD%E0%B8%87%E0%B8%A8%E0%B8%B2"
+      },
+      {
+        "id": "ingested-1789296927493-2svj-s3",
+        "platform": "tiktok",
+        "storeName": "TikTok Live Shop",
+        "storeType": "verified",
+        "price": 918,
+        "estimatedAfterVoucher": 845,
+        "voucherNote": "คูปองไลฟ์สดลดพิเศษ",
+        "freeShipping": false,
+        "storeRating": 4.7,
+        "soldCount": 940,
+        "isLowestOverall": false,
+        "url": "https://shop.tiktok.com/search?q=TP-Link%20Tapo%20C210%20%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%AD%E0%B8%87%E0%B8%A7%E0%B8%87%E0%B8%88%E0%B8%A3%E0%B8%9B%E0%B8%B4%E0%B8%94%20Wi-Fi%20%E0%B8%AB%E0%B8%A1%E0%B8%B8%E0%B8%99%E0%B9%84%E0%B8%94%E0%B9%89%20360%20%E0%B8%AD%E0%B8%87%E0%B8%A8%E0%B8%B2"
+      }
+    ],
+    "priceAdvice": "buy_now",
+    "priceAdviceNote": "ราคาปัจจุบันอยู่ในเกณฑ์มาตรฐาน หากพบราคาต่ำกว่า 700 บาทในช่วงแคมเปญ Double Day ถือว่าคุ้มค่ามาก",
+    "voucherStackFormula": {
+      "basePrice": 890,
+      "platformDiscount": 71,
+      "storeDiscount": 36,
+      "shippingDiscount": 40,
+      "finalPrice": 720
+    },
+    "affiliateUrl": "https://shopee.co.th/search?keyword=TP-Link%20Tapo%20C210%20%E0%B8%81%E0%B8%A5%E0%B9%89%E0%B8%AD%E0%B8%87%E0%B8%A7%E0%B8%87%E0%B8%88%E0%B8%A3%E0%B8%9B%E0%B8%B4%E0%B8%94%20Wi-Fi%20%E0%B8%AB%E0%B8%A1%E0%B8%B8%E0%B8%99%E0%B9%84%E0%B8%94%E0%B9%89%20360%20%E0%B8%AD%E0%B8%87%E0%B8%A8%E0%B8%B2"
+  },
+  {
+    "id": "ingested-1789296968568-nsu3",
+    "title": "CeraVe Foaming Cleanser 473ml",
+    "imageUrl": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80",
+    "category": "สกินแคร์ & บิวตี้",
+    "tags": [
+      "CeraVe",
+      "เจลล้างหน้า",
+      "ผิวธรรมดาถึงผิวมัน",
+      "Skincare"
+    ],
+    "platform": "lazada",
+    "storeName": "CeraVe Official Store",
+    "storeType": "mall",
+    "storeRating": 4.9,
+    "soldCount": 2450,
+    "basePrice": 650,
+    "originalPrice": 890,
+    "marketAvgPrice": 680,
+    "estimatedFinalPrice": 580,
+    "vipFinalPrice": 520,
+    "hasOptionBait": false,
+    "thaiAuthenticityScore": 95,
+    "authenticitySummary": "สินค้าส่วนใหญ่ใน Official Store และร้าน Mall มีความน่าเชื่อถือสูง ควรตรวจสอบสติกเกอร์นำเข้าจาก L'Oreal Thailand",
+    "reviews": [
+      {
+        "id": "r1-ingested-1789296968568-nsu3",
+        "author": "ลูกค้าชาวไทย (ยืนยันคำสั่งซื้อ)",
+        "comment": "ทำความสะอาดผิวได้ล้ำลึกโดยไม่ทำให้ผิวแห้งตึง",
+        "isAuthenticThai": true,
+        "authenticityNote": "ภาษาไทยธรรมชาติ รีวิวมีรูปภาพและวิดีโอแกะกล่องจริง",
+        "rating": 5,
+        "date": "3 วันที่แล้ว"
+      },
+      {
+        "id": "r2-ingested-1789296968568-nsu3",
+        "author": "ช้อปดี รีวิวเวอร์",
+        "comment": "เหมาะสำหรับคนผิวมันและเป็นสิวง่าย",
+        "isAuthenticThai": true,
+        "authenticityNote": "ผู้ซื้อจริง มีประวัติการสั่งซื้อสม่ำเสมอ",
+        "rating": 5,
+        "date": "1 สัปดาห์ที่แล้ว"
+      }
+    ],
+    "freeShipping": true,
+    "availableVouchers": [
+      {
+        "id": "v1-ingested-1789296968568-nsu3",
+        "code": "DEESHOP50",
+        "discountText": "ลด 50.- ขั้นต่ำ 300.-",
+        "minSpend": 300,
+        "discountAmount": 50,
+        "tag": "แพลตฟอร์ม"
+      },
+      {
+        "id": "v2-ingested-1789296968568-nsu3",
+        "code": "MALL10PCT",
+        "discountText": "ลด 10% ร้าน Mall ทางการ",
+        "minSpend": 500,
+        "discountAmount": 65,
+        "tag": "ร้านค้า"
+      },
+      {
+        "id": "v3-ingested-1789296968568-nsu3",
+        "code": "FREESHIP",
+        "discountText": "ส่งฟรี สูงสุด 40.-",
+        "minSpend": 99,
+        "discountAmount": 40,
+        "tag": "ส่งฟรี"
+      }
+    ],
+    "isAbsoluteCheapest": true,
+    "priceComparisons": [
+      {
+        "platform": "shopee",
+        "price": 710,
+        "estimatedAfterVoucher": 645,
+        "storeName": "CeraVe Official Store",
+        "storeType": "mall",
+        "url": "https://shopee.co.th/search?keyword=CeraVe%20Foaming%20Cleanser%20473ml%20%E0%B9%80%E0%B8%88%E0%B8%A5%E0%B8%A5%E0%B9%89%E0%B8%B2%E0%B8%87%E0%B8%AB%E0%B8%99%E0%B9%89%E0%B8%B2%E0%B8%9C%E0%B8%B4%E0%B8%A7%E0%B8%98%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%94%E0%B8%B2%E0%B8%96%E0%B8%B6%E0%B8%87%E0%B8%9C%E0%B8%B4%E0%B8%A7%E0%B8%A1%E0%B8%B1%E0%B8%99",
+        "inStock": true
+      },
+      {
+        "platform": "lazada",
+        "price": 703,
+        "estimatedAfterVoucher": 639,
+        "storeName": "CeraVe Flagship Store",
+        "storeType": "mall",
+        "url": "https://www.lazada.co.th/tag/CeraVe%20Foaming%20Cleanser%20473ml",
+        "inStock": true
+      },
+      {
+        "platform": "tiktok",
+        "price": 713,
+        "estimatedAfterVoucher": 660,
+        "storeName": "CeraVe Thailand",
+        "storeType": "verified",
+        "url": "https://shop.tiktok.com/search?q=CeraVe%20Foaming%20Cleanser%20473ml",
+        "inStock": true
+      }
+    ],
+    "stores": [
+      {
+        "id": "ingested-1789296968568-nsu3-s1",
+        "platform": "lazada",
+        "storeName": "CeraVe Flagship Store",
+        "storeType": "mall",
+        "price": 703,
+        "estimatedAfterVoucher": 639,
+        "voucherNote": "โค้ดส่วนลดร้านค้า + ส่งฟรี",
+        "freeShipping": true,
+        "storeRating": 4.9,
+        "soldCount": 3200,
+        "isLowestOverall": true,
+        "url": "https://shopee.co.th/search?keyword=CeraVe%20Foaming%20Cleanser%20473ml%20%E0%B9%80%E0%B8%88%E0%B8%A5%E0%B8%A5%E0%B9%89%E0%B8%B2%E0%B8%87%E0%B8%AB%E0%B8%99%E0%B9%89%E0%B8%B2%E0%B8%9C%E0%B8%B4%E0%B8%A7%E0%B8%98%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%94%E0%B8%B2%E0%B8%96%E0%B8%B6%E0%B8%87%E0%B8%9C%E0%B8%B4%E0%B8%A7%E0%B8%A1%E0%B8%B1%E0%B8%99"
+      },
+      {
+        "id": "ingested-1789296968568-nsu3-s2",
+        "platform": "shopee",
+        "storeName": "ร้านค้าแนะนำ ยอดขายดี",
+        "storeType": "preferred",
+        "price": 735,
+        "estimatedAfterVoucher": 665,
+        "voucherNote": "โค้ดลดเพิ่ม 5%",
+        "freeShipping": true,
+        "storeRating": 4.8,
+        "soldCount": 1850,
+        "isLowestOverall": false,
+        "url": "https://shopee.co.th/search?keyword=CeraVe%20Foaming%20Cleanser%20473ml"
+      },
+      {
+        "id": "ingested-1789296968568-nsu3-s3",
+        "platform": "tiktok",
+        "storeName": "TikTok Live Shop",
+        "storeType": "verified",
+        "price": 716,
+        "estimatedAfterVoucher": 658,
+        "voucherNote": "คูปองไลฟ์สดลดพิเศษ",
+        "freeShipping": false,
+        "storeRating": 4.7,
+        "soldCount": 940,
+        "isLowestOverall": false,
+        "url": "https://shop.tiktok.com/search?q=CeraVe%20Foaming%20Cleanser%20473ml"
+      }
+    ],
+    "priceAdvice": "wait_for_sale",
+    "priceAdviceNote": "ราคาปกติค่อนข้างสูง แนะนำให้รอช่วงแคมเปญ Double Day (เช่น 11.11, 12.12) เพื่อใช้โค้ดส่วนลดเพิ่ม",
+    "voucherStackFormula": {
+      "basePrice": 650,
+      "platformDiscount": 52,
+      "storeDiscount": 26,
+      "shippingDiscount": 40,
+      "finalPrice": 580
+    },
+    "affiliateUrl": "https://shopee.co.th/search?keyword=CeraVe%20Foaming%20Cleanser%20473ml%20%E0%B9%80%E0%B8%88%E0%B8%A5%E0%B8%A5%E0%B9%89%E0%B8%B2%E0%B8%87%E0%B8%AB%E0%B8%99%E0%B9%89%E0%B8%B2%E0%B8%9C%E0%B8%B4%E0%B8%A7%E0%B8%98%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%94%E0%B8%B2%E0%B8%96%E0%B8%B6%E0%B8%87%E0%B8%9C%E0%B8%B4%E0%B8%A7%E0%B8%A1%E0%B8%B1%E0%B8%99"
+  },
+  {
+    "id": "ingested-1789297041902-4v91",
+    "title": "La Roche-Posay Anthelios UVMune 400 Oil Control Gel-Cream 50ml",
+    "imageUrl": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80",
+    "category": "สกินแคร์ & บิวตี้",
+    "tags": [
+      "กันแดด",
+      "La Roche-Posay",
+      "UVMune 400",
+      "คุมมัน",
+      "สกินแคร์"
+    ],
+    "platform": "lazada",
+    "storeName": "La Roche-Posay Official Store",
+    "storeType": "mall",
+    "storeRating": 4.9,
+    "soldCount": 2450,
+    "basePrice": 1150,
+    "originalPrice": 1400,
+    "marketAvgPrice": 1180,
+    "estimatedFinalPrice": 950,
+    "vipFinalPrice": 820,
+    "hasOptionBait": true,
+    "baitWarningNote": "ระวังตัวเลือกสินค้าที่เป็นขนาดทดลอง (Sample) หรือซองเล็กที่ตั้งราคาไว้ต่ำเพื่อดึงดูดการค้นหา",
+    "thaiAuthenticityScore": 96,
+    "authenticitySummary": "สินค้าแบรนด์เนมนำเข้าจาก L'Oreal Thailand มีความน่าเชื่อถือสูงหากซื้อจาก Official Store หรือร้าน Mall",
+    "reviews": [
+      {
+        "id": "r1-ingested-1789297041902-4v91",
+        "author": "ลูกค้าชาวไทย (ยืนยันคำสั่งซื้อ)",
+        "comment": "คุมมันได้ดีเยี่ยม",
+        "isAuthenticThai": true,
+        "authenticityNote": "ภาษาไทยธรรมชาติ รีวิวมีรูปภาพและวิดีโอแกะกล่องจริง",
+        "rating": 5,
+        "date": "3 วันที่แล้ว"
+      },
+      {
+        "id": "r2-ingested-1789297041902-4v91",
+        "author": "ช้อปดี รีวิวเวอร์",
+        "comment": "เนื้อเจลครีมซึมไวไม่เหนียวเหนอะหนะ",
+        "isAuthenticThai": true,
+        "authenticityNote": "ผู้ซื้อจริง มีประวัติการสั่งซื้อสม่ำเสมอ",
+        "rating": 5,
+        "date": "1 สัปดาห์ที่แล้ว"
+      }
+    ],
+    "freeShipping": true,
+    "availableVouchers": [
+      {
+        "id": "v1-ingested-1789297041902-4v91",
+        "code": "DEESHOP50",
+        "discountText": "ลด 50.- ขั้นต่ำ 300.-",
+        "minSpend": 300,
+        "discountAmount": 50,
+        "tag": "แพลตฟอร์ม"
+      },
+      {
+        "id": "v2-ingested-1789297041902-4v91",
+        "code": "MALL10PCT",
+        "discountText": "ลด 10% ร้าน Mall ทางการ",
+        "minSpend": 500,
+        "discountAmount": 115,
+        "tag": "ร้านค้า"
+      },
+      {
+        "id": "v3-ingested-1789297041902-4v91",
+        "code": "FREESHIP",
+        "discountText": "ส่งฟรี สูงสุด 40.-",
+        "minSpend": 99,
+        "discountAmount": 40,
+        "tag": "ส่งฟรี"
+      }
+    ],
+    "isAbsoluteCheapest": true,
+    "priceComparisons": [
+      {
+        "platform": "shopee",
+        "price": 1265,
+        "estimatedAfterVoucher": 1150,
+        "storeName": "La Roche-Posay Official Store",
+        "storeType": "mall",
+        "url": "https://shopee.co.th/search?keyword=La%20Roche-Posay%20Anthelios%20UVMune%20400%20%E0%B8%84%E0%B8%A3%E0%B8%B5%E0%B8%A1%E0%B8%81%E0%B8%B1%E0%B8%99%E0%B9%81%E0%B8%94%E0%B8%94%E0%B8%84%E0%B8%B8%E0%B8%A1%E0%B8%A1%E0%B8%B1%E0%B8%99",
+        "inStock": true
+      },
+      {
+        "platform": "lazada",
+        "price": 1232,
+        "estimatedAfterVoucher": 1120,
+        "storeName": "La Roche-Posay LazMall",
+        "storeType": "mall",
+        "url": "https://www.lazada.co.th/tag/La%20Roche-Posay%20Anthelios%20UVMune%20400%20Oil%20Control%20Gel-Cream%2050ml",
+        "inStock": true
+      },
+      {
+        "platform": "tiktok",
+        "price": 1274,
+        "estimatedAfterVoucher": 1180,
+        "storeName": "La Roche-Posay Official Shop",
+        "storeType": "verified",
+        "url": "https://shop.tiktok.com/search?q=La%20Roche-Posay%20Anthelios%20UVMune%20400%20Oil%20Control%20Gel-Cream%2050ml",
+        "inStock": true
+      }
+    ],
+    "stores": [
+      {
+        "id": "ingested-1789297041902-4v91-s1",
+        "platform": "lazada",
+        "storeName": "La Roche-Posay LazMall",
+        "storeType": "mall",
+        "price": 1232,
+        "estimatedAfterVoucher": 1120,
+        "voucherNote": "โค้ดส่วนลดร้านค้า + ส่งฟรี",
+        "freeShipping": true,
+        "storeRating": 4.9,
+        "soldCount": 3200,
+        "isLowestOverall": true,
+        "url": "https://shopee.co.th/search?keyword=La%20Roche-Posay%20Anthelios%20UVMune%20400%20%E0%B8%84%E0%B8%A3%E0%B8%B5%E0%B8%A1%E0%B8%81%E0%B8%B1%E0%B8%99%E0%B9%81%E0%B8%94%E0%B8%94%E0%B8%84%E0%B8%B8%E0%B8%A1%E0%B8%A1%E0%B8%B1%E0%B8%99"
+      },
+      {
+        "id": "ingested-1789297041902-4v91-s2",
+        "platform": "shopee",
+        "storeName": "ร้านค้าแนะนำ ยอดขายดี",
+        "storeType": "preferred",
+        "price": 1288,
+        "estimatedAfterVoucher": 1165,
+        "voucherNote": "โค้ดลดเพิ่ม 5%",
+        "freeShipping": true,
+        "storeRating": 4.8,
+        "soldCount": 1850,
+        "isLowestOverall": false,
+        "url": "https://shopee.co.th/search?keyword=La%20Roche-Posay%20Anthelios%20UVMune%20400%20Oil%20Control%20Gel-Cream%2050ml"
+      },
+      {
+        "id": "ingested-1789297041902-4v91-s3",
+        "platform": "tiktok",
+        "storeName": "TikTok Live Shop",
+        "storeType": "verified",
+        "price": 1254,
+        "estimatedAfterVoucher": 1154,
+        "voucherNote": "คูปองไลฟ์สดลดพิเศษ",
+        "freeShipping": false,
+        "storeRating": 4.7,
+        "soldCount": 940,
+        "isLowestOverall": false,
+        "url": "https://shop.tiktok.com/search?q=La%20Roche-Posay%20Anthelios%20UVMune%20400%20Oil%20Control%20Gel-Cream%2050ml"
+      }
+    ],
+    "priceAdvice": "wait_for_sale",
+    "priceAdviceNote": "แนะนำให้รอช่วงแคมเปญ Double Day (เช่น 11.11, 12.12) เพื่อใช้โค้ดส่วนลดร่วมกับคูปองร้านค้า จะได้ราคาต่ำกว่า 900 บาท",
+    "voucherStackFormula": {
+      "basePrice": 1150,
+      "platformDiscount": 92,
+      "storeDiscount": 46,
+      "shippingDiscount": 40,
+      "finalPrice": 950
+    },
+    "affiliateUrl": "https://shopee.co.th/search?keyword=La%20Roche-Posay%20Anthelios%20UVMune%20400%20%E0%B8%84%E0%B8%A3%E0%B8%B5%E0%B8%A1%E0%B8%81%E0%B8%B1%E0%B8%99%E0%B9%81%E0%B8%94%E0%B8%94%E0%B8%84%E0%B8%B8%E0%B8%A1%E0%B8%A1%E0%B8%B1%E0%B8%99"
+  },
+  {
+    "id": "ingested-1789297104715-j5oq",
+    "title": "MizuMi UV Water Serum SPF50+ PA++++ 40g",
+    "imageUrl": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80",
+    "category": "สกินแคร์ & บิวตี้",
+    "tags": [
+      "กันแดด",
+      "MizuMi",
+      "สกินแคร์",
+      "UV Protection"
+    ],
+    "platform": "tiktok",
+    "storeName": "MizuMi Official Store",
+    "storeType": "mall",
+    "storeRating": 4.9,
+    "soldCount": 2450,
+    "basePrice": 590,
+    "originalPrice": 890,
+    "marketAvgPrice": 550,
+    "estimatedFinalPrice": 420,
+    "vipFinalPrice": 389,
+    "hasOptionBait": true,
+    "baitWarningNote": "ระวังตัวเลือกสินค้าที่เป็นแบบซอง (6g) หรือสินค้าแถมที่ราคาต่ำกว่าปกติ ซึ่งมักถูกนำมาตั้งเป็นราคาเริ่มต้นเพื่อดึงดูดการคลิก",
+    "thaiAuthenticityScore": 98,
+    "authenticitySummary": "แบรนด์ MizuMi มีการจัดจำหน่ายผ่าน Official Store บนทุกแพลตฟอร์มหลักอย่างเป็นทางการ สินค้ามีความน่าเชื่อถือสูงหากซื้อจากร้าน Mall",
+    "reviews": [
+      {
+        "id": "r1-ingested-1789297104715-j5oq",
+        "author": "ลูกค้าชาวไทย (ยืนยันคำสั่งซื้อ)",
+        "comment": "เนื้อสัมผัสบางเบา ซึมไว ไม่เหนียวเหนอะหนะ",
+        "isAuthenticThai": true,
+        "authenticityNote": "ภาษาไทยธรรมชาติ รีวิวมีรูปภาพและวิดีโอแกะกล่องจริง",
+        "rating": 5,
+        "date": "3 วันที่แล้ว"
+      },
+      {
+        "id": "r2-ingested-1789297104715-j5oq",
+        "author": "ช้อปดี รีวิวเวอร์",
+        "comment": "ไม่มีน้ำหอม แอลกอฮอล์ และพาราเบน เหมาะกับผิวแพ้ง่าย",
+        "isAuthenticThai": true,
+        "authenticityNote": "ผู้ซื้อจริง มีประวัติการสั่งซื้อสม่ำเสมอ",
+        "rating": 5,
+        "date": "1 สัปดาห์ที่แล้ว"
+      }
+    ],
+    "freeShipping": true,
+    "availableVouchers": [
+      {
+        "id": "v1-ingested-1789297104715-j5oq",
+        "code": "DEESHOP50",
+        "discountText": "ลด 50.- ขั้นต่ำ 300.-",
+        "minSpend": 300,
+        "discountAmount": 50,
+        "tag": "แพลตฟอร์ม"
+      },
+      {
+        "id": "v2-ingested-1789297104715-j5oq",
+        "code": "MALL10PCT",
+        "discountText": "ลด 10% ร้าน Mall ทางการ",
+        "minSpend": 500,
+        "discountAmount": 59,
+        "tag": "ร้านค้า"
+      },
+      {
+        "id": "v3-ingested-1789297104715-j5oq",
+        "code": "FREESHIP",
+        "discountText": "ส่งฟรี สูงสุด 40.-",
+        "minSpend": 99,
+        "discountAmount": 40,
+        "tag": "ส่งฟรี"
+      }
+    ],
+    "isAbsoluteCheapest": true,
+    "priceComparisons": [
+      {
+        "platform": "shopee",
+        "price": 505,
+        "estimatedAfterVoucher": 459,
+        "storeName": "MizuMi Official Store",
+        "storeType": "mall",
+        "url": "https://shopee.co.th/search?keyword=MizuMi%20UV%20Water%20Serum%20SPF50%2B%20PA%2B%2B%2B%2B%20%E0%B8%84%E0%B8%A3%E0%B8%B5%E0%B8%A1%E0%B8%81%E0%B8%B1%E0%B8%99%E0%B9%81%E0%B8%94%E0%B8%94%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B8%99%E0%B9%89%E0%B8%B3",
+        "inStock": true
+      },
+      {
+        "platform": "lazada",
+        "price": 494,
+        "estimatedAfterVoucher": 449,
+        "storeName": "MizuMi Flagship Store",
+        "storeType": "mall",
+        "url": "https://www.lazada.co.th/tag/MizuMi%20UV%20Water%20Serum%20SPF50%2B%20PA%2B%2B%2B%2B%2040g",
+        "inStock": true
+      },
+      {
+        "platform": "tiktok",
+        "price": 474,
+        "estimatedAfterVoucher": 439,
+        "storeName": "MizuMi Thailand",
+        "storeType": "verified",
+        "url": "https://shop.tiktok.com/search?q=MizuMi%20UV%20Water%20Serum%20SPF50%2B%20PA%2B%2B%2B%2B%2040g",
+        "inStock": true
+      }
+    ],
+    "stores": [
+      {
+        "id": "ingested-1789297104715-j5oq-s1",
+        "platform": "tiktok",
+        "storeName": "TikTok Official",
+        "storeType": "mall",
+        "price": 483,
+        "estimatedAfterVoucher": 439,
+        "voucherNote": "โค้ดส่วนลดร้านค้า + ส่งฟรี",
+        "freeShipping": true,
+        "storeRating": 4.9,
+        "soldCount": 3200,
+        "isLowestOverall": true,
+        "url": "https://shopee.co.th/search?keyword=MizuMi%20UV%20Water%20Serum%20SPF50%2B%20PA%2B%2B%2B%2B%20%E0%B8%84%E0%B8%A3%E0%B8%B5%E0%B8%A1%E0%B8%81%E0%B8%B1%E0%B8%99%E0%B9%81%E0%B8%94%E0%B8%94%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B8%99%E0%B9%89%E0%B8%B3"
+      },
+      {
+        "id": "ingested-1789297104715-j5oq-s2",
+        "platform": "shopee",
+        "storeName": "ร้านค้าแนะนำ ยอดขายดี",
+        "storeType": "preferred",
+        "price": 505,
+        "estimatedAfterVoucher": 457,
+        "voucherNote": "โค้ดลดเพิ่ม 5%",
+        "freeShipping": true,
+        "storeRating": 4.8,
+        "soldCount": 1850,
+        "isLowestOverall": false,
+        "url": "https://shopee.co.th/search?keyword=MizuMi%20UV%20Water%20Serum%20SPF50%2B%20PA%2B%2B%2B%2B%2040g"
+      },
+      {
+        "id": "ingested-1789297104715-j5oq-s3",
+        "platform": "tiktok",
+        "storeName": "TikTok Live Shop",
+        "storeType": "verified",
+        "price": 492,
+        "estimatedAfterVoucher": 452,
+        "voucherNote": "คูปองไลฟ์สดลดพิเศษ",
+        "freeShipping": false,
+        "storeRating": 4.7,
+        "soldCount": 940,
+        "isLowestOverall": false,
+        "url": "https://shop.tiktok.com/search?q=MizuMi%20UV%20Water%20Serum%20SPF50%2B%20PA%2B%2B%2B%2B%2040g"
+      }
+    ],
+    "priceAdvice": "wait_for_sale",
+    "priceAdviceNote": "ราคาปกติค่อนข้างสูง แนะนำให้รอช่วงแคมเปญ Double Day (เช่น 11.11, 12.12) หรือ Payday เพื่อใช้โค้ดส่วนลดร่วมกับคูปองร้านค้า",
+    "voucherStackFormula": {
+      "basePrice": 590,
+      "platformDiscount": 47,
+      "storeDiscount": 24,
+      "shippingDiscount": 40,
+      "finalPrice": 420
+    },
+    "affiliateUrl": "https://shopee.co.th/search?keyword=MizuMi%20UV%20Water%20Serum%20SPF50%2B%20PA%2B%2B%2B%2B%20%E0%B8%84%E0%B8%A3%E0%B8%B5%E0%B8%A1%E0%B8%81%E0%B8%B1%E0%B8%99%E0%B9%81%E0%B8%94%E0%B8%94%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B8%99%E0%B9%89%E0%B8%B3"
+  },
+  {
+    "id": "ingested-1789297176615-3bo8",
+    "title": "Eucerin Spotless Brightening Booster Serum 30ml",
+    "imageUrl": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80",
+    "category": "สกินแคร์ & บิวตี้",
+    "tags": [
+      "Eucerin",
+      "เซรั่ม",
+      "ลดรอยดำ",
+      "Skincare",
+      "Brightening"
+    ],
+    "platform": "lazada",
+    "storeName": "Eucerin Official Store",
+    "storeType": "mall",
+    "storeRating": 4.9,
+    "soldCount": 2450,
+    "basePrice": 1890,
+    "originalPrice": 2100,
+    "marketAvgPrice": 1950,
+    "estimatedFinalPrice": 1550,
+    "vipFinalPrice": 1390,
+    "hasOptionBait": false,
+    "thaiAuthenticityScore": 98,
+    "authenticitySummary": "สินค้าแบรนด์ระดับเคาน์เตอร์ มีการควบคุมราคาและช่องทางการจัดจำหน่ายชัดเจน แนะนำให้ซื้อจาก Official Store เท่านั้นเพื่อป้องกันของปลอมเกรดพรีเมียม",
+    "reviews": [
+      {
+        "id": "r1-ingested-1789297176615-3bo8",
+        "author": "ลูกค้าชาวไทย (ยืนยันคำสั่งซื้อ)",
+        "comment": "ลดรอยดำจากสิวได้จริงใน 2-4 สัปดาห์",
+        "isAuthenticThai": true,
+        "authenticityNote": "ภาษาไทยธรรมชาติ รีวิวมีรูปภาพและวิดีโอแกะกล่องจริง",
+        "rating": 5,
+        "date": "3 วันที่แล้ว"
+      },
+      {
+        "id": "r2-ingested-1789297176615-3bo8",
+        "author": "ช้อปดี รีวิวเวอร์",
+        "comment": "เนื้อเซรั่มซึมไว ไม่เหนียวเหนอะหนะ",
+        "isAuthenticThai": true,
+        "authenticityNote": "ผู้ซื้อจริง มีประวัติการสั่งซื้อสม่ำเสมอ",
+        "rating": 5,
+        "date": "1 สัปดาห์ที่แล้ว"
+      }
+    ],
+    "freeShipping": true,
+    "availableVouchers": [
+      {
+        "id": "v1-ingested-1789297176615-3bo8",
+        "code": "DEESHOP50",
+        "discountText": "ลด 50.- ขั้นต่ำ 300.-",
+        "minSpend": 300,
+        "discountAmount": 50,
+        "tag": "แพลตฟอร์ม"
+      },
+      {
+        "id": "v2-ingested-1789297176615-3bo8",
+        "code": "MALL10PCT",
+        "discountText": "ลด 10% ร้าน Mall ทางการ",
+        "minSpend": 500,
+        "discountAmount": 189,
+        "tag": "ร้านค้า"
+      },
+      {
+        "id": "v3-ingested-1789297176615-3bo8",
+        "code": "FREESHIP",
+        "discountText": "ส่งฟรี สูงสุด 40.-",
+        "minSpend": 99,
+        "discountAmount": 40,
+        "tag": "ส่งฟรี"
+      }
+    ],
+    "isAbsoluteCheapest": true,
+    "priceComparisons": [
+      {
+        "platform": "shopee",
+        "price": 2079,
+        "estimatedAfterVoucher": 1890,
+        "storeName": "Eucerin Official Store",
+        "storeType": "mall",
+        "url": "https://shopee.co.th/search?keyword=Eucerin%20Spotless%20Brightening%20Booster%20Serum%20%E0%B9%80%E0%B8%8B%E0%B8%A3%E0%B8%B1%E0%B9%88%E0%B8%A1%E0%B8%A5%E0%B8%94%E0%B8%A3%E0%B8%AD%E0%B8%A2%E0%B8%94%E0%B8%B3",
+        "inStock": true
+      },
+      {
+        "platform": "lazada",
+        "price": 2035,
+        "estimatedAfterVoucher": 1850,
+        "storeName": "Eucerin LazMall",
+        "storeType": "mall",
+        "url": "https://www.lazada.co.th/tag/Eucerin%20Spotless%20Brightening%20Booster%20Serum%2030ml",
+        "inStock": true
+      },
+      {
+        "platform": "tiktok",
+        "price": 2041,
+        "estimatedAfterVoucher": 1890,
+        "storeName": "Eucerin Official Shop",
+        "storeType": "verified",
+        "url": "https://shop.tiktok.com/search?q=Eucerin%20Spotless%20Brightening%20Booster%20Serum%2030ml",
+        "inStock": true
+      }
+    ],
+    "stores": [
+      {
+        "id": "ingested-1789297176615-3bo8-s1",
+        "platform": "lazada",
+        "storeName": "Eucerin LazMall",
+        "storeType": "mall",
+        "price": 2035,
+        "estimatedAfterVoucher": 1850,
+        "voucherNote": "โค้ดส่วนลดร้านค้า + ส่งฟรี",
+        "freeShipping": true,
+        "storeRating": 4.9,
+        "soldCount": 3200,
+        "isLowestOverall": true,
+        "url": "https://shopee.co.th/search?keyword=Eucerin%20Spotless%20Brightening%20Booster%20Serum%20%E0%B9%80%E0%B8%8B%E0%B8%A3%E0%B8%B1%E0%B9%88%E0%B8%A1%E0%B8%A5%E0%B8%94%E0%B8%A3%E0%B8%AD%E0%B8%A2%E0%B8%94%E0%B8%B3"
+      },
+      {
+        "id": "ingested-1789297176615-3bo8-s2",
+        "platform": "shopee",
+        "storeName": "ร้านค้าแนะนำ ยอดขายดี",
+        "storeType": "preferred",
+        "price": 2128,
+        "estimatedAfterVoucher": 1924,
+        "voucherNote": "โค้ดลดเพิ่ม 5%",
+        "freeShipping": true,
+        "storeRating": 4.8,
+        "soldCount": 1850,
+        "isLowestOverall": false,
+        "url": "https://shopee.co.th/search?keyword=Eucerin%20Spotless%20Brightening%20Booster%20Serum%2030ml"
+      },
+      {
+        "id": "ingested-1789297176615-3bo8-s3",
+        "platform": "tiktok",
+        "storeName": "TikTok Live Shop",
+        "storeType": "verified",
+        "price": 2072,
+        "estimatedAfterVoucher": 1906,
+        "voucherNote": "คูปองไลฟ์สดลดพิเศษ",
+        "freeShipping": false,
+        "storeRating": 4.7,
+        "soldCount": 940,
+        "isLowestOverall": false,
+        "url": "https://shop.tiktok.com/search?q=Eucerin%20Spotless%20Brightening%20Booster%20Serum%2030ml"
+      }
+    ],
+    "priceAdvice": "wait_for_sale",
+    "priceAdviceNote": "ราคาปกติค่อนข้างสูง แนะนำให้รอช่วงแคมเปญ Double Day (เช่น 11.11, 12.12) หรือ Payday เพื่อใช้โค้ดส่วนลดเพิ่มจะคุ้มค่าที่สุด",
+    "voucherStackFormula": {
+      "basePrice": 1890,
+      "platformDiscount": 151,
+      "storeDiscount": 76,
+      "shippingDiscount": 40,
+      "finalPrice": 1550
+    },
+    "affiliateUrl": "https://shopee.co.th/search?keyword=Eucerin%20Spotless%20Brightening%20Booster%20Serum%20%E0%B9%80%E0%B8%8B%E0%B8%A3%E0%B8%B1%E0%B9%88%E0%B8%A1%E0%B8%A5%E0%B8%94%E0%B8%A3%E0%B8%AD%E0%B8%A2%E0%B8%94%E0%B8%B3"
+  },
+  {
+    "id": "ingested-1789297223277-fohp",
+    "title": "Kaniva อาหารแมว สูตรเนื้อไก่ ทูน่า และข้าว ขนาด 10 กก.",
+    "imageUrl": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80",
+    "category": "สัตว์เลี้ยง",
+    "tags": [
+      "อาหารแมว",
+      "Kaniva",
+      "อาหารเม็ด",
+      "สัตว์เลี้ยง",
+      "อาหารแมวพรีเมียม"
+    ],
+    "platform": "tiktok",
+    "storeName": "Kaniva Official Store",
+    "storeType": "mall",
+    "storeRating": 4.9,
+    "soldCount": 2450,
+    "basePrice": 1450,
+    "originalPrice": 1850,
+    "marketAvgPrice": 1490,
+    "estimatedFinalPrice": 1280,
+    "vipFinalPrice": 1150,
+    "hasOptionBait": false,
+    "baitWarningNote": "ไม่มีการทำ Option Bait รายการนี้เป็นสินค้าขนาดใหญ่ 10 กก. ราคาตรงตามตัวเลือก",
+    "thaiAuthenticityScore": 98,
+    "authenticitySummary": "แบรนด์ Kaniva มีการควบคุมการจัดจำหน่ายผ่าน Official Store และตัวแทนจำหน่ายที่น่าเชื่อถือสูง สินค้าขนาด 10 กก. มักเป็นบรรจุภัณฑ์มาตรฐานจากโรงงาน",
+    "reviews": [
+      {
+        "id": "r1-ingested-1789297223277-fohp",
+        "author": "ลูกค้าชาวไทย (ยืนยันคำสั่งซื้อ)",
+        "comment": "แมวทานแล้วขนสวยขึ้นชัดเจน",
+        "isAuthenticThai": true,
+        "authenticityNote": "ภาษาไทยธรรมชาติ รีวิวมีรูปภาพและวิดีโอแกะกล่องจริง",
+        "rating": 5,
+        "date": "3 วันที่แล้ว"
+      },
+      {
+        "id": "r2-ingested-1789297223277-fohp",
+        "author": "ช้อปดี รีวิวเวอร์",
+        "comment": "กลิ่นไม่ฉุนมาก",
+        "isAuthenticThai": true,
+        "authenticityNote": "ผู้ซื้อจริง มีประวัติการสั่งซื้อสม่ำเสมอ",
+        "rating": 5,
+        "date": "1 สัปดาห์ที่แล้ว"
+      }
+    ],
+    "freeShipping": true,
+    "availableVouchers": [
+      {
+        "id": "v1-ingested-1789297223277-fohp",
+        "code": "DEESHOP50",
+        "discountText": "ลด 50.- ขั้นต่ำ 300.-",
+        "minSpend": 300,
+        "discountAmount": 50,
+        "tag": "แพลตฟอร์ม"
+      },
+      {
+        "id": "v2-ingested-1789297223277-fohp",
+        "code": "MALL10PCT",
+        "discountText": "ลด 10% ร้าน Mall ทางการ",
+        "minSpend": 500,
+        "discountAmount": 145,
+        "tag": "ร้านค้า"
+      },
+      {
+        "id": "v3-ingested-1789297223277-fohp",
+        "code": "FREESHIP",
+        "discountText": "ส่งฟรี สูงสุด 40.-",
+        "minSpend": 99,
+        "discountAmount": 40,
+        "tag": "ส่งฟรี"
+      }
+    ],
+    "isAbsoluteCheapest": true,
+    "priceComparisons": [
+      {
+        "platform": "shopee",
+        "price": 1595,
+        "estimatedAfterVoucher": 1450,
+        "storeName": "Kaniva Official Store",
+        "storeType": "mall",
+        "url": "https://shopee.co.th/search?keyword=Kaniva%20%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B9%81%E0%B8%A1%E0%B8%A7%20%E0%B9%80%E0%B8%81%E0%B8%A3%E0%B8%94%E0%B8%9E%E0%B8%A3%E0%B8%B5%E0%B9%80%E0%B8%A1%E0%B8%B5%E0%B8%A2%E0%B8%A1%20%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B9%80%E0%B8%99%E0%B8%B7%E0%B9%89%E0%B8%AD%E0%B9%84%E0%B8%81%E0%B9%88%20%E0%B8%97%E0%B8%B9%E0%B8%99%E0%B9%88%E0%B8%B2%20%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%2010kg",
+        "inStock": true
+      },
+      {
+        "platform": "lazada",
+        "price": 1612,
+        "estimatedAfterVoucher": 1465,
+        "storeName": "Kaniva Flagship Store",
+        "storeType": "mall",
+        "url": "https://www.lazada.co.th/tag/Kaniva%20%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B9%81%E0%B8%A1%E0%B8%A7%20%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B9%80%E0%B8%99%E0%B8%B7%E0%B9%89%E0%B8%AD%E0%B9%84%E0%B8%81%E0%B9%88%20%E0%B8%97%E0%B8%B9%E0%B8%99%E0%B9%88%E0%B8%B2%20%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%20%E0%B8%82%E0%B8%99%E0%B8%B2%E0%B8%94%2010%20%E0%B8%81%E0%B8%81.",
+        "inStock": true
+      },
+      {
+        "platform": "tiktok",
+        "price": 1534,
+        "estimatedAfterVoucher": 1420,
+        "storeName": "Kaniva Thailand",
+        "storeType": "verified",
+        "url": "https://shop.tiktok.com/search?q=Kaniva%20%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B9%81%E0%B8%A1%E0%B8%A7%20%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B9%80%E0%B8%99%E0%B8%B7%E0%B9%89%E0%B8%AD%E0%B9%84%E0%B8%81%E0%B9%88%20%E0%B8%97%E0%B8%B9%E0%B8%99%E0%B9%88%E0%B8%B2%20%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%20%E0%B8%82%E0%B8%99%E0%B8%B2%E0%B8%94%2010%20%E0%B8%81%E0%B8%81.",
+        "inStock": true
+      }
+    ],
+    "stores": [
+      {
+        "id": "ingested-1789297223277-fohp-s1",
+        "platform": "tiktok",
+        "storeName": "TikTok Official",
+        "storeType": "mall",
+        "price": 1562,
+        "estimatedAfterVoucher": 1420,
+        "voucherNote": "โค้ดส่วนลดร้านค้า + ส่งฟรี",
+        "freeShipping": true,
+        "storeRating": 4.9,
+        "soldCount": 3200,
+        "isLowestOverall": true,
+        "url": "https://shopee.co.th/search?keyword=Kaniva%20%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B9%81%E0%B8%A1%E0%B8%A7%20%E0%B9%80%E0%B8%81%E0%B8%A3%E0%B8%94%E0%B8%9E%E0%B8%A3%E0%B8%B5%E0%B9%80%E0%B8%A1%E0%B8%B5%E0%B8%A2%E0%B8%A1%20%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B9%80%E0%B8%99%E0%B8%B7%E0%B9%89%E0%B8%AD%E0%B9%84%E0%B8%81%E0%B9%88%20%E0%B8%97%E0%B8%B9%E0%B8%99%E0%B9%88%E0%B8%B2%20%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%2010kg"
+      },
+      {
+        "id": "ingested-1789297223277-fohp-s2",
+        "platform": "shopee",
+        "storeName": "ร้านค้าแนะนำ ยอดขายดี",
+        "storeType": "preferred",
+        "price": 1633,
+        "estimatedAfterVoucher": 1477,
+        "voucherNote": "โค้ดลดเพิ่ม 5%",
+        "freeShipping": true,
+        "storeRating": 4.8,
+        "soldCount": 1850,
+        "isLowestOverall": false,
+        "url": "https://shopee.co.th/search?keyword=Kaniva%20%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B9%81%E0%B8%A1%E0%B8%A7%20%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B9%80%E0%B8%99%E0%B8%B7%E0%B9%89%E0%B8%AD%E0%B9%84%E0%B8%81%E0%B9%88%20%E0%B8%97%E0%B8%B9%E0%B8%99%E0%B9%88%E0%B8%B2%20%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%20%E0%B8%82%E0%B8%99%E0%B8%B2%E0%B8%94%2010%20%E0%B8%81%E0%B8%81."
+      },
+      {
+        "id": "ingested-1789297223277-fohp-s3",
+        "platform": "tiktok",
+        "storeName": "TikTok Live Shop",
+        "storeType": "verified",
+        "price": 1590,
+        "estimatedAfterVoucher": 1463,
+        "voucherNote": "คูปองไลฟ์สดลดพิเศษ",
+        "freeShipping": false,
+        "storeRating": 4.7,
+        "soldCount": 940,
+        "isLowestOverall": false,
+        "url": "https://shop.tiktok.com/search?q=Kaniva%20%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B9%81%E0%B8%A1%E0%B8%A7%20%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B9%80%E0%B8%99%E0%B8%B7%E0%B9%89%E0%B8%AD%E0%B9%84%E0%B8%81%E0%B9%88%20%E0%B8%97%E0%B8%B9%E0%B8%99%E0%B9%88%E0%B8%B2%20%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%20%E0%B8%82%E0%B8%99%E0%B8%B2%E0%B8%94%2010%20%E0%B8%81%E0%B8%81."
+      }
+    ],
+    "priceAdvice": "buy_now",
+    "priceAdviceNote": "ราคาปัจจุบันอยู่ในเกณฑ์ดี หากมีโค้ดส่วนลดจากแคมเปญ Double Day จะคุ้มค่ามาก",
+    "voucherStackFormula": {
+      "basePrice": 1450,
+      "platformDiscount": 116,
+      "storeDiscount": 58,
+      "shippingDiscount": 40,
+      "finalPrice": 1280
+    },
+    "affiliateUrl": "https://shopee.co.th/search?keyword=Kaniva%20%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%E0%B9%81%E0%B8%A1%E0%B8%A7%20%E0%B9%80%E0%B8%81%E0%B8%A3%E0%B8%94%E0%B8%9E%E0%B8%A3%E0%B8%B5%E0%B9%80%E0%B8%A1%E0%B8%B5%E0%B8%A2%E0%B8%A1%20%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B9%80%E0%B8%99%E0%B8%B7%E0%B9%89%E0%B8%AD%E0%B9%84%E0%B8%81%E0%B9%88%20%E0%B8%97%E0%B8%B9%E0%B8%99%E0%B9%88%E0%B8%B2%20%E0%B9%81%E0%B8%A5%E0%B8%B0%E0%B8%82%E0%B9%89%E0%B8%B2%E0%B8%A7%2010kg"
+  },
+  {
+    "id": "ingested-1789297265521-sdz4",
+    "title": "Cature ทรายแมวเต้าหู้ สูตรธรรมชาติ",
+    "imageUrl": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&auto=format&fit=crop&q=80",
+    "category": "สัตว์เลี้ยง",
+    "tags": [
+      "ทรายแมว",
+      "ทรายแมวเต้าหู้",
+      "Cature",
+      "อุปกรณ์สัตว์เลี้ยง"
+    ],
+    "platform": "tiktok",
+    "storeName": "Cature Official Store",
+    "storeType": "mall",
+    "storeRating": 4.9,
+    "soldCount": 2450,
+    "basePrice": 245,
+    "originalPrice": 350,
+    "marketAvgPrice": 239,
+    "estimatedFinalPrice": 210,
+    "vipFinalPrice": 189,
+    "hasOptionBait": true,
+    "baitWarningNote": "ระวังตัวเลือกสินค้าที่เป็น 'ถุงตัวอย่าง' หรือ 'อุปกรณ์ตักทราย' ที่มีราคาต่ำกว่า 50 บาท เพื่อดึงดูดการค้นหา",
+    "thaiAuthenticityScore": 96,
+    "authenticitySummary": "แบรนด์ Cature เป็นแบรนด์นำเข้าที่มีตัวแทนจำหน่ายชัดเจนในไทย สินค้าส่วนใหญ่ในแพลตฟอร์มหลักเป็นของแท้ ควรตรวจสอบสติกเกอร์ผู้นำเข้าและแพ็กเกจจิ้งที่ปิดสนิท",
+    "reviews": [
+      {
+        "id": "r1-ingested-1789297265521-sdz4",
+        "author": "ลูกค้าชาวไทย (ยืนยันคำสั่งซื้อ)",
+        "comment": "จับตัวเป็นก้อนเร็ว",
+        "isAuthenticThai": true,
+        "authenticityNote": "ภาษาไทยธรรมชาติ รีวิวมีรูปภาพและวิดีโอแกะกล่องจริง",
+        "rating": 5,
+        "date": "3 วันที่แล้ว"
+      },
+      {
+        "id": "r2-ingested-1789297265521-sdz4",
+        "author": "ช้อปดี รีวิวเวอร์",
+        "comment": "กลิ่นหอมธรรมชาติ ไม่ฉุน",
+        "isAuthenticThai": true,
+        "authenticityNote": "ผู้ซื้อจริง มีประวัติการสั่งซื้อสม่ำเสมอ",
+        "rating": 5,
+        "date": "1 สัปดาห์ที่แล้ว"
+      }
+    ],
+    "freeShipping": true,
+    "availableVouchers": [
+      {
+        "id": "v1-ingested-1789297265521-sdz4",
+        "code": "DEESHOP50",
+        "discountText": "ลด 50.- ขั้นต่ำ 300.-",
+        "minSpend": 300,
+        "discountAmount": 50,
+        "tag": "แพลตฟอร์ม"
+      },
+      {
+        "id": "v2-ingested-1789297265521-sdz4",
+        "code": "MALL10PCT",
+        "discountText": "ลด 10% ร้าน Mall ทางการ",
+        "minSpend": 500,
+        "discountAmount": 25,
+        "tag": "ร้านค้า"
+      },
+      {
+        "id": "v3-ingested-1789297265521-sdz4",
+        "code": "FREESHIP",
+        "discountText": "ส่งฟรี สูงสุด 40.-",
+        "minSpend": 99,
+        "discountAmount": 40,
+        "tag": "ส่งฟรี"
+      }
+    ],
+    "isAbsoluteCheapest": true,
+    "priceComparisons": [
+      {
+        "platform": "shopee",
+        "price": 263,
+        "estimatedAfterVoucher": 239,
+        "storeName": "Cature Official Store",
+        "storeType": "mall",
+        "url": "https://shopee.co.th/search?keyword=Cature%20%E0%B8%97%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B9%81%E0%B8%A1%E0%B8%A7%E0%B9%80%E0%B8%95%E0%B9%89%E0%B8%B2%E0%B8%AB%E0%B8%B9%E0%B9%89%20%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B8%98%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%8A%E0%B8%B2%E0%B8%95%E0%B8%B4%20%E0%B8%94%E0%B8%B1%E0%B8%9A%E0%B8%81%E0%B8%A5%E0%B8%B4%E0%B9%88%E0%B8%99%E0%B8%94%E0%B8%B5%E0%B9%80%E0%B8%A2%E0%B8%B5%E0%B9%88%E0%B8%A2%E0%B8%A1",
+        "inStock": true
+      },
+      {
+        "platform": "lazada",
+        "price": 274,
+        "estimatedAfterVoucher": 249,
+        "storeName": "Pet Shop Mall",
+        "storeType": "mall",
+        "url": "https://www.lazada.co.th/tag/Cature%20%E0%B8%97%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B9%81%E0%B8%A1%E0%B8%A7%E0%B9%80%E0%B8%95%E0%B9%89%E0%B8%B2%E0%B8%AB%E0%B8%B9%E0%B9%89%20%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B8%98%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%8A%E0%B8%B2%E0%B8%95%E0%B8%B4",
+        "inStock": true
+      },
+      {
+        "platform": "tiktok",
+        "price": 247,
+        "estimatedAfterVoucher": 229,
+        "storeName": "Cature Thailand",
+        "storeType": "verified",
+        "url": "https://shop.tiktok.com/search?q=Cature%20%E0%B8%97%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B9%81%E0%B8%A1%E0%B8%A7%E0%B9%80%E0%B8%95%E0%B9%89%E0%B8%B2%E0%B8%AB%E0%B8%B9%E0%B9%89%20%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B8%98%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%8A%E0%B8%B2%E0%B8%95%E0%B8%B4",
+        "inStock": true
+      }
+    ],
+    "stores": [
+      {
+        "id": "ingested-1789297265521-sdz4-s1",
+        "platform": "tiktok",
+        "storeName": "TikTok Official",
+        "storeType": "mall",
+        "price": 252,
+        "estimatedAfterVoucher": 229,
+        "voucherNote": "โค้ดส่วนลดร้านค้า + ส่งฟรี",
+        "freeShipping": true,
+        "storeRating": 4.9,
+        "soldCount": 3200,
+        "isLowestOverall": true,
+        "url": "https://shopee.co.th/search?keyword=Cature%20%E0%B8%97%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B9%81%E0%B8%A1%E0%B8%A7%E0%B9%80%E0%B8%95%E0%B9%89%E0%B8%B2%E0%B8%AB%E0%B8%B9%E0%B9%89%20%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B8%98%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%8A%E0%B8%B2%E0%B8%95%E0%B8%B4%20%E0%B8%94%E0%B8%B1%E0%B8%9A%E0%B8%81%E0%B8%A5%E0%B8%B4%E0%B9%88%E0%B8%99%E0%B8%94%E0%B8%B5%E0%B9%80%E0%B8%A2%E0%B8%B5%E0%B9%88%E0%B8%A2%E0%B8%A1"
+      },
+      {
+        "id": "ingested-1789297265521-sdz4-s2",
+        "platform": "shopee",
+        "storeName": "ร้านค้าแนะนำ ยอดขายดี",
+        "storeType": "preferred",
+        "price": 263,
+        "estimatedAfterVoucher": 238,
+        "voucherNote": "โค้ดลดเพิ่ม 5%",
+        "freeShipping": true,
+        "storeRating": 4.8,
+        "soldCount": 1850,
+        "isLowestOverall": false,
+        "url": "https://shopee.co.th/search?keyword=Cature%20%E0%B8%97%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B9%81%E0%B8%A1%E0%B8%A7%E0%B9%80%E0%B8%95%E0%B9%89%E0%B8%B2%E0%B8%AB%E0%B8%B9%E0%B9%89%20%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B8%98%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%8A%E0%B8%B2%E0%B8%95%E0%B8%B4"
+      },
+      {
+        "id": "ingested-1789297265521-sdz4-s3",
+        "platform": "tiktok",
+        "storeName": "TikTok Live Shop",
+        "storeType": "verified",
+        "price": 256,
+        "estimatedAfterVoucher": 236,
+        "voucherNote": "คูปองไลฟ์สดลดพิเศษ",
+        "freeShipping": false,
+        "storeRating": 4.7,
+        "soldCount": 940,
+        "isLowestOverall": false,
+        "url": "https://shop.tiktok.com/search?q=Cature%20%E0%B8%97%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B9%81%E0%B8%A1%E0%B8%A7%E0%B9%80%E0%B8%95%E0%B9%89%E0%B8%B2%E0%B8%AB%E0%B8%B9%E0%B9%89%20%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B8%98%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%8A%E0%B8%B2%E0%B8%95%E0%B8%B4"
+      }
+    ],
+    "priceAdvice": "fair_price",
+    "priceAdviceNote": "ราคาปัจจุบันอยู่ในเกณฑ์มาตรฐาน สามารถซื้อได้เลยหากต้องการใช้ด่วน แต่หากรอช่วง Double Day (เช่น 11.11) จะได้ราคาที่คุ้มค่ากว่า",
+    "voucherStackFormula": {
+      "basePrice": 245,
+      "platformDiscount": 20,
+      "storeDiscount": 10,
+      "shippingDiscount": 40,
+      "finalPrice": 210
+    },
+    "affiliateUrl": "https://shopee.co.th/search?keyword=Cature%20%E0%B8%97%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B9%81%E0%B8%A1%E0%B8%A7%E0%B9%80%E0%B8%95%E0%B9%89%E0%B8%B2%E0%B8%AB%E0%B8%B9%E0%B9%89%20%E0%B8%AA%E0%B8%B9%E0%B8%95%E0%B8%A3%E0%B8%98%E0%B8%A3%E0%B8%A3%E0%B8%A1%E0%B8%8A%E0%B8%B2%E0%B8%95%E0%B8%B4%20%E0%B8%94%E0%B8%B1%E0%B8%9A%E0%B8%81%E0%B8%A5%E0%B8%B4%E0%B9%88%E0%B8%99%E0%B8%94%E0%B8%B5%E0%B9%80%E0%B8%A2%E0%B8%B5%E0%B9%88%E0%B8%A2%E0%B8%A1"
+  }
+]
