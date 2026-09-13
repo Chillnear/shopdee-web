@@ -93,9 +93,15 @@ export function filterAndRankDeals(
       const text = `${deal.category} ${deal.tags.join(' ')} ${deal.title}`.toLowerCase();
 
       if (cat === 'พัดลม & เครื่องใช้ไฟฟ้า') {
-        return text.includes('พัดลม') || text.includes('หม้อทอด') || text.includes('ดูดฝุ่น') ||
+        if (text.includes('ขนตา') || text.includes('ถุงซิป')) return false;
+        return (
+          deal.category === 'พัดลม & เครื่องใช้ไฟฟ้า' ||
+          text.includes('พัดลม') || text.includes('หม้อทอด') || text.includes('ดูดฝุ่น') ||
           text.includes('ฟอกอากาศ') || text.includes('เครื่องใช้ไฟฟ้า') || text.includes('home appliances') ||
-          text.includes('appliances') || text.includes('kitchenware');
+          text.includes('appliances') || text.includes('กาต้มน้ำ') || text.includes('หม้อหุงข้าว') ||
+          text.includes('เตารีด') || text.includes('เครื่องปั่น') || text.includes('hatari') ||
+          text.includes('philips') || text.includes('tefal') || text.includes('simplus')
+        );
       }
       if (cat === 'ไอที & แกดเจ็ต') {
         return text.includes('หูฟัง') || text.includes('พาวเวอร์แบงค์') || text.includes('กล้อง') ||

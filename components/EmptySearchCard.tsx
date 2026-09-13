@@ -145,13 +145,14 @@ export function EmptySearchCard({
       )}
 
       {/* Reset Filter Button */}
-      <div className="mt-6 pt-4 border-t border-neutral-100">
+      <div className="mt-6 pt-4 border-t border-neutral-100 flex flex-col sm:flex-row items-center justify-center gap-2">
         <button
+          type="button"
           onClick={onClearFilters}
-          className="text-xs text-neutral-500 hover:text-neutral-800 font-bold inline-flex items-center gap-1.5 py-1 px-3 rounded-lg hover:bg-neutral-100 transition"
+          className="text-xs text-brand-700 hover:text-brand-800 bg-brand-50 hover:bg-brand-100 border border-brand-200 font-bold inline-flex items-center gap-1.5 py-2 px-4 rounded-xl transition cursor-pointer shadow-xs"
         >
           <RotateCcw className="w-3.5 h-3.5" />
-          <span>ล้างคำค้นหาและตัวกรองทั้งหมด</span>
+          <span>ล้างคำค้นหาและดูสินค้าทั้งหมด</span>
         </button>
       </div>
 
