@@ -1,6 +1,8 @@
 import { ImageResponse } from 'next/og';
 import { NextRequest } from 'next/server';
-import { MOCK_DEALS } from '@/lib/mock-data';
+import seededCatalog from '@/lib/seeded-catalog.json';
+import shopeeFeedCatalog from '@/lib/shopee-feed-catalog.json';
+import partnerCatalog from '@/lib/partner-catalog.json';
 
 export const runtime = 'edge';
 
@@ -20,21 +22,43 @@ async function getKanitFont(): Promise<ArrayBuffer | null> {
   return null;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function findDealById(dealId: string): any | null {
+  if (!dealId) return null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const inSeeded = (seededCatalog as any[]).find((d) => d.id === dealId);
+  if (inSeeded) return inSeeded;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const inShopee = (shopeeFeedCatalog as any[]).find((d) => d.id === dealId);
+  if (inShopee) return inShopee;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const inPartner = (partnerCatalog as any[]).find((d) => d.id === dealId);
+  if (inPartner) return inPartner;
+  return null;
+}
+
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
-  const dealId = searchParams.get('dealId') || 'deal-6';
+  const dealId = searchParams.get('dealId') || '';
   const isSquare = searchParams.get('format') === 'square';
 
-  // Find deal from mock catalog
-  const deal = MOCK_DEALS.find((d) => d.id === dealId) || MOCK_DEALS[0];
+  // Find deal from real catalogs (No more Baseus Bowie H1 Pro mock fallback!)
+  const foundDeal = findDealById(dealId);
 
-  const title = searchParams.get('title') || deal.title;
-  const currentPrice = Number(searchParams.get('price')) || deal.estimatedFinalPrice;
-  const regularPrice = Number(searchParams.get('marketPrice')) || deal.marketAvgPrice;
-  const platform = searchParams.get('platform') || deal.platform;
-  const rating = deal.storeRating || 4.9;
-  const soldCount = deal.soldCount ? `${(deal.soldCount / 1000).toFixed(1)}k ชิ้น` : '1.2k ชิ้น';
-  const savePercent = Math.round(((regularPrice - currentPrice) / regularPrice) * 100);
+  // Extract authentic deal properties with query parameter overrides
+  const title = searchParams.get('title') || foundDeal?.title || 'ดีลสินค้าลดราคาพิเศษ';
+  const currentPrice = Number(searchParams.get('price')) || foundDeal?.estimatedFinalPrice || foundDeal?.platforms?.[0]?.currentPrice || foundDeal?.basePrice || 0;
+  const rawRegularPrice = Number(searchParams.get('marketPrice')) || foundDeal?.originalPrice || foundDeal?.marketAvgPrice || foundDeal?.platforms?.[0]?.originalPrice || currentPrice;
+  const regularPrice = rawRegularPrice > currentPrice ? rawRegularPrice : currentPrice;
+  const platform = (searchParams.get('platform') || foundDeal?.platform || foundDeal?.platforms?.[0]?.platform || 'shopee').toLowerCase();
+  const storeName = searchParams.get('store') || foundDeal?.storeName || (foundDeal?.storeType === 'mall' ? 'ร้านทางการ Mall แท้ 100%' : 'ร้านค้าแนะนำ');
+  const rating = Number(searchParams.get('rating')) || foundDeal?.rating || foundDeal?.storeRating || 4.9;
+  const rawSold = searchParams.get('sold') || String(foundDeal?.reviewCount || foundDeal?.soldCount || 100);
+  const soldCount = Number(rawSold) >= 1000 ? `${(Number(rawSold) / 1000).toFixed(1)}k ชิ้น` : `${rawSold} ชิ้น`;
+  const imageUrl = searchParams.get('imageUrl') || foundDeal?.imageUrl || '';
+  
+  const savePercent = regularPrice > currentPrice ? Math.min(85, Math.round(((regularPrice - currentPrice) / regularPrice) * 100)) : 0;
+  const saveAmount = Math.max(0, regularPrice - currentPrice);
 
   // Platform brand colours
   const platformBg =
@@ -50,7 +74,8 @@ export async function GET(request: NextRequest) {
       ? 'Lazada'
       : 'TikTok Shop';
 
-  const otherStores = (deal.stores || []).slice(0, 3);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const otherStores = ((foundDeal?.stores || []) as any[]).slice(0, 3);
 
   const width = isSquare ? 1080 : 1200;
   const height = isSquare ? 1080 : 630;
@@ -148,12 +173,12 @@ export async function GET(request: NextRequest) {
                 </span>
               </div>
               <span style={{ fontSize: '13px', color: '#9ca3af', fontWeight: 600 }}>
-                ระบบตรวจจับดีลแท้ เทียบราคา 3 แอปเรียลไทม์
+                ระบบเปรียบเทียบราคา 3 แพลตฟอร์ม • Shopee • Lazada • TikTok Shop
               </span>
             </div>
           </div>
 
-          {/* Deal of the Day Badge */}
+          {/* Deal Badge */}
           <div
             style={{
               display: 'flex',
@@ -168,7 +193,7 @@ export async function GET(request: NextRequest) {
               fontWeight: 800,
             }}
           >
-            <span>ดีลถูกสุดอันดับ #1 วันนี้</span>
+            <span>ดีลของแท้ ราคาจริง</span>
           </div>
         </div>
 
@@ -183,14 +208,14 @@ export async function GET(request: NextRequest) {
             margin: '20px 0',
           }}
         >
-          {/* Left: Product visual block */}
+          {/* Left: Product visual block with REAL product image */}
           <div
             style={{
               width: isSquare ? '320px' : '280px',
               height: isSquare ? '320px' : '280px',
               borderRadius: '28px',
-              background: '#1f2937',
-              border: '2px solid rgba(255, 255, 255, 0.1)',
+              background: '#ffffff',
+              border: '2px solid rgba(255, 255, 255, 0.2)',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
@@ -200,72 +225,75 @@ export async function GET(request: NextRequest) {
               flexShrink: 0,
             }}
           >
-            {/* Platform corner pill */}
+            {/* Real Product Image */}
+            {imageUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={imageUrl}
+                alt={title}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                }}
+              />
+            ) : (
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: '100%',
+                  height: '100%',
+                  background: '#1f2937',
+                  color: '#9ca3af',
+                  fontSize: '48px',
+                }}
+              >
+                🛒
+              </div>
+            )}
+
+            {/* Platform corner pill overlay */}
             <div
               style={{
                 display: 'flex',
                 position: 'absolute',
-                top: '16px',
-                left: '16px',
+                top: '14px',
+                left: '14px',
                 padding: '6px 14px',
                 borderRadius: '12px',
                 background: platformBg,
                 color: '#ffffff',
                 fontSize: '13px',
                 fontWeight: 800,
-                boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.4)',
               }}
             >
               {platformName}
             </div>
 
-            {/* Discount Badge */}
-            <div
-              style={{
-                display: 'flex',
-                position: 'absolute',
-                bottom: '16px',
-                right: '16px',
-                padding: '6px 14px',
-                borderRadius: '12px',
-                background: '#dc2626',
-                color: '#ffffff',
-                fontSize: '16px',
-                fontWeight: 900,
-                boxShadow: '0 4px 12px rgba(220,38,38,0.4)',
-              }}
-            >
-              -{savePercent}%
-            </div>
-
-            {/* Center icon / preview representation */}
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                textAlign: 'center',
-                padding: '24px',
-              }}
-            >
-              <div style={{ display: 'flex', fontSize: '56px', marginBottom: '8px' }}>📦</div>
+            {/* Discount Badge overlay */}
+            {savePercent > 0 && (
               <div
                 style={{
                   display: 'flex',
-                  fontSize: '14px',
-                  color: '#e5e7eb',
-                  fontWeight: 700,
-                  maxWidth: '220px',
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
+                  position: 'absolute',
+                  bottom: '14px',
+                  right: '14px',
+                  padding: '6px 12px',
+                  borderRadius: '12px',
+                  background: '#dc2626',
+                  color: '#ffffff',
+                  fontSize: '15px',
+                  fontWeight: 900,
+                  boxShadow: '0 4px 12px rgba(220,38,38,0.5)',
                 }}
               >
-                {deal.storeName}
+                -{savePercent}%
               </div>
-              <div style={{ display: 'flex', fontSize: '12px', color: '#10b981', fontWeight: 700, marginTop: '4px' }}>
-                ร้านค้าแท้ตรวจสอบแล้ว
-              </div>
-            </div>
+            )}
           </div>
 
           {/* Right: Info, Price, Comparison */}
@@ -281,20 +309,30 @@ export async function GET(request: NextRequest) {
             <div
               style={{
                 display: 'flex',
-                fontSize: isSquare ? '30px' : '26px',
+                fontSize: isSquare ? '28px' : '24px',
                 fontWeight: 900,
                 lineHeight: 1.3,
-                marginBottom: '14px',
+                marginBottom: '10px',
                 color: '#ffffff',
-                maxHeight: '74px',
+                maxHeight: '66px',
                 overflow: 'hidden',
               }}
             >
               {title}
             </div>
 
+            {/* Store Name & Verification */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
+              <span style={{ fontSize: '13px', color: '#e5e7eb', fontWeight: 700 }}>
+                ร้าน: {storeName}
+              </span>
+              <span style={{ fontSize: '12px', color: '#10b981', fontWeight: 700 }}>
+                • สินค้าแท้ 100%
+              </span>
+            </div>
+
             {/* Social Proof Tags */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '18px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
               <div
                 style={{
                   display: 'flex',
@@ -339,7 +377,7 @@ export async function GET(request: NextRequest) {
                   fontWeight: 700,
                 }}
               >
-                <span>โค้ดลดซ้อน 4 ต่อ</span>
+                <span>ตรวจแล้วราคาถูกสุด</span>
               </div>
             </div>
 
@@ -349,8 +387,8 @@ export async function GET(request: NextRequest) {
                 display: 'flex',
                 alignItems: 'baseline',
                 gap: '16px',
-                marginBottom: '18px',
-                padding: '16px 20px',
+                marginBottom: '16px',
+                padding: '14px 20px',
                 borderRadius: '20px',
                 background: 'rgba(16, 185, 129, 0.08)',
                 border: '1.5px solid rgba(16, 185, 129, 0.3)',
@@ -358,11 +396,11 @@ export async function GET(request: NextRequest) {
             >
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <span style={{ fontSize: '13px', color: '#10b981', fontWeight: 800 }}>
-                  ราคาเน็ตหลังหักโค้ด
+                  ราคาสุทธิที่จ่ายจริง
                 </span>
                 <span
                   style={{
-                    fontSize: isSquare ? '52px' : '44px',
+                    fontSize: isSquare ? '48px' : '40px',
                     fontWeight: 900,
                     color: '#10b981',
                     lineHeight: 1,
@@ -373,39 +411,43 @@ export async function GET(request: NextRequest) {
                 </span>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', marginLeft: '12px' }}>
-                <span style={{ fontSize: '12px', color: '#9ca3af' }}>ราคาปกติหน้าร้าน</span>
-                <span
+              {regularPrice > currentPrice && (
+                <div style={{ display: 'flex', flexDirection: 'column', marginLeft: '12px' }}>
+                  <span style={{ fontSize: '12px', color: '#9ca3af' }}>ราคาปกติหน้าร้าน</span>
+                  <span
+                    style={{
+                      fontSize: '20px',
+                      color: '#6b7280',
+                      textDecoration: 'line-through',
+                      fontWeight: 600,
+                    }}
+                  >
+                    ฿{regularPrice.toLocaleString('th-TH')}
+                  </span>
+                </div>
+              )}
+
+              {saveAmount > 0 && (
+                <div
                   style={{
-                    fontSize: '22px',
-                    color: '#6b7280',
-                    textDecoration: 'line-through',
-                    fontWeight: 600,
+                    marginLeft: 'auto',
+                    display: 'flex',
+                    alignItems: 'center',
+                    padding: '6px 14px',
+                    borderRadius: '12px',
+                    background: '#10b981',
+                    color: '#064e3b',
+                    fontWeight: 900,
+                    fontSize: '14px',
                   }}
                 >
-                  ฿{regularPrice.toLocaleString('th-TH')}
-                </span>
-              </div>
-
-              <div
-                style={{
-                  marginLeft: 'auto',
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: '6px 14px',
-                  borderRadius: '12px',
-                  background: '#10b981',
-                  color: '#064e3b',
-                  fontWeight: 900,
-                  fontSize: '14px',
-                }}
-              >
-                ประหยัด ฿{(regularPrice - currentPrice).toLocaleString('th-TH')}
-              </div>
+                  ประหยัด ฿{saveAmount.toLocaleString('th-TH')}
+                </div>
+              )}
             </div>
 
-            {/* Intra-Platform Mini Comparison Bar */}
-            {otherStores.length > 0 && (
+            {/* Intra-Platform Mini Comparison Bar or Authenticity Tag */}
+            {otherStores.length > 0 ? (
               <div
                 style={{
                   display: 'flex',
@@ -420,7 +462,7 @@ export async function GET(request: NextRequest) {
                 <span style={{ fontSize: '12px', color: '#9ca3af', fontWeight: 700, marginRight: '4px' }}>
                   เทียบร้านอื่น:
                 </span>
-                {otherStores.map((st, idx) => (
+                {otherStores.map((st: any, idx: number) => (
                   <div
                     key={idx}
                     style={{
@@ -436,10 +478,27 @@ export async function GET(request: NextRequest) {
                     }}
                   >
                     <span>{st.platform === 'shopee' ? 'Shopee' : st.platform === 'lazada' ? 'Lazada' : 'TikTok'}:</span>
-                    <span>฿{st.estimatedAfterVoucher.toLocaleString('th-TH')}</span>
+                    <span>฿{Number(st.estimatedAfterVoucher || st.price || 0).toLocaleString('th-TH')}</span>
                     {idx === 0 && <span>(ถูกสุด)</span>}
                   </div>
                 ))}
+              </div>
+            ) : (
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  background: 'rgba(255, 255, 255, 0.04)',
+                  padding: '10px 16px',
+                  borderRadius: '16px',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  fontSize: '12px',
+                  color: '#9ca3af',
+                  fontWeight: 600,
+                }}
+              >
+                <span>🛡️ สินค้าแท้ 100% ตรวจสอบแล้วจาก ShopDee • ราคาจริง ไม่จกตา</span>
               </div>
             )}
           </div>
@@ -459,7 +518,7 @@ export async function GET(request: NextRequest) {
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span style={{ fontSize: '13px', color: '#9ca3af' }}>
-              ตรวจสอบและอัปเดตราคาอัตโนมัติทุก 1 ชม. • Shopee • Lazada • TikTok Shop
+              ตรวจสอบและอัปเดตราคาอัตโนมัติ • Shopee • Lazada • TikTok Shop
             </span>
           </div>
 
@@ -477,7 +536,7 @@ export async function GET(request: NextRequest) {
               boxShadow: '0 4px 14px rgba(234, 88, 12, 0.3)',
             }}
           >
-            <span>ช้อปดีลนี้ที่ shopdee.th</span>
+            <span>ช้อปดีลนี้ที่ shopdee-th.com</span>
           </div>
         </div>
       </div>

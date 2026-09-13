@@ -1,5 +1,5 @@
 import { ProductDeal } from './types';
-import { MOCK_DEALS } from './mock-data';
+import { loadFullCatalog } from './catalog-loader';
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -39,7 +39,7 @@ async function supabaseFetch<T>(endpoint: string, options: RequestInit = {}): Pr
 
 /**
  * Retrieve all product deals
- * Seamlessly falls back to mock data if Supabase is not connected
+ * Seamlessly falls back to real catalog if Supabase is not connected
  */
 export async function getDeals(): Promise<ProductDeal[]> {
   if (isSupabaseConfigured) {
@@ -48,11 +48,11 @@ export async function getDeals(): Promise<ProductDeal[]> {
       return data;
     }
   }
-  return MOCK_DEALS;
+  return await loadFullCatalog();
 }
 
 /**
- * Retrieve single deal by ID
+ * Retrieve single deal by ID from real catalog
  */
 export async function getDealById(id: string): Promise<ProductDeal | null> {
   if (isSupabaseConfigured) {
@@ -61,7 +61,8 @@ export async function getDealById(id: string): Promise<ProductDeal | null> {
       return data[0];
     }
   }
-  return MOCK_DEALS.find((d) => d.id === id) || null;
+  const allDeals = await loadFullCatalog();
+  return allDeals.find((d) => d.id === id) || null;
 }
 
 /**

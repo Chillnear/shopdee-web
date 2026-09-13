@@ -30,11 +30,26 @@ export function ShareDealModal({ deal, onClose }: ShareDealModalProps) {
   if (!deal) return null;
 
   // Base URL resolution
-  const origin = typeof window !== 'undefined' ? window.location.origin : 'https://shopdee.th';
+  const origin = typeof window !== 'undefined' ? window.location.origin : 'https://shopdee-th.com';
   const affiliateRedirectUrl = `${origin}/api/redirect?dealId=${deal.id}&platform=${deal.platform}&url=${encodeURIComponent(deal.affiliateUrl)}`;
-  const ogImageUrl = `${origin}/api/og/deal?dealId=${deal.id}${cardFormat === 'square' ? '&format=square' : ''}`;
-  const saveAmount = Math.max(0, deal.marketAvgPrice - deal.estimatedFinalPrice);
-  const discountPercent = Math.round(((deal.marketAvgPrice - deal.estimatedFinalPrice) / deal.marketAvgPrice) * 100);
+  
+  // Pass complete authentic deal parameters so OG image card preview & download 100% matches the exact product
+  const ogParams = new URLSearchParams({
+    dealId: deal.id,
+    title: deal.title,
+    price: String(deal.estimatedFinalPrice),
+    marketPrice: String(deal.originalPrice || deal.marketAvgPrice || deal.estimatedFinalPrice),
+    platform: deal.platform,
+    store: deal.storeName,
+    rating: String(deal.storeRating || 4.9),
+    sold: String(deal.soldCount || 120),
+    imageUrl: deal.imageUrl,
+    format: cardFormat,
+  });
+  const ogImageUrl = `${origin}/api/og/deal?${ogParams.toString()}`;
+  
+  const saveAmount = Math.max(0, (deal.originalPrice || deal.marketAvgPrice) - deal.estimatedFinalPrice);
+  const discountPercent = Math.round((((deal.originalPrice || deal.marketAvgPrice) - deal.estimatedFinalPrice) / (deal.originalPrice || deal.marketAvgPrice)) * 100);
 
   const isMulti = (deal.priceComparisons?.filter(pc => pc.hasDirectProduct !== false && pc.price > 0).length || 1) >= 3;
 
@@ -216,10 +231,11 @@ ${affiliateRedirectUrl}`
           <div className="relative rounded-2xl overflow-hidden border border-neutral-200 dark:border-neutral-800 bg-neutral-950 shadow-inner group">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
+              key={ogImageUrl}
               src={ogImageUrl}
-              alt="Social Deal Card Preview"
+              alt={deal.title}
               className="w-full h-auto object-contain transition group-hover:scale-[1.01]"
-              loading="lazy"
+              loading="eager"
             />
             <div className="absolute bottom-3 right-3">
               <button
