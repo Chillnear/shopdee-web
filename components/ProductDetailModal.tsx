@@ -255,7 +255,8 @@ export function ProductDetailModal({
 
               <div className="space-y-1.5">
                 {deal.priceComparisons.map((pc) => {
-                  const isLowest = pc.platform === deal.platform;
+                  const hasDirect = pc.hasDirectProduct !== false && pc.price > 0;
+                  const isLowest = pc.platform === deal.platform && hasDirect;
                   const meta = getPlatformMeta(pc.platform);
                   return (
                     <div
@@ -270,24 +271,30 @@ export function ProductDetailModal({
                         <span className={`w-2.5 h-2.5 rounded-full ${isLowest ? 'bg-emerald-500' : 'bg-neutral-300'}`}></span>
                         <div>
                           <span className="font-bold text-xs text-neutral-800 block">{meta.name}</span>
-                          <span className="text-[10px] text-neutral-400">{pc.storeName}</span>
+                          <span className="text-[10px] text-neutral-400">{hasDirect ? pc.storeName : 'ยังไม่มีลิงก์ตรง'}</span>
                         </div>
                       </div>
 
                       <div className="text-right">
-                        <div className="flex items-center gap-1.5">
-                          <span className={`text-sm font-black ${isLowest ? 'text-emerald-700' : 'text-neutral-800'}`}>
-                            {formatTHB(pc.price)}
-                          </span>
-                          {isLowest && (
-                            <span className="text-[9px] bg-emerald-600 text-white font-bold px-1.5 py-0.5 rounded">
-                              ถูกสุด ✅
+                        {hasDirect ? (
+                          <>
+                            <div className="flex items-center gap-1.5 justify-end">
+                              <span className={`text-sm font-black ${isLowest ? 'text-emerald-700' : 'text-neutral-800'}`}>
+                                {formatTHB(pc.price)}
+                              </span>
+                              {isLowest && (
+                                <span className="text-[9px] bg-emerald-600 text-white font-bold px-1.5 py-0.5 rounded">
+                                  ถูกสุด ✅
+                                </span>
+                              )}
+                            </div>
+                            <span className="text-[10px] text-neutral-400 block">
+                              หลังโค้ด ~{formatTHB(pc.estimatedAfterVoucher)}
                             </span>
-                          )}
-                        </div>
-                        <span className="text-[10px] text-neutral-400 block">
-                          หลังโค้ด ~{formatTHB(pc.estimatedAfterVoucher)}
-                        </span>
+                          </>
+                        ) : (
+                          <span className="text-xs text-neutral-400 font-medium">รออัปเดตลิงก์ตรง</span>
+                        )}
                       </div>
                     </div>
                   );

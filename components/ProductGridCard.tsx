@@ -176,7 +176,7 @@ export function ProductGridCard({
               onClick={() => onOpenDetail(deal)}
               className="flex-1 py-1.5 px-2 rounded-xl bg-neutral-100/90 hover:bg-neutral-200 text-neutral-700 text-[11px] font-bold transition flex items-center justify-center gap-0.5"
             >
-              <span>{deal.priceComparisons.length >= 3 ? 'เทียบ 3 แอป' : 'ดูรายละเอียด'}</span>
+              <span>{deal.priceComparisons?.filter(pc => pc.hasDirectProduct !== false && pc.price > 0).length >= 3 ? 'เทียบ 3 แอป' : 'ดูรายละเอียด'}</span>
               <ChevronRight className="w-3 h-3 text-neutral-400" />
             </button>
 

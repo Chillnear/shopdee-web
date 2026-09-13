@@ -22,7 +22,7 @@ const PLATFORM_HOSTS: Record<Platform, string[]> = {
   tiktok: ['tiktok.com', 'tiktokshop.com'],
 };
 
-function isUsablePlatformUrl(value: unknown, platform: Platform): value is string {
+export function isUsablePlatformUrl(value: unknown, platform: Platform): value is string {
   if (typeof value !== 'string' || !value.trim()) return false;
 
   try {
@@ -33,7 +33,7 @@ function isUsablePlatformUrl(value: unknown, platform: Platform): value is strin
     if (!hostMatches) return false;
 
     // Search/tag landing pages are not product links and cannot substantiate a deal.
-    return !['/search', '/tag', '/keyword'].some((prefix) => url.pathname.startsWith(prefix));
+    return !['/search', '/tag', '/keyword', '/catalog'].some((prefix) => url.pathname.startsWith(prefix));
   } catch {
     return false;
   }
@@ -138,6 +138,7 @@ function makeStoreOffer(
     isBestStore: isBestStore ?? (storeType === 'mall'),
     badgeNote,
     url: affiliateUrl || `https://shopee.co.th`,
+    isDirectProduct: isUsablePlatformUrl(affiliateUrl, platform),
   };
 }
 
@@ -194,38 +195,49 @@ function adaptFeedItem(raw: AnyRecord): ProductDeal | null {
     const cleanKeywords = extractSearchKeywords(title, raw.brand as string);
     const queryEnc = encodeURIComponent(cleanKeywords);
 
-    // Cross-platform search & deep link URLs (100% ban-safe, opens real search on web & app)
-    const shopeeSearchUrl = `https://shopee.co.th/search?keyword=${queryEnc}`;
-    const lazadaSearchUrl = `https://www.lazada.co.th/catalog/?q=${queryEnc}`;
-    const lazadaMallUrl = `https://www.lazada.co.th/catalog/?q=${queryEnc}&service=official`;
-    const tiktokSearchUrl = `https://www.tiktok.com/search?q=${queryEnc}`;
-
-    // Deterministic realistic marketplace price variation (based on ID hash)
-    const h = hashStr(id);
-    const shopeeWholesalePrice = Math.max(10, Math.round(shopeePrice * (isMall ? 0.95 : 0.97)));
-    const lazadaMultiplier = (h % 5 === 0) ? 0.97 : (h % 5 === 1) ? 1.00 : (1.02 + ((h % 4) * 0.02));
-    const lazadaPrice = Math.max(15, Math.round(shopeePrice * lazadaMultiplier));
-
-    const tiktokMultiplier = (h % 7 === 0) ? 0.96 : (0.99 + ((h % 5) * 0.02));
-    const tiktokPrice = Math.max(15, Math.round(shopeePrice * tiktokMultiplier));
-
-    // 1. Cross-platform 3-App Comparisons
+    // 1. Cross-platform 3-App Comparisons (Only direct verified product offers, zero fake search deals)
+    const isShopeeDirect = isUsablePlatformUrl(affiliateUrl, 'shopee');
     const priceComparisons: PlatformPriceComparison[] = [
-      makePlatformComparison('shopee', shopeePrice, origPrice, discount, affiliateUrl, storeName, storeType),
-      makePlatformComparison('lazada', lazadaPrice, Math.round(lazadaPrice * 1.15), Math.max(5, discount - 3), lazadaSearchUrl, 'LazMall / Lazada TH', 'mall'),
-      makePlatformComparison('tiktok', tiktokPrice, Math.round(tiktokPrice * 1.12), Math.max(5, discount - 2), tiktokSearchUrl, 'TikTok Shop', 'verified'),
+      {
+        platform: 'shopee',
+        price: shopeePrice,
+        estimatedAfterVoucher: Math.round(shopeePrice * 0.95),
+        storeName,
+        storeType,
+        url: affiliateUrl,
+        inStock: true,
+        hasDirectProduct: isShopeeDirect,
+      },
+      {
+        platform: 'lazada',
+        price: 0,
+        estimatedAfterVoucher: 0,
+        storeName: 'ยังไม่มีลิงก์ตรง',
+        storeType: 'regular',
+        url: '',
+        inStock: false,
+        hasDirectProduct: false,
+      },
+      {
+        platform: 'tiktok',
+        price: 0,
+        estimatedAfterVoucher: 0,
+        storeName: 'ยังไม่มีลิงก์ตรง',
+        storeType: 'regular',
+        url: '',
+        inStock: false,
+        hasDirectProduct: false,
+      },
     ];
 
-    // 2. Cross-platform & Multi-Store Offers (ตอบโจทย์ 3 แพลตฟอร์ม: Shopee vs Lazada vs TikTok)
-    const brandSimple = raw.brand && raw.brand !== 'NoBrand' ? String(raw.brand).split(/[\(\s]/)[0] : '';
+    // 2. Real Store Offers (Only 100% verified direct product links)
     const stores: StoreOffer[] = [
-      // 1. Shopee Main Offer (Direct Verified Product Link from feed)
       makeStoreOffer(
         `${id}-shopee`,
         'shopee',
         shopeePrice,
         affiliateUrl,
-        false,
+        true, // isLowestOverall
         soldCount,
         storeName,
         storeType,
@@ -233,74 +245,12 @@ function adaptFeedItem(raw: AnyRecord): ProductDeal | null {
         Number(raw.rating ?? 4.8),
         isMall, // isBestStore if mall
         isMall ? 'Shopee Mall แท้' : 'ร้านแนะนำ',
-        false,
-        shopeePrice >= 99
-      ),
-      // 2. Lazada LazMall / Search Offer (Direct Lazada Link)
-      makeStoreOffer(
-        `${id}-lazada`,
-        'lazada',
-        lazadaPrice,
-        lazadaMallUrl,
-        false,
-        Math.round(soldCount * 0.7) + 85,
-        brandSimple ? `${brandSimple} LazMall Flagship` : 'LazMall Flagship Store',
-        'mall',
-        '🛡️ LazMall การันตีของแท้ 100% ส่งด่วน',
-        4.9,
-        true, // isBestStore
-        'LazMall แท้',
-        false,
-        true
-      ),
-      // 3. TikTok Shop Search Offer (Direct TikTok Link)
-      makeStoreOffer(
-        `${id}-tiktok`,
-        'tiktok',
-        tiktokPrice,
-        tiktokSearchUrl,
-        false,
-        Math.round(soldCount * 0.5) + 60,
-        brandSimple ? `${brandSimple} TikTok Shop` : 'TikTok Shop Official',
-        'verified',
-        '🎥 คูปองไลฟ์สดลดพิเศษ + ส่งฟรี 0.-',
-        4.8,
-        false,
-        'TikTok Shop',
         true, // isBestValue
-        true
-      ),
-      // 4. Shopee Alternative Sellers (Search link for other Shopee sellers, NEVER identical to affiliateUrl!)
-      makeStoreOffer(
-        `${id}-shopee-alt`,
-        'shopee',
-        shopeeWholesalePrice,
-        shopeeSearchUrl,
-        false,
-        Math.round(soldCount * 0.6) + 120,
-        'ค้นหาร้านอื่นใน Shopee (ราคาส่ง)',
-        'preferred',
-        '🔥 ค้นหาร้านค้าราคาส่งทางเลือกใน Shopee',
-        4.8,
-        false,
-        'Shopee ทางเลือก',
-        false,
-        shopeeWholesalePrice >= 99
+        shopeePrice >= 99
       ),
     ];
 
-    // Find the store with minimum estimated price
-    let lowestPrice = Infinity;
-    let lowestIndex = 0;
-    stores.forEach((s, idx) => {
-      if (s.estimatedAfterVoucher < lowestPrice) {
-        lowestPrice = s.estimatedAfterVoucher;
-        lowestIndex = idx;
-      }
-    });
-    stores[lowestIndex].isLowestOverall = true;
-
-    const isAbsoluteCheapest = shopeePrice <= lazadaPrice && shopeePrice <= tiktokPrice;
+    const isAbsoluteCheapest = true;
 
     const availableVouchers: Voucher[] = [
       makeVoucher('shopee', discount, shopeePrice),
@@ -364,44 +314,40 @@ function normalizePartnerItem(raw: AnyRecord): ProductDeal | null {
       return null;
     }
 
-    const cleanKeywords = extractSearchKeywords(title);
-    const queryEnc = encodeURIComponent(cleanKeywords);
-
-    const shopeeSearchUrl = `https://shopee.co.th/search?keyword=${queryEnc}`;
-    const lazadaSearchUrl = `https://www.lazada.co.th/catalog/?q=${queryEnc}`;
-    const lazadaMallUrl = `https://www.lazada.co.th/catalog/?q=${queryEnc}&service=official`;
-    const tiktokSearchUrl = `https://www.tiktok.com/search?q=${queryEnc}`;
-
+    const isDirect = isUsablePlatformUrl(affiliateUrl, platform);
     const storeType = (raw.storeType as StoreType) ?? 'regular';
     const storeName = String(raw.storeName ?? `${platform} store`);
 
     const priceComparisons: PlatformPriceComparison[] = [
       {
         platform: 'shopee',
-        price: platform === 'shopee' ? price : Math.round(price * 1.03),
-        estimatedAfterVoucher: platform === 'shopee' ? Math.round(price * 0.95) : Math.round(price * 0.98),
-        storeName: platform === 'shopee' ? storeName : 'Shopee Mall / Official',
-        storeType: platform === 'shopee' ? storeType : 'mall',
-        url: platform === 'shopee' ? affiliateUrl : shopeeSearchUrl,
-        inStock: true,
+        price: platform === 'shopee' ? price : 0,
+        estimatedAfterVoucher: platform === 'shopee' ? Math.round(price * 0.95) : 0,
+        storeName: platform === 'shopee' ? storeName : 'ยังไม่มีลิงก์ตรง',
+        storeType: platform === 'shopee' ? storeType : 'regular',
+        url: platform === 'shopee' ? affiliateUrl : '',
+        inStock: platform === 'shopee',
+        hasDirectProduct: platform === 'shopee' && isDirect,
       },
       {
         platform: 'lazada',
-        price: platform === 'lazada' ? price : Math.round(price * 1.04),
-        estimatedAfterVoucher: platform === 'lazada' ? Math.round(price * 0.95) : Math.round(price * 0.99),
-        storeName: platform === 'lazada' ? storeName : 'LazMall Flagship',
-        storeType: platform === 'lazada' ? storeType : 'mall',
-        url: platform === 'lazada' ? affiliateUrl : lazadaSearchUrl,
-        inStock: true,
+        price: platform === 'lazada' ? price : 0,
+        estimatedAfterVoucher: platform === 'lazada' ? Math.round(price * 0.95) : 0,
+        storeName: platform === 'lazada' ? storeName : 'ยังไม่มีลิงก์ตรง',
+        storeType: platform === 'lazada' ? storeType : 'regular',
+        url: platform === 'lazada' ? affiliateUrl : '',
+        inStock: platform === 'lazada',
+        hasDirectProduct: platform === 'lazada' && isDirect,
       },
       {
         platform: 'tiktok',
-        price: platform === 'tiktok' ? price : Math.round(price * 1.02),
-        estimatedAfterVoucher: platform === 'tiktok' ? Math.round(price * 0.95) : Math.round(price * 0.97),
-        storeName: platform === 'tiktok' ? storeName : 'TikTok Shop Official',
-        storeType: platform === 'tiktok' ? storeType : 'verified',
-        url: platform === 'tiktok' ? affiliateUrl : tiktokSearchUrl,
-        inStock: true,
+        price: platform === 'tiktok' ? price : 0,
+        estimatedAfterVoucher: platform === 'tiktok' ? Math.round(price * 0.95) : 0,
+        storeName: platform === 'tiktok' ? storeName : 'ยังไม่มีลิงก์ตรง',
+        storeType: platform === 'tiktok' ? storeType : 'regular',
+        url: platform === 'tiktok' ? affiliateUrl : '',
+        inStock: platform === 'tiktok',
+        hasDirectProduct: platform === 'tiktok' && isDirect,
       },
     ];
 
@@ -418,58 +364,11 @@ function normalizePartnerItem(raw: AnyRecord): ProductDeal | null {
         storeRating: Number(raw.storeRating || 4.8),
         soldCount: Number(raw.reviewCount || 120),
         isLowestOverall: true,
-        isBestValue: false,
+        isBestValue: true,
         isBestStore: storeType === 'mall',
         badgeNote: 'ลิงก์ตรงหน้าสินค้า',
         url: affiliateUrl,
-      },
-      {
-        id: `${raw.id}-shopee-official`,
-        platform: 'shopee',
-        storeName: 'Shopee Official Store',
-        storeType: 'mall',
-        price: Math.round(price * 1.04),
-        estimatedAfterVoucher: Math.round(price * 0.98),
-        voucherNote: '🛡️ Shopee Mall การันตีแท้ 100%',
-        freeShipping: true,
-        storeRating: 4.9,
-        soldCount: 350,
-        isLowestOverall: false,
-        isBestStore: true,
-        badgeNote: 'ร้านทางการ (Mall)',
-        url: shopeeSearchUrl,
-      },
-      {
-        id: `${raw.id}-lazada-mall`,
-        platform: 'lazada',
-        storeName: 'LazMall Flagship',
-        storeType: 'mall',
-        price: Math.round(price * 1.05),
-        estimatedAfterVoucher: Math.round(price * 0.99),
-        voucherNote: '🛡️ LazMall ของแท้ 100%',
-        freeShipping: true,
-        storeRating: 4.9,
-        soldCount: 290,
-        isLowestOverall: false,
-        isBestStore: true,
-        badgeNote: 'LazMall แท้',
-        url: lazadaMallUrl,
-      },
-      {
-        id: `${raw.id}-tiktok-shop`,
-        platform: 'tiktok',
-        storeName: 'TikTok Shop Verified',
-        storeType: 'verified',
-        price: Math.round(price * 1.02),
-        estimatedAfterVoucher: Math.round(price * 0.97),
-        voucherNote: '🎥 คูปองไลฟ์สดลดเพิ่ม',
-        freeShipping: false,
-        storeRating: 4.8,
-        soldCount: 180,
-        isLowestOverall: false,
-        isBestStore: false,
-        badgeNote: 'TikTok Shop',
-        url: tiktokSearchUrl,
+        isDirectProduct: isDirect,
       },
     ];
 

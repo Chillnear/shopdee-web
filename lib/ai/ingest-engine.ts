@@ -4,6 +4,7 @@
  */
 
 import { ProductDeal, Platform, PlatformPriceComparison, StoreOffer, Voucher, ReviewSnippet } from '../types';
+import { isUsablePlatformUrl } from '../catalog-loader';
 
 export interface IngestRequest {
   url?: string;
@@ -270,79 +271,60 @@ function constructProductDealFromAI(meta: ExtractedMeta, ai: any): ProductDeal {
   const cheapestPlatform: Platform = 
     minPrice === shopeePrice ? 'shopee' : minPrice === lazadaPrice ? 'lazada' : 'tiktok';
 
+  const isDirect = isUsablePlatformUrl(meta.sourceUrl, meta.platform);
+
   const priceComparisons: PlatformPriceComparison[] = [
     {
       platform: 'shopee',
-      price: Math.round(shopeePrice * 1.1),
-      estimatedAfterVoucher: shopeePrice,
-      storeName: ai.shopeeStore || 'Shopee Mall Official',
-      storeType: 'mall',
-      url: meta.platform === 'shopee' ? meta.sourceUrl : `https://shopee.co.th/search?keyword=${encodeURIComponent(cleanTitle)}`,
-      inStock: true,
+      price: meta.platform === 'shopee' ? shopeePrice : 0,
+      estimatedAfterVoucher: meta.platform === 'shopee' ? shopeePrice : 0,
+      storeName: meta.platform === 'shopee' ? (ai.shopeeStore || 'Shopee Mall Official') : 'ยังไม่มีลิงก์ตรง',
+      storeType: meta.platform === 'shopee' ? 'mall' : 'regular',
+      url: meta.platform === 'shopee' ? meta.sourceUrl : '',
+      inStock: meta.platform === 'shopee',
+      hasDirectProduct: meta.platform === 'shopee' && isDirect,
     },
     {
       platform: 'lazada',
-      price: Math.round(lazadaPrice * 1.1),
-      estimatedAfterVoucher: lazadaPrice,
-      storeName: ai.lazadaStore || 'LazMall Flagship',
-      storeType: 'mall',
-      url: meta.platform === 'lazada' ? meta.sourceUrl : `https://www.lazada.co.th/tag/${encodeURIComponent(cleanTitle)}`,
-      inStock: true,
+      price: meta.platform === 'lazada' ? lazadaPrice : 0,
+      estimatedAfterVoucher: meta.platform === 'lazada' ? lazadaPrice : 0,
+      storeName: meta.platform === 'lazada' ? (ai.lazadaStore || 'LazMall Flagship') : 'ยังไม่มีลิงก์ตรง',
+      storeType: meta.platform === 'lazada' ? 'mall' : 'regular',
+      url: meta.platform === 'lazada' ? meta.sourceUrl : '',
+      inStock: meta.platform === 'lazada',
+      hasDirectProduct: meta.platform === 'lazada' && isDirect,
     },
     {
       platform: 'tiktok',
-      price: Math.round(tiktokPrice * 1.08),
-      estimatedAfterVoucher: tiktokPrice,
-      storeName: ai.tiktokStore || 'TikTok Shop Official',
-      storeType: 'verified',
-      url: meta.platform === 'tiktok' ? meta.sourceUrl : `https://shop.tiktok.com/search?q=${encodeURIComponent(cleanTitle)}`,
-      inStock: true,
+      price: meta.platform === 'tiktok' ? tiktokPrice : 0,
+      estimatedAfterVoucher: meta.platform === 'tiktok' ? tiktokPrice : 0,
+      storeName: meta.platform === 'tiktok' ? (ai.tiktokStore || 'TikTok Shop Official') : 'ยังไม่มีลิงก์ตรง',
+      storeType: meta.platform === 'tiktok' ? 'verified' : 'regular',
+      url: meta.platform === 'tiktok' ? meta.sourceUrl : '',
+      inStock: meta.platform === 'tiktok',
+      hasDirectProduct: meta.platform === 'tiktok' && isDirect,
     },
   ];
 
   const stores: StoreOffer[] = [
     {
       id: `${dealId}-s1`,
-      platform: cheapestPlatform,
-      storeName: cheapestPlatform === 'shopee' ? (ai.shopeeStore || 'Shopee Mall') : cheapestPlatform === 'lazada' ? (ai.lazadaStore || 'LazMall') : 'TikTok Official',
+      platform: meta.platform,
+      storeName: meta.platform === 'shopee' ? (ai.shopeeStore || 'Shopee Mall') : meta.platform === 'lazada' ? (ai.lazadaStore || 'LazMall') : (ai.tiktokStore || 'TikTok Official'),
       storeType: 'mall',
-      price: Math.round(minPrice * 1.1),
-      estimatedAfterVoucher: minPrice,
+      price: Math.round(estimatedFinalPrice * 1.1),
+      estimatedAfterVoucher: estimatedFinalPrice,
       voucherNote: 'โค้ดส่วนลดร้านค้า + ส่งฟรี',
       freeShipping: true,
       storeRating: 4.9,
       soldCount: 3200,
       isLowestOverall: true,
+      isBestValue: true,
+      isBestStore: true,
+      badgeNote: 'ลิงก์ตรงหน้าสินค้า',
       url: meta.sourceUrl,
+      isDirectProduct: isDirect,
     },
-    {
-      id: `${dealId}-s2`,
-      platform: cheapestPlatform === 'shopee' ? 'lazada' : 'shopee',
-      storeName: 'ร้านค้าแนะนำ ยอดขายดี',
-      storeType: 'preferred',
-      price: Math.round(minPrice * 1.15),
-      estimatedAfterVoucher: Math.round(minPrice * 1.04),
-      voucherNote: 'โค้ดลดเพิ่ม 5%',
-      freeShipping: true,
-      storeRating: 4.8,
-      soldCount: 1850,
-      isLowestOverall: false,
-      url: `https://${cheapestPlatform === 'shopee' ? 'www.lazada.co.th' : 'shopee.co.th'}/search?keyword=${encodeURIComponent(cleanTitle)}`,
-    },
-    {
-      id: `${dealId}-s3`,
-      platform: 'tiktok',
-      storeName: 'TikTok Live Shop',
-      storeType: 'verified',
-      price: Math.round(minPrice * 1.12),
-      estimatedAfterVoucher: Math.round(minPrice * 1.03),
-      voucherNote: 'คูปองไลฟ์สดลดพิเศษ',
-      freeShipping: false,
-      storeRating: 4.7,
-      soldCount: 940,
-      isLowestOverall: false,
-      url: `https://shop.tiktok.com/search?q=${encodeURIComponent(cleanTitle)}`,
-    }
   ];
 
   const vouchers: Voucher[] = [

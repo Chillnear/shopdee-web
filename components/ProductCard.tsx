@@ -114,7 +114,10 @@ export function ProductCard({
             <span>ถูกสุดข้ามแพลตฟอร์ม: ซื้อบน {platformMeta.name} คุ้มที่สุด ณ เวลานี้</span>
           </div>
           <span className="bg-white/20 text-[10px] px-2 py-0.5 rounded-full font-bold">
-            ประหยัดกว่าเจ้าอื่น ~฿{deal.priceComparisons.length > 1 ? deal.priceComparisons[1].price - deal.basePrice : 100}
+            {(() => {
+              const other = deal.priceComparisons?.find(pc => pc.platform !== deal.platform && pc.hasDirectProduct !== false && pc.price > deal.basePrice);
+              return other ? `ประหยัดกว่าเจ้าอื่น ~฿${other.price - deal.basePrice}` : 'ราคาดีที่สุด ณ เวลานี้';
+            })()}
           </span>
         </div>
       )}
@@ -273,7 +276,8 @@ export function ProductCard({
                   </div>
                   <div className="grid grid-cols-3 gap-1.5 text-xs">
                     {deal.priceComparisons.map((pc) => {
-                      const isLowest = pc.platform === deal.platform;
+                      const hasDirect = pc.hasDirectProduct !== false && pc.price > 0;
+                      const isLowest = pc.platform === deal.platform && hasDirect;
                       const meta = getPlatformMeta(pc.platform);
                       return (
                         <div
@@ -285,15 +289,21 @@ export function ProductCard({
                           }`}
                         >
                           <span className="text-[10px] text-neutral-500 font-semibold">{meta.name}</span>
-                          <span className={`text-xs sm:text-sm font-extrabold ${isLowest ? 'text-emerald-700' : 'text-neutral-800'}`}>
-                            {formatTHB(pc.price)}
-                          </span>
-                          {isLowest ? (
-                            <span className="text-[9px] text-emerald-600 font-bold">ถูกสุด ✅</span>
+                          {hasDirect ? (
+                            <>
+                              <span className={`text-xs sm:text-sm font-extrabold ${isLowest ? 'text-emerald-700' : 'text-neutral-800'}`}>
+                                {formatTHB(pc.price)}
+                              </span>
+                              {isLowest ? (
+                                <span className="text-[9px] text-emerald-600 font-bold">ถูกสุด ✅</span>
+                              ) : (
+                                <span className="text-[9px] text-neutral-400">
+                                  +{formatTHB(pc.price - deal.basePrice)}
+                                </span>
+                              )}
+                            </>
                           ) : (
-                            <span className="text-[9px] text-neutral-400">
-                              +{formatTHB(pc.price - deal.basePrice)}
-                            </span>
+                            <span className="text-[10px] text-neutral-400 mt-1">ยังไม่มีลิงก์ตรง</span>
                           )}
                         </div>
                       );

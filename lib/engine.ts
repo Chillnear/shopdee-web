@@ -137,10 +137,10 @@ export function filterAndRankDeals(
     filtered = filtered.filter(deal => {
       const matchesMain = filter.selectedPlatforms.includes(deal.platform);
       const matchesComparisons = deal.priceComparisons.some(pc =>
-        filter.selectedPlatforms.includes(pc.platform)
+        filter.selectedPlatforms.includes(pc.platform) && pc.hasDirectProduct !== false && pc.price > 0
       );
       const matchesStores = deal.stores?.some(s => 
-        filter.selectedPlatforms.includes(s.platform)
+        filter.selectedPlatforms.includes(s.platform) && s.isDirectProduct !== false
       );
       return matchesMain || matchesComparisons || matchesStores;
     });
@@ -151,11 +151,11 @@ export function filterAndRankDeals(
     if (filter.selectedPlatforms.length === 3 || filter.selectedPlatforms.length === 0) {
       return deal.estimatedFinalPrice;
     }
-    const matchingStores = deal.stores?.filter(s => filter.selectedPlatforms.includes(s.platform));
+    const matchingStores = deal.stores?.filter(s => filter.selectedPlatforms.includes(s.platform) && s.isDirectProduct !== false);
     if (matchingStores && matchingStores.length > 0) {
       return Math.min(...matchingStores.map(s => s.estimatedAfterVoucher));
     }
-    const matchingComps = deal.priceComparisons?.filter(pc => filter.selectedPlatforms.includes(pc.platform) && pc.inStock);
+    const matchingComps = deal.priceComparisons?.filter(pc => filter.selectedPlatforms.includes(pc.platform) && pc.inStock && pc.hasDirectProduct !== false && pc.price > 0);
     if (matchingComps && matchingComps.length > 0) {
       return Math.min(...matchingComps.map(pc => pc.estimatedAfterVoucher));
     }
@@ -215,7 +215,7 @@ export function filterAndRankDeals(
         const getScore = (deal: ProductDeal) => {
           const price = getEffectivePrice(deal);
           const priceFactor = price < 15 ? 0.05 : price < 29 ? 0.4 : 1.0;
-          const multiBonus = deal.priceComparisons && deal.priceComparisons.length > 1 ? 2.5 : 1.0;
+          const multiBonus = deal.priceComparisons && deal.priceComparisons.filter(pc => pc.hasDirectProduct !== false && pc.price > 0).length > 1 ? 2.5 : 1.0;
           const mallBonus = deal.storeType === 'mall' ? 1.3 : 1.0;
           const savings = Math.max(0, deal.originalPrice - price);
           return (deal.soldCount * 1.0 + savings * 0.1) * priceFactor * multiBonus * mallBonus;

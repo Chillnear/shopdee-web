@@ -30,6 +30,7 @@ export interface PlatformPriceComparison {
   storeType: StoreType;
   url: string;
   inStock: boolean;
+  hasDirectProduct?: boolean;
 }
 
 export interface StoreOffer {
@@ -48,6 +49,7 @@ export interface StoreOffer {
   isBestStore?: boolean;
   badgeNote?: string;
   url: string;
+  isDirectProduct?: boolean;
 }
 
 export type PriceAdviceType = 'buy_now' | 'wait_for_sale' | 'fair_price';
