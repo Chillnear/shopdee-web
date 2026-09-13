@@ -62,6 +62,8 @@ export function isValidPersistedDeal(value: unknown): value is ProductDeal {
   if (!value || typeof value !== 'object') return false;
   const deal = value as AnyRecord;
   const platform = deal.platform as Platform;
+  const img = String(deal.imageUrl || '');
+  if (img.includes('unsplash.com')) return false;
   return Boolean(
     deal.id &&
     deal.title &&
@@ -360,12 +362,14 @@ function normalizePartnerItem(raw: AnyRecord): ProductDeal | null {
     const affiliateUrl = String(raw.affiliateUrl ?? '');
     const title = String(raw.title ?? '');
 
+    const imageUrl = String(raw.imageUrl ?? '');
     if (
       !title ||
       !PLATFORM_HOSTS[platform] ||
       !isUsablePlatformUrl(affiliateUrl, platform) ||
       !Number.isFinite(price) ||
-      price <= 0
+      price <= 0 ||
+      imageUrl.includes('unsplash.com')
     ) {
       return null;
     }
@@ -536,6 +540,7 @@ function normalizeSeededItem(raw: AnyRecord): ProductDeal | null {
   try {
     // Items from seed-worker are accepted only when every outbound URL is verifiable.
     if (!raw.id || !raw.title || !PLATFORM_HOSTS[raw.platform as Platform]) return null;
+    if (String(raw.imageUrl ?? '').includes('unsplash.com')) return null;
     if (!isUsablePlatformUrl(raw.affiliateUrl, raw.platform as Platform)) return null;
 
     const comparisons = Array.isArray(raw.priceComparisons) ? raw.priceComparisons : [];
