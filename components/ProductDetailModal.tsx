@@ -183,39 +183,46 @@ export function ProductDetailModal({
             </div>
           )}
 
-          {/* Trip.com Social Proof & Price Alert Bar */}
-          <div className="flex items-center justify-between p-3 rounded-2xl bg-neutral-50 border border-neutral-200">
-            <div className="flex items-center gap-1.5 text-xs text-neutral-600 font-medium">
-              <span className="flex items-center gap-1.5 text-rose-600 font-bold bg-rose-50 border border-rose-200/70 px-2.5 py-1 rounded-full shadow-2xs">
+          {/* Social Proof & Quick Actions Bar */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 p-2.5 sm:p-3 rounded-2xl bg-neutral-50/90 border border-neutral-200/80">
+            {/* Left: Viewers & Sales Stats */}
+            <div className="flex items-center gap-2 flex-wrap text-xs">
+              <span className="inline-flex items-center gap-1.5 text-rose-600 font-bold bg-rose-50 border border-rose-200/80 px-2.5 py-1 rounded-xl shadow-2xs whitespace-nowrap">
                 <Flame className="w-3.5 h-3.5 text-rose-500 shrink-0" />
-                <span>{viewersCount} คนกำลังดูดีลนี้</span>
-                {deal.soldCount > 0 && (
-                  <>
-                    <span className="text-rose-300">•</span>
-                    <span className="text-neutral-700 font-semibold">ขายแล้ว {formatSoldCount(deal.soldCount)}</span>
-                  </>
-                )}
+                <span>{viewersCount} คนกำลังดูตอนนี้</span>
               </span>
+
+              {deal.soldCount > 0 && (
+                <span className="inline-flex items-center gap-1 text-neutral-600 font-medium bg-white border border-neutral-200/80 px-2.5 py-1 rounded-xl shadow-2xs whitespace-nowrap">
+                  <span>ขายแล้ว</span>
+                  <strong className="text-neutral-900 font-bold">{formatSoldCount(deal.soldCount)}</strong>
+                </span>
+              )}
             </div>
 
-            <div className="flex items-center gap-2 flex-wrap">
+            {/* Right: Quick Action Buttons (ปุ่มตั้งเตือนและแชร์ สไตล์มินิมอล ไม่ตีกัน) */}
+            <div className="flex items-center gap-1.5 shrink-0">
               {onOpenPriceAlert && (
                 <button
+                  type="button"
                   onClick={() => onOpenPriceAlert(deal)}
-                  className="inline-flex items-center gap-1.5 text-xs font-extrabold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 px-3 py-1.5 rounded-xl shadow-2xs transition active:scale-95 cursor-pointer"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-700 hover:text-emerald-700 bg-white hover:bg-emerald-50 border border-neutral-200 hover:border-emerald-300 px-2.5 py-1.5 rounded-xl shadow-2xs transition active:scale-95 cursor-pointer whitespace-nowrap"
+                  title="ตั้งเตือนเมื่อราคาลดลง"
                 >
-                  <Bell className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>ตั้งเตือนราคาลด</span>
+                  <Bell className="w-3.5 h-3.5 text-neutral-500 shrink-0" />
+                  <span>ตั้งเตือนราคา</span>
                 </button>
               )}
 
               {onOpenShare && (
                 <button
+                  type="button"
                   onClick={() => onOpenShare(deal)}
-                  className="inline-flex items-center gap-1.5 text-xs font-extrabold text-orange-800 bg-orange-50 hover:bg-orange-100 border border-orange-300 px-3 py-1.5 rounded-xl shadow-2xs transition active:scale-95 cursor-pointer"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-700 hover:text-orange-700 bg-white hover:bg-orange-50 border border-neutral-200 hover:border-orange-300 px-2.5 py-1.5 rounded-xl shadow-2xs transition active:scale-95 cursor-pointer whitespace-nowrap"
+                  title="แชร์ดีลนี้"
                 >
-                  <Share2 className="w-3.5 h-3.5 text-orange-600" />
-                  <span>แชร์ดีล / บันทึกรูปการ์ด</span>
+                  <Share2 className="w-3.5 h-3.5 text-neutral-500 shrink-0" />
+                  <span>แชร์ดีล</span>
                 </button>
               )}
             </div>
@@ -232,7 +239,11 @@ export function ProductDetailModal({
           ) : (
             <div className="bg-neutral-50 rounded-2xl p-3.5 border border-neutral-200 space-y-2">
               <div className="flex items-center justify-between text-xs font-bold text-neutral-600">
-                <span>เปรียบเทียบราคา 3 แพลตฟอร์ม</span>
+                <span>
+                  {(deal.priceComparisons?.filter(pc => pc.hasDirectProduct !== false && pc.price > 0).length || 1) >= 3
+                    ? 'เปรียบเทียบราคา 3 แพลตฟอร์ม'
+                    : `สถานะราคาบนแพลตฟอร์ม (${platformMeta.name})`}
+                </span>
                 <span className="text-[10px] text-emerald-600 font-semibold">อัปเดตเรียลไทม์</span>
               </div>
 

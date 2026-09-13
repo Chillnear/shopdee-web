@@ -269,7 +269,7 @@ export default function Home() {
 
           <div className="flex items-center gap-3 text-xs text-neutral-500 font-medium">
             <span className="hidden sm:inline">
-              {viewMode === 'grid' ? '📱 มุมมองแบบช่อง (แตะเพื่อดูเทียบ 3 แอป)' : '📋 มุมมองแบบรายการ (รายละเอียดเปรียบเทียบเต็ม)'}
+              {viewMode === 'grid' ? '📱 มุมมองแบบช่อง (แตะเพื่อดูรายละเอียดและร้านค้า)' : '📋 มุมมองแบบรายการ (รายละเอียดเปรียบเทียบเต็ม)'}
             </span>
             <span className="text-neutral-400">•</span>
             <span>

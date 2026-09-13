@@ -66,7 +66,11 @@ function buildDealFlexBubble(deal: ProductDeal, rank: number, baseUrl: string) {
       contents: [
         {
           type: 'text',
-          text: `👑 อันดับ #${rank} ถูกสุดใน 3 แอป`,
+          text: `👑 อันดับ #${rank} ${
+            (deal.priceComparisons?.filter(pc => pc.hasDirectProduct !== false && pc.price > 0).length || 1) >= 3
+              ? 'ถูกสุดใน 3 แอป'
+              : 'ดีลคุ้มค่าอันดับ 1'
+          }`,
           color: '#ffffff',
           weight: 'bold',
           size: 'xs',
@@ -161,7 +165,9 @@ function buildDealFlexBubble(deal: ProductDeal, rank: number, baseUrl: string) {
           contents: [
             {
               type: 'text',
-              text: '🔍 เทียบราคา 3 แอปเรียลไทม์:',
+              text: (deal.priceComparisons?.filter(pc => pc.hasDirectProduct !== false && pc.price > 0).length || 1) >= 3
+                ? '🔍 เทียบราคา 3 แอปเรียลไทม์:'
+                : '🔍 ตรวจสอบราคาบนร้านค้า:',
               size: 'xxs',
               color: '#9ca3af',
               weight: 'bold',

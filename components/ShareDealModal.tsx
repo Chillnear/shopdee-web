@@ -36,6 +36,8 @@ export function ShareDealModal({ deal, onClose }: ShareDealModalProps) {
   const saveAmount = Math.max(0, deal.marketAvgPrice - deal.estimatedFinalPrice);
   const discountPercent = Math.round(((deal.marketAvgPrice - deal.estimatedFinalPrice) / deal.marketAvgPrice) * 100);
 
+  const isMulti = (deal.priceComparisons?.filter(pc => pc.hasDirectProduct !== false && pc.price > 0).length || 1) >= 3;
+
   // Platform specific viral caption templates
   const captionTemplates: Record<'facebook' | 'instagram' | 'tiktok' | 'line', { title: string; caption: string; tip: string }> = {
     facebook: {
@@ -62,7 +64,7 @@ ${affiliateRedirectUrl}
 ${deal.title}
 เหลือแค่ ${formatTHB(deal.estimatedFinalPrice)} เท่านั้น (ปกติ ${formatTHB(deal.marketAvgPrice)})
 
-⚡ เช็คราคา 3 แอปแล้ว ร้านนี้ถูกและคุ้มสุด
+${isMulti ? '⚡ เช็คราคา 3 แอปแล้ว ร้านนี้ถูกและคุ้มสุด' : '⚡ ตรวจสอบราคาแล้ว ร้านนี้แท้และคุ้มค่าสุด'}
 พิกัดจิ้มลิงก์หน้า Bio หรือแคปรูปนี้ไปเสิร์ชได้เลยน้า 👆✨
 
 🔗 ลิงก์ตรง: ${affiliateRedirectUrl}
