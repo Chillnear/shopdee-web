@@ -329,24 +329,62 @@ export function ProductDetailModal({
             ))}
           </div>
 
-          {/* Available Vouchers with Copy Button */}
+          {/* Available Vouchers with Copy Button & Usage Guide */}
           {deal.availableVouchers.length > 0 && (
-            <div className="space-y-2">
-              <span className="text-xs font-bold text-neutral-600 block">คูปองพร้อมใช้:</span>
+            <div className="space-y-2.5 rounded-2xl p-3 sm:p-3.5 bg-neutral-50 border border-neutral-200">
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-1.5">
+                  <Tag className="w-3.5 h-3.5 text-neutral-700 shrink-0" />
+                  <span className="text-xs font-bold text-neutral-800">
+                    คูปองส่วนลดสำหรับ {platformMeta.name}:
+                  </span>
+                </div>
+                <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded ${platformMeta.badgeColor}`}>
+                  ใช้บน {platformMeta.name}
+                </span>
+              </div>
+
               <div className="space-y-1.5">
                 {deal.availableVouchers.map((v) => (
-                  <div key={v.id} className="p-2.5 rounded-xl border border-dashed border-orange-300 bg-orange-50/50 flex items-center justify-between">
+                  <div 
+                    key={v.id} 
+                    className={`p-2.5 rounded-xl border border-dashed flex items-center justify-between gap-2 ${
+                      deal.platform === 'shopee'
+                        ? 'border-orange-300 bg-orange-50/50'
+                        : deal.platform === 'lazada'
+                        ? 'border-blue-300 bg-blue-50/50'
+                        : 'border-neutral-300 bg-white'
+                    }`}
+                  >
                     <div>
-                      <div className="flex items-center gap-1.5">
-                        <span className="font-mono font-bold text-xs text-shopee">{v.code}</span>
-                        <span className="text-[9px] bg-white px-1.5 py-0.2 rounded border border-orange-200 font-semibold">{v.tag}</span>
+                      <div className="flex items-center gap-1.5 mb-0.5">
+                        <span className={`font-mono font-bold text-xs ${
+                          deal.platform === 'shopee'
+                            ? 'text-shopee'
+                            : deal.platform === 'lazada'
+                            ? 'text-lazada'
+                            : 'text-neutral-900'
+                        }`}>
+                          {v.code}
+                        </span>
+                        <span className="text-[9px] bg-white px-1.5 py-0.2 rounded border border-neutral-200 font-semibold text-neutral-600">
+                          {v.tag}
+                        </span>
                       </div>
-                      <span className="text-[11px] text-neutral-700 font-medium">{v.discountText}</span>
+                      <span className="text-[11px] text-neutral-700 font-medium block">{v.discountText}</span>
                     </div>
 
                     <button
                       onClick={() => handleCopy(v.code)}
-                      className="px-2.5 py-1.5 rounded-lg bg-shopee text-white text-xs font-bold flex items-center gap-1 active:scale-95 transition"
+                      className={`px-2.5 py-1.5 rounded-lg text-white text-xs font-bold flex items-center gap-1 active:scale-95 transition shrink-0 ${
+                        copiedCode === v.code
+                          ? 'bg-emerald-600'
+                          : deal.platform === 'shopee'
+                          ? 'bg-shopee hover:bg-shopee-hover'
+                          : deal.platform === 'lazada'
+                          ? 'bg-lazada hover:bg-lazada-accent'
+                          : 'bg-black hover:bg-neutral-800'
+                      }`}
                     >
                       {copiedCode === v.code ? (
                         <>
@@ -362,6 +400,18 @@ export function ProductDetailModal({
                     </button>
                   </div>
                 ))}
+              </div>
+
+              {/* Step-by-step How to Use banner */}
+              <div className="bg-white p-2.5 rounded-xl border border-neutral-200/80 text-[11px] text-neutral-600 space-y-1">
+                <div className="font-bold text-neutral-800 flex items-center gap-1">
+                  <span>💡 วิธีใช้โค้ดส่วนลดใน {platformMeta.name}:</span>
+                </div>
+                <ol className="list-decimal list-inside space-y-0.5 text-neutral-600 pl-0.5">
+                  <li>กดปุ่ม <strong>"คัดลอก"</strong> ที่โค้ดด้านบน</li>
+                  <li>กดปุ่มด้านล่าง <strong>"ไปสั่งซื้อบน {platformMeta.name}"</strong> เพื่อเปิดแอป</li>
+                  <li>ในหน้าสรุปคำสั่งซื้อ / ชำระเงิน นำโค้ดไปวางในช่อง <strong>"โค้ดส่วนลด"</strong> ก่อนยืนยันชำระเงิน</li>
+                </ol>
               </div>
             </div>
           )}
