@@ -1,0 +1,23 @@
+{
+  "name": "ShopDee (ช้อปดี) - เปรียบเทียบราคา Shopee, Lazada, TikTok",
+  "short_name": "ShopDee",
+  "description": "ค้นหาและเปรียบเทียบราคาจ่ายจริง ไม่จกตา หลังหักโค้ดลดและค่าส่ง",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#EE4D2D",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
