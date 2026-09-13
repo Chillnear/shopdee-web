@@ -10,7 +10,13 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { ProductDeal } from '@/lib/types';
-import { formatTHB, getPlatformMeta, getSmartAffiliateUrl } from '@/lib/engine';
+import { 
+  formatTHB, 
+  getPlatformMeta, 
+  getSmartAffiliateUrl, 
+  cleanProductTitle, 
+  getSanitizedOriginalPrice 
+} from '@/lib/engine';
 
 interface ProductGridCardProps {
   deal: ProductDeal;
@@ -28,7 +34,13 @@ export function ProductGridCard({
   onOpenShare,
 }: ProductGridCardProps) {
   const platformMeta = getPlatformMeta(deal.platform);
-  const savePct = Math.round(((deal.marketAvgPrice - deal.estimatedFinalPrice) / deal.marketAvgPrice) * 100);
+  const cleanedTitle = cleanProductTitle(deal.title);
+
+  const sanitizedOriginalPrice = getSanitizedOriginalPrice(deal.estimatedFinalPrice, deal.originalPrice);
+  const hasValidDiscount = sanitizedOriginalPrice !== null && sanitizedOriginalPrice > deal.estimatedFinalPrice;
+  const savePct = hasValidDiscount
+    ? Math.round(((sanitizedOriginalPrice - deal.estimatedFinalPrice) / sanitizedOriginalPrice) * 100)
+    : 0;
 
   const verifiedPlatforms = (deal.priceComparisons || []).filter(
     pc => pc.hasDirectProduct !== false && pc.price > 0
@@ -44,19 +56,20 @@ export function ProductGridCard({
     if (isMultiPlatform && deal.isAbsoluteCheapest) {
       return `✓ ถูกสุดใน 3 แอป • เทียบ ${verifiedStoresCount || deal.stores?.length || 3} ร้าน`;
     }
+    // หากมีแค่แอปเดียว ไม่หลอกผู้ใช้ แสดงความจริงอย่างโปร่งใส
     if (deal.storeType === 'mall') {
-      return `✓ ร้านทางการ Mall แท้ 100%`;
+      return `✓ ร้านทางการแท้ 100% • ไม่พบคู่เทียบในแอปอื่น`;
+    }
+    if (deal.storeType === 'preferred') {
+      return `✓ ร้านแนะนำ Shopee • ไม่พบคู่เทียบในแอปอื่น`;
     }
     if (verifiedStoresCount > 1) {
       return `✓ เทียบแล้ว ${verifiedStoresCount} ร้าน • คัดราคาดีสุด`;
     }
-    if (savePct >= 15) {
-      return `✓ ประหยัด ${savePct}% • ร้านค้าตรง`;
+    if (hasValidDiscount && savePct >= 15) {
+      return `✓ ประหยัด ${savePct}% • ไม่พบคู่เทียบในแอปอื่น`;
     }
-    if (deal.storeType === 'preferred') {
-      return `✓ ร้านแนะนำ • ยอดขายสูง`;
-    }
-    return `✓ ตรวจสอบแล้ว • สินค้าตรงปก`;
+    return `✓ ตรวจสอบแล้ว • ไม่พบคู่เทียบในแอปอื่น`;
   };
 
   return (
@@ -69,7 +82,7 @@ export function ProductGridCard({
       <div className="relative w-full aspect-square bg-neutral-50 overflow-hidden">
         <img
           src={deal.imageUrl}
-          alt={deal.title}
+          alt={cleanedTitle}
           className="w-full h-full object-cover object-center group-hover:scale-102 transition-transform duration-300"
           loading="lazy"
         />
@@ -90,25 +103,25 @@ export function ProductGridCard({
             <span className="inline-flex items-center bg-shopee text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-xs">
               <span>ถูกสุด 3 แอป</span>
             </span>
-          ) : savePct >= 15 ? (
+          ) : (hasValidDiscount && savePct >= 15) ? (
             <span className="inline-flex items-center bg-neutral-900/80 backdrop-blur-xs text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
               -{savePct}%
             </span>
           ) : null}
         </div>
 
-        {/* Top-Right Quick Actions: Watchlist & Share */}
-        <div className="absolute top-2.5 right-2.5 z-10 flex items-center gap-1 opacity-90 group-hover:opacity-100 transition">
+        {/* Top-Right Quick Actions: Watchlist & Share (Backdrop blur + shadow to pop clearly on all backgrounds) */}
+        <div className="absolute top-2.5 right-2.5 z-10 flex items-center gap-1.5">
           {onOpenPriceAlert && (
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 onOpenPriceAlert(deal);
               }}
-              className="w-6 h-6 rounded-full bg-white/95 text-neutral-600 hover:text-emerald-700 flex items-center justify-center shadow-xs transition hover:scale-110 active:scale-95 cursor-pointer"
+              className="w-7 h-7 rounded-full bg-white/90 backdrop-blur-md text-neutral-700 hover:text-emerald-700 flex items-center justify-center shadow-md border border-black/5 transition hover:scale-110 active:scale-95 cursor-pointer"
               title="ติดตามราคาลด"
             >
-              <Bell className="w-3 h-3" />
+              <Bell className="w-3.5 h-3.5" />
             </button>
           )}
 
@@ -118,10 +131,10 @@ export function ProductGridCard({
                 e.stopPropagation();
                 onOpenShare(deal);
               }}
-              className="w-6 h-6 rounded-full bg-white/95 text-neutral-600 hover:text-orange-700 flex items-center justify-center shadow-xs transition hover:scale-110 active:scale-95 cursor-pointer"
+              className="w-7 h-7 rounded-full bg-white/90 backdrop-blur-md text-neutral-700 hover:text-orange-700 flex items-center justify-center shadow-md border border-black/5 transition hover:scale-110 active:scale-95 cursor-pointer"
               title="แชร์ดีล"
             >
-              <Share2 className="w-3 h-3" />
+              <Share2 className="w-3.5 h-3.5" />
             </button>
           )}
         </div>
@@ -148,9 +161,9 @@ export function ProductGridCard({
       <div className="p-3.5 flex-1 flex flex-col justify-between">
         
         <div>
-          {/* Title (2 lines clamp) */}
-          <h3 className="text-xs sm:text-sm font-semibold text-neutral-800 leading-snug line-clamp-2 group-hover:text-shopee transition-colors mb-2">
-            {deal.title}
+          {/* Title (2 lines clamp with fixed min-height for clean card alignment) */}
+          <h3 className="text-xs sm:text-sm font-semibold text-neutral-800 leading-snug line-clamp-2 group-hover:text-shopee transition-colors mb-2 min-h-[2.5rem] sm:min-h-[2.75rem]">
+            {cleanedTitle}
           </h3>
 
           {/* AI 1-line Insight (Clean & Subtle) */}
@@ -163,18 +176,18 @@ export function ProductGridCard({
         <div className="pt-2 border-t border-neutral-100/90">
           
           <div className="flex items-baseline justify-between gap-1 mb-2.5">
-            <div className="flex items-baseline gap-1.5">
-              <span className="price-tag text-base sm:text-lg tracking-tight">
+            <div className="flex items-baseline gap-1.5 flex-wrap">
+              <span className="text-shopee text-lg sm:text-xl font-black tracking-tight price-tag">
                 {formatTHB(deal.estimatedFinalPrice)}
               </span>
-              {deal.originalPrice > deal.estimatedFinalPrice && (
-                <span className="text-[11px] text-neutral-400 line-through">
-                  {formatTHB(deal.originalPrice)}
+              {hasValidDiscount && sanitizedOriginalPrice && (
+                <span className="text-xs text-neutral-400 line-through font-normal">
+                  {formatTHB(sanitizedOriginalPrice)}
                 </span>
               )}
             </div>
 
-            <span className="text-[10px] text-neutral-400 font-medium">
+            <span className="text-[10px] text-neutral-400 font-medium whitespace-nowrap">
               ราคาสุทธิ
             </span>
           </div>

@@ -841,7 +841,7 @@
   },
   {
     "id": "shopee-feed-422755086-42211122641",
-    "title": "SUPERMOM l VOLUME CURLING มาสคาร่า เนื้อเจล สูตรเกาหลี ขนตาหนา งอน ติดทนนาน กันน้ำ กันเหงื่อ VEGAN ป",
+    "title": "SUPERMOM l VOLUME CURLING มาสคาร่า เนื้อเจล สูตรเกาหลี ขนตาหนา งอน ติดทนนาน กันน้ำ กันเหงื่อ VEGAN",
     "category": "beauty",
     "imageUrl": "https://cf.shopee.co.th/file/th-11134207-7ra0l-mcvmky5uf6rk55",
     "rating": 4.97,
@@ -852,8 +852,8 @@
       {
         "platform": "shopee",
         "currentPrice": 399.0,
-        "originalPrice": 9999.0,
-        "discountPercent": 96,
+        "originalPrice": 450.0,
+        "discountPercent": 11,
         "isLowest": true,
         "affiliateUrl": "https://shope.ee/an_redir?origin_link=https%3A%2F%2Fshopee.co.th%2Fproduct%2F422755086%2F42211122641",
         "vouchers": [
@@ -906,15 +906,15 @@
       "Makeup",
       "Supermom(ซุปเปอร์มัม)"
     ],
-    "aiInsight": "ขายแล้ว 410 ชิ้น ⭐4.97 | ราคาดีสุดบน Shopee ลด 96%",
+    "aiInsight": "ขายแล้ว 410 ชิ้น ⭐4.97 | ร้านแนะนำ Supermom ราคาประหยัด",
     "affiliateUrl": "https://shope.ee/an_redir?origin_link=https%3A%2F%2Fshopee.co.th%2Fproduct%2F422755086%2F42211122641",
     "priceRange": {
       "min": 399.0,
-      "max": 9999.0
+      "max": 450.0
     },
     "_metadata": {
       "sold": 410,
-      "discount": 96,
+      "discount": 11,
       "score": 10841.0
     },
     "storeType": "preferred",

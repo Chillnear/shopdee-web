@@ -59,8 +59,8 @@ export function SmartFilterBar({
         {/* Row 1: Platform Chips & Limit Selectors */}
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
           
-          {/* Platform Tabs */}
-          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 lg:pb-0">
+          {/* Platform Tabs (Flex-wrap ensures Shopee, Lazada, TikTok are all visible without horizontal overflow) */}
+          <div className="flex flex-wrap items-center gap-1.5 py-0.5">
             <span className="text-xs font-bold text-neutral-500 whitespace-nowrap mr-1 flex items-center gap-1">
               <span>แพลตฟอร์ม:</span>
             </span>
@@ -68,7 +68,7 @@ export function SmartFilterBar({
             {/* All Platforms */}
             <button
               onClick={() => handlePlatformToggle('all')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap shadow-xs ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap shadow-xs cursor-pointer ${
                 isAllPlatforms
                   ? 'bg-brand-600 text-white shadow-md shadow-brand-600/20'
                   : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
@@ -80,11 +80,11 @@ export function SmartFilterBar({
             {/* Shopee */}
             <button
               onClick={() => handlePlatformToggle('shopee')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap border ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap border cursor-pointer ${
                 filter.selectedPlatforms.includes('shopee') && !isAllPlatforms
                   ? 'bg-shopee text-white border-shopee shadow-md shadow-shopee/20'
                   : isAllPlatforms
-                  ? 'bg-neutral-100 text-neutral-700 border-neutral-200 hover:border-shopee/50'
+                  ? 'bg-white text-neutral-800 border-neutral-200 hover:border-shopee/50 hover:bg-orange-50/50'
                   : 'bg-neutral-50 text-neutral-400 border-neutral-200 opacity-60'
               }`}
             >
@@ -98,11 +98,11 @@ export function SmartFilterBar({
             {/* Lazada */}
             <button
               onClick={() => handlePlatformToggle('lazada')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap border ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap border cursor-pointer ${
                 filter.selectedPlatforms.includes('lazada') && !isAllPlatforms
                   ? 'bg-lazada text-white border-lazada shadow-md shadow-lazada/20'
                   : isAllPlatforms
-                  ? 'bg-neutral-100 text-neutral-700 border-neutral-200 hover:border-lazada/50'
+                  ? 'bg-white text-neutral-800 border-neutral-200 hover:border-lazada/50 hover:bg-blue-50/50'
                   : 'bg-neutral-50 text-neutral-400 border-neutral-200 opacity-60'
               }`}
             >
@@ -116,11 +116,11 @@ export function SmartFilterBar({
             {/* TikTok */}
             <button
               onClick={() => handlePlatformToggle('tiktok')}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap border ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 whitespace-nowrap border cursor-pointer ${
                 filter.selectedPlatforms.includes('tiktok') && !isAllPlatforms
                   ? 'bg-gradient-to-r from-[#FE2C55] via-black to-[#25F4EE] text-white border-black shadow-md'
                   : isAllPlatforms
-                  ? 'bg-neutral-100 text-neutral-700 border-neutral-200 hover:border-black/50'
+                  ? 'bg-white text-neutral-800 border-neutral-200 hover:border-black/50 hover:bg-neutral-100'
                   : 'bg-neutral-50 text-neutral-400 border-neutral-200 opacity-60'
               }`}
             >

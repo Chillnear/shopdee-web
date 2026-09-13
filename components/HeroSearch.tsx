@@ -130,7 +130,7 @@ export function HeroSearch({
             }`}
           >
             <LinkIcon className="w-4 h-4" />
-            <span>วางลิงก์สินค้า (3 แอป)</span>
+            <span>วางลิงก์สินค้า (แอปใดก็ได้)</span>
             <span className="bg-shopee/10 text-shopee text-[10px] font-black px-1.5 py-0.2 rounded-full hidden sm:inline">
               แนะนำ
             </span>
@@ -169,7 +169,7 @@ export function HeroSearch({
               onChange={(e) => setLocalInput(e.target.value)}
               placeholder={
                 activeTab === 'link'
-                  ? "วางลิงก์สินค้าจาก Shopee, Lazada หรือ TikTok ตรงนี้..."
+                  ? "วางลิงก์สินค้า 1 ลิงก์จาก Shopee, Lazada หรือ TikTok..."
                   : "พิมพ์ชื่อสินค้า เช่น พัดลมตั้งโต๊ะ, หูฟังไร้สาย, อาหารแมว..."
               }
               className="w-full py-2 text-xs sm:text-base text-neutral-800 placeholder:text-neutral-400 focus:outline-none bg-transparent font-medium"
@@ -239,8 +239,8 @@ export function HeroSearch({
               <span className="px-2 py-0.5 rounded bg-neutral-100 text-neutral-900 font-bold">TikTok Shop</span>
             </div>
 
-            <p className="text-[11px] text-neutral-400">
-              ใช้ URL สินค้าจริงจาก Shopee, Lazada หรือ TikTok เพื่อให้ระบบตรวจสอบราคาได้ตรงรายการ
+            <p className="text-[11px] text-neutral-500 font-medium">
+              วางลิงก์สินค้า 1 ลิงก์จากแอปใดก็ได้ แล้วระบบจะไปหาคู่เทียบและคำนวณราคาให้คุณอัตโนมัติ
             </p>
           </div>
         ) : (

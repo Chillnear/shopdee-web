@@ -8,6 +8,7 @@
  */
 
 import { ProductDeal, Platform, StoreType, PlatformPriceComparison, StoreOffer, Voucher } from './types';
+import { cleanProductTitle, getSanitizedOriginalPrice } from './engine';
 
 // ─── Static imports (Next.js bundles at build time for SSR) ───────────────────
 import seededRaw from './seeded-catalog.json';
@@ -194,12 +195,13 @@ function adaptFeedItem(raw: AnyRecord): ProductDeal | null {
   try {
     const id = raw.id as string;
     const shopeePrice = Number(raw.platforms?.[0]?.currentPrice ?? raw.sale_price ?? 0);
-    const origPrice = Number(raw.platforms?.[0]?.originalPrice ?? raw.original_price ?? shopeePrice * 1.2);
-    const discount = Number(raw.platforms?.[0]?.discountPercent ?? raw.discount ?? 0);
+    const rawOrigPrice = Number(raw.platforms?.[0]?.originalPrice ?? raw.original_price ?? 0);
+    const origPrice = getSanitizedOriginalPrice(shopeePrice, rawOrigPrice) ?? shopeePrice;
+    const discount = origPrice > shopeePrice ? Math.round(((origPrice - shopeePrice) / origPrice) * 100) : 0;
     const soldCount = Number(raw.reviewCount ?? raw.sold ?? raw._metadata?.sold ?? 0);
     const affiliateUrl = String(raw.affiliateUrl ?? raw.link ?? '');
     const image = String(raw.imageUrl ?? raw.image ?? '');
-    const title = String(raw.title ?? '');
+    const title = cleanProductTitle(String(raw.title ?? ''));
     const category = String(raw.category ?? 'lifestyle');
 
     if (!title || shopeePrice <= 0) return null;
@@ -316,9 +318,10 @@ function normalizePartnerItem(raw: AnyRecord): ProductDeal | null {
   try {
     const platform = raw.platform as Platform;
     const price = Number(raw.price);
-    const originalPrice = Number(raw.originalPrice ?? price);
+    const rawOrigPrice = Number(raw.originalPrice ?? price);
+    const originalPrice = getSanitizedOriginalPrice(price, rawOrigPrice) ?? price;
     const affiliateUrl = String(raw.affiliateUrl ?? '');
-    const title = String(raw.title ?? '');
+    const title = cleanProductTitle(String(raw.title ?? ''));
 
     const imageUrl = String(raw.imageUrl ?? '');
     if (
@@ -451,7 +454,13 @@ function normalizeSeededItem(raw: AnyRecord): ProductDeal | null {
     }
 
     // If it already has platform/basePrice it's a full ProductDeal.
-    if (raw.basePrice !== undefined) return raw as unknown as ProductDeal;
+    if (raw.basePrice !== undefined) {
+      const deal = { ...(raw as unknown as ProductDeal) };
+      deal.title = cleanProductTitle(deal.title);
+      const sanitized = getSanitizedOriginalPrice(deal.basePrice, deal.originalPrice);
+      deal.originalPrice = sanitized ?? deal.basePrice;
+      return deal;
+    }
     return adaptFeedItem(raw);
   } catch {
     return null;

@@ -21,7 +21,14 @@ import {
   Share2
 } from 'lucide-react';
 import { ProductDeal, Platform } from '@/lib/types';
-import { formatTHB, formatSoldCount, getPlatformMeta, getSmartAffiliateUrl } from '@/lib/engine';
+import { 
+  formatTHB, 
+  formatSoldCount, 
+  getPlatformMeta, 
+  getSmartAffiliateUrl,
+  cleanProductTitle,
+  getSanitizedOriginalPrice
+} from '@/lib/engine';
 import { StoreComparisonTable } from '@/components/StoreComparisonTable';
 import { PriceTrendGraph } from '@/components/PriceTrendGraph';
 import { ReviewSentimentTags } from '@/components/ReviewSentimentTags';
@@ -51,9 +58,13 @@ export function ProductCard({
   const viewersCount = useDealViewers(deal.id, deal.soldCount, false);
 
   const platformMeta = getPlatformMeta(deal.platform);
+  const cleanedTitle = cleanProductTitle(deal.title);
 
-  // Discount percentage against market average
-  const savePct = Math.round(((deal.marketAvgPrice - deal.estimatedFinalPrice) / deal.marketAvgPrice) * 100);
+  const sanitizedOriginalPrice = getSanitizedOriginalPrice(deal.estimatedFinalPrice, deal.originalPrice);
+  const hasValidDiscount = sanitizedOriginalPrice !== null && sanitizedOriginalPrice > deal.estimatedFinalPrice;
+  const savePct = hasValidDiscount
+    ? Math.round(((sanitizedOriginalPrice - deal.estimatedFinalPrice) / sanitizedOriginalPrice) * 100)
+    : 0;
 
   const verifiedPlatforms = (deal.priceComparisons || []).filter(
     pc => pc.hasDirectProduct !== false && pc.price > 0
@@ -134,7 +145,7 @@ export function ProductCard({
           <div className="relative w-full md:w-52 h-48 md:h-52 shrink-0 rounded-xl overflow-hidden bg-neutral-100 border border-neutral-150">
             <img
               src={deal.imageUrl}
-              alt={deal.title}
+              alt={cleanedTitle}
               className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
               loading="lazy"
             />
@@ -234,7 +245,7 @@ export function ProductCard({
 
               {/* Title */}
               <h2 className="text-base sm:text-lg font-bold text-neutral-900 leading-snug line-clamp-2 hover:text-shopee transition-colors cursor-pointer mb-2">
-                {deal.title}
+                {cleanedTitle}
               </h2>
 
               {/* Option-Bait Warning Banner */}
@@ -339,19 +350,21 @@ export function ProductCard({
               
               {/* Price Tier Block */}
               <div>
-                <div className="flex items-baseline gap-2 mb-1">
+                <div className="flex items-baseline gap-2 mb-1 flex-wrap">
                   <span className="text-xs text-neutral-500 font-medium">ราคาหลังโค้ด:</span>
-                  <span className="text-2xl sm:text-3xl font-black text-shopee tracking-tight">
+                  <span className="text-2xl sm:text-3xl font-black text-shopee tracking-tight price-tag">
                     {formatTHB(deal.estimatedFinalPrice)}
                   </span>
-                  {deal.originalPrice > deal.estimatedFinalPrice && (
-                    <span className="text-xs text-neutral-400 line-through">
-                      {formatTHB(deal.originalPrice)}
+                  {hasValidDiscount && sanitizedOriginalPrice && (
+                    <span className="text-xs text-neutral-400 line-through font-normal">
+                      {formatTHB(sanitizedOriginalPrice)}
                     </span>
                   )}
-                  <span className="bg-rose-100 text-rose-700 text-xs font-extrabold px-1.5 py-0.5 rounded-md">
-                    ลด {savePct}%
-                  </span>
+                  {hasValidDiscount && savePct >= 5 && (
+                    <span className="bg-rose-100 text-rose-700 text-xs font-extrabold px-1.5 py-0.5 rounded-md">
+                      ลด {savePct}%
+                    </span>
+                  )}
                 </div>
 
                 <div className="flex items-center gap-2 text-[11px] text-neutral-500 font-medium">

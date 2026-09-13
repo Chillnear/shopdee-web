@@ -18,7 +18,7 @@ import {
   Share2
 } from 'lucide-react';
 import { ProductDeal, Platform } from '@/lib/types';
-import { formatTHB, formatSoldCount, getPlatformMeta, getSmartAffiliateUrl } from '@/lib/engine';
+import { formatTHB, formatSoldCount, getPlatformMeta, getSmartAffiliateUrl, cleanProductTitle } from '@/lib/engine';
 import { StoreComparisonTable } from '@/components/StoreComparisonTable';
 import { PriceTrendGraph } from '@/components/PriceTrendGraph';
 import { ReviewSentimentTags } from '@/components/ReviewSentimentTags';
@@ -97,7 +97,7 @@ export function ProductDetailModal({
             <div className="w-24 h-24 sm:w-28 sm:h-28 shrink-0 rounded-2xl overflow-hidden bg-neutral-100 border border-neutral-200">
               <img
                 src={deal.imageUrl}
-                alt={deal.title}
+                alt={cleanProductTitle(deal.title)}
                 className="w-full h-full object-cover"
               />
             </div>
@@ -116,7 +116,7 @@ export function ProductDetailModal({
               </div>
 
               <h3 className="font-extrabold text-sm sm:text-base text-neutral-900 leading-snug line-clamp-2 mb-1.5">
-                {deal.title}
+                {cleanProductTitle(deal.title)}
               </h3>
 
               <div className="text-xs text-neutral-500 font-medium">

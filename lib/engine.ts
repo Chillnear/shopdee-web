@@ -230,3 +230,57 @@ export function filterAndRankDeals(
 
   return { deals: sliced, totalMatching };
 }
+
+/**
+ * Clean up product titles: remove trailing dangling punctuation, open brackets, and unclosed parentheses
+ */
+export function cleanProductTitle(title: string): string {
+  if (!title) return '';
+  let cleaned = title.trim();
+
+  // 1. Remove dangling trailing open punctuation/separators
+  cleaned = cleaned.replace(/[\s\(\[\{【（\-\|\/\&,:]+$/, '');
+
+  // 2. Unmatched open parenthesis near the end
+  const openParen = (cleaned.match(/\(/g) || []).length;
+  const closeParen = (cleaned.match(/\)/g) || []).length;
+  if (openParen > closeParen) {
+    const lastOpen = cleaned.lastIndexOf('(');
+    if (lastOpen !== -1 && !cleaned.slice(lastOpen).includes(')')) {
+      cleaned = cleaned.slice(0, lastOpen).trim();
+    }
+  }
+
+  // 3. Unmatched open brackets '[' or '【'
+  const openBracket = (cleaned.match(/[\[【]/g) || []).length;
+  const closeBracket = (cleaned.match(/[\]】]/g) || []).length;
+  if (openBracket > closeBracket) {
+    const lastOpen = Math.max(cleaned.lastIndexOf('['), cleaned.lastIndexOf('【'));
+    if (lastOpen !== -1 && !cleaned.slice(lastOpen).match(/[\]】]/)) {
+      cleaned = cleaned.slice(0, lastOpen).trim();
+    }
+  }
+
+  // 4. Remove any trailing dangling punctuation again after bracket removal
+  cleaned = cleaned.replace(/[\s\(\[\{【（\-\|\/\&,:]+$/, '').trim();
+
+  return cleaned || title;
+}
+
+/**
+ * Detects and filters out scam anchor prices (e.g. Mascara ฿9,999 down to ฿379).
+ * Returns null if the original price is missing, <= current price, or artificially inflated (> 3.5x).
+ */
+export function getSanitizedOriginalPrice(currentPrice: number, originalPrice: number): number | null {
+  if (!originalPrice || !currentPrice || !Number.isFinite(originalPrice) || !Number.isFinite(currentPrice)) {
+    return null;
+  }
+  if (originalPrice <= currentPrice) {
+    return null;
+  }
+  // If original price is more than 3.5x current price, it is an inflated anchor price
+  if (originalPrice > currentPrice * 3.5) {
+    return null;
+  }
+  return originalPrice;
+}
