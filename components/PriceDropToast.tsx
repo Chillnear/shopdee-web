@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { Sparkles, X, ExternalLink, ArrowRight, Bell } from 'lucide-react';
 import { getStoredWatchlist, TrackedDeal } from '@/lib/watchlist';
-import { MOCK_DEALS } from '@/lib/mock-data';
 import { formatTHB } from '@/lib/engine';
 
 interface PriceDropAlert {
@@ -26,28 +25,28 @@ export function PriceDropToast({ onOpenWatchlist }: PriceDropToastProps) {
     if (watchlist.length === 0) return;
 
     for (const item of watchlist) {
-      const liveDeal = MOCK_DEALS.find(d => d.id === item.id);
-      if (liveDeal && liveDeal.estimatedFinalPrice <= item.targetPrice) {
-        const savings = item.targetPrice - liveDeal.estimatedFinalPrice;
-        setAlert({
-          deal: item,
-          currentPrice: liveDeal.estimatedFinalPrice,
-          savings,
-        });
+      const currentPrice = Number(item.currentPrice);
+      if (!Number.isFinite(currentPrice) || currentPrice > item.targetPrice) continue;
 
-        // ยิง Web Notification หากผู้ใช้อนุญาตไว้
-        if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'granted') {
-          try {
-            new Notification('🎉 ShopDee: ดีลที่ติดตามถึงราคาเป้าหมายแล้ว!', {
-              body: `${item.title} ลดเหลือ ${formatTHB(liveDeal.estimatedFinalPrice)} (ถูกกว่าเป้าหมาย ฿${savings})`,
-              icon: item.imageUrl,
-            });
-          } catch {
-            // ignore
-          }
+      const savings = item.targetPrice - currentPrice;
+      setAlert({
+        deal: item,
+        currentPrice,
+        savings,
+      });
+
+      // ยิง Web Notification หากผู้ใช้อนุญาตไว้
+      if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'granted') {
+        try {
+          new Notification('🎉 ShopDee: ดีลที่ติดตามถึงราคาเป้าหมายแล้ว!', {
+            body: `${item.title} ลดเหลือ ${formatTHB(currentPrice)} (ถูกกว่าเป้าหมาย ฿${savings})`,
+            icon: item.imageUrl,
+          });
+        } catch {
+          // ignore
         }
-        break; // แสดง 1 แจ้งเตือนแรกเพื่อไม่ให้รบกวนสายตา
       }
+      break; // แสดง 1 แจ้งเตือนแรกเพื่อไม่ให้รบกวนสายตา
     }
   }, []);
 
