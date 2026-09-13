@@ -60,7 +60,7 @@ export function SmartFilterBar({
         <div className="flex flex-row items-center justify-between gap-2">
           
           {/* Platform Tabs — horizontal scroll, never wrap to second line */}
-          <div className="flex items-center gap-1.5 py-0.5 overflow-x-auto no-scrollbar min-w-0">
+          <div className="flex flex-nowrap items-center gap-1.5 py-0.5 overflow-x-auto no-scrollbar min-w-0">
             <span className="text-xs font-bold text-neutral-500 whitespace-nowrap mr-1 flex items-center gap-1 shrink-0">
               <span>แพลตฟอร์ม:</span>
             </span>
