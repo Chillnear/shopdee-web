@@ -16,7 +16,7 @@ import { WatchlistDrawer } from '@/components/WatchlistDrawer';
 import { PriceDropToast } from '@/components/PriceDropToast';
 import { LineOptinBanner } from '@/components/LineOptinBanner';
 import { EmptySearchCard } from '@/components/EmptySearchCard';
-import { loadFullCatalog } from '@/lib/catalog-loader';
+import { isValidPersistedDeal, loadFullCatalog } from '@/lib/catalog-loader';
 import { DEFAULT_FILTER_STATE, filterAndRankDeals } from '@/lib/engine';
 import { FilterState, ProductDeal } from '@/lib/types';
 import { Sparkles, ShieldCheck, Flame, RotateCcw, HelpCircle, LayoutGrid, List, CheckCircle2 } from 'lucide-react';
@@ -49,7 +49,14 @@ export default function Home() {
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed)) {
-          setCustomDeals(parsed);
+          const validDeals = parsed.filter(isValidPersistedDeal);
+          setCustomDeals(validDeals);
+
+          if (validDeals.length === 0) {
+            localStorage.removeItem('shopdee_custom_deals');
+          } else if (validDeals.length !== parsed.length) {
+            localStorage.setItem('shopdee_custom_deals', JSON.stringify(validDeals));
+          }
         }
       }
     } catch (e) {

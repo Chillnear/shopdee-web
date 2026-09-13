@@ -39,6 +39,23 @@ function isUsablePlatformUrl(value: unknown, platform: Platform): value is strin
   }
 }
 
+/**
+ * Persisted deals must retain a verifiable marketplace product URL.
+ * This also removes legacy synthetic/search-link deals during localStorage migration.
+ */
+export function isValidPersistedDeal(value: unknown): value is ProductDeal {
+  if (!value || typeof value !== 'object') return false;
+  const deal = value as AnyRecord;
+  const platform = deal.platform as Platform;
+  return Boolean(
+    deal.id &&
+    deal.title &&
+    PLATFORM_HOSTS[platform] &&
+    isUsablePlatformUrl(deal.affiliateUrl, platform),
+  );
+}
+
+
 // ─── Shopee Feed → ProductDeal adapter ───────────────────────────────────────
 
 function makePlatformComparison(

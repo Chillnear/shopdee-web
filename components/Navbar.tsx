@@ -21,7 +21,7 @@ export function Navbar({ onOpenWatchlist }: NavbarProps) {
           {/* Brand Logo */}
           <div className="flex items-center gap-2.5">
             <img
-              src="/icon-192.png"
+              src="/icon-192.png?v=20260913"
               alt="ShopDee Logo"
               className="w-10 h-10 rounded-xl shadow-md shadow-black/20 object-cover"
             />
