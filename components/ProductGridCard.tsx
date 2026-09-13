@@ -35,11 +35,14 @@ export function ProductGridCard({
     if (deal.hasOptionBait) {
       return '⚠️ ตรวจสอบตัวเลือกก่อนสั่งซื้อ';
     }
+    if (deal.storeType === 'mall') {
+      return `✓ ร้านทางการ Shopee Mall (${deal.storeName})`;
+    }
     if (savePct >= 15) {
       return `✓ ถูกกว่าค่าเฉลี่ย ${savePct}% • ประกันแท้`;
     }
-    if (deal.storeType === 'mall') {
-      return '✓ ร้าน Mall ทางการ • ของแท้ 100%';
+    if (deal.storeType === 'preferred') {
+      return `✓ ร้านแนะนำ (${deal.storeName})`;
     }
     if (deal.freeShipping) {
       return '✓ ส่งฟรี • ร้านค้าได้รับความนิยม';
@@ -114,11 +117,21 @@ export function ProductGridCard({
           )}
         </div>
 
-        {/* Platform Indicator (Subtle Bottom Left) */}
-        <div className="absolute bottom-2 left-2 z-10">
-          <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded backdrop-blur-xs ${platformMeta.badgeColor}`}>
+        {/* Platform & Store Type Indicator (Bottom Left) */}
+        <div className="absolute bottom-2 left-2 z-10 flex items-center gap-1">
+          <span className={`text-[9px] font-black px-1.5 py-0.5 rounded backdrop-blur-xs ${platformMeta.badgeColor}`}>
             {platformMeta.name}
           </span>
+          {deal.storeType === 'mall' && (
+            <span className="text-[9px] font-black px-1.5 py-0.5 rounded bg-[#D0011B] text-white shadow-xs">
+              Shopee Mall
+            </span>
+          )}
+          {deal.storeType === 'preferred' && (
+            <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-amber-500 text-white shadow-xs">
+              ร้านแนะนำ
+            </span>
+          )}
         </div>
       </div>
 

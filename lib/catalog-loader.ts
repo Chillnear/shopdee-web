@@ -64,13 +64,15 @@ function makePlatformComparison(
   originalPrice: number,
   discountPercent: number,
   affiliateUrl: string,
+  storeName?: string,
+  storeType?: StoreType,
 ): PlatformPriceComparison {
   return {
     platform,
     price: Math.round(price),
     estimatedAfterVoucher: Math.round(price * 0.95),
-    storeName: platform === 'shopee' ? 'Shopee Official' : platform === 'lazada' ? 'Lazada TH' : 'TikTok Shop',
-    storeType: 'regular' as StoreType,
+    storeName: storeName || (platform === 'shopee' ? 'Shopee Official' : platform === 'lazada' ? 'Lazada TH' : 'TikTok Shop'),
+    storeType: storeType || ('regular' as StoreType),
     url: affiliateUrl || `https://shopee.co.th`,
     inStock: true,
   };
@@ -83,12 +85,14 @@ function makeStoreOffer(
   affiliateUrl: string,
   isLowest: boolean,
   soldCount: number,
+  storeName?: string,
+  storeType?: StoreType,
 ): StoreOffer {
   return {
     id: `${id}-${platform}`,
     platform,
-    storeName: platform === 'shopee' ? 'Shopee Store' : platform === 'lazada' ? 'Lazada Store' : 'TikTok Shop',
-    storeType: 'regular' as StoreType,
+    storeName: storeName || (platform === 'shopee' ? 'Shopee Store' : platform === 'lazada' ? 'Lazada Store' : 'TikTok Shop'),
+    storeType: storeType || ('regular' as StoreType),
     price: Math.round(price),
     estimatedAfterVoucher: Math.round(price * 0.95),
     voucherNote: 'ใช้โค้ด SHOPDEE5 ลด 5%',
@@ -127,15 +131,18 @@ function adaptFeedItem(raw: AnyRecord): ProductDeal | null {
 
     if (!title || shopeePrice <= 0) return null;
 
-    // The feed contains affiliate data for Shopee only. Do not invent prices or URLs for other platforms.
-    const lowestPlatform: Platform = 'shopee';
+    // Determine store type (Mall / Preferred / Regular)
+    const isMall = raw.storeType === 'mall' || raw.isOfficialShop === true || raw.is_official_shop === 'Official shop';
+    const isPreferred = raw.storeType === 'preferred' || raw.isPreferredShop === true || (typeof raw.is_preferred_shop === 'string' && raw.is_preferred_shop.includes('Preferred'));
+    const storeType: StoreType = isMall ? 'mall' : isPreferred ? 'preferred' : 'regular';
+    const storeName = String(raw.storeName || raw.shop_name || (isMall ? 'Shopee Mall' : 'Shopee Official'));
 
     const priceComparisons: PlatformPriceComparison[] = [
-      makePlatformComparison('shopee', shopeePrice, origPrice, discount, affiliateUrl),
+      makePlatformComparison('shopee', shopeePrice, origPrice, discount, affiliateUrl, storeName, storeType),
     ];
 
     const stores: StoreOffer[] = [
-      makeStoreOffer(id, 'shopee', shopeePrice, affiliateUrl, false, soldCount),
+      makeStoreOffer(id, 'shopee', shopeePrice, affiliateUrl, false, soldCount, storeName, storeType),
     ];
 
     const availableVouchers: Voucher[] = [
@@ -148,9 +155,9 @@ function adaptFeedItem(raw: AnyRecord): ProductDeal | null {
       imageUrl: image,
       category,
       tags: (raw.tags as string[]) ?? [category],
-      platform: lowestPlatform,
-      storeName: 'Shopee Official',
-      storeType: 'regular',
+      platform: 'shopee' as Platform,
+      storeName,
+      storeType,
       storeRating: Number(raw.rating ?? 4.5),
       soldCount,
       basePrice: shopeePrice,

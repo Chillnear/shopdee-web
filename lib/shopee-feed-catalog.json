@@ -76,7 +76,12 @@
       "sold": 16090,
       "discount": 67,
       "score": 17343.0
-    }
+    },
+    "storeType": "mall",
+    "storeName": "Oukeya Thailand Cosmetic",
+    "sellerName": "thoukeya",
+    "isOfficialShop": true,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1506075331-29831047385",
@@ -155,7 +160,12 @@
       "sold": 4885,
       "discount": 90,
       "score": 12916.0
-    }
+    },
+    "storeType": "mall",
+    "storeName": "JMCY Cosmetics TH",
+    "sellerName": "jmcycosmetics.th",
+    "isOfficialShop": true,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1265018458-41169412108",
@@ -234,7 +244,12 @@
       "sold": 9246,
       "discount": 60,
       "score": 12503.599999999999
-    }
+    },
+    "storeType": "regular",
+    "storeName": "LumineeBeauty-TH",
+    "sellerName": "lumineebeautyth",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-711553165-17724141317",
@@ -313,7 +328,12 @@
       "sold": 4824,
       "discount": 73,
       "score": 11161.4
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "COCO-YJM",
+    "sellerName": "yjmhoneliving",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-266863147-15234980895",
@@ -392,7 +412,12 @@
       "sold": 833,
       "discount": 96,
       "score": 11063.8
-    }
+    },
+    "storeType": "regular",
+    "storeName": "sun_999_shop",
+    "sellerName": "sun_999_shop",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1799342735-45164187011",
@@ -471,7 +496,12 @@
       "sold": 226,
       "discount": 99,
       "score": 11019.6
-    }
+    },
+    "storeType": "regular",
+    "storeName": "บลูสกาย ถุงไปรษณีย์ โรงงาน",
+    "sellerName": "17umjw2imn",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1126309572-28320112463",
@@ -550,7 +580,12 @@
       "sold": 209,
       "discount": 99,
       "score": 10985.4
-    }
+    },
+    "storeType": "regular",
+    "storeName": "risingcaseshop",
+    "sellerName": "risingcaseshop",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-36073142-6404339999",
@@ -629,7 +664,12 @@
       "sold": 591,
       "discount": 97,
       "score": 10971.6
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "บ้านซิมเทพ",
+    "sellerName": "kangleang2521",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-161955082-4772641738",
@@ -708,7 +748,12 @@
       "sold": 251,
       "discount": 98,
       "score": 10916.6
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "ohwowsitthiphum",
+    "sellerName": "ohwowsitthiphum",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1126309572-27231123436",
@@ -787,7 +832,12 @@
       "sold": 28,
       "discount": 99,
       "score": 10888.8
-    }
+    },
+    "storeType": "regular",
+    "storeName": "risingcaseshop",
+    "sellerName": "risingcaseshop",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-422755086-42211122641",
@@ -866,7 +916,12 @@
       "sold": 410,
       "discount": 96,
       "score": 10841.0
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "SUPERMOM COSMETICS",
+    "sellerName": "supermomcosmetics.official",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1515602763-41800028803",
@@ -945,7 +1000,12 @@
       "sold": 390,
       "discount": 96,
       "score": 10834.0
-    }
+    },
+    "storeType": "regular",
+    "storeName": "KK พวงกุญแจ",
+    "sellerName": "kk_168",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-221890671-12498859945",
@@ -1024,7 +1084,12 @@
       "sold": 74,
       "discount": 98,
       "score": 10810.4
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "inCity2018",
+    "sellerName": "incity2018",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1285338076-43776931651",
@@ -1103,7 +1168,12 @@
       "sold": 28,
       "discount": 98,
       "score": 10804.8
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "MEIMEI CASE",
+    "sellerName": "xiaomeicase",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-259803987-28717469041",
@@ -1182,7 +1252,12 @@
       "sold": 369,
       "discount": 96,
       "score": 10799.4
-    }
+    },
+    "storeType": "regular",
+    "storeName": "aoyou003.th",
+    "sellerName": "aoyou003.th",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1632144812-54804563165",
@@ -1261,7 +1336,12 @@
       "sold": 49,
       "discount": 98,
       "score": 10759.4
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "Home & Living",
+    "sellerName": "a_njmqp2so",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1836423211-53964514017",
@@ -1340,7 +1420,12 @@
       "sold": 12,
       "discount": 97,
       "score": 10707.2
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Blink Bloom",
+    "sellerName": "2m7se1u892",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1506075331-45757513214",
@@ -1419,7 +1504,12 @@
       "sold": 2508,
       "discount": 82,
       "score": 10693.8
-    }
+    },
+    "storeType": "mall",
+    "storeName": "JMCY Cosmetics TH",
+    "sellerName": "jmcycosmetics.th",
+    "isOfficialShop": true,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1572999330-42269385958",
@@ -1498,7 +1588,12 @@
       "sold": 18,
       "discount": 97,
       "score": 10688.8
-    }
+    },
+    "storeType": "regular",
+    "storeName": "wiwicase",
+    "sellerName": "wiwicase",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-292382517-10763730709",
@@ -1577,7 +1672,12 @@
       "sold": 50,
       "discount": 97,
       "score": 10675.0
-    }
+    },
+    "storeType": "mall",
+    "storeName": "SINGAYE Official Shop",
+    "sellerName": "singaye",
+    "isOfficialShop": true,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1319385936-28225827850",
@@ -1656,7 +1756,12 @@
       "sold": 78,
       "discount": 96,
       "score": 10636.8
-    }
+    },
+    "storeType": "regular",
+    "storeName": "BoxSurprise",
+    "sellerName": "chaokeke.th",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1090707994-13599924302",
@@ -1735,7 +1840,12 @@
       "sold": 1649,
       "discount": 87,
       "score": 10629.4
-    }
+    },
+    "storeType": "regular",
+    "storeName": "petshome 01",
+    "sellerName": "petshome01",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1172567116-46102786576",
@@ -1814,7 +1924,12 @@
       "sold": 38,
       "discount": 96,
       "score": 10620.8
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "casesunshine.th",
+    "sellerName": "casesunshine.th",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-562676149-18674910015",
@@ -1893,7 +2008,12 @@
       "sold": 29,
       "discount": 96,
       "score": 10584.4
-    }
+    },
+    "storeType": "mall",
+    "storeName": "ANJOSIRMA Official Store",
+    "sellerName": "anjosirma.th",
+    "isOfficialShop": true,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1577496565-54560413726",
@@ -1972,7 +2092,12 @@
       "sold": 194,
       "discount": 95,
       "score": 10580.4
-    }
+    },
+    "storeType": "regular",
+    "storeName": "DailyHue.th",
+    "sellerName": "m4d4rdty68",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1003071691-55312477341",
@@ -2051,7 +2176,12 @@
       "sold": 63,
       "discount": 96,
       "score": 10579.8
-    }
+    },
+    "storeType": "regular",
+    "storeName": "TuTeng.th",
+    "sellerName": "tuteng.th",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-237210903-48960651898",
@@ -2130,7 +2260,12 @@
       "sold": 119,
       "discount": 95,
       "score": 10553.4
-    }
+    },
+    "storeType": "mall",
+    "storeName": "COCKPIT Official Store",
+    "sellerName": "cockpit_official_thailand",
+    "isOfficialShop": true,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1069946726-45957704286",
@@ -2209,7 +2344,12 @@
       "sold": 6061,
       "discount": 60,
       "score": 10542.6
-    }
+    },
+    "storeType": "regular",
+    "storeName": "โรงงานทิชชู่ ขายส่ง-ปลีก",
+    "sellerName": "sipeau.thai",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1238735092-24480689638",
@@ -2288,7 +2428,12 @@
       "sold": 115,
       "discount": 95,
       "score": 10535.0
-    }
+    },
+    "storeType": "regular",
+    "storeName": "8.1k",
+    "sellerName": "8.1kshop",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1285359048-27370927904",
@@ -2367,7 +2512,12 @@
       "sold": 191,
       "discount": 95,
       "score": 10528.6
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "PeaceCase Store",
+    "sellerName": "peacecaseshop",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1574435796-42307497601",
@@ -2446,7 +2596,12 @@
       "sold": 38,
       "discount": 95,
       "score": 10509.8
-    }
+    },
+    "storeType": "regular",
+    "storeName": "popoopet",
+    "sellerName": "6zy8i5xwa8",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1806643457-53613602135",
@@ -2525,7 +2680,12 @@
       "sold": 16,
       "discount": 95,
       "score": 10509.6
-    }
+    },
+    "storeType": "regular",
+    "storeName": "7rd74_ci1n",
+    "sellerName": "7rd74_ci1n",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1455526927-43675634125",
@@ -2604,7 +2764,12 @@
       "sold": 52,
       "discount": 95,
       "score": 10509.2
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Super tarp",
+    "sellerName": "9109j5pnwn",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1620242-28623393656",
@@ -2683,7 +2848,12 @@
       "sold": 81,
       "discount": 95,
       "score": 10508.6
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Home.sweet",
+    "sellerName": "ohhopampam",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1172566593-49902086532",
@@ -2762,7 +2932,12 @@
       "sold": 13,
       "discount": 95,
       "score": 10507.8
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "SweetCandy_Case",
+    "sellerName": "sweetcandy_case",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1574435796-43214130573",
@@ -2841,7 +3016,12 @@
       "sold": 17,
       "discount": 95,
       "score": 10489.2
-    }
+    },
+    "storeType": "regular",
+    "storeName": "popoopet",
+    "sellerName": "6zy8i5xwa8",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-252203101-24361899651",
@@ -2920,7 +3100,12 @@
       "sold": 29,
       "discount": 95,
       "score": 10486.4
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "life.helper",
+    "sellerName": "life.helper",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-149225638-23364475829",
@@ -2999,7 +3184,12 @@
       "sold": 11,
       "discount": 95,
       "score": 10468.6
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "DIY สติ๊กเกอร์ No.1",
+    "sellerName": "kids_toys_tower.th",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1658184399-54852696728",
@@ -3078,7 +3268,12 @@
       "sold": 61,
       "discount": 95,
       "score": 10462.6
-    }
+    },
+    "storeType": "regular",
+    "storeName": "magnate.3c",
+    "sellerName": "magnate.3c.th",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-158838718-26751254184",
@@ -3157,7 +3352,12 @@
       "sold": 231,
       "discount": 93,
       "score": 10424.6
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "MAKAWA อุปกรณ์ทำความสะอาดรถ",
+    "sellerName": "makawa1",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-240186209-14513169555",
@@ -3236,7 +3436,12 @@
       "sold": 1234,
       "discount": 87,
       "score": 10420.4
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "sudkum168",
+    "sellerName": "sudkum168",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1530037780-41870014509",
@@ -3315,7 +3520,12 @@
       "sold": 82,
       "discount": 94,
       "score": 10413.2
-    }
+    },
+    "storeType": "mall",
+    "storeName": "Footar Gadget",
+    "sellerName": "footar.gadget.th",
+    "isOfficialShop": true,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1574423018-43307847474",
@@ -3394,7 +3604,12 @@
       "sold": 13,
       "discount": 94,
       "score": 10408.8
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Ozmolts Healthy Store",
+    "sellerName": "ozroiqbm_i",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-161955082-9532186665",
@@ -3473,7 +3688,12 @@
       "sold": 48,
       "discount": 94,
       "score": 10404.8
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "ohwowsitthiphum",
+    "sellerName": "ohwowsitthiphum",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1556904146-45950177416",
@@ -3552,7 +3772,12 @@
       "sold": 201,
       "discount": 93,
       "score": 10404.6
-    }
+    },
+    "storeType": "regular",
+    "storeName": "BenBencase",
+    "sellerName": "benbencase",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-573368256-55066306787",
@@ -3631,7 +3856,12 @@
       "sold": 40,
       "discount": 94,
       "score": 10402.0
-    }
+    },
+    "storeType": "mall",
+    "storeName": "Retail.mall",
+    "sellerName": "retail.mall",
+    "isOfficialShop": true,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-266863147-42462749723",
@@ -3710,7 +3940,12 @@
       "sold": 10,
       "discount": 94,
       "score": 10396.0
-    }
+    },
+    "storeType": "regular",
+    "storeName": "sun_999_shop",
+    "sellerName": "sun_999_shop",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1563285676-43680073822",
@@ -3789,7 +4024,12 @@
       "sold": 21,
       "discount": 94,
       "score": 10386.6
-    }
+    },
+    "storeType": "regular",
+    "storeName": "CYPHER",
+    "sellerName": "cypher.th",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-404040962-43270482132",
@@ -3868,7 +4108,12 @@
       "sold": 28,
       "discount": 94,
       "score": 10382.8
-    }
+    },
+    "storeType": "regular",
+    "storeName": "ร้านขายของขวัญช้าง",
+    "sellerName": "mintoo.dr",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-161955082-6611637732",
@@ -3947,7 +4192,12 @@
       "sold": 26,
       "discount": 94,
       "score": 10381.6
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "ohwowsitthiphum",
+    "sellerName": "ohwowsitthiphum",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-943456793-29405064922",
@@ -4026,7 +4276,12 @@
       "sold": 2127,
       "discount": 81,
       "score": 10351.2
-    }
+    },
+    "storeType": "mall",
+    "storeName": "Hello Polo",
+    "sellerName": "hellopolo_official",
+    "isOfficialShop": true,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-574161991-24412642208",
@@ -4105,7 +4360,12 @@
       "sold": 11,
       "discount": 94,
       "score": 10348.6
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Cober Shop",
+    "sellerName": "cordial.shop",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1129575496-24146814499",
@@ -4184,7 +4444,12 @@
       "sold": 1126,
       "discount": 87,
       "score": 10329.6
-    }
+    },
+    "storeType": "mall",
+    "storeName": "JULYJAR MALL",
+    "sellerName": "tata_beauti",
+    "isOfficialShop": true,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1049076226-42552396080",
@@ -4263,7 +4528,12 @@
       "sold": 62,
       "discount": 93,
       "score": 10311.2
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "niuniucase_factorystore",
+    "sellerName": "niuniucase_factorystore",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-372442008-12472783181",
@@ -4342,7 +4612,12 @@
       "sold": 51,
       "discount": 93,
       "score": 10309.6
-    }
+    },
+    "storeType": "regular",
+    "storeName": "barewish",
+    "sellerName": "barewish",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1066917470-43008581599",
@@ -4421,7 +4696,12 @@
       "sold": 17,
       "discount": 93,
       "score": 10294.2
-    }
+    },
+    "storeType": "regular",
+    "storeName": "YooNik",
+    "sellerName": "yoonik4232",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1244968267-44162059988",
@@ -4500,7 +4780,12 @@
       "sold": 34,
       "discount": 93,
       "score": 10282.4
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Alice_case",
+    "sellerName": "alice_case",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1431213633-40304628953",
@@ -4579,7 +4864,12 @@
       "sold": 28,
       "discount": 93,
       "score": 10280.8
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "3C. world 555",
+    "sellerName": "3c.world.555.th",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1659881988-56302971189",
@@ -4658,7 +4948,12 @@
       "sold": 10,
       "discount": 93,
       "score": 10280.0
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "pjlongteng.th",
+    "sellerName": "pjlongteng.th",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-161955082-3409031535",
@@ -4737,7 +5032,12 @@
       "sold": 10,
       "discount": 93,
       "score": 10270.0
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "ohwowsitthiphum",
+    "sellerName": "ohwowsitthiphum",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1555677381-44506810598",
@@ -4816,7 +5116,12 @@
       "sold": 23,
       "discount": 93,
       "score": 10267.8
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Plendy Shop",
+    "sellerName": "ftt0c62dfb",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-304458000-15484645631",
@@ -4895,7 +5200,12 @@
       "sold": 13,
       "discount": 93,
       "score": 10267.8
-    }
+    },
+    "storeType": "mall",
+    "storeName": "ECOCO Official Shop",
+    "sellerName": "ecoco.shop",
+    "isOfficialShop": true,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-404040962-53907761392",
@@ -4974,7 +5284,12 @@
       "sold": 16,
       "discount": 93,
       "score": 10251.6
-    }
+    },
+    "storeType": "regular",
+    "storeName": "ร้านขายของขวัญช้าง",
+    "sellerName": "mintoo.dr",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-149578889-2318750481",
@@ -5053,7 +5368,12 @@
       "sold": 195,
       "discount": 92,
       "score": 10239.0
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "Goody Home",
+    "sellerName": "goodyhome",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-8813631-4741286406",
@@ -5132,7 +5452,12 @@
       "sold": 101,
       "discount": 92,
       "score": 10224.6
-    }
+    },
+    "storeType": "regular",
+    "storeName": "filmm 567",
+    "sellerName": "allabotphones",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-291194997-22739659037",
@@ -5211,7 +5536,12 @@
       "sold": 99,
       "discount": 92,
       "score": 10224.4
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "kaixinshop88",
+    "sellerName": "kaixinshop88",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1032712715-42473498916",
@@ -5290,7 +5620,12 @@
       "sold": 428,
       "discount": 90,
       "score": 10222.8
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "ConnectTech Shop",
+    "sellerName": "4pfezmufth",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-205083982-25154420765",
@@ -5369,7 +5704,12 @@
       "sold": 501,
       "discount": 90,
       "score": 10222.6
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "k2016_2030",
+    "sellerName": "k2016_2030",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-753583548-27076697766",
@@ -5448,7 +5788,12 @@
       "sold": 943,
       "discount": 87,
       "score": 10211.8
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "Rack Shop",
+    "sellerName": "rack_mall",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-7098576-25389323072",
@@ -5527,7 +5872,12 @@
       "sold": 56,
       "discount": 92,
       "score": 10205.6
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "poseidon.shop",
+    "sellerName": "poseidon.shop",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1257635571-28716318311",
@@ -5606,7 +5956,12 @@
       "sold": 245,
       "discount": 91,
       "score": 10205.0
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "Caring Love&Adults",
+    "sellerName": "gvxc1avr_6",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-431630907-47357969109",
@@ -5685,7 +6040,12 @@
       "sold": 188,
       "discount": 91,
       "score": 10201.8
-    }
+    },
+    "storeType": "mall",
+    "storeName": "Deli Office Officialshop",
+    "sellerName": "delioffice",
+    "isOfficialShop": true,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-484452031-25976618259",
@@ -5764,7 +6124,12 @@
       "sold": 35,
       "discount": 92,
       "score": 10199.0
-    }
+    },
+    "storeType": "regular",
+    "storeName": "AFish.Home",
+    "sellerName": "afish.0708",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1235385085-29456013087",
@@ -5843,7 +6208,12 @@
       "sold": 102,
       "discount": 92,
       "score": 10191.2
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "Fitness enthusiast",
+    "sellerName": "mengnan",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-818578989-23051446427",
@@ -5922,7 +6292,12 @@
       "sold": 39,
       "discount": 92,
       "score": 10189.4
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "MS_SISI",
+    "sellerName": "ms_sisi",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1718111228-49755190018",
@@ -6001,7 +6376,12 @@
       "sold": 55,
       "discount": 92,
       "score": 10189.0
-    }
+    },
+    "storeType": "regular",
+    "storeName": "gukaa.th",
+    "sellerName": "gukaa.th",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1668242623-42978873841",
@@ -6080,7 +6460,12 @@
       "sold": 18,
       "discount": 92,
       "score": 10184.8
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Aimllo Stationery Shop",
+    "sellerName": "ployfrong",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1832522567-55711131548",
@@ -6159,7 +6544,12 @@
       "sold": 17,
       "discount": 92,
       "score": 10180.2
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "KWshop.th",
+    "sellerName": "kwshop.th",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1117478133-43253996183",
@@ -6238,7 +6628,12 @@
       "sold": 15,
       "discount": 92,
       "score": 10173.0
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Aurora - fashion",
+    "sellerName": "aurorafashion.thai",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1227350036-25874101232",
@@ -6317,7 +6712,12 @@
       "sold": 24,
       "discount": 92,
       "score": 10164.4
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "HISUNNY",
+    "sellerName": "hisunnystore",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1445123352-43754418540",
@@ -6396,7 +6796,12 @@
       "sold": 927,
       "discount": 87,
       "score": 10160.2
-    }
+    },
+    "storeType": "regular",
+    "storeName": "folira.umi",
+    "sellerName": "folira.umi",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-9811864-18380421018",
@@ -6475,7 +6880,12 @@
       "sold": 2170,
       "discount": 79,
       "score": 10156.0
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "Makata",
+    "sellerName": "zybing",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1695826428-48208183789",
@@ -6554,7 +6964,12 @@
       "sold": 24,
       "discount": 92,
       "score": 10148.4
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Gift Boxes & Bags",
+    "sellerName": "ponggiftboxbag",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-312563770-7359015839",
@@ -6633,7 +7048,12 @@
       "sold": 313,
       "discount": 90,
       "score": 10132.8
-    }
+    },
+    "storeType": "regular",
+    "storeName": "ProgramThanarich",
+    "sellerName": "programthanarich",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-479521473-56355232162",
@@ -6712,7 +7132,12 @@
       "sold": 23,
       "discount": 91,
       "score": 10103.8
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "Bangkok KC Store",
+    "sellerName": "rbyaf2c61a",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1331518476-53105018565",
@@ -6791,7 +7216,12 @@
       "sold": 40,
       "discount": 91,
       "score": 10096.0
-    }
+    },
+    "storeType": "regular",
+    "storeName": "TechTwist",
+    "sellerName": "techcasell",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1785369259-40980564450",
@@ -6870,7 +7300,12 @@
       "sold": 39,
       "discount": 91,
       "score": 10091.4
-    }
+    },
+    "storeType": "regular",
+    "storeName": "dreamhometextilecity",
+    "sellerName": "dreamhometextilecity",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-7801439-24101806653",
@@ -6949,7 +7384,12 @@
       "sold": 13,
       "discount": 91,
       "score": 10085.8
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "Rinda Shop",
+    "sellerName": "0920506823whan",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-205101136-21920632512",
@@ -7028,7 +7468,12 @@
       "sold": 19,
       "discount": 91,
       "score": 10083.4
-    }
+    },
+    "storeType": "regular",
+    "storeName": "sungtidachen",
+    "sellerName": "sungtidachen",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-165601508-45152603855",
@@ -7107,7 +7552,12 @@
       "sold": 13,
       "discount": 91,
       "score": 10065.8
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "yotaibkk",
+    "sellerName": "yotaibkk",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1177039231-25193932806",
@@ -7186,7 +7636,12 @@
       "sold": 150,
       "discount": 90,
       "score": 10063.0
-    }
+    },
+    "storeType": "mall",
+    "storeName": "OSGEER_Thailan_official.th",
+    "sellerName": "dcdz8880.th",
+    "isOfficialShop": true,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1656326333-51664236528",
@@ -7265,7 +7720,12 @@
       "sold": 72,
       "discount": 90,
       "score": 10043.2
-    }
+    },
+    "storeType": "regular",
+    "storeName": "ขายส่ง-กล่อง",
+    "sellerName": "xvg881jdyo",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1228969032-26623255214",
@@ -7344,7 +7804,12 @@
       "sold": 49,
       "discount": 90,
       "score": 10030.4
-    }
+    },
+    "storeType": "mall",
+    "storeName": "Kpopmerch Thailand Official",
+    "sellerName": "kpopmerch.th.local",
+    "isOfficialShop": true,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1718111257-47205114660",
@@ -7423,7 +7888,12 @@
       "sold": 160,
       "discount": 90,
       "score": 10025.0
-    }
+    },
+    "storeType": "mall",
+    "storeName": "SenbenbaoHS.th",
+    "sellerName": "senbenbaohs.th",
+    "isOfficialShop": true,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1712774779-51754996256",
@@ -7502,7 +7972,12 @@
       "sold": 21,
       "discount": 90,
       "score": 10012.6
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "Sunny Mart",
+    "sellerName": "sunnymartth",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-282760344-12244797126",
@@ -7581,7 +8056,12 @@
       "sold": 36,
       "discount": 90,
       "score": 10008.6
-    }
+    },
+    "storeType": "regular",
+    "storeName": "molziii2519",
+    "sellerName": "molziii2519",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1417264631-26135905306",
@@ -7660,7 +8140,12 @@
       "sold": 12,
       "discount": 90,
       "score": 10008.2
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "Kalayani💞",
+    "sellerName": "kalayaniz",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1858721987-40733853932",
@@ -7739,7 +8224,12 @@
       "sold": 10,
       "discount": 90,
       "score": 10006.0
-    }
+    },
+    "storeType": "regular",
+    "storeName": "KERWATS",
+    "sellerName": "jrtb82zzt3",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1320289764-29107428002",
@@ -7818,7 +8308,12 @@
       "sold": 65,
       "discount": 90,
       "score": 10004.0
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "🍋มะนาว_ร้านของใช้ในบ้าน",
+    "sellerName": "lemontree10.th",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-288260638-46154204456",
@@ -7897,7 +8392,12 @@
       "sold": 26,
       "discount": 90,
       "score": 10001.6
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "iFashion Case",
+    "sellerName": "ifashioncase",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-328372516-26857382058",
@@ -7976,7 +8476,12 @@
       "sold": 37,
       "discount": 90,
       "score": 10000.2
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "Dogegg",
+    "sellerName": "dogegg.th",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1098717234-43679707037",
@@ -8055,7 +8560,12 @@
       "sold": 394,
       "discount": 88,
       "score": 9997.4
-    }
+    },
+    "storeType": "mall",
+    "storeName": "Bajiss Thailand Store",
+    "sellerName": "bajiss.shop",
+    "isOfficialShop": true,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1715002575-50157095671",
@@ -8134,7 +8644,12 @@
       "sold": 21,
       "discount": 90,
       "score": 9994.6
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Goodi volt",
+    "sellerName": "27le42qbjz",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1252386930-29900807214",
@@ -8213,7 +8728,12 @@
       "sold": 30,
       "discount": 90,
       "score": 9990.0
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Saturday Fitness",
+    "sellerName": "ycb9g7ocav",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1712774779-48254935266",
@@ -8292,7 +8812,12 @@
       "sold": 43,
       "discount": 90,
       "score": 9987.8
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "Sunny Mart",
+    "sellerName": "sunnymartth",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-170823769-53954189439",
@@ -8371,7 +8896,12 @@
       "sold": 29,
       "discount": 90,
       "score": 9986.4
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "Chang Rak - ช่างรักษ์",
+    "sellerName": "changrak.store",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1082461307-27431719048",
@@ -8450,7 +8980,12 @@
       "sold": 41,
       "discount": 90,
       "score": 9985.6
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "PETLOVERS.th",
+    "sellerName": "petlovers.th",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1055679186-24530924918",
@@ -8529,7 +9064,12 @@
       "sold": 10,
       "discount": 90,
       "score": 9982.0
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Chic_shop4232",
+    "sellerName": "chicshop4232",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1118936514-26322979180",
@@ -8608,7 +9148,12 @@
       "sold": 1262,
       "discount": 83,
       "score": 9981.2
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "บ๊อบ ไทยแลนด์",
+    "sellerName": "_sqym3wzuh",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1652910471-40725247835",
@@ -8687,7 +9232,12 @@
       "sold": 31,
       "discount": 90,
       "score": 9980.6
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Smart View Thailand",
+    "sellerName": "tzzs0168.th",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1718074662-43331996582",
@@ -8766,7 +9316,12 @@
       "sold": 14,
       "discount": 90,
       "score": 9980.4
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Value Box & Bag Wholesale",
+    "sellerName": "boxbagwholesale",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1661330250-42077775765",
@@ -8845,7 +9400,12 @@
       "sold": 17,
       "discount": 90,
       "score": 9980.2
-    }
+    },
+    "storeType": "regular",
+    "storeName": "r25374qn6c",
+    "sellerName": "r25374qn6c",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-21221192-27253627053",
@@ -8924,7 +9484,12 @@
       "sold": 16,
       "discount": 90,
       "score": 9973.6
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Phranakornshop",
+    "sellerName": "cheapsaleshop",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1722113698-41082675278",
@@ -9003,7 +9568,12 @@
       "sold": 28,
       "discount": 90,
       "score": 9966.8
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Gift Box Home",
+    "sellerName": "giftboxhome",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-87398381-24174042748",
@@ -9082,7 +9652,12 @@
       "sold": 13,
       "discount": 90,
       "score": 9962.8
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "กล่องกำมะหยี่ใส่เครื่องประดับ",
+    "sellerName": "prosper_packaging",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1117478133-41553194425",
@@ -9161,7 +9736,12 @@
       "sold": 11,
       "discount": 90,
       "score": 9962.6
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Aurora - fashion",
+    "sellerName": "aurorafashion.thai",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-140518840-24710379977",
@@ -9240,7 +9820,12 @@
       "sold": 28,
       "discount": 90,
       "score": 9960.8
-    }
+    },
+    "storeType": "regular",
+    "storeName": "kingkong.electric",
+    "sellerName": "kingkong.electronic",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1834552314-48861358951",
@@ -9319,7 +9904,12 @@
       "sold": 11,
       "discount": 90,
       "score": 9956.6
-    }
+    },
+    "storeType": "regular",
+    "storeName": "ปังเลอ shop",
+    "sellerName": "xx5xlaenjw",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1172566593-26231136794",
@@ -9398,7 +9988,12 @@
       "sold": 31,
       "discount": 90,
       "score": 9924.6
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "SweetCandy_Case",
+    "sellerName": "sweetcandy_case",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-365126141-46757871075",
@@ -9477,7 +10072,12 @@
       "sold": 49,
       "discount": 89,
       "score": 9919.4
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "☕☕☕ขายดี",
+    "sellerName": "n4iilign1w",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1344465055-54711892603",
@@ -9556,7 +10156,12 @@
       "sold": 42,
       "discount": 89,
       "score": 9916.2
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Disney Franchised Store TH",
+    "sellerName": "ume2024.th",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-928132480-27191474699",
@@ -9635,7 +10240,12 @@
       "sold": 48,
       "discount": 89,
       "score": 9913.8
-    }
+    },
+    "storeType": "mall",
+    "storeName": "Cokki",
+    "sellerName": "cokkicare.th",
+    "isOfficialShop": true,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-88362845-25494713174",
@@ -9714,7 +10324,12 @@
       "sold": 52,
       "discount": 89,
       "score": 9911.2
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "amt shop",
+    "sellerName": "ming00986",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1009086614-50560999147",
@@ -9793,7 +10408,12 @@
       "sold": 74,
       "discount": 89,
       "score": 9900.4
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "autop3.th",
+    "sellerName": "autop3.th",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-943456793-26750232453",
@@ -9872,7 +10492,12 @@
       "sold": 359,
       "discount": 87,
       "score": 9896.4
-    }
+    },
+    "storeType": "mall",
+    "storeName": "Hello Polo",
+    "sellerName": "hellopolo_official",
+    "isOfficialShop": true,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-485656055-20747681496",
@@ -9951,7 +10576,12 @@
       "sold": 32,
       "discount": 89,
       "score": 9896.2
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Angelbaby~",
+    "sellerName": "6rmjz7ap86",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1827860860-48511116346",
@@ -10030,7 +10660,12 @@
       "sold": 40,
       "discount": 89,
       "score": 9894.0
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Oneyee stationery Store",
+    "sellerName": "su32nnkd11",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1253880486-48013987399",
@@ -10109,7 +10744,12 @@
       "sold": 28,
       "discount": 89,
       "score": 9892.8
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "BLIVO",
+    "sellerName": "blivo.th",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1484062285-44558755106",
@@ -10188,7 +10828,12 @@
       "sold": 12,
       "discount": 89,
       "score": 9889.2
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "พัดลม สปอร์ต สด",
+    "sellerName": "szpxzm0.th",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1832066325-50611088828",
@@ -10267,7 +10912,12 @@
       "sold": 392,
       "discount": 87,
       "score": 9885.2
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Missart stationery Store",
+    "sellerName": "skglheinlv",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-212021140-6045506147",
@@ -10346,7 +10996,12 @@
       "sold": 30,
       "discount": 89,
       "score": 9880.0
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "Boss_149",
+    "sellerName": "pao_1484",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1304495966-50109490168",
@@ -10425,7 +11080,12 @@
       "sold": 15,
       "discount": 89,
       "score": 9879.0
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "nail color",
+    "sellerName": "nailcolor.th",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-313050151-28326652098",
@@ -10504,7 +11164,12 @@
       "sold": 11,
       "discount": 89,
       "score": 9877.6
-    }
+    },
+    "storeType": "mall",
+    "storeName": "Basike Official Store Thailand",
+    "sellerName": "zelectronbasike",
+    "isOfficialShop": true,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1680834293-40877120912",
@@ -10583,7 +11248,12 @@
       "sold": 165,
       "discount": 88,
       "score": 9877.0
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Gift&Box",
+    "sellerName": "giftboxs",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1702194387-47363038063",
@@ -10662,7 +11332,12 @@
       "sold": 149,
       "discount": 88,
       "score": 9875.4
-    }
+    },
+    "storeType": "mall",
+    "storeName": "Hrold Global Mall Thailand",
+    "sellerName": "hrold.mall",
+    "isOfficialShop": true,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1718186801-51557744530",
@@ -10741,7 +11416,12 @@
       "sold": 47,
       "discount": 89,
       "score": 9872.2
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Underwear Discount Store",
+    "sellerName": "g_k8imzu25",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1555871378-26088908689",
@@ -10820,7 +11500,12 @@
       "sold": 19,
       "discount": 89,
       "score": 9871.4
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "winnerday",
+    "sellerName": "winner.day",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-485401629-7795501549",
@@ -10899,7 +11584,12 @@
       "sold": 15,
       "discount": 89,
       "score": 9867.0
-    }
+    },
+    "storeType": "regular",
+    "storeName": "BOYO HOME",
+    "sellerName": "boyo.mall",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-221890671-23662116589",
@@ -10978,7 +11668,12 @@
       "sold": 55,
       "discount": 89,
       "score": 9867.0
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "inCity2018",
+    "sellerName": "incity2018",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-432275551-10168719703",
@@ -11057,7 +11752,12 @@
       "sold": 17,
       "discount": 89,
       "score": 9864.2
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "Elec. Smart_Home",
+    "sellerName": "a5ksipyera",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1504679906-27933903420",
@@ -11136,7 +11836,12 @@
       "sold": 329,
       "discount": 87,
       "score": 9853.4
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "careheart.th",
+    "sellerName": "careheart.th",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-818737756-20552943301",
@@ -11215,7 +11920,12 @@
       "sold": 114,
       "discount": 88,
       "score": 9849.4
-    }
+    },
+    "storeType": "regular",
+    "storeName": "pet's house",
+    "sellerName": "ie3vg7gsh7",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1649899202-40424489584",
@@ -11294,7 +12004,12 @@
       "sold": 19,
       "discount": 89,
       "score": 9846.4
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "CFDZGS",
+    "sellerName": "changfeidianzi2.th",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1068293033-43150875280",
@@ -11373,7 +12088,12 @@
       "sold": 589,
       "discount": 85,
       "score": 9834.4
-    }
+    },
+    "storeType": "mall",
+    "storeName": "OSGEER Mall Store.th",
+    "sellerName": "osgeer_001.th",
+    "isOfficialShop": true,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-362182831-8735371313",
@@ -11452,7 +12172,12 @@
       "sold": 14,
       "discount": 89,
       "score": 9832.4
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Mickey Land",
+    "sellerName": "mickey_land",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-78191772-23379889605",
@@ -11531,7 +12256,12 @@
       "sold": 602,
       "discount": 85,
       "score": 9821.2
-    }
+    },
+    "storeType": "regular",
+    "storeName": "GIYO_SHOP",
+    "sellerName": "giyo_shop",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-818578989-18791952712",
@@ -11610,7 +12340,12 @@
       "sold": 73,
       "discount": 88,
       "score": 9815.8
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "MS_SISI",
+    "sellerName": "ms_sisi",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1792388206-48163259181",
@@ -11689,7 +12424,12 @@
       "sold": 22,
       "discount": 88,
       "score": 9813.2
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Easy Wear Slippers",
+    "sellerName": "o3n9uadj8c",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-82495989-25959811709",
@@ -11768,7 +12508,12 @@
       "sold": 1059,
       "discount": 82,
       "score": 9809.4
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "QianZiZhai.th",
+    "sellerName": "yuloverita.th",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1852960090-57812881998",
@@ -11847,7 +12592,12 @@
       "sold": 390,
       "discount": 86,
       "score": 9808.0
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Vibeholm.th",
+    "sellerName": "vibeholm.th",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1712774779-51055153506",
@@ -11926,7 +12676,12 @@
       "sold": 26,
       "discount": 88,
       "score": 9805.6
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "Sunny Mart",
+    "sellerName": "sunnymartth",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1622302190-57855979051",
@@ -12005,7 +12760,12 @@
       "sold": 229,
       "discount": 87,
       "score": 9801.4
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "Lucky stationery Store",
+    "sellerName": "nanhan002.th",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1214959623-24978655672",
@@ -12084,7 +12844,12 @@
       "sold": 87,
       "discount": 88,
       "score": 9798.2
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "Manfasi",
+    "sellerName": "godvkml9rs",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-558757656-28172947199",
@@ -12163,7 +12928,12 @@
       "sold": 1111,
       "discount": 82,
       "score": 9796.6
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "แฟชั่น สวย",
+    "sellerName": "refm5bx_wk",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-52999629-57110792150",
@@ -12242,7 +13012,12 @@
       "sold": 2896,
       "discount": 71,
       "score": 9795.6
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "SPINNYHOUSE",
+    "sellerName": "pinmesub",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1229443561-57662628402",
@@ -12321,7 +13096,12 @@
       "sold": 23,
       "discount": 88,
       "score": 9794.8
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Mulittea.Local",
+    "sellerName": "064sy2g89m",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-365032863-26124936426",
@@ -12400,7 +13180,12 @@
       "sold": 28,
       "discount": 88,
       "score": 9790.8
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "touk9e91p2",
+    "sellerName": "touk9e91p2",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-501584281-42157880868",
@@ -12479,7 +13264,12 @@
       "sold": 4525,
       "discount": 61,
       "score": 9788.0
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "KONGฟิล์มกระจก",
+    "sellerName": "kongsale",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1329678280-29475851613",
@@ -12558,7 +13348,12 @@
       "sold": 49,
       "discount": 88,
       "score": 9787.4
-    }
+    },
+    "storeType": "regular",
+    "storeName": "TYURY01",
+    "sellerName": "tyury01",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1009086614-43830894239",
@@ -12637,7 +13432,12 @@
       "sold": 21,
       "discount": 88,
       "score": 9784.6
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "autop3.th",
+    "sellerName": "autop3.th",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-165601508-26980380366",
@@ -12716,7 +13516,12 @@
       "sold": 12,
       "discount": 88,
       "score": 9783.2
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "yotaibkk",
+    "sellerName": "yotaibkk",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-879680106-42323347410",
@@ -12795,7 +13600,12 @@
       "sold": 19,
       "discount": 88,
       "score": 9781.4
-    }
+    },
+    "storeType": "regular",
+    "storeName": "bananashd.th",
+    "sellerName": "bananashd.th",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1253886558-54860947344",
@@ -12874,7 +13684,12 @@
       "sold": 62,
       "discount": 88,
       "score": 9775.2
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "BUJOY",
+    "sellerName": "bujoy.th",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1377022578-29617362518",
@@ -12953,7 +13768,12 @@
       "sold": 13,
       "discount": 88,
       "score": 9773.8
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Supermarket-777",
+    "sellerName": "supermarket001",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1419164732-27320659261",
@@ -13032,7 +13852,12 @@
       "sold": 37,
       "discount": 88,
       "score": 9770.2
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "nyotaer.th",
+    "sellerName": "nyotaer.th",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-149225638-15497392627",
@@ -13111,7 +13936,12 @@
       "sold": 13,
       "discount": 88,
       "score": 9767.8
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "DIY สติ๊กเกอร์ No.1",
+    "sellerName": "kids_toys_tower.th",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1585528076-40322916501",
@@ -13190,7 +14020,12 @@
       "sold": 153,
       "discount": 87,
       "score": 9763.8
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "Novvia",
+    "sellerName": "novvia.store",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-640525245-19068766079",
@@ -13269,7 +14104,12 @@
       "sold": 16,
       "discount": 88,
       "score": 9763.6
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Hope_Sesame",
+    "sellerName": "hope_sesame",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-456448361-45210247836",
@@ -13348,7 +14188,12 @@
       "sold": 11,
       "discount": 88,
       "score": 9757.6
-    }
+    },
+    "storeType": "mall",
+    "storeName": "Retina TH",
+    "sellerName": "retina.th",
+    "isOfficialShop": true,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1526990852-41975296597",
@@ -13427,7 +14272,12 @@
       "sold": 128,
       "discount": 87,
       "score": 9752.8
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "BC Stationery",
+    "sellerName": "jingye005.th",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1547760382-49302453022",
@@ -13506,7 +14356,12 @@
       "sold": 285,
       "discount": 86,
       "score": 9749.0
-    }
+    },
+    "storeType": "regular",
+    "storeName": "GHEFS0",
+    "sellerName": "ghefs0",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1578024433-40728042720",
@@ -13585,7 +14440,12 @@
       "sold": 135,
       "discount": 87,
       "score": 9749.0
-    }
+    },
+    "storeType": "regular",
+    "storeName": "NüCase",
+    "sellerName": "nucase",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1407964480-42151671552",
@@ -13664,7 +14524,12 @@
       "sold": 274,
       "discount": 86,
       "score": 9744.4
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "Kikss.home.Shop",
+    "sellerName": "kikss.home.shop.th",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1419799178-27529716508",
@@ -13743,7 +14608,12 @@
       "sold": 78,
       "discount": 87,
       "score": 9732.8
-    }
+    },
+    "storeType": "regular",
+    "storeName": "‌Cosy Homes",
+    "sellerName": "cosy.homes",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-201888904-22303326457",
@@ -13822,7 +14692,12 @@
       "sold": 105,
       "discount": 87,
       "score": 9732.0
-    }
+    },
+    "storeType": "mall",
+    "storeName": "FONKEN Mall Store",
+    "sellerName": "fonken.th",
+    "isOfficialShop": true,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-72690591-25963301698",
@@ -13901,7 +14776,12 @@
       "sold": 5757,
       "discount": 53,
       "score": 9729.2
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "PKOREA",
+    "sellerName": "chunjiahuang",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1795028997-56409204527",
@@ -13980,7 +14860,12 @@
       "sold": 108,
       "discount": 87,
       "score": 9726.8
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Bison Gear",
+    "sellerName": "dgv08drwut",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1236358843-27138597774",
@@ -14059,7 +14944,12 @@
       "sold": 1089,
       "discount": 81,
       "score": 9718.4
-    }
+    },
+    "storeType": "mall",
+    "storeName": "AIDIYTECH mall",
+    "sellerName": "aidiytechmall",
+    "isOfficialShop": true,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1430500440-29430503023",
@@ -14138,7 +15028,12 @@
       "sold": 67,
       "discount": 87,
       "score": 9706.2
-    }
+    },
+    "storeType": "regular",
+    "storeName": "CosmoGlow",
+    "sellerName": "_c1vij7ga4",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-12404764-26526049221",
@@ -14217,7 +15112,12 @@
       "sold": 6204,
       "discount": 50,
       "score": 9705.4
-    }
+    },
+    "storeType": "mall",
+    "storeName": "BABYLOVE Official Shop",
+    "sellerName": "babyloveofficial",
+    "isOfficialShop": true,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1213423807-27350756513",
@@ -14296,7 +15196,12 @@
       "sold": 10348,
       "discount": 25,
       "score": 9699.8
-    }
+    },
+    "storeType": "mall",
+    "storeName": "iQIYI Official Store",
+    "sellerName": "iqiyiofficial",
+    "isOfficialShop": true,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1407199082-40050325595",
@@ -14375,7 +15280,12 @@
       "sold": 47,
       "discount": 87,
       "score": 9698.2
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "MEOW TECH",
+    "sellerName": "hashi03.th",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-6583190-20753476086",
@@ -14454,7 +15364,12 @@
       "sold": 4528,
       "discount": 60,
       "score": 9697.8
-    }
+    },
+    "storeType": "mall",
+    "storeName": "Dr. Pong shop",
+    "sellerName": "drpongshop",
+    "isOfficialShop": true,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-192935226-23885853908",
@@ -14533,7 +15448,12 @@
       "sold": 14,
       "discount": 87,
       "score": 9694.4
-    }
+    },
+    "storeType": "regular",
+    "storeName": "UniqueYou",
+    "sellerName": "u_niqueyou",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1538308681-41683560765",
@@ -14612,7 +15532,12 @@
       "sold": 17,
       "discount": 87,
       "score": 9693.2
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "papafeeloutlet.th",
+    "sellerName": "papafeeloutlet.th",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-851019545-22178122444",
@@ -14691,7 +15616,12 @@
       "sold": 23,
       "discount": 87,
       "score": 9691.8
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "Day day Iphone",
+    "sellerName": "b34daeo58b",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1145356578-25158567069",
@@ -14770,7 +15700,12 @@
       "sold": 28,
       "discount": 87,
       "score": 9690.8
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "Pet Suppliesa",
+    "sellerName": "yss9fyyuhm",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-820929847-16399173034",
@@ -14849,7 +15784,12 @@
       "sold": 17,
       "discount": 87,
       "score": 9688.2
-    }
+    },
+    "storeType": "regular",
+    "storeName": "QQ Pet",
+    "sellerName": "wpuztj3wei",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1050531739-19891807519",
@@ -14928,7 +15868,12 @@
       "sold": 21,
       "discount": 87,
       "score": 9686.6
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "Super Car899",
+    "sellerName": "supercar899",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1240901212-28477417116",
@@ -15007,7 +15952,12 @@
       "sold": 17,
       "discount": 87,
       "score": 9684.2
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "Sunshine Case",
+    "sellerName": "gqozl15o7b",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1310267639-28207963655",
@@ -15086,7 +16036,12 @@
       "sold": 13,
       "discount": 87,
       "score": 9683.8
-    }
+    },
+    "storeType": "regular",
+    "storeName": "KS Fitness",
+    "sellerName": "ksfitness",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1618447022-50053961740",
@@ -15165,7 +16120,12 @@
       "sold": 10,
       "discount": 87,
       "score": 9682.0
-    }
+    },
+    "storeType": "regular",
+    "storeName": "lemontre8e.th",
+    "sellerName": "lemontre8e.th",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-314281673-20084376839",
@@ -15244,7 +16204,12 @@
       "sold": 59,
       "discount": 87,
       "score": 9681.4
-    }
+    },
+    "storeType": "regular",
+    "storeName": "YIWUSHOP",
+    "sellerName": "yiwushop001",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1204393222-41923932251",
@@ -15323,7 +16288,12 @@
       "sold": 67,
       "discount": 87,
       "score": 9680.2
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "MOUNTAINN",
+    "sellerName": "p4b9tvgnbk",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1371531771-56803154173",
@@ -15402,7 +16372,12 @@
       "sold": 2377,
       "discount": 73,
       "score": 9679.2
-    }
+    },
+    "storeType": "regular",
+    "storeName": "Dearny Shop",
+    "sellerName": "dearnyshop",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1669124529-54700846085",
@@ -15481,7 +16456,12 @@
       "sold": 11,
       "discount": 87,
       "score": 9678.6
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "Never Ends",
+    "sellerName": "imranran.th",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-87398381-18076830303",
@@ -15560,7 +16540,12 @@
       "sold": 11,
       "discount": 87,
       "score": 9678.6
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "กล่องกำมะหยี่ใส่เครื่องประดับ",
+    "sellerName": "prosper_packaging",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-1120518568-55056985866",
@@ -15639,7 +16624,12 @@
       "sold": 45,
       "discount": 87,
       "score": 9668.0
-    }
+    },
+    "storeType": "regular",
+    "storeName": "PetJoyHub",
+    "sellerName": "kfef2ltqjd",
+    "isOfficialShop": false,
+    "isPreferredShop": false
   },
   {
     "id": "shopee-feed-1839370005-44232653075",
@@ -15718,7 +16708,12 @@
       "sold": 20,
       "discount": 87,
       "score": 9662.0
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "KITCHEN_JOY.th",
+    "sellerName": "kitchen_joy.th",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   },
   {
     "id": "shopee-feed-41686189-1661683127",
@@ -15797,6 +16792,11 @@
       "sold": 16,
       "discount": 87,
       "score": 9659.6
-    }
+    },
+    "storeType": "preferred",
+    "storeName": "IamFlashCards",
+    "sellerName": "pojako",
+    "isOfficialShop": false,
+    "isPreferredShop": true
   }
 ]
