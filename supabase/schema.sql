@@ -1,10 +1,12 @@
 -- ================================================================
--- ShopDee (ช้อปดี) - 0-Baht Production Supabase Schema
--- Run this directly in Supabase SQL Editor (Database -> SQL Editor)
+-- ShopDee (ช้อปดี) - Legacy SQL Editor schema snapshot
+-- Deployment source of truth: apply supabase/migrations with Supabase CLI.
+-- This file is retained for reference and is not migration history.
 -- ================================================================
 
 -- 1. Enable Required Extensions
 create extension if not exists "uuid-ossp";
+create extension if not exists "pgcrypto";
 create extension if not exists "pg_trgm";
 
 -- 2. Products Table (Master Deals Catalog)

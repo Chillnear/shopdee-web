@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { checkRateLimit, getClientIp, validateAndSanitizeInput } from '@/lib/ai/security';
-import { fetchUrlMetadata, synthesizeDealWithAI, ExtractedMeta, detectPlatform } from '@/lib/ai/ingest-engine';
+import { checkRateLimit, getClientIp, verifyOriginAndHeaders } from '@/lib/ai/security';
+import { fetchUrlMetadata, synthesizeDealWithAI, detectPlatform } from '@/lib/ai/ingest-engine';
+import { isUsablePlatformUrl } from '@/lib/platform-url';
 import { ProductDeal } from '@/lib/types';
 
 // In-memory cache สำหรับ Ingested deals (1 ชั่วโมง)
@@ -22,24 +23,58 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  let body: { url?: string; query?: string };
+  const originCheck = verifyOriginAndHeaders(req);
+  if (!originCheck.isAuthorized) {
+    return NextResponse.json(
+      { error: originCheck.reason || 'forbidden' },
+      { status: 403 },
+    );
+  }
+
+  let body: unknown;
   try {
     body = await req.json();
   } catch {
     return NextResponse.json({ error: 'invalid_json' }, { status: 400 });
   }
 
-  const { url, query } = body;
+  if (!body || typeof body !== 'object') {
+    return NextResponse.json({ error: 'invalid_request_body' }, { status: 400 });
+  }
 
-  if (!url && !query) {
+  const rawUrl = 'url' in body && typeof body.url === 'string' ? body.url.trim() : '';
+  const rawQuery = 'query' in body && typeof body.query === 'string' ? body.query.trim() : '';
+  if (!rawUrl && !rawQuery) {
     return NextResponse.json(
       { error: 'missing_input', message: 'กรุณาระบุ URL หรือคำค้นหาสินค้า' },
-      { status: 400 }
+      { status: 400 },
+    );
+  }
+
+  // This endpoint intentionally accepts only direct marketplace product URLs.
+  if (!rawUrl || rawQuery || !/^https:\/\//i.test(rawUrl)) {
+    return NextResponse.json(
+      {
+        error: 'direct_url_required',
+        message: 'กรุณาวางลิงก์หน้าสินค้าจาก Shopee, Lazada หรือ TikTok Shop โดยตรง (HTTPS เท่านั้น)',
+      },
+      { status: 400 },
+    );
+  }
+
+  const platform = detectPlatform(rawUrl);
+  if (!isUsablePlatformUrl(rawUrl, platform)) {
+    return NextResponse.json(
+      {
+        error: 'invalid_direct_product_url',
+        message: 'ลิงก์นี้ไม่ใช่หน้าสินค้าโดยตรงของ Shopee, Lazada หรือ TikTok Shop',
+      },
+      { status: 400 },
     );
   }
 
   // 1. ตรวจสอบ Cache ล่วงหน้า (0ms Instant Hit)
-  const cacheKey = (url || query || '').trim().toLowerCase();
+  const cacheKey = rawUrl.toLowerCase();
   const cached = ingestCache.get(cacheKey);
   if (
     cached &&
@@ -59,47 +94,16 @@ export async function POST(req: NextRequest) {
         headers: {
           'x-ai-cached': 'true',
         },
-      }
+      },
     );
   }
 
   try {
     let deal: ProductDeal;
 
-    if (url && (url.startsWith('http://') || url.startsWith('https://'))) {
-      const sanitizedUrl = url.trim();
-      const lower = sanitizedUrl.toLowerCase();
-
-      // ตรวจจับและปฏิเสธ URL ผลการค้นหา (ไม่อนุญาตให้ใช้เป็นลิงก์สินค้า)
-      if (
-        lower.includes('/search') ||
-        lower.includes('/catalog') ||
-        lower.includes('/tag/') ||
-        lower.includes('keyword=') ||
-        lower.includes('?q=')
-      ) {
-        return NextResponse.json(
-          {
-            error: 'search_url_not_allowed',
-            message: 'กรุณาวางลิงก์หน้าสินค้าโดยตรง (ไม่ใช่ลิงก์หน้าค้นหา) เพื่อให้ระบบดึงข้อมูลและร้านค้าจริงได้ถูกต้อง',
-          },
-          { status: 400 }
-        );
-      }
-
-      // 2A. สกัดข้อมูลจาก URL สินค้าตรง (Shopee, Lazada, TikTok Shop)
-      const meta = await fetchUrlMetadata(sanitizedUrl);
-      deal = await synthesizeDealWithAI(meta);
-    } else {
-      // ไม่อนุญาตให้สร้างสินค้าเสมือนจากคำค้นหาที่ไม่มีลิงก์สินค้าจริง
-      return NextResponse.json(
-        {
-          error: 'direct_url_required',
-          message: 'กรุณาวางลิงก์หน้าสินค้าจาก Shopee, Lazada หรือ TikTok Shop เพื่อดึงข้อมูลสินค้าและร้านค้าจริง',
-        },
-        { status: 400 }
-      );
-    }
+    // 2A. สกัดข้อมูลจาก URL สินค้าตรง (Shopee, Lazada, TikTok Shop)
+    const meta = await fetchUrlMetadata(rawUrl);
+    deal = await synthesizeDealWithAI(meta);
 
     // เก็บผลลง Cache
     ingestCache.set(cacheKey, {

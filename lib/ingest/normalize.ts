@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { isUsablePlatformUrl } from '@/lib/catalog-loader';
+import { isUsablePlatformUrl } from '@/lib/platform-url';
 import type { AffiliateSource, AffiliateCandidate } from './types';
 import { scoreCandidate } from './scoring';
 

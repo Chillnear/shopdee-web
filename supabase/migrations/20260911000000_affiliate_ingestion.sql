@@ -1,26 +1,48 @@
 -- Safe affiliate ingestion pipeline. Sources must be official API/feed exports.
 -- No marketplace HTML crawling, proxy rotation, CAPTCHA bypass, or stealth behavior.
 
--- 1. สร้างตาราง products เริ่มต้น (ที่ระบบต้องการ)
+create extension if not exists "pgcrypto";
+
+-- 1. Ensure the ingestion fields exist on the canonical products table.
+-- The main schema uses text IDs (not UUIDs), so this is compatible with it.
 create table if not exists public.products (
-  id uuid primary key default gen_random_uuid(),
+  id text primary key,
   title text not null,
-  image_url text,
-  category text,
-  platform text not null,
+  slug text not null unique,
+  category text not null,
+  image_url text not null,
   base_price numeric not null,
-  market_avg_price numeric,
-  rating numeric default 0,
-  sold_count numeric default 0,
-  store_name text,
-  store_type text,
+  estimated_final_price numeric not null,
+  market_avg_price numeric not null,
+  vip_final_price numeric,
+  platform text not null check (platform in ('shopee', 'lazada', 'tiktok')),
+  store_name text not null,
+  store_type text default 'official',
+  rating numeric default 5.0,
+  review_count integer default 0,
+  sold_count integer default 0,
   affiliate_url text not null,
-  tags text[],
+  tags text[] default '{}',
+  is_best_deal boolean default false,
+  is_absolute_cheapest boolean default false,
+  verified_real_discount boolean default true,
+  has_option_bait boolean default false,
+  bait_warning_note text,
+  thai_authenticity_score integer default 95,
+  active_viewers_count integer default 20,
+  price_advice jsonb,
+  voucher_stack jsonb,
+  review_highlights jsonb default '[]'::jsonb,
+  reviews jsonb default '[]'::jsonb,
+  available_vouchers jsonb default '[]'::jsonb,
   publication_status text not null default 'approved',
   affiliate_source_id text,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+alter table public.products add column if not exists publication_status text not null default 'approved';
+alter table public.products add column if not exists affiliate_source_id text;
 
 -- 2. สร้าง Index สำหรับการค้นหา
 create index if not exists idx_products_publication_status on public.products(publication_status, updated_at desc);

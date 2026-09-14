@@ -1,7 +1,57 @@
+import { lookup } from 'node:dns/promises';
+import { isIP } from 'node:net';
 import type { AffiliateSource, FeedPage } from './types';
 
 const MAX_FEED_BYTES = 8 * 1024 * 1024;
 const REQUEST_TIMEOUT_MS = 15_000;
+const BLOCKED_HOSTNAMES = new Set(['localhost', 'localhost.localdomain', 'ip6-localhost']);
+
+function isPrivateOrReservedIp(address: string): boolean {
+  const normalized = address.toLowerCase().split('%')[0];
+  const version = isIP(normalized);
+  if (version === 4) {
+    const octets = normalized.split('.').map(Number);
+    const [first, second] = octets;
+    return first === 0 || first === 10 || first === 127 ||
+      (first === 100 && second >= 64 && second <= 127) ||
+      (first === 169 && second === 254) ||
+      (first === 172 && second >= 16 && second <= 31) ||
+      (first === 192 && (second === 0 || second === 168)) ||
+      (first === 198 && (second === 18 || second === 19)) ||
+      (first === 203 && second === 0) ||
+      first >= 224;
+  }
+  if (version === 6) {
+    if (normalized.startsWith('::ffff:')) return isPrivateOrReservedIp(normalized.slice(7));
+    const firstHextet = Number.parseInt(normalized.split(':')[0] || '0', 16);
+    return normalized === '::' || normalized === '::1' ||
+      (firstHextet & 0xfe00) === 0xfc00 ||
+      (firstHextet & 0xffc0) === 0xfe80 ||
+      (firstHextet & 0xff00) === 0xff00;
+  }
+  return true;
+}
+
+async function assertSafeFeedUrl(feedUrl: string): Promise<URL> {
+  const parsedUrl = new URL(feedUrl);
+  if (parsedUrl.protocol !== 'https:') throw new Error('official_feed_must_use_https');
+
+  const hostname = parsedUrl.hostname.toLowerCase().replace(/\.$/, '');
+  if (BLOCKED_HOSTNAMES.has(hostname) || hostname.endsWith('.local') || hostname.endsWith('.internal')) {
+    throw new Error('official_feed_private_host_blocked');
+  }
+
+  if (isIP(hostname)) {
+    if (isPrivateOrReservedIp(hostname)) throw new Error('official_feed_private_ip_blocked');
+    return parsedUrl;
+  }
+
+  const addresses = await lookup(hostname, { all: true, verbatim: true });
+  if (!addresses.length || addresses.some(({ address }) => isPrivateOrReservedIp(address))) {
+    throw new Error('official_feed_private_ip_blocked');
+  }
+  return parsedUrl;
+}
 
 function parseCsv(input: string): Record<string, unknown>[] {
   const rows: string[][] = [];
@@ -49,8 +99,33 @@ function extractRows(payload: unknown): Record<string, unknown>[] {
 }
 
 async function readFeed(response: Response): Promise<{ rows: Record<string, unknown>[]; nextCursor: string | number | null }> {
-  const buffer = await response.arrayBuffer();
-  if (buffer.byteLength > MAX_FEED_BYTES) throw new Error('official_feed_too_large');
+  const declaredLength = Number(response.headers.get('content-length'));
+  if (Number.isFinite(declaredLength) && declaredLength > MAX_FEED_BYTES) {
+    throw new Error('official_feed_too_large');
+  }
+
+  const chunks: Uint8Array[] = [];
+  let totalBytes = 0;
+  if (response.body) {
+    const reader = response.body.getReader();
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      totalBytes += value.byteLength;
+      if (totalBytes > MAX_FEED_BYTES) {
+        await reader.cancel().catch(() => undefined);
+        throw new Error('official_feed_too_large');
+      }
+      chunks.push(value);
+    }
+  }
+
+  const buffer = new Uint8Array(totalBytes);
+  let offset = 0;
+  for (const chunk of chunks) {
+    buffer.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
   const text = new TextDecoder().decode(buffer);
   const contentType = response.headers.get('content-type') || '';
 
@@ -78,8 +153,7 @@ export async function fetchOfficialFeedPage(
 
   const feedUrl = process.env[source.feed_env_key];
   if (!feedUrl) throw new Error(`missing_feed_env:${source.feed_env_key}`);
-  const parsedUrl = new URL(feedUrl);
-  if (parsedUrl.protocol !== 'https:') throw new Error('official_feed_must_use_https');
+  const parsedUrl = await assertSafeFeedUrl(feedUrl);
   const requestedCursor = typeof cursor.providerCursor === 'string' || typeof cursor.providerCursor === 'number'
     ? String(cursor.providerCursor)
     : null;
