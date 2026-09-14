@@ -1,10 +1,31 @@
 -- Safe affiliate ingestion pipeline. Sources must be official API/feed exports.
 -- No marketplace HTML crawling, proxy rotation, CAPTCHA bypass, or stealth behavior.
 
-alter table if exists public.products add column if not exists publication_status text not null default 'approved';
-alter table if exists public.products add column if not exists affiliate_source_id text;
+-- 1. สร้างตาราง products เริ่มต้น (ที่ระบบต้องการ)
+create table if not exists public.products (
+  id uuid primary key default gen_random_uuid(),
+  title text not null,
+  image_url text,
+  category text,
+  platform text not null,
+  base_price numeric not null,
+  market_avg_price numeric,
+  rating numeric default 0,
+  sold_count numeric default 0,
+  store_name text,
+  store_type text,
+  affiliate_url text not null,
+  tags text[],
+  publication_status text not null default 'approved',
+  affiliate_source_id text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+-- 2. สร้าง Index สำหรับการค้นหา
 create index if not exists idx_products_publication_status on public.products(publication_status, updated_at desc);
 
+-- 3. สร้างระบบท่อส่งข้อมูล (Affiliate Pipeline)
 create table if not exists public.affiliate_sources (
   id text primary key,
   name text not null,
@@ -121,9 +142,13 @@ $$;
 revoke all on function public.claim_next_ingest_job() from public;
 grant execute on function public.claim_next_ingest_job() to service_role;
 
--- Keep the pipeline private; the server uses SUPABASE_SERVICE_ROLE_KEY.
+-- 6. กำหนดสิทธิ์ (private pipeline)
 revoke all on public.affiliate_sources from anon, authenticated;
 revoke all on public.ingest_jobs from anon, authenticated;
 revoke all on public.affiliate_candidates from anon, authenticated;
 revoke all on public.ingest_audit_log from anon, authenticated;
 grant all on public.affiliate_sources, public.ingest_jobs, public.affiliate_candidates, public.ingest_audit_log to service_role;
+
+-- ให้สิทธิ์อ่าน products แก่ทุกคน (เพื่อแสดงหน้าเว็บ)
+grant select on public.products to anon, authenticated;
+grant all on public.products to service_role;
