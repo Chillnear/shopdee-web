@@ -210,13 +210,19 @@ export function SmartFilterBar({
           <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
             {[
               { id: 'ทั้งหมด', label: '🔥 ทั้งหมด' },
-              { id: 'พัดลม & เครื่องใช้ไฟฟ้า', label: '🔌 เครื่องใช้ไฟฟ้า' },
-              { id: 'ไอที & แกดเจ็ต', label: '📱 ไอที & แกดเจ็ต' },
-              { id: 'ของใช้ในบ้าน', label: '🏠 ของใช้ในบ้าน' },
-              { id: 'สกินแคร์ & บิวตี้', label: '💄 สกินแคร์' },
-              { id: 'สัตว์เลี้ยง', label: '🐱 สัตว์เลี้ยง' },
-              { id: 'แม่และเด็ก', label: '👶 แม่และเด็ก' },
-              { id: 'แฟชั่น', label: '👗 แฟชั่น' },
+              { id: 'beauty', label: '💄 สกินแคร์ & บิวตี้' },
+              { id: 'health', label: '💊 สุขภาพ' },
+              { id: 'food', label: '🍜 อาหาร & เครื่องดื่ม' },
+              { id: 'home', label: '🏠 ของใช้ในบ้าน' },
+              { id: 'appliances', label: '🔌 เครื่องใช้ไฟฟ้า' },
+              { id: 'electronics', label: '📱 ไอที & แกดเจ็ต' },
+              { id: 'fashion', label: '👗 แฟชั่น' },
+              { id: 'baby', label: '👶 แม่และเด็ก' },
+              { id: 'pets', label: '🐱 สัตว์เลี้ยง' },
+              { id: 'sports', label: '⚽ กีฬา & Outdoor' },
+              { id: 'stationery', label: '📚 อุปกรณ์การเรียน' },
+              { id: 'hobbies', label: '🎨 งานอดิเรก' },
+              { id: 'auto', label: '🚗 ยานยนต์' },
             ].map((cat) => {
               const isSelected = (filter.selectedCategory || 'ทั้งหมด') === cat.id;
               return (

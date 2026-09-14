@@ -89,50 +89,14 @@ export function filterAndRankDeals(
     });
   }
 
-  // 1.5 Category Filter
+  // 1.5 Category Filter — match the normalized category field directly.
+  // The extraction script maps each feed item to a stable category id
+  // (beauty, health, food, home, appliances, electronics, fashion, baby,
+  // pets, sports, stationery, hobbies, auto), so we filter on that exact
+  // value rather than fragile title-keyword matching.
   if (filter.selectedCategory && filter.selectedCategory !== 'ทั้งหมด') {
     const cat = filter.selectedCategory;
-    filtered = filtered.filter(deal => {
-      const text = `${deal.category} ${deal.tags.join(' ')} ${deal.title}`.toLowerCase();
-
-      if (cat === 'พัดลม & เครื่องใช้ไฟฟ้า') {
-        if (text.includes('ขนตา') || text.includes('ถุงซิป')) return false;
-        return (
-          deal.category === 'พัดลม & เครื่องใช้ไฟฟ้า' ||
-          text.includes('พัดลม') || text.includes('หม้อทอด') || text.includes('ดูดฝุ่น') ||
-          text.includes('ฟอกอากาศ') || text.includes('เครื่องใช้ไฟฟ้า') || text.includes('home appliances') ||
-          text.includes('appliances') || text.includes('กาต้มน้ำ') || text.includes('หม้อหุงข้าว') ||
-          text.includes('เตารีด') || text.includes('เครื่องปั่น') || text.includes('hatari') ||
-          text.includes('philips') || text.includes('tefal') || text.includes('simplus')
-        );
-      }
-      if (cat === 'ไอที & แกดเจ็ต') {
-        return text.includes('หูฟัง') || text.includes('พาวเวอร์แบงค์') || text.includes('กล้อง') ||
-          text.includes('ไอที') || text.includes('gadget') || text.includes('บลูทูธ') ||
-          text.includes('mobile') || text.includes('computer') || text.includes('ipad') ||
-          text.includes('สายชาร์จ') || text.includes('คีย์บอร์ด') || text.includes('ฟิล์ม');
-      }
-      if (cat === 'ของใช้ในบ้าน') {
-        return text.includes('ซักผ้า') || text.includes('ของใช้ในบ้าน') || text.includes('ทำความสะอาด') ||
-          text.includes('home & living') || text.includes('ทิชชู่') || text.includes('แผ่นกันลื่น') ||
-          text.includes('ผ้าเช็ด') || text.includes('kitchen');
-      }
-      if (cat === 'สัตว์เลี้ยง') {
-        return text.includes('อาหารแมว') || text.includes('สัตว์เลี้ยง') || text.includes('แมว') ||
-          text.includes('ทรายแมว') || text.includes('pet');
-      }
-      if (cat === 'แม่และเด็ก') {
-        return text.includes('นมผง') || text.includes('เด็ก') || text.includes('แม่และเด็ก') ||
-          text.includes('ผ้าอ้อม') || text.includes('baby') || text.includes('mom');
-      }
-      if (cat === 'สกินแคร์ & บิวตี้') {
-        return text.includes('ครีมกันแดด') || text.includes('ความงาม') || text.includes('สกินแคร์') ||
-          text.includes('เซรั่ม') || text.includes('beauty') || text.includes('skincare') ||
-          text.includes('ลิป') || text.includes('มาสคาร่า') || text.includes('แป้งพัฟ') ||
-          text.includes('คลีนเซอร์') || text.includes('คอนทัวร์');
-      }
-      return text.includes(cat.toLowerCase());
-    });
+    filtered = filtered.filter((deal) => deal.category === cat);
   }
 
   // 2. Platform Filter
