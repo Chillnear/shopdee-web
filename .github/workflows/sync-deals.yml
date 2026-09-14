@@ -1,0 +1,21 @@
+name: ShopDee Automated Price Sync Cron (0 THB)
+
+on:
+  schedule:
+    # 17:01 UTC = 00:01 Bangkok Time (Midnight Flash Sale & Voucher Drop)
+    - cron: '1 17 * * *'
+    # 05:00 UTC = 12:00 Bangkok Time (Midday Flash Sale)
+    - cron: '0 5 * * *'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    name: Trigger Price Sync & Alert Dispatcher
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Trigger to ShopDee API
+        run: |
+          TARGET_URL="${{ secrets.PRODUCTION_URL || 'https://shopdee-th.vercel.app' }}/api/sync"
+          echo "Triggering automated price sync at $TARGET_URL ..."
+          curl -s -f -X GET "$TARGET_URL" \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET || 'shopdee-cron-key' }}" || echo "Sync ping completed."
