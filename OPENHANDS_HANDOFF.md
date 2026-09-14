@@ -3,7 +3,7 @@
 **Repo**: https://github.com/Chillnear/shopdee-web (branch: `main`)  
 **Live URL**: https://shopdee-th.com (Vercel auto-deploy from main)  
 **Local dev**: `npx next start -p 3002` → http://localhost:3002  
-**App dir**: `/Users/chillnear/Documents/Openhands/truedeal-web`
+**App dir**: `/Users/chillnear/Documents/shopdee-web`
 
 ---
 
@@ -99,7 +99,7 @@ All 200 feed products have `platform: 'shopee'` → user can't filter by Lazada/
 Seed worker completed all 18 products. Current `lib/seeded-catalog.json` has 18 items.  
 **However**: The seeded items are in ingest-engine format — verify `lib/catalog-loader.ts → normalizeSeededItem()` handles them correctly:
 ```bash
-cd /Users/chillnear/Documents/Openhands/truedeal-web
+cd /Users/chillnear/Documents/shopdee-web
 npx next start -p 3002 &
 curl http://localhost:3002 | grep -c "ingested-"  # should show > 0 products
 ```

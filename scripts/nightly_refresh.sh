@@ -11,7 +11,7 @@
 # Logs to /tmp/shopdee_nightly_refresh.log
 
 set -u
-cd /Users/chillnear/Documents/Openhands/truedeal-web || { echo "cd failed"; exit 1; }
+cd /Users/chillnear/Documents/shopdee-web || { echo "cd failed"; exit 1; }
 
 LOG=/tmp/shopdee_nightly_refresh.log
 FEED_URL="https://affiliate.shopee.co.th/api/v1/datafeed/download?id=YWJjZGVmZ2hpamtsbW5vcHBN5NpCWc_cJAzlYyIJ5ucFaO3p-Cmchoc8YmumCd5T"

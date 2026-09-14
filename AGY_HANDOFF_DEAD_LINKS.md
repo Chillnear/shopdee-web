@@ -3,7 +3,7 @@
 **Generated:** 2026-09-14 (Asia/Bangkok)
 **Repo:** https://github.com/Chillnear/shopdee-web (branch: `main`)
 **Live:** https://shopdee-th.com (Vercel auto-deploy from main)
-**App dir:** `/Users/chillnear/Documents/Openhands/truedeal-web`
+**App dir:** `/Users/chillnear/Documents/shopdee-web`
 **LLM (active default):** OrcaRouter — `openai/z-ai/glm-5.3-flash-free`, base `https://api.orcarouter.ai/v1`
 
 ---

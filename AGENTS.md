@@ -1,10 +1,6 @@
-# Visual Lens repository notes
+# ShopDee (shopdee-web) repository notes
 
-- This workspace is a fresh Manifest V3 extension; the previous prototype remains in `~/Downloads/MangaThai-AI-Extension` and is intentionally not modified.
-- Demo bubbles are only for the dedicated `demo/index.html` page. The content script must never use demo coordinates on arbitrary websites.
-- Real translation uses Gemini Vision from the service worker. The API key is stored in Chrome local storage for this prototype and must never be sent to content scripts or web pages.
-- Gemini is prompted to return `{ "bubbles": [{ "box_2d": [top, left, bottom, right], "translation": "...", "type": "speech|narration|sfx|ignore", "original_text": "..." }] }`, with coordinates normalized from 0 to 1000.
-- Run unit tests with `npm test`. Load the repository root as an unpacked extension in Chrome or Edge, then reload the extension and refresh the target page after code changes.
+> This workspace moved from `/Users/chillnear/Documents/Openhands/truedeal-web` to `/Users/chillnear/Documents/shopdee-web` on 2026-09-14.
 
 ## Delegated AGY workflow
 
@@ -37,7 +33,7 @@
   - When users want to search for an item on platforms without direct product links, provide a separate, dedicated "ค้นหาเปรียบเทียบเพิ่มเติมบนแอปอื่น" assistant box.
   - It must feature honest search labels (e.g. `ค้นหาชื่อนี้บน Lazada 🔍`, `ค้นหาชื่อนี้บน TikTok Shop 🔍`) and an explicit disclaimer that it opens a search query on the app, NEVER masquerading as a verified buy action.
 
-## ShopDee (truedeal-web) build & data policy
+## ShopDee (shopdee-web) build & data policy
 
 - Repo: `github.com/Chillnear/shopdee-web` branch `main`; live at `https://shopdee-th.com` (Vercel auto-deploy from main). Local dev: `npx next start -p 3002`. Always run `npx tsc --noEmit` and `npm run build` before pushing.
 - **No synthetic/derived scoring fields.** `thaiAuthenticityScore`, `hasOptionBait`, `priceAdvice`, `isAbsoluteCheapest`, `marketAvgPrice`, `availableVouchers`, `reviewHighlights` are either unsourced or constant-default; they must NOT drive ranking or gating. The old `localDealInsightProvider` was removed for this reason. `analyzeDealInsight` returns `501` (not available) until every input is source-backed.
