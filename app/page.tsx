@@ -244,7 +244,7 @@ export default function Home() {
               </span>
             </h2>
             <span className="bg-neutral-200 text-neutral-700 text-xs font-bold px-2 py-0.5 rounded-full">
-              แสดง {displayedDeals.length} จาก {deals.length} ดีล
+              แสดง {displayedDeals.length} จาก {totalMatching} ดีล
             </span>
 
             {customDeals.length > 0 && (
@@ -310,12 +310,12 @@ export default function Home() {
             {hasMore ? (
               <div className="flex flex-col items-center justify-center pt-8 pb-4 gap-3">
                 <div className="text-xs font-bold text-neutral-600">
-                  แสดงแล้ว <span className="text-brand-600">{displayedDeals.length}</span> จากทั้งหมด <span className="text-neutral-900">{deals.length}</span> รายการ
+                  แสดงแล้ว <span className="text-brand-600">{displayedDeals.length}</span> จากทั้งหมด <span className="text-neutral-900">{totalMatching}</span> รายการ
                 </div>
                 <div className="w-56 h-2 bg-neutral-200 rounded-full overflow-hidden shadow-inner">
                   <div 
                     className="h-full bg-gradient-to-r from-orange-500 to-amber-500 rounded-full transition-all duration-300"
-                    style={{ width: `${Math.min(100, (displayedDeals.length / deals.length) * 100)}%` }}
+                    style={{ width: `${Math.min(100, (displayedDeals.length / totalMatching) * 100)}%` }}
                   />
                 </div>
                 <button
@@ -329,7 +329,7 @@ export default function Home() {
             ) : deals.length > 16 ? (
               <div className="flex flex-col items-center justify-center pt-8 pb-4 gap-2">
                 <div className="text-xs font-bold text-neutral-500">
-                  🎉 แสดงสินค้าทั้งหมดครบแล้ว ({deals.length} รายการ)
+                  🎉 แสดงสินค้าทั้งหมดครบแล้ว ({totalMatching} รายการ)
                 </div>
                 <button
                   onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}

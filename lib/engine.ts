@@ -8,7 +8,10 @@ export const DEFAULT_FILTER_STATE: FilterState = {
   hasVoucherOnly: false,
   maxPrice: null,
   sortBy: 'popular',
-  limit: 999,
+  // High cap so the full Grade A+B catalog (tens of thousands) is paginated
+  // locally via displayedDeals/visibleCount rather than truncated. Only the
+  // visible slice is rendered, so a large array is cheap to hold.
+  limit: 100000,
   selectedCategory: 'ทั้งหมด',
 };
 
