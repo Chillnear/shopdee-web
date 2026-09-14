@@ -113,8 +113,8 @@ def main():
             except:
                 continue
                 
-            # Grade A Filter
-            if sold < 100 or rating < 4.75 or sale_price < 39:
+            # Grade A+B Filter: include solid sellers (sold>=50) with good ratings (>=4.5)
+            if sold < 50 or rating < 4.5 or sale_price < 39:
                 continue
 
             shopid = row[7].strip()
@@ -194,19 +194,19 @@ def main():
     # Sort by quality score descending
     candidates.sort(key=lambda x: x['_metadata']['score'], reverse=True)
 
-    # Diversity filter: Limit to max 12 items per shop so the catalog is well-distributed
+    # Diversity filter: Limit to max 6 items per shop so the catalog is well-distributed
     diversified = []
     shop_count = {}
     for item in candidates:
         s_name = item['storeName']
         count = shop_count.get(s_name, 0)
-        if count < 12:
+        if count < 6:
             diversified.append(item)
             shop_count[s_name] = count + 1
-        if len(diversified) >= 20000:
+        if len(diversified) >= 45000:
             break
 
-    print(f"Total diversified Grade A items: {len(diversified)}")
+    print(f"Total diversified Grade A+B items: {len(diversified)}")
 
     with open(OUTPUT_CATALOG_PATH, 'w', encoding='utf-8') as f:
         json.dump(diversified, f, ensure_ascii=False, indent=2)
