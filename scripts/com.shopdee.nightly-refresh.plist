@@ -7,7 +7,7 @@
     <key>ProgramArguments</key>
     <array>
         <string>/bin/bash</string>
-        <string>/Users/chillnear/Documents/Openhands/truedeal-web/scripts/nightly_refresh.sh</string>
+        <string>/Users/chillnear/Documents/shopdee-web/scripts/nightly_refresh.sh</string>
     </array>
     <key>StartCalendarInterval</key>
     <dict>
@@ -21,6 +21,6 @@
     <key>StandardErrorPath</key>
     <string>/tmp/shopdee_nightly_refresh.log</string>
     <key>WorkingDirectory</key>
-    <string>/Users/chillnear/Documents/Openhands/truedeal-web</string>
+    <string>/Users/chillnear/Documents/shopdee-web</string>
 </dict>
 </plist>
