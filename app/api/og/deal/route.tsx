@@ -4,7 +4,7 @@ import verifiedCatalog from '@/lib/verified-catalog.json';
 import shopeeFeedCatalog from '@/lib/shopee-feed-catalog.json';
 import partnerCatalog from '@/lib/partner-catalog.json';
 
-export const runtime = 'edge';
+export const runtime = 'nodejs';
 
 // Load Kanit font for Thai text rendering in Satori
 async function getKanitFont(): Promise<ArrayBuffer | null> {

@@ -372,7 +372,6 @@ let _feedCache: ProductDeal[] | null = null;
 async function loadFeedCatalog(): Promise<ProductDeal[]> {
   if (_feedCache) return _feedCache;
   try {
-    // Dynamic import to avoid blocking initial bundle
     const mod = await import('./shopee-feed-catalog.json');
     const rawItems: AnyRecord[] = (mod.default ?? mod) as AnyRecord[];
     _feedCache = rawItems.map(adaptFeedItem).filter(Boolean) as ProductDeal[];
