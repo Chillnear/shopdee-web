@@ -1,10 +1,33 @@
 import { ImageResponse } from 'next/og';
 import { NextRequest, NextResponse } from 'next/server';
-import verifiedCatalog from '@/lib/verified-catalog.json';
-import shopeeFeedCatalog from '@/lib/shopee-feed-catalog.json';
-import partnerCatalog from '@/lib/partner-catalog.json';
 
 export const runtime = 'nodejs';
+
+// Catalogs are imported lazily per-request so the 20k-item feed JSON stays in a
+// separate lazy chunk and does not bloat this serverless function's bundle.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function findDealById(dealId: string): Promise<any | null> {
+  if (!dealId) return null;
+  try {
+    const [{ default: verifiedCatalog }, { default: shopeeFeedCatalog }, { default: partnerCatalog }] = await Promise.all([
+      import('@/lib/verified-catalog.json'),
+      import('@/lib/shopee-feed-catalog.json'),
+      import('@/lib/partner-catalog.json'),
+    ]);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const inVerified = (verifiedCatalog as any[]).find((d) => d.id === dealId);
+    if (inVerified) return inVerified;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const inShopee = (shopeeFeedCatalog as any[]).find((d) => d.id === dealId);
+    if (inShopee) return inShopee;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const inPartner = (partnerCatalog as any[]).find((d) => d.id === dealId);
+    if (inPartner) return inPartner;
+  } catch (err) {
+    console.warn('og/deal: lazy catalog load failed', err);
+  }
+  return null;
+}
 
 // Load Kanit font for Thai text rendering in Satori
 async function getKanitFont(): Promise<ArrayBuffer | null> {
@@ -22,20 +45,6 @@ async function getKanitFont(): Promise<ArrayBuffer | null> {
   return null;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function findDealById(dealId: string): any | null {
-  if (!dealId) return null;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const inVerified = (verifiedCatalog as any[]).find((d) => d.id === dealId);
-  if (inVerified) return inVerified;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const inShopee = (shopeeFeedCatalog as any[]).find((d) => d.id === dealId);
-  if (inShopee) return inShopee;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const inPartner = (partnerCatalog as any[]).find((d) => d.id === dealId);
-  if (inPartner) return inPartner;
-  return null;
-}
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -43,7 +52,7 @@ export async function GET(request: NextRequest) {
   const isSquare = searchParams.get('format') === 'square';
 
   // Resolve only records present in the source catalogs.
-  const foundDeal = findDealById(dealId);
+  const foundDeal = await findDealById(dealId);
 
   if (!foundDeal) {
     return NextResponse.json({ error: 'Product source record not found' }, { status: 404 });

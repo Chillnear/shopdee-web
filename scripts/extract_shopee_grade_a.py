@@ -194,16 +194,16 @@ def main():
     # Sort by quality score descending
     candidates.sort(key=lambda x: x['_metadata']['score'], reverse=True)
 
-    # Diversity filter: Limit to max 8 items per shop so the catalog is well-distributed
+    # Diversity filter: Limit to max 12 items per shop so the catalog is well-distributed
     diversified = []
     shop_count = {}
     for item in candidates:
         s_name = item['storeName']
         count = shop_count.get(s_name, 0)
-        if count < 8:
+        if count < 12:
             diversified.append(item)
             shop_count[s_name] = count + 1
-        if len(diversified) >= 2500:
+        if len(diversified) >= 20000:
             break
 
     print(f"Total diversified Grade A items: {len(diversified)}")
