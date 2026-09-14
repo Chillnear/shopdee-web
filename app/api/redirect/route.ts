@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { isUsablePlatformUrl } from '@/lib/catalog-loader';
+import { isUsablePlatformUrl } from '@/lib/platform-url';
 import { Platform } from '@/lib/types';
 
 export const dynamic = 'force-dynamic';

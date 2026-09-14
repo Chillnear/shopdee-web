@@ -32,3 +32,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local development state
+/supabase/.temp/
+/scripts/.liveness_state.json
+/.openhands/memory/
+supabase/.branches/
+supabase/setup.sql

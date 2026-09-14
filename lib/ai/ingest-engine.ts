@@ -4,7 +4,61 @@
  */
 
 import { ProductDeal, Platform, PlatformPriceComparison, StoreOffer } from '../types';
-import { isUsablePlatformUrl } from '../catalog-loader';
+import { isUsablePlatformUrl } from '../platform-url';
+
+const MAX_MARKETPLACE_RESPONSE_BYTES = 2 * 1024 * 1024;
+const MAX_MARKETPLACE_REDIRECTS = 3;
+
+function isAllowedMarketplaceUrl(value: unknown, platform: Platform): value is string {
+  if (typeof value !== 'string') return false;
+  try {
+    return new URL(value).protocol === 'https:' && isUsablePlatformUrl(value, platform);
+  } catch {
+    return false;
+  }
+}
+
+async function readResponseText(response: Response): Promise<string> {
+  const contentLength = Number(response.headers.get('content-length') || 0);
+  if (contentLength > MAX_MARKETPLACE_RESPONSE_BYTES) {
+    throw new Error('marketplace_response_too_large');
+  }
+
+  if (!response.body) {
+    const text = await response.text();
+    if (new TextEncoder().encode(text).byteLength > MAX_MARKETPLACE_RESPONSE_BYTES) {
+      throw new Error('marketplace_response_too_large');
+    }
+    return text;
+  }
+
+  const reader = response.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let totalBytes = 0;
+
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      totalBytes += value.byteLength;
+      if (totalBytes > MAX_MARKETPLACE_RESPONSE_BYTES) {
+        await reader.cancel();
+        throw new Error('marketplace_response_too_large');
+      }
+      chunks.push(value);
+    }
+  } finally {
+    reader.releaseLock();
+  }
+
+  const buffer = new Uint8Array(totalBytes);
+  let offset = 0;
+  for (const chunk of chunks) {
+    buffer.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  return new TextDecoder().decode(buffer);
+}
 
 export interface IngestRequest {
   url?: string;
@@ -82,25 +136,49 @@ export function extractTitleFromUrlSlug(urlStr: string): string {
  */
 export async function fetchUrlMetadata(targetUrl: string): Promise<ExtractedMeta> {
   const platform = detectPlatform(targetUrl);
+  if (!isAllowedMarketplaceUrl(targetUrl, platform)) {
+    throw new Error('direct_marketplace_product_url_required');
+  }
+
   let finalUrl = targetUrl;
   let html = '';
 
   try {
-    const res = await fetch(targetUrl, {
-      redirect: 'follow',
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
-        'Accept-Language': 'th-TH,th;q=0.9,en-US;q=0.8,en;q=0.7',
-      },
-      signal: AbortSignal.timeout(4500),
-    });
+    let requestUrl = targetUrl;
+    let res: Response | null = null;
 
-    finalUrl = res.url || targetUrl;
+    for (let redirectCount = 0; redirectCount <= MAX_MARKETPLACE_REDIRECTS; redirectCount += 1) {
+      res = await fetch(requestUrl, {
+        redirect: 'manual',
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36',
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+          'Accept-Language': 'th-TH,th;q=0.9,en-US;q=0.8,en;q=0.7',
+        },
+        signal: AbortSignal.timeout(4500),
+      });
+
+      if (res.status < 300 || res.status >= 400) break;
+      const location = res.headers.get('location');
+      if (!location || redirectCount === MAX_MARKETPLACE_REDIRECTS) {
+        throw new Error('marketplace_redirect_limit_exceeded');
+      }
+      const nextUrl = new URL(location, requestUrl).toString();
+      if (!isAllowedMarketplaceUrl(nextUrl, platform)) {
+        throw new Error('marketplace_redirect_outside_allowlist');
+      }
+      requestUrl = nextUrl;
+    }
+
+    if (!res) throw new Error('marketplace_request_failed');
+    finalUrl = res.url || requestUrl;
+    if (!isAllowedMarketplaceUrl(finalUrl, platform)) {
+      throw new Error('marketplace_final_url_outside_allowlist');
+    }
     if (!res.ok) {
       throw new Error(`Marketplace returned HTTP ${res.status}`);
     }
-    html = await res.text();
+    html = await readResponseText(res);
   } catch (err) {
     throw new Error(`Marketplace product page unavailable: ${err instanceof Error ? err.message : 'request failed'}`);
   }

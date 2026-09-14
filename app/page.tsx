@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useCallback, useMemo, useRef, useState, useEffect } from 'react';
 import { Navbar } from '@/components/Navbar';
 import { HeroSearch } from '@/components/HeroSearch';
 import { SmartFilterBar } from '@/components/SmartFilterBar';
@@ -13,7 +13,7 @@ import { ShareDealModal } from '@/components/ShareDealModal';
 import { WatchlistDrawer } from '@/components/WatchlistDrawer';
 import { LineOptinBanner } from '@/components/LineOptinBanner';
 import { EmptySearchCard } from '@/components/EmptySearchCard';
-import { isValidPersistedDeal, loadFullCatalog } from '@/lib/catalog-loader';
+import { isValidPersistedDeal } from '@/lib/persisted-deal';
 import { DEFAULT_FILTER_STATE, filterAndRankDeals } from '@/lib/engine';
 import { FilterState, ProductDeal } from '@/lib/types';
 import { Sparkles, ShieldCheck, Flame, RotateCcw, HelpCircle, LayoutGrid, List, CheckCircle2, ChevronDown, ArrowUp } from 'lucide-react';
@@ -26,18 +26,58 @@ export default function Home() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [aiIntent, setAiIntent] = useState<SearchIntent | null>(null);
   
-  // Real product catalog loaded from seeded-catalog.json + shopee-feed-catalog.json
+  // The server returns only the current page; the full feed never enters this bundle.
   const [catalogDeals, setCatalogDeals] = useState<ProductDeal[]>([]);
-  
-  // Custom deals ingested by user via link or dynamic search
+  const [catalogTotal, setCatalogTotal] = useState(0);
+  const [isCatalogLoading, setIsCatalogLoading] = useState(true);
+  const [catalogError, setCatalogError] = useState<string | null>(null);
+
+  // Custom deals ingested by the user are kept locally and merged into the current page.
   const [customDeals, setCustomDeals] = useState<ProductDeal[]>([]);
   const [isIngesting, setIsIngesting] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const catalogRequestId = useRef(0);
 
-  // Load real product catalog (seeded + Shopee feed) on mount
+  const loadCatalogPage = useCallback(async (offset: number, append: boolean) => {
+    const requestId = ++catalogRequestId.current;
+    setIsCatalogLoading(true);
+    setCatalogError(null);
+
+    const params = new URLSearchParams({
+      offset: String(offset),
+      limit: '16',
+      sort: filter.sortBy,
+    });
+    if (searchQuery.trim()) params.set('q', searchQuery.trim());
+    if (filter.selectedPlatforms.length < 3) params.set('platforms', filter.selectedPlatforms.join(','));
+    if (filter.selectedCategory && filter.selectedCategory !== 'ทั้งหมด') params.set('category', filter.selectedCategory);
+    if (filter.maxPrice !== null) params.set('maxPrice', String(filter.maxPrice));
+    if (filter.onlyMall) params.set('onlyMall', '1');
+    if (filter.onlyFreeShipping) params.set('onlyFreeShipping', '1');
+    if (filter.onlyDiscounted) params.set('onlyDiscounted', '1');
+
+    try {
+      const response = await fetch(`/api/catalog?${params.toString()}`);
+      const payload = await response.json();
+      if (!response.ok) throw new Error(payload.message || 'catalog_load_failed');
+      if (requestId !== catalogRequestId.current) return;
+
+      setCatalogDeals((current) => append ? [...current, ...(payload.deals || [])] : (payload.deals || []));
+      setCatalogTotal(Number(payload.totalMatching) || 0);
+    } catch (error) {
+      if (requestId !== catalogRequestId.current) return;
+      setCatalogError(error instanceof Error ? error.message : 'catalog_load_failed');
+      if (!append) setCatalogDeals([]);
+    } finally {
+      if (requestId === catalogRequestId.current) setIsCatalogLoading(false);
+    }
+  }, [filter.maxPrice, filter.onlyDiscounted, filter.onlyFreeShipping, filter.onlyMall, filter.selectedCategory, filter.selectedPlatforms, filter.sortBy, searchQuery]);
+
+  // Debounce search/filter changes so every keystroke does not trigger a catalog query.
   useEffect(() => {
-    loadFullCatalog().then(setCatalogDeals).catch(console.warn);
-  }, []);
+    const timer = window.setTimeout(() => loadCatalogPage(0, false), 250);
+    return () => window.clearTimeout(timer);
+  }, [loadCatalogPage]);
 
   // Load custom ingested deals from localStorage on mount
   useEffect(() => {
@@ -107,37 +147,26 @@ export default function Home() {
     setFilter(DEFAULT_FILTER_STATE);
   };
 
-  // Combine: user-ingested deals (highest priority) + real catalog (seeded + Shopee feed)
-  const allDeals = useMemo(() => {
+  const customResult = useMemo(() => filterAndRankDeals(customDeals, searchQuery, {
+    ...filter,
+    limit: 100000,
+  }), [customDeals, filter, searchQuery]);
+
+  // Ingested deals are local and always take priority over the server page.
+  const displayedDeals = useMemo(() => {
     const seen = new Set<string>();
     const merged: ProductDeal[] = [];
-    for (const d of [...customDeals, ...catalogDeals]) {
-      if (!seen.has(d.id)) {
-        seen.add(d.id);
-        merged.push(d);
+    for (const deal of [...customResult.deals, ...catalogDeals]) {
+      if (!seen.has(deal.id)) {
+        seen.add(deal.id);
+        merged.push(deal);
       }
     }
     return merged;
-  }, [customDeals, catalogDeals]);
+  }, [catalogDeals, customResult.deals]);
 
-  // Compute filtered & ranked deals
-  const { deals, totalMatching } = useMemo(() => {
-    return filterAndRankDeals(allDeals, searchQuery, filter);
-  }, [allDeals, searchQuery, filter]);
-
-  // Progressive pagination (Load More)
-  const [visibleCount, setVisibleCount] = useState(16);
-
-  // Reset visibleCount whenever search query or filters change
-  useEffect(() => {
-    setVisibleCount(16);
-  }, [searchQuery, filter.selectedCategory, filter.selectedPlatforms, filter.sortBy, filter.onlyMall, filter.onlyFreeShipping, filter.onlyDiscounted]);
-
-  const displayedDeals = useMemo(() => {
-    return deals.slice(0, visibleCount);
-  }, [deals, visibleCount]);
-
-  const hasMore = visibleCount < deals.length;
+  const totalMatching = catalogTotal + customResult.totalMatching;
+  const hasMore = catalogDeals.length < catalogTotal;
 
   // Handle Smart Ingestion (via URL or On-Demand Query)
   const handleIngestProduct = async ({ url, query }: { url?: string; query?: string }) => {
@@ -198,7 +227,6 @@ export default function Home() {
     setSearchQuery('');
     setAiIntent(null);
     setFilter(DEFAULT_FILTER_STATE);
-    setVisibleCount(16);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -274,7 +302,24 @@ export default function Home() {
         </div>
 
         {/* Product Deals Display */}
-        {deals.length > 0 ? (
+        {isCatalogLoading && displayedDeals.length === 0 ? (
+          <div className="rounded-2xl border border-orange-100 bg-white p-10 text-center shadow-sm">
+            <div className="mx-auto mb-3 h-8 w-8 animate-spin rounded-full border-4 border-orange-100 border-t-brand-600" />
+            <p className="font-bold text-neutral-700">กำลังโหลดสินค้าจาก source...</p>
+            <p className="mt-1 text-xs text-neutral-400">ระบบกำลังโหลดเฉพาะรายการหน้านี้</p>
+          </div>
+        ) : catalogError && displayedDeals.length === 0 ? (
+          <div className="rounded-2xl border border-red-100 bg-red-50 p-10 text-center shadow-sm">
+            <p className="font-bold text-red-700">โหลดรายการสินค้าไม่สำเร็จ</p>
+            <p className="mt-1 text-xs text-red-500">กรุณาลองใหม่อีกครั้ง</p>
+            <button
+              onClick={() => loadCatalogPage(0, false)}
+              className="mt-4 rounded-xl bg-brand-600 px-4 py-2 text-xs font-bold text-white hover:bg-brand-700"
+            >
+              ลองใหม่
+            </button>
+          </div>
+        ) : displayedDeals.length > 0 ? (
           <div>
             {/* GRID VIEW (Shopee Style 2-Columns on Mobile) */}
             {viewMode === 'grid' ? (
@@ -319,14 +364,15 @@ export default function Home() {
                   />
                 </div>
                 <button
-                  onClick={() => setVisibleCount(prev => prev + 16)}
-                  className="mt-2 px-8 py-3.5 rounded-2xl bg-white hover:bg-orange-50 text-brand-600 border-2 border-brand-500 hover:border-brand-600 font-black text-sm shadow-md hover:shadow-brand-md transition-all flex items-center gap-2 active:scale-95 cursor-pointer"
+                  onClick={() => loadCatalogPage(catalogDeals.length, true)}
+                  disabled={isCatalogLoading}
+                  className="mt-2 px-8 py-3.5 rounded-2xl bg-white hover:bg-orange-50 text-brand-600 border-2 border-brand-500 hover:border-brand-600 font-black text-sm shadow-md hover:shadow-brand-md transition-all flex items-center gap-2 active:scale-95 cursor-pointer disabled:cursor-wait disabled:opacity-60"
                 >
-                  <span>ดูสินค้าเพิ่มเติม (+16 รายการ)</span>
+                  <span>{isCatalogLoading ? 'กำลังโหลด...' : 'ดูสินค้าเพิ่มเติม (+16 รายการ)'}</span>
                   <ChevronDown className="w-4 h-4 text-brand-600" />
                 </button>
               </div>
-            ) : deals.length > 16 ? (
+            ) : displayedDeals.length > 16 ? (
               <div className="flex flex-col items-center justify-center pt-8 pb-4 gap-2">
                 <div className="text-xs font-bold text-neutral-500">
                   🎉 แสดงสินค้าทั้งหมดครบแล้ว ({totalMatching} รายการ)

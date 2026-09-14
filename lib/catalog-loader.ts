@@ -9,6 +9,7 @@
 
 import { ProductDeal, Platform, StoreType, PlatformPriceComparison, StoreOffer } from './types';
 import { cleanProductTitle, getSanitizedOriginalPrice } from './engine';
+import { isUsablePlatformUrl } from './platform-url';
 
 // ─── Static imports (Next.js bundles at build time for SSR) ───────────────────
 import verifiedRaw from './verified-catalog.json';
@@ -17,106 +18,14 @@ import partnerRaw from './partner-catalog.json';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyRecord = Record<string, any>;
 
-const PLATFORM_HOSTS: Record<Platform, string[]> = {
-  shopee: ['shopee.co.th', 'shope.ee'],
-  lazada: ['lazada.co.th', 's.lazada.co.th'],
-  tiktok: ['tiktok.com', 'tiktokshop.com', 'shop.tiktok.com', 'vt.tiktok.com'],
-};
-
-const SEARCH_PATH_PREFIXES = ['/search', '/tag', '/keyword', '/catalog'];
-
-/**
- * Accept only direct PDP URLs or platform-owned short affiliate links.
- * A marketplace homepage, profile, category, or search URL is never an offer.
- */
-export function isUsablePlatformUrl(value: unknown, platform: Platform): value is string {
-  if (typeof value !== 'string' || !value.trim()) return false;
-
-  try {
-    const url = new URL(value);
-    const host = url.hostname.toLowerCase();
-    const path = url.pathname.toLowerCase();
-    const hostMatches = PLATFORM_HOSTS[platform].some(
-      (allowedHost) => host === allowedHost || host.endsWith(`.${allowedHost}`),
-    );
-    if (!hostMatches || SEARCH_PATH_PREFIXES.some((prefix) => path.startsWith(prefix))) return false;
-
-    if (platform === 'shopee') {
-      const parts = path.split('/').filter(Boolean);
-      const numericProduct = parts.length >= 3 && parts.at(-3) === 'product'
-        && parts.slice(-2).every((part) => /^[0-9]+$/.test(part));
-      const slugProduct = path.includes('-i.') && path.split('-i.')[1]?.includes('.');
-      let decodedSearch = url.search.toLowerCase();
-      try {
-        decodedSearch = decodeURIComponent(decodedSearch);
-      } catch {
-        // Keep the encoded query when it is malformed.
-      }
-      return numericProduct || slugProduct || (
-        host === 'shope.ee' && path === '/an_redir' && decodedSearch.includes('origin_link=') && decodedSearch.includes('/product/')
-      );
-    }
-
-    if (platform === 'lazada') {
-      const directLazadaPath = path.startsWith('/products/') && path.includes('-i') && path.includes('-s');
-      return directLazadaPath || (host === 's.lazada.co.th' && path.startsWith('/s.'));
-    }
-
-    return (
-      (host === 'vt.tiktok.com' && path.length > 1) ||
-      (host === 'shop.tiktok.com' && (path.includes('/pdp/') || path.includes('/product/'))) ||
-      (host === 'tiktok.com' && path.includes('/view/product/')) ||
-      (host === 'tiktokshop.com' && path.includes('/product/'))
-    );
-  } catch {
-    return false;
-  }
-}
+export { isUsablePlatformUrl } from './platform-url';
+export { isValidPersistedDeal } from './persisted-deal';
 
 /**
  * Comparison/store offers use the same direct-product rule as primary links.
  */
 function isPlatformOutboundUrl(value: unknown, platform: Platform): value is string {
   return isUsablePlatformUrl(value, platform);
-}
-
-/**
- * Persisted deals must retain a verifiable marketplace product URL.
- * This also removes legacy synthetic/search-link deals during localStorage migration.
- */
-export function isValidPersistedDeal(value: unknown): value is ProductDeal {
-  if (!value || typeof value !== 'object') return false;
-  const deal = value as AnyRecord;
-  const platform = deal.platform as Platform;
-  const img = String(deal.imageUrl || '');
-  if (img.includes('unsplash.com') || img.includes('/icon-192.png')) return false;
-
-  const affUrl = String(deal.affiliateUrl || '');
-  if (
-    affUrl.includes('/search') ||
-    affUrl.includes('/catalog') ||
-    affUrl.includes('/tag/') ||
-    affUrl.includes('keyword=') ||
-    affUrl.includes('?q=')
-  ) {
-    return false;
-  }
-
-  // ปฏิเสธดีลที่มีร้านค้าเป็น Search URL
-  if (Array.isArray(deal.stores)) {
-    const hasSearchStore = deal.stores.some((s: any) =>
-      typeof s?.url === 'string' &&
-      (s.url.includes('/search') || s.url.includes('/catalog') || s.url.includes('/tag/'))
-    );
-    if (hasSearchStore) return false;
-  }
-
-  return Boolean(
-    deal.id &&
-    deal.title &&
-    PLATFORM_HOSTS[platform] &&
-    isUsablePlatformUrl(deal.affiliateUrl, platform),
-  );
 }
 
 
@@ -143,7 +52,7 @@ function adaptFeedItem(raw: AnyRecord): ProductDeal | null {
 
     if (
       !id || !title || !imageUrl || imageUrl.startsWith('/') || imageUrl.includes('unsplash.com') ||
-      !storeName || !PLATFORM_HOSTS[platform] || !isUsablePlatformUrl(affiliateUrl, platform) ||
+      !storeName || !isUsablePlatformUrl(affiliateUrl, platform) ||
       !Number.isFinite(price) || price <= 0
     ) return null;
 
@@ -226,7 +135,7 @@ function normalizePartnerItem(raw: AnyRecord): ProductDeal | null {
 
     if (
       !id || !title || !imageUrl || imageUrl.startsWith('/') || imageUrl.includes('unsplash.com') ||
-      !PLATFORM_HOSTS[platform] || !isUsablePlatformUrl(affiliateUrl, platform) ||
+      !isUsablePlatformUrl(affiliateUrl, platform) ||
       !storeName || !Number.isFinite(price) || price <= 0
     ) return null;
 
@@ -295,7 +204,7 @@ function normalizeVerifiedItem(raw: AnyRecord): ProductDeal | null {
   try {
     if (raw.is_active === false) return null;
     // Every outbound comparison/store URL must be a direct platform product URL.
-    if (!raw.id || !raw.title || !PLATFORM_HOSTS[raw.platform as Platform]) return null;
+    if (!raw.id || !raw.title) return null;
     if (String(raw.imageUrl ?? '').includes('unsplash.com')) return null;
     if (!isUsablePlatformUrl(raw.affiliateUrl, raw.platform as Platform)) return null;
 
@@ -304,12 +213,10 @@ function normalizeVerifiedItem(raw: AnyRecord): ProductDeal | null {
     if (
       comparisons.length === 0 ||
       comparisons.some((comparison: AnyRecord) =>
-        !PLATFORM_HOSTS[comparison.platform as Platform] ||
         !isPlatformOutboundUrl(comparison.url, comparison.platform as Platform),
       ) ||
       stores.length === 0 ||
       stores.some((store: AnyRecord) =>
-        !PLATFORM_HOSTS[store.platform as Platform] ||
         !isPlatformOutboundUrl(store.url, store.platform as Platform),
       )
     ) {
