@@ -240,7 +240,7 @@ export default function Home() {
             <h2 className="text-lg sm:text-xl font-black text-neutral-900 flex items-center gap-2">
               <Flame className="w-5 h-5 text-rose-500" />
               <span>
-                {searchQuery ? `ผลการค้นหา "${searchQuery}"` : 'สินค้าจากแหล่งข้อมูลที่ตรวจสอบได้'}
+                {searchQuery ? `ผลการค้นหา "${searchQuery}"` : 'สินค้ายอดนิยมแนะนำสำหรับคุณ'}
               </span>
             </h2>
             <span className="bg-neutral-200 text-neutral-700 text-xs font-bold px-2 py-0.5 rounded-full">

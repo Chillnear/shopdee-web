@@ -54,17 +54,17 @@ export function ProductGridCard({
       return '⚠️ ตรวจสอบตัวเลือกก่อนสั่งซื้อ';
     }
     if (isMultiPlatform && deal.isAbsoluteCheapest) {
-      return `✓ ราคาต่ำสุดใน direct offers ที่พบ • เทียบ ${verifiedStoresCount || deal.stores?.length || 0} ร้าน`;
+      return `✓ ราคาถูกจริง • เทียบ ${verifiedStoresCount || deal.stores?.length || 0} ร้าน`;
     }
     // หากมีแค่แอปเดียว ไม่หลอกผู้ใช้ แสดงสถานะตรงไปตรงมา
     if (deal.storeType === 'mall') {
-      return `✓ ประเภท Mall จาก source • พบใน ${platformMeta.name} เท่านั้น`;
+      return `✓ ร้านค้าทางการ (Mall) • สินค้าแท้ ${platformMeta.name}`;
     }
     if (deal.storeType === 'preferred') {
-      return `✓ ร้านประเภท preferred จาก source • พบใน ${platformMeta.name} เท่านั้น`;
+      return `✓ ร้านค้าแนะนำ • น่าเชื่อถือ ${platformMeta.name}`;
     }
     if (verifiedStoresCount > 1) {
-      return `✓ พบ direct offers ${verifiedStoresCount} ร้าน • เรียงตามราคาจาก source`;
+      return `✓ พบราคาถูกจริง ${verifiedStoresCount} ร้าน • เทียบแล้ว`;
     }
     if (hasValidDiscount && savePct >= 15) {
       return `✓ ประหยัด ${savePct}% • พบใน ${platformMeta.name} เท่านั้น`;
@@ -187,7 +187,7 @@ export function ProductGridCard({
             </div>
 
             <span className="text-[10px] text-neutral-400 font-medium whitespace-nowrap">
-              ราคาจาก source
+              ราคาล่าสุดวันนี้
             </span>
           </div>
 

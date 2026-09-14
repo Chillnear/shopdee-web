@@ -172,11 +172,11 @@ export function SmartFilterBar({
                 onChange={(e) => onFilterChange({ ...filter, sortBy: e.target.value as any })}
                 className="text-xs font-bold bg-neutral-100 hover:bg-neutral-200 text-neutral-800 py-1.5 pl-2.5 pr-7 rounded-xl border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-neutral-400 cursor-pointer appearance-none"
               >
-                <option value="popular">🔎 แนะนำจากข้อมูล source</option>
-                <option value="best_discount">🏷️ ลดคุ้มสุด (%)</option>
-                <option value="cheapest">💰 ราคาต่ำไปสูง</option>
+                <option value="popular">🔎 ดีลยอดนิยม</option>
+                <option value="best_discount">🏷️ ลดราคามากที่สุด</option>
+                <option value="cheapest">💰 ราคาถูกที่สุด</option>
                 <option value="expensive">💎 ราคาสูงไปต่ำ</option>
-                <option value="highest_trust">🛡️ ร้านทางการ (Mall)</option>
+                <option value="highest_trust">🛡️ ร้านค้าทางการ (Mall)</option>
               </select>
               <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-neutral-500">
                 <ArrowDownUp className="w-3 h-3" />
@@ -207,38 +207,42 @@ export function SmartFilterBar({
 
         {/* Row 2: Category Filter Bar with Count on Right */}
         <div className="mt-2 pt-1.5 border-t border-neutral-100 flex items-center justify-between gap-2">
-          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
-            {[
-              { id: 'ทั้งหมด', label: '🔥 ทั้งหมด' },
-              { id: 'beauty', label: '💄 สกินแคร์ & บิวตี้' },
-              { id: 'health', label: '💊 สุขภาพ' },
-              { id: 'food', label: '🍜 อาหาร & เครื่องดื่ม' },
-              { id: 'home', label: '🏠 ของใช้ในบ้าน' },
-              { id: 'appliances', label: '🔌 เครื่องใช้ไฟฟ้า' },
-              { id: 'electronics', label: '📱 ไอที & แกดเจ็ต' },
-              { id: 'fashion', label: '👗 แฟชั่น' },
-              { id: 'baby', label: '👶 แม่และเด็ก' },
-              { id: 'pets', label: '🐱 สัตว์เลี้ยง' },
-              { id: 'sports', label: '⚽ กีฬา & Outdoor' },
-              { id: 'stationery', label: '📚 อุปกรณ์การเรียน' },
-              { id: 'hobbies', label: '🎨 งานอดิเรก' },
-              { id: 'auto', label: '🚗 ยานยนต์' },
-            ].map((cat) => {
-              const isSelected = (filter.selectedCategory || 'ทั้งหมด') === cat.id;
-              return (
-                <button
-                  key={cat.id}
-                  onClick={() => onFilterChange({ ...filter, selectedCategory: cat.id })}
-                  className={`px-3 py-1 rounded-full text-xs font-bold transition whitespace-nowrap shrink-0 cursor-pointer ${
-                    isSelected
-                      ? 'bg-brand-600 text-white shadow-xs'
-                      : 'bg-neutral-100 text-neutral-600 hover:bg-warm-100'
-                  }`}
-                >
-                  {cat.label}
-                </button>
-              );
-            })}
+          <div className="relative flex-1 min-w-0">
+            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5 scroll-pl-2">
+              {[
+                { id: 'ทั้งหมด', label: '🔥 ทั้งหมด' },
+                { id: 'beauty', label: '💄 สกินแคร์ & บิวตี้' },
+                { id: 'health', label: '💊 สุขภาพ' },
+                { id: 'food', label: '🍜 อาหาร & เครื่องดื่ม' },
+                { id: 'home', label: '🏠 ของใช้ในบ้าน' },
+                { id: 'appliances', label: '🔌 เครื่องใช้ไฟฟ้า' },
+                { id: 'electronics', label: '📱 ไอที & แกดเจ็ต' },
+                { id: 'fashion', label: '👗 แฟชั่น' },
+                { id: 'baby', label: '👶 แม่และเด็ก' },
+                { id: 'pets', label: '🐱 สัตว์เลี้ยง' },
+                { id: 'sports', label: '⚽ กีฬา & Outdoor' },
+                { id: 'stationery', label: '📚 อุปกรณ์การเรียน' },
+                { id: 'hobbies', label: '🎨 งานอดิเรก' },
+                { id: 'auto', label: '🚗 ยานยนต์' },
+              ].map((cat) => {
+                const isSelected = (filter.selectedCategory || 'ทั้งหมด') === cat.id;
+                return (
+                  <button
+                    key={cat.id}
+                    onClick={() => onFilterChange({ ...filter, selectedCategory: cat.id })}
+                    className={`px-3 py-1 rounded-full text-xs font-bold transition whitespace-nowrap shrink-0 cursor-pointer ${
+                      isSelected
+                        ? 'bg-brand-600 text-white shadow-xs'
+                        : 'bg-neutral-100 text-neutral-600 hover:bg-warm-100'
+                    }`}
+                  >
+                    {cat.label}
+                  </button>
+                );
+              })}
+            </div>
+            {/* Scroll fade hints so users know more categories exist */}
+            <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white via-white/80 to-transparent" />
           </div>
 
           <div className="text-[11px] font-semibold text-neutral-400 whitespace-nowrap hidden sm:block shrink-0">
