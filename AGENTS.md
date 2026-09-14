@@ -48,3 +48,9 @@
 - **Orphaned synthetic-data components were deleted**: `PriceTrendGraph`, `VoucherModal`, `ReviewModal`, `ReviewSentimentTags` (no importers remain). Do not reintroduce them without a real source for their fields.
 - OrcaRouter (`z-ai/glm-5.3-flash-free`, base `https://api.orcarouter.ai/v1`) is configured as the default LLM profile for this workspace.
 
+## Vercel deploy gotcha (ShopDee — CRITICAL)
+
+- **Vercel Hobby plan only allows cron jobs that run at most ONCE PER DAY.** A `vercel.json` cron with `schedule: "*/5 * * * *"` (or any sub-daily frequency) causes Vercel to silently REFUSE to create deployments for every push — there is no build error in the logs; commits simply never appear in the Deployments list, and the GitHub commit status shows "Vercel -> failure" with a generic `vercel.link` redirect. The live site stays frozen on the last good deployment. This masquerades as "links are dead / data is stale" because the live build never updates. Fix: use a daily schedule like `0 3 * * *`. This was the actual root cause of the stale 815-item live catalog with dead links (2026-09-14).
+- After a successful push, verify via `gh api repos/Chillnear/shopdee-web/commits/<sha>/status` — a real success returns a `vercel.com/shopdee/...` deployment URL (not a `vercel.link/...` redirect).
+- Shopee's `shope.ee` short links trigger an anti-bot "verify/traffic/error" wall for non-logged-in automated (headless) traffic after a small number of requests. Bulk automated liveness verification of all catalog links is therefore NOT safely feasible without a logged-in session or risking an IP/account ban. Sustainable liveness = periodic re-download of the official Shopee affiliate feed (dead products drop out of a fresh feed). Do NOT claim links are verified live unless actually checked.
+
