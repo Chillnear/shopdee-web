@@ -47,7 +47,7 @@ export function SmartFilterBar({
   const activeCount = [
     filter.onlyMall,
     filter.onlyFreeShipping,
-    filter.hasVoucherOnly,
+    filter.onlyDiscounted,
     filter.maxPrice !== null,
   ].filter(Boolean).length;
 

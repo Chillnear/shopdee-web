@@ -127,7 +127,7 @@ export interface FilterState {
   onlyMall: boolean;
   onlyFreeShipping: boolean;
   minAuthenticity: number;       // e.g. 80%
-  hasVoucherOnly: boolean;
+  onlyDiscounted: boolean;       // real discount: originalPrice > currentPrice
   maxPrice: number | null;
   sortBy: 'popular' | 'best_discount' | 'cheapest' | 'expensive' | 'highest_trust';
   limit: number;                 // items to show (e.g. 16, 32, 999)

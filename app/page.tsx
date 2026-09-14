@@ -131,7 +131,7 @@ export default function Home() {
   // Reset visibleCount whenever search query or filters change
   useEffect(() => {
     setVisibleCount(16);
-  }, [searchQuery, filter.selectedCategory, filter.selectedPlatforms, filter.sortBy, filter.onlyMall, filter.onlyFreeShipping, filter.hasVoucherOnly]);
+  }, [searchQuery, filter.selectedCategory, filter.selectedPlatforms, filter.sortBy, filter.onlyMall, filter.onlyFreeShipping, filter.onlyDiscounted]);
 
   const displayedDeals = useMemo(() => {
     return deals.slice(0, visibleCount);

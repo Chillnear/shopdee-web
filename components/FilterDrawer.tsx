@@ -134,19 +134,19 @@ export function FilterDrawer({
                 />
               </label>
 
-              <label className="flex items-center justify-between p-3 rounded-xl border border-neutral-200 opacity-60 cursor-not-allowed">
+              <label className="flex items-center justify-between p-3 rounded-xl border border-neutral-200 hover:bg-neutral-50 transition cursor-pointer">
                 <div className="flex items-center gap-2.5">
-                  <Ticket className="w-5 h-5 text-purple-600" />
+                  <Ticket className="w-5 h-5 text-emerald-600" />
                   <div>
-                    <span className="font-bold text-neutral-800 text-xs block">มีคูปอง/โค้ดลดพร้อมใช้</span>
-                    <span className="text-[11px] text-neutral-500">ยังไม่มีข้อมูล voucher จาก source ในขณะนี้</span>
+                    <span className="font-bold text-neutral-800 text-xs block">เฉพาะสินค้าลดราคา</span>
+                    <span className="text-[11px] text-neutral-500">กรองเฉพาะรายการที่ราคาลดลงจากราคาปกติ</span>
                   </div>
                 </div>
                 <input
                   type="checkbox"
-                  checked={false}
-                  disabled
-                  className="w-4 h-4 text-shopee rounded border-neutral-300"
+                  checked={filter.onlyDiscounted}
+                  onChange={(e) => onFilterChange({ ...filter, onlyDiscounted: e.target.checked })}
+                  className="w-4 h-4 text-emerald-600 rounded border-neutral-300 focus:ring-emerald-500"
                 />
               </label>
 

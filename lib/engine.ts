@@ -5,7 +5,7 @@ export const DEFAULT_FILTER_STATE: FilterState = {
   onlyMall: false,
   onlyFreeShipping: false,
   minAuthenticity: 0,
-  hasVoucherOnly: false,
+  onlyDiscounted: false,
   maxPrice: null,
   sortBy: 'popular',
   // High cap so the full Grade A+B catalog (tens of thousands) is paginated
@@ -149,8 +149,8 @@ export function filterAndRankDeals(
   }
 
   // 6. Has Voucher Only
-  if (filter.hasVoucherOnly) {
-    filtered = filtered.filter(deal => deal.availableVouchers.length > 0);
+  if (filter.onlyDiscounted) {
+    filtered = filtered.filter(deal => (deal.originalPrice || 0) > deal.basePrice);
   }
 
   // 7. Max Price Filter
