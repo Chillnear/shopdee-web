@@ -47,6 +47,19 @@ export function ProductCard({
   const platformMeta = getPlatformMeta(deal.platform);
   const cleanedTitle = cleanProductTitle(deal.title);
 
+  // Just-in-Time Ingest Trigger
+  React.useEffect(() => {
+    const hasFullComparison = deal.priceComparisons.filter(pc => pc.platform !== 'shopee' && pc.price > 0).length >= 1;
+    if (!hasFullComparison && !deal.id.startsWith('ingested-')) {
+      // Trigger background discovery for this specific product
+      fetch('/api/ingest/jit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ productId: deal.id, title: deal.title })
+      }).catch(() => {}); // Silent fail
+    }
+  }, [deal.id, deal.priceComparisons, deal.title]);
+
   const sanitizedOriginalPrice = getSanitizedOriginalPrice(deal.estimatedFinalPrice, deal.originalPrice);
   const hasValidDiscount = sanitizedOriginalPrice !== null && sanitizedOriginalPrice > deal.estimatedFinalPrice;
   const savePct = hasValidDiscount
@@ -254,53 +267,9 @@ export function ProductCard({
                   />
                 </div>
               ) : (
-                /* Fallback to 3-Platform strip if stores not provided */
-                <div className="mb-3 bg-neutral-50 rounded-xl p-2.5 border border-neutral-200">
-                  <div className="text-[11px] font-bold text-neutral-500 mb-1.5 flex items-center justify-between">
-                    <span>เปรียบเทียบราคา 3 แพลตฟอร์ม:</span>
-                    <span className="text-neutral-400">ราคาจาก source</span>
-                  </div>
-                  <div className="grid grid-cols-3 gap-1.5 text-xs">
-                    {(() => {
-                      const directPrices = deal.priceComparisons
-                        .filter(pc => pc.hasDirectProduct !== false && pc.price > 0)
-                        .map(pc => pc.price);
-                      const lowestPrice = directPrices.length > 0 ? Math.min(...directPrices) : null;
-                      return deal.priceComparisons.map((pc) => {
-                        const hasDirect = pc.hasDirectProduct !== false && pc.price > 0;
-                        const isLowest = hasDirect && lowestPrice !== null && pc.price === lowestPrice;
-                      const meta = getPlatformMeta(pc.platform);
-                      return (
-                        <div
-                          key={pc.platform}
-                          className={`p-1.5 rounded-lg border flex flex-col items-center text-center transition ${
-                            isLowest
-                              ? 'bg-emerald-50 border-emerald-400 ring-1 ring-emerald-400/30 font-bold'
-                              : 'bg-white border-neutral-200 text-neutral-600'
-                          }`}
-                        >
-                          <span className="text-[10px] text-neutral-500 font-semibold">{meta.name}</span>
-                          {hasDirect ? (
-                            <>
-                              <span className={`text-xs sm:text-sm font-extrabold ${isLowest ? 'text-emerald-700' : 'text-neutral-800'}`}>
-                                {formatTHB(pc.price)}
-                              </span>
-                              {isLowest ? (
-                                <span className="text-[9px] text-emerald-600 font-bold">ถูกสุด ✅</span>
-                              ) : (
-                                <span className="text-[9px] text-neutral-400">
-                                  +{formatTHB(pc.price - deal.basePrice)}
-                                </span>
-                              )}
-                            </>
-                          ) : (
-                            <span className="text-[10px] text-neutral-400 mt-1">ยังไม่มีลิงก์ตรง</span>
-                          )}
-                        </div>
-                      );
-                      });
-                    })()}
-                  </div>
+                /* Fallback หรือโชว์ป้ายกำกับเมื่อยังไม่มีคู่เทียบ */
+                <div className="mb-3 p-2.5 rounded-xl bg-neutral-50 border border-dashed border-neutral-300 text-center">
+                  <span className="text-[10px] text-neutral-400 font-bold">📍 กำลังหาดีลจากแอปอื่นเพิ่มเติม...</span>
                 </div>
               )}
 

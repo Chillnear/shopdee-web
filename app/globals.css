@@ -6,6 +6,51 @@
   :root {
     --background: 30 100% 99%;
     --foreground: 0 0% 9%;
+    /* shadcn tokens — primary ผูกกับสีแบรนด์ส้ม */
+    --card: 30 100% 99%;
+    --card-foreground: 0 0% 9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 9%;
+    --primary: 11 84% 55%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 20 60% 95%;
+    --secondary-foreground: 12 70% 30%;
+    --muted: 20 40% 96%;
+    --muted-foreground: 20 8% 45%;
+    --accent: 20 80% 94%;
+    --accent-foreground: 12 70% 30%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 20 15% 90%;
+    --input: 20 15% 88%;
+    --ring: 11 84% 55%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 12 30% 8%;
+    --foreground: 30 60% 95%;
+    --card: 12 30% 10%;
+    --card-foreground: 30 60% 95%;
+    --popover: 12 30% 10%;
+    --popover-foreground: 30 60% 95%;
+    --primary: 11 84% 58%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 12 30% 16%;
+    --secondary-foreground: 30 60% 95%;
+    --muted: 12 25% 16%;
+    --muted-foreground: 20 15% 65%;
+    --accent: 12 30% 18%;
+    --accent-foreground: 30 60% 95%;
+    --destructive: 0 70% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 12 25% 20%;
+    --input: 12 25% 22%;
+    --ring: 11 84% 58%;
+  }
+
+  * {
+    border-color: hsl(var(--border));
   }
 
   html {

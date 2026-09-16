@@ -40,10 +40,32 @@ export function HeroSearch({
   // Tab Mode: 'link' (วางลิงก์สินค้าเพื่อเทียบ) vs 'search' (พิมพ์ค้นหาชื่อสินค้า)
   const [activeTab, setActiveTab] = useState<'link' | 'search'>('link');
   const [localInput, setLocalInput] = useState(searchQuery);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
   useEffect(() => {
     setLocalInput(searchQuery);
   }, [searchQuery]);
+
+  // Fetch suggestions when typing in search tab
+  useEffect(() => {
+    if (activeTab === 'search' && localInput.length >= 2 && !isUrl) {
+      const timer = setTimeout(async () => {
+        try {
+          const res = await fetch(`/api/search/suggestions?q=${encodeURIComponent(localInput)}`);
+          const data = await res.json();
+          setSuggestions(data);
+          setShowSuggestions(data.length > 0);
+        } catch (err) {
+          console.error('Failed to fetch suggestions');
+        }
+      }, 300); // Debounce 300ms
+      return () => clearTimeout(timer);
+    } else {
+      setSuggestions([]);
+      setShowSuggestions(false);
+    }
+  }, [localInput, activeTab]);
 
   // ตรวจสอบว่าข้อความที่พิมพ์เป็นลิงก์หรือไม่
   const isUrl = /^(https?:\/\/)?([\w.-]+\.)?(shopee\.co\.th|shp\.ee|lazada\.co\.th|laz\.co\.th|tiktok\.com|shop\.tiktok\.com)\b/i.test(localInput.trim()) ||
@@ -103,8 +125,22 @@ export function HeroSearch({
   const handleClear = () => {
     setLocalInput('');
     onSearchChange('');
+    setSuggestions([]);
+    setShowSuggestions(false);
     if (onClearIntent) onClearIntent();
   };
+
+  // Close suggestions on outside click
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest('form')) {
+        setShowSuggestions(false);
+      }
+    };
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
+  }, []);
 
   return (
     <div className="relative pt-6 pb-6 px-4 sm:px-6 bg-gradient-to-b from-orange-50/50 via-white to-transparent">
@@ -167,6 +203,7 @@ export function HeroSearch({
               type="text"
               value={localInput}
               onChange={(e) => setLocalInput(e.target.value)}
+              onFocus={() => activeTab === 'search' && suggestions.length > 0 && setShowSuggestions(true)}
               placeholder={
                 activeTab === 'link'
                   ? "วางลิงก์สินค้า 1 ลิงก์จาก Shopee, Lazada หรือ TikTok เพื่อเทียบ 3 แอปทันที..."
@@ -175,6 +212,28 @@ export function HeroSearch({
               className="w-full py-2 text-xs sm:text-base text-neutral-800 placeholder:text-neutral-400 focus:outline-none bg-transparent font-medium"
               disabled={isIngesting}
             />
+
+            {/* Search Suggestions Popover */}
+            {showSuggestions && activeTab === 'search' && (
+              <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl shadow-xl border border-neutral-100 z-50 overflow-hidden animate-in fade-in slide-in-from-top-2">
+                <div className="p-2">
+                  {suggestions.map((s, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => {
+                        handleSelectSuggestion(s);
+                        setShowSuggestions(false);
+                      }}
+                      className="w-full text-left px-4 py-3 hover:bg-orange-50 rounded-xl transition-colors flex items-center gap-3 group cursor-pointer"
+                    >
+                      <Search className="w-4 h-4 text-neutral-400 group-hover:text-shopee" />
+                      <span className="text-sm font-medium text-neutral-700 group-hover:text-neutral-900">{s}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Quick Paste Button (Always visible on empty) */}
             {!localInput && (

@@ -101,7 +101,73 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // เก็บผลลง Cache
+    // 3. บันทึกลง Supabase ทันที (Community-driven growth)
+    if (process.env.SUPABASE_SERVICE_ROLE_KEY) {
+      try {
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+        const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+        // บันทึกตัวสินค้า
+        await fetch(`${supabaseUrl}/rest/v1/products`, {
+          method: 'POST',
+          headers: {
+            'apikey': serviceKey,
+            'Authorization': `Bearer ${serviceKey}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'resolution=merge-duplicates'
+          },
+          body: JSON.stringify({
+            id: deal.id,
+            title: deal.title,
+            slug: deal.id,
+            category: deal.category,
+            image_url: deal.imageUrl,
+            base_price: deal.basePrice,
+            estimated_final_price: deal.estimatedFinalPrice,
+            market_avg_price: deal.originalPrice,
+            platform: deal.platform,
+            store_name: deal.storeName,
+            store_type: deal.storeType,
+            rating: deal.storeRating,
+            sold_count: deal.soldCount,
+            affiliate_url: deal.affiliateUrl,
+            publication_status: 'approved',
+            updated_at: new Date().toISOString()
+          })
+        });
+
+        // บันทึกร้านค้า (Offers)
+        if (deal.stores && deal.stores.length > 0) {
+          await fetch(`${supabaseUrl}/rest/v1/store_offers`, {
+            method: 'POST',
+            headers: {
+              'apikey': serviceKey,
+              'Authorization': `Bearer ${serviceKey}`,
+              'Content-Type': 'application/json',
+              'Prefer': 'resolution=merge-duplicates'
+            },
+            body: JSON.stringify(deal.stores.map(s => ({
+              id: s.id,
+              product_id: deal.id,
+              platform: s.platform,
+              store_name: s.storeName,
+              store_type: s.storeType,
+              price: s.price,
+              rating: s.storeRating,
+              review_count: s.soldCount,
+              estimated_after_voucher: s.estimatedAfterVoucher,
+              url: s.url,
+              updated_at: new Date().toISOString()
+            })))
+          });
+        }
+        console.log(`[Ingest] Successfully persisted deal ${deal.id} to Supabase`);
+      } catch (dbErr) {
+        console.error('[Ingest] Failed to persist to Supabase:', dbErr);
+      }
+    }
+
+    // เก็บผลลง Cache (เพื่อความเร็วในรอบถัดไป)
     ingestCache.set(cacheKey, {
       deal,
       cachedAt: Date.now(),

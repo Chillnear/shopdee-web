@@ -35,6 +35,12 @@ RAW="/tmp/shopee_feed_raw_nightly"
   sed -i '' "s|RAW_FEED_PATH = '/tmp/shopee_feed_raw[^']*'|RAW_FEED_PATH = '$RAW'|" scripts/extract_shopee_grade_a.py
   python3 scripts/extract_shopee_grade_a.py 2>&1 | tail -n 4
 
+  # 2.5 Sync to Supabase Database (NEW!)
+  echo "[2.5/4] syncing to Supabase..."
+  if ! node scripts/sync_to_supabase.mjs; then
+    echo "    WARNING: Supabase sync failed, continuing with build/push"
+  fi
+
   # 3. Build to verify the refreshed catalog compiles before pushing
   echo "[3/4] building..."
   if ! npm run build > /dev/null 2>&1; then
