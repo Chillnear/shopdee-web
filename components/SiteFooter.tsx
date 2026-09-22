@@ -13,6 +13,9 @@ export default function SiteFooter() {
     <footer className="mt-12 border-t border-neutral-200 bg-white">
       <div className="mx-auto max-w-6xl px-4 py-8">
         <nav aria-label="ลิงก์ข้อมูลเว็บ" className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+          <Link href="/" className="font-semibold text-neutral-800 underline-offset-4 hover:underline">
+            ← หน้าแรก ShopDee
+          </Link>
           {LINKS.map((l) => (
             <Link key={l.href} href={l.href} className="text-neutral-600 underline-offset-4 hover:underline">
               {l.label}

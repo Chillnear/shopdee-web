@@ -8,7 +8,8 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <main className="mx-auto max-w-3xl px-4 py-10">
-      <h1 className="text-2xl font-bold">เกี่ยวกับ ShopDee (ช้อปดี)</h1>
+      <a href="/" className="text-sm text-neutral-500 underline-offset-4 hover:underline">← กลับหน้าแรก</a>
+      <h1 className="mt-2 text-2xl font-bold">เกี่ยวกับ ShopDee (ช้อปดี)</h1>
       <div className="mt-4 space-y-4 text-[15px] leading-relaxed text-neutral-700">
         <p>
           <strong>ShopDee (ช้อปดี)</strong> คือเว็บช่วยคนไทยเทียบ<strong>ราคาจ่ายจริง</strong>ของสินค้าชิ้นเดียวกัน
