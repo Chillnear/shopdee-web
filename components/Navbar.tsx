@@ -41,7 +41,7 @@ export function Navbar({ onOpenWatchlist, onResetHome }: NavbarProps) {
                 <span className="font-extrabold text-xl sm:text-2xl tracking-tight text-white group-hover:text-orange-100 transition-colors">
                   ShopDee
                 </span>
-                <span className="bg-white/20 text-white border border-white/30 text-[10px] font-bold px-1.5 py-0.5 rounded-md tracking-wider">
+                <span className="bg-white/20 text-white border border-white/30 text-[10px] font-bold px-1.5 py-0.5 rounded-md tracking-wider whitespace-nowrap">
                   ช้อปดี
                 </span>
               </div>
@@ -58,7 +58,7 @@ export function Navbar({ onOpenWatchlist, onResetHome }: NavbarProps) {
           {onOpenWatchlist && (
             <button
               onClick={onOpenWatchlist}
-              className={`py-1.5 px-3 rounded-xl text-xs font-extrabold flex items-center gap-1.5 transition active:scale-95 cursor-pointer border ${
+              className={`py-1.5 px-2 sm:px-3 rounded-xl text-xs font-extrabold flex items-center gap-1.5 whitespace-nowrap transition active:scale-95 cursor-pointer border ${
                 count > 0
                   ? 'bg-white/95 border-white text-emerald-800 shadow-sm hover:bg-white'
                   : 'bg-white/15 border-white/30 text-white hover:bg-white/25'
@@ -98,7 +98,7 @@ export function Navbar({ onOpenWatchlist, onResetHome }: NavbarProps) {
 
           <div className="flex items-center gap-1 text-xs font-medium text-white bg-white/15 border border-white/30 px-2.5 py-1.5 rounded-lg shadow-sm">
             <ShieldCheck className="w-4 h-4 text-emerald-200" />
-            <span className="hidden xs:inline font-semibold">ร้านแท้ 100%</span>
+            <span className="hidden sm:inline font-semibold">ร้านแท้ 100%</span>
           </div>
         </div>
 

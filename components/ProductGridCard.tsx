@@ -109,34 +109,7 @@ export function ProductGridCard({
           ) : null}
         </div>
 
-        {/* Top-Right Quick Actions: Watchlist & Share (White circle background: rgba(255,255,255,0.85)) */}
-        <div className="absolute top-2.5 right-2.5 z-10 flex items-center gap-1.5">
-          {onOpenPriceAlert && (
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onOpenPriceAlert(deal);
-              }}
-              className="w-7 h-7 rounded-full bg-white/85 backdrop-blur-xs text-neutral-800 hover:text-orange-600 flex items-center justify-center shadow-md border border-neutral-200/90 transition hover:scale-110 active:scale-95 cursor-pointer"
-              title="ติดตามราคาลด"
-            >
-              <Bell className="w-3.5 h-3.5" />
-            </button>
-          )}
-
-          {onOpenShare && (
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onOpenShare(deal);
-              }}
-              className="w-7 h-7 rounded-full bg-white/85 backdrop-blur-xs text-neutral-800 hover:text-orange-600 flex items-center justify-center shadow-md border border-neutral-200/90 transition hover:scale-110 active:scale-95 cursor-pointer"
-              title="แชร์ดีล"
-            >
-              <Share2 className="w-3.5 h-3.5" />
-            </button>
-          )}
-        </div>
+        {/* Top-Right Quick Actions ย้ายลง card body แล้ว (กันทับป้ายร้านค้าในรูป) — เหลือบนรูปแค่ป้ายข้อมูลใบเดียว */}
 
         {/* Platform & Store Type Indicator (Bottom Left) */}
         <div className="absolute bottom-2 left-2 z-10 flex items-center gap-1">
@@ -160,10 +133,37 @@ export function ProductGridCard({
       <div className="p-3.5 flex-1 flex flex-col justify-between">
         
         <div>
-          {/* Title (2 lines clamp with break-words for clean Thai alignment) */}
-          <h3 className="text-xs sm:text-sm font-semibold text-neutral-800 leading-snug line-clamp-2 break-words group-hover:text-shopee transition-colors mb-2 min-h-[2.5rem] sm:min-h-[2.75rem]">
-            {cleanedTitle}
-          </h3>
+          {/* Title + ปุ่ม action (ย้ายจากบนรูปมาไว้ตรงนี้ ไม่บังป้ายร้านค้า) */}
+          <div className="flex items-start gap-1.5 mb-2">
+            {/* Title (2 lines clamp with break-words for clean Thai alignment) */}
+            <h3 className="flex-1 min-w-0 text-xs sm:text-sm font-semibold text-neutral-800 leading-snug line-clamp-2 break-words group-hover:text-shopee transition-colors min-h-[2.5rem] sm:min-h-[2.75rem]">
+              {cleanedTitle}
+            </h3>
+            {onOpenPriceAlert && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onOpenPriceAlert(deal);
+                }}
+                className="w-7 h-7 rounded-full bg-neutral-100 text-neutral-500 hover:text-orange-600 flex items-center justify-center border border-neutral-200 transition active:scale-95 cursor-pointer shrink-0"
+                title="ติดตามราคาลด"
+              >
+                <Bell className="w-3.5 h-3.5" />
+              </button>
+            )}
+            {onOpenShare && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onOpenShare(deal);
+                }}
+                className="w-7 h-7 rounded-full bg-neutral-100 text-neutral-500 hover:text-orange-600 flex items-center justify-center border border-neutral-200 transition active:scale-95 cursor-pointer shrink-0"
+                title="แชร์ดีล"
+              >
+                <Share2 className="w-3.5 h-3.5" />
+              </button>
+            )}
+          </div>
 
           {/* AI 1-line Insight (Clean & Subtle) */}
           <p className="text-[11px] text-neutral-500 font-medium mb-3 truncate flex items-center gap-1">
