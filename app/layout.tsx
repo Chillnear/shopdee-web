@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Kanit } from "next/font/google";
 import "./globals.css";
+import SiteFooter from "@/components/SiteFooter";
 
 const kanit = Kanit({
   weight: ['300', '400', '500', '600', '700', '800'],
@@ -63,6 +64,7 @@ export default function RootLayout({
     <html lang="th" className={kanit.variable}>
       <body className="font-sans antialiased bg-warm-50 text-neutral-900 min-h-screen flex flex-col selection:bg-brand-500 selection:text-white">
         {children}
+        <SiteFooter />
       </body>
     </html>
   );
